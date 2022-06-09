@@ -1,13 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-      <title>Soon&#39;s Blog on Soon&#39;s Blog </title>
-      <generator uri="https://gohugo.io">Hugo</generator>
+    <title>Soon Hyung&#39;s Blog</title>
     <link>https://meme2515.github.io/</link>
-    <language>en-us</language>
-    
-    
-    <updated>Mon, 01 Jan 0001 00:00:00 UTC</updated>
-    
+    <description>Recent content on Soon Hyung&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://meme2515.github.io/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
-
