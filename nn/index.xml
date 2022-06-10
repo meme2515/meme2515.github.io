@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Nns on Soon Hyung Kwon</title>
+        <link>https://meme2515.github.io/nn/</link>
+        <description>Recent content in Nns on Soon Hyung Kwon</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Mon, 10 Aug 2020 01:00:00 +0200</lastBuildDate><atom:link href="https://meme2515.github.io/nn/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Random post title</title>
+        <link>https://meme2515.github.io/nn/example-post/</link>
+        <pubDate>Mon, 10 Aug 2020 01:00:00 +0200</pubDate>
+        
+        <guid>https://meme2515.github.io/nn/example-post/</guid>
+        <description></description>
+        </item>
+        
+    </channel>
+</rss>

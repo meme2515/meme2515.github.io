@@ -2,17 +2,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://meme2515.github.io/docs/machine-learning/sample/</loc>
+    <loc>https://meme2515.github.io/about/</loc>
+    <lastmod>2020-08-10T01:00:00+02:00</lastmod>
   </url><url>
-    <loc>https://meme2515.github.io/posts/sample2/</loc>
+    <loc>https://meme2515.github.io/mlops/</loc>
+    <lastmod>2020-08-10T01:00:00+02:00</lastmod>
   </url><url>
-    <loc>https://meme2515.github.io/categories/</loc>
+    <loc>https://meme2515.github.io/ml/</loc>
+    <lastmod>2020-08-10T01:00:00+02:00</lastmod>
   </url><url>
-    <loc>https://meme2515.github.io/docs/</loc>
+    <loc>https://meme2515.github.io/nn/</loc>
+    <lastmod>2020-08-10T01:00:00+02:00</lastmod>
   </url><url>
-    <loc>https://meme2515.github.io/posts/</loc>
+    <loc>https://meme2515.github.io/projects/</loc>
+    <lastmod>2020-08-10T01:00:00+02:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/ml/example-post/</loc>
+    <lastmod>2020-08-10T01:00:00+02:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/mlops/example-post/</loc>
+    <lastmod>2020-08-10T01:00:00+02:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/nn/example-post/</loc>
+    <lastmod>2020-08-10T01:00:00+02:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/projects/example-post/</loc>
+    <lastmod>2020-08-10T01:00:00+02:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/statistics/example-post/</loc>
+    <lastmod>2020-08-10T01:00:00+02:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/</loc>
+    <lastmod>2020-08-10T01:00:00+02:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/statistics/</loc>
+    <lastmod>2020-08-10T01:00:00+02:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/categories/</loc>
   </url><url>
     <loc>https://meme2515.github.io/tags/</loc>
   </url>

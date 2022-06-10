@@ -5,25 +5,54 @@
         <link>https://meme2515.github.io/</link>
         <description>Recent content on Soon Hyung Kwon</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>en-us</language><atom:link href="https://meme2515.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title></title>
-        <link>https://meme2515.github.io/docs/machine-learning/sample/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        <language>en-us</language>
+        <lastBuildDate>Mon, 10 Aug 2020 01:00:00 +0200</lastBuildDate><atom:link href="https://meme2515.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>About</title>
+        <link>https://meme2515.github.io/about/</link>
+        <pubDate>Mon, 10 Aug 2020 01:00:00 +0200</pubDate>
         
-        <guid>https://meme2515.github.io/docs/machine-learning/sample/</guid>
-        <description>&lt;p&gt;Title&lt;/p&gt;
-&lt;p&gt;Content&lt;/p&gt;
-</description>
+        <guid>https://meme2515.github.io/about/</guid>
+        <description></description>
         </item>
         <item>
-        <title></title>
-        <link>https://meme2515.github.io/posts/sample2/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        <title>Random post title</title>
+        <link>https://meme2515.github.io/ml/example-post/</link>
+        <pubDate>Mon, 10 Aug 2020 01:00:00 +0200</pubDate>
         
-        <guid>https://meme2515.github.io/posts/sample2/</guid>
-        <description>&lt;p&gt;Title2&lt;/p&gt;
-&lt;p&gt;Content2&lt;/p&gt;
-</description>
+        <guid>https://meme2515.github.io/ml/example-post/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Random post title</title>
+        <link>https://meme2515.github.io/mlops/example-post/</link>
+        <pubDate>Mon, 10 Aug 2020 01:00:00 +0200</pubDate>
+        
+        <guid>https://meme2515.github.io/mlops/example-post/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Random post title</title>
+        <link>https://meme2515.github.io/nn/example-post/</link>
+        <pubDate>Mon, 10 Aug 2020 01:00:00 +0200</pubDate>
+        
+        <guid>https://meme2515.github.io/nn/example-post/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Random post title</title>
+        <link>https://meme2515.github.io/projects/example-post/</link>
+        <pubDate>Mon, 10 Aug 2020 01:00:00 +0200</pubDate>
+        
+        <guid>https://meme2515.github.io/projects/example-post/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Random post title</title>
+        <link>https://meme2515.github.io/statistics/example-post/</link>
+        <pubDate>Mon, 10 Aug 2020 01:00:00 +0200</pubDate>
+        
+        <guid>https://meme2515.github.io/statistics/example-post/</guid>
+        <description></description>
         </item>
         
     </channel>
