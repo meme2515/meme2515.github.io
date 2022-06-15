@@ -9,7 +9,7 @@
 <meta property='og:description' content='파이토치 노드를 구성하는 Tensor 소개'>
 <meta property='og:url' content='https://meme2515.github.io/neural_network/pytorch_1/'>
 <meta property='og:site_name' content='Soon Hyung Kwon'>
-<meta property='og:type' content='article'><meta property='article:section' content='Neural_network' /><meta property='article:tag' content='pytorch' /><meta property='article:tag' content='파이토치' /><meta property='article:tag' content='뉴럴넷' /><meta property='article:tag' content='pytorch 사용법' /><meta property='article:tag' content='신경망' /><meta property='article:tag' content='머신러닝' /><meta property='article:tag' content='텐서' /><meta property='article:tag' content='pytorch tensor' /><meta property='article:published_time' content='2020-08-10T01:00:00&#43;02:00'/><meta property='article:modified_time' content='2020-08-10T01:00:00&#43;02:00'/><meta property='og:image' content='https://meme2515.github.io/neural_network/pytorch.jpeg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Neural_network' /><meta property='article:tag' content='pytorch' /><meta property='article:tag' content='파이토치' /><meta property='article:tag' content='뉴럴넷' /><meta property='article:tag' content='pytorch 사용법' /><meta property='article:tag' content='신경망' /><meta property='article:tag' content='머신러닝' /><meta property='article:tag' content='텐서' /><meta property='article:tag' content='pytorch tensor' /><meta property='article:published_time' content='2022-06-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-06-11T00:00:00&#43;00:00'/><meta property='og:image' content='https://meme2515.github.io/neural_network/pytorch.jpeg' />
 <meta name="twitter:title" content="PyTorch Deep Learning - 1. Tensor Basics">
 <meta name="twitter:description" content="파이토치 노드를 구성하는 Tensor 소개"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://meme2515.github.io/neural_network/pytorch.jpeg' />
@@ -225,7 +225,7 @@ if (!doNotTrack) {
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Aug 10, 2020</time>
+                <time class="article-time--published">Jun 11, 2022</time>
             </div>
         
 
@@ -254,12 +254,12 @@ if (!doNotTrack) {
     <section class="article-content">
     
     
-    <h2 id="소개">소개</h2>
-<p>본 글은 유튜버 <em>Python Engineer</em> 의 <a class="link" href="https://www.youtube.com/watch?v=c36lUUr864M"  target="_blank" rel="noopener"
-    >Deep Learning With PyTorch</a> 을 기반으로 작성되었습니다. 글을 읽기 위한 사전지식은 행렬구조에 대한 이해, <code>numpy</code> 등 기본적인 파이썬 패키지에 대한 이해, 뉴럴넷에 대한 기본적인 이론으로 유튜브 비디오가 요하는 것과 동일합니다 (독일사람이라 발음이 재밌습니다).</p>
-<p><code>tensor</code>란 <code>numpy</code>와 유사하게 다차원 행렬을 다룰수있는 PyTorch 패키치의 자료구조입니다. 신경망 개론 수업에서 <code>numpy</code> 패키지를 활용해 node와 weight, bias 등을 구현하고는 하는데 같은 개념의 연산을 <strong>GPU 등 적합한 하드웨어 자원을 통해 수행하고자 할때</strong> <code>tensor</code>를 이용하게 됩니다. Tensorflow 패키지 또한 동일한 개념과 이름을 가진 <code>tf.Tensor</code>를 사용합니다.</p>
+    <p>본 글은 유튜버 <em>Python Engineer</em> 의 <a class="link" href="https://www.youtube.com/watch?v=c36lUUr864M"  target="_blank" rel="noopener"
+    >Deep Learning With PyTorch</a> 을 기반으로 작성되었습니다. 글을 읽기 위한 사전지식은 행렬구조에 대한 이해, <code>numpy</code> 등 기본적인 파이썬 패키지에 대한 이해, 뉴럴넷에 대한 기본적인 이론으로 유튜브 비디오가 요하는 것과 동일합니다.</p>
+<h2 id="소개">소개</h2>
+<p><code>tensor</code>란 <code>numpy</code>와 유사하게 다차원 행렬을 다룰수있는 PyTorch 패키치의 자료구조다. 신경망 개론 수업에서 <code>numpy</code> 패키지를 활용해 node와 weight, bias 등을 구현하고는 하는데 같은 개념의 연산을 <strong>GPU 등 적합한 하드웨어 자원을 통해 수행하고자 할때</strong> <code>tensor</code>를 이용하게 된다. Tensorflow 패키지 또한 동일한 개념과 이름을 가진 <code>tf.Tensor</code>를 사용한다.</p>
 <h2 id="tensor-생성">Tensor 생성</h2>
-<p>값이 비어있는 tensor를 생성하기 위해서는 <code>torch.empty()</code> 메소드를 다음과 같이 호출합니다.</p>
+<p>값이 비어있는 tensor를 생성하기 위해서는 <code>torch.empty()</code> 메소드를 다음과 같이 호출한다.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -278,7 +278,7 @@ if (!doNotTrack) {
 </span></span><span class="line"><span class="cl"> x4 = torch.empty(2, 2, 3) # 3d matrix 생성
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>유사하게 0과 1 사이의 랜덤한 값이 부여된 tensor를 사용하기 위해서는 <code>torch.rand()</code> 함수를, 0값의 경우 <code>torch.zeros()</code> 함수를, 1값의 경우 <code>torch.ones()</code> 함수를 차원값과 함께 호출합니다 (<code>numpy</code>와 유사하게 구성되어 있습니다).</p>
+</div><p>유사하게 0과 1 사이의 랜덤한 값이 부여된 tensor를 사용하기 위해서는 <code>torch.rand()</code> 함수를, 0값의 경우 <code>torch.zeros()</code> 함수를, 1값의 경우 <code>torch.ones()</code> 함수를 차원값과 함께 호출한다 (<code>numpy</code>와 유사하게 구성).</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -288,7 +288,7 @@ if (!doNotTrack) {
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="데이터-타입">데이터 타입</h2>
-<p>별도로 데이터 타입을 지정하지 않은 경우 위 저장된 변수의 데이터 타입은 <code>torch.float32</code>로 자동 지정됩니다.</p>
+<p>별도로 데이터 타입을 지정하지 않은 경우 위 저장된 변수의 데이터 타입은 <code>torch.float32</code>로 자동 지정된다.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -299,7 +299,7 @@ if (!doNotTrack) {
 </span></span><span class="line"><span class="cl"> print(x1.dtype) # output: torch.float32
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>다른 데이터 타입을 사용하고자 할 경우 <code>tensor</code> 생성시 <code>dtype</code> 매개변수로 다음과 같이 지정이 가능합니다.</p>
+</div><p>다른 데이터 타입을 사용하고자 할 경우 <code>tensor</code> 생성시 <code>dtype</code> 매개변수로 다음과 같이 지정이 가능하다.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -323,7 +323,7 @@ if (!doNotTrack) {
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="행렬-구조-확인">행렬 구조 확인</h2>
-<p>생성된 <code>tensor</code>의 구조는 <code>size</code> 함수를 통해 확인이 가능합니다.</p>
+<p>생성된 <code>tensor</code>의 구조는 <code>size</code> 함수를 통해 확인이 가능하다.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -336,7 +336,7 @@ if (!doNotTrack) {
 </div>
 </div><h2 id="불러오기-기능">불러오기 기능</h2>
 <h3 id="python-list">Python List</h3>
-<p><code>numpy</code> 패키지의 <code>np.array</code> 함수와 동일하게 행렬구조를 가진 파이썬 <code>list</code> 로부터 <code>tensor</code> 생성을 지원합니다. <code>torch.tensor()</code> 함수의 매개변수로 <code>list</code> 를 넣어주는 일반적인 구조입니다.</p>
+<p><code>numpy</code> 패키지의 <code>np.array</code> 함수와 동일하게 행렬구조를 가진 파이썬 <code>list</code> 로부터 <code>tensor</code> 생성을 지원한다. <code>torch.tensor()</code> 함수의 매개변수로 <code>list</code> 를 넣어주는 일반적인 구조다.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -346,7 +346,7 @@ if (!doNotTrack) {
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="numpy-array">Numpy Array</h3>
-<p>자연스럽게 <code>numpy.array</code> 를 활용한 <code>tensor</code> 생성 또한 <code>torch.from_numpy()</code> 함수를 통해 다음과 같이 지원하고 있습니다.</p>
+<p>자연스럽게 <code>numpy.array</code> 를 활용한 <code>tensor</code> 생성 또한 <code>torch.from_numpy()</code> 함수를 통해 다음과 같이 지원한다.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -361,7 +361,7 @@ if (!doNotTrack) {
 </span></span><span class="line"><span class="cl"> x1 = torch.from_numpy(x1_np)
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>반대로 <code>tensor</code> 에서 <code>numpy</code> 로의 변환은 다음과 같이 수행합니다.</p>
+</div><p>반대로 <code>tensor</code> 에서 <code>numpy</code> 로의 변환은 다음과 같이 수행한다.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -372,7 +372,7 @@ if (!doNotTrack) {
 </span></span><span class="line"><span class="cl"> x1_np = x1.numpy()
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>여기서 유의할 부분은 <strong><code>tensor</code> 의 메모리 위치가 GPU 가 아닌 CPU 일 경우, x1의 변형은 x1_np 에 그대로 반영</strong>되게 됩니다. 이는 위의 두개 예시 (<code>tensor</code> -&gt; <code>numpy</code>, <code>numpy</code> -&gt; <code>tensor</code>)에 공통적으로 적용됩니다.</p>
+</div><p>여기서 유의할 부분은 <strong><code>tensor</code> 의 메모리 위치가 GPU 가 아닌 CPU 일 경우, x1의 변형은 x1_np 에 그대로 반영</strong>되게 된다는 점이다. 이는 위의 두개 예시 (<code>tensor</code> -&gt; <code>numpy</code>, <code>numpy</code> -&gt; <code>tensor</code>)에 공통적으로 적용된다.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -389,7 +389,7 @@ if (!doNotTrack) {
 </span></span><span class="line"><span class="cl"> print(x1_np) # output: [3.5, 1.1]
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>CUDA 지원 하드웨어 가용이 가능한 경우, 다음 두가지 방식을 통해 <code>tensor</code> 저장 위치를 GPU로 설정할 수 있습니다.</p>
+</div><p>CUDA 지원 하드웨어 가용이 가능한 경우, 다음 두가지 방식을 통해 <code>tensor</code> 저장 위치를 GPU로 설정할 수 있다.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -418,8 +418,8 @@ if (!doNotTrack) {
 </div>
 </div><h2 id="행렬-연산">행렬 연산</h2>
 <h3 id="일반적인-연산">일반적인 연산</h3>
-<p>덧셈, 곱셈과 같은 기본적인 행렬 연산 방식또한 <code>numpy</code>와 크게 다르지 않습니다. <code>+</code>, <code>*</code> 등의 수학 기호, 또는 <code>torch.add()</code>, <code>torch.mul()</code> 등의 함수를 호출해 연산을 수행할 수 있습니다.</p>
-<p><code>numpy</code>와 동일하게 내적 연산을 위해서는 <code>torch.mul()</code> 이 아닌 다른 함수를 호출합니다. 이와 관련된 내용은 이후 글에서 언급하겠습니다.</p>
+<p>덧셈, 곱셈과 같은 기본적인 행렬 연산 방식또한 <code>numpy</code>와 크게 다르지 않다. <code>+</code>, <code>*</code> 등의 수학 기호, 또는 <code>torch.add()</code>, <code>torch.mul()</code> 등의 함수를 호출해 연산을 수행할 수 있다.</p>
+<p><code>numpy</code>와 동일하게 내적 연산을 위해서는 <code>torch.mul()</code> 이 아닌 다른 함수를 호출한다. 이와 관련된 내용은 이후 글에서 언급할 예정.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -463,7 +463,7 @@ if (!doNotTrack) {
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="바꿔치기-연산-in-place-operation">바꿔치기 연산 (In-Place Operation)</h3>
-<p><code>torch</code> 는 <code>.add_</code>, <code>.sub_</code> 등 &lsquo;_&rsquo; 접미사가 붙은 바꿔치기 연산 함수를 제공합니다. 바꿔치기 라는 단어에서 유추 가능하듯 이는 <strong>타겟 변수의 값을 바꾸는 효과</strong>를 가지게 됩니다.</p>
+<p><code>torch</code> 는 <code>.add_</code>, <code>.sub_</code> 등 &lsquo;_&rsquo; 접미사가 붙은 바꿔치기 연산 함수를 제공한다. 바꿔치기 라는 단어에서 유추 가능하듯 이는 <strong>타겟 변수의 값을 바꾸는 효과</strong>를 가지게 된다.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -479,8 +479,8 @@ if (!doNotTrack) {
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="슬라이싱">슬라이싱</h2>
-<p>슬라이싱의 경우 또한 <code>numpy</code> 패키지와 동일한 방법을 고수합니다. 2차원 행렬구조의 경우 <code>x[i, j]</code> 와 같은 포맷으로 <code>i</code> 번째 로우, <code>j</code> 번째 컬럼을 리턴하며, <code>x[i1:i2, j1:j2]</code> 와 같이 범위 설정이 가능합니다.</p>
-<p>유의가 필요한 부분은 1개의 값이 리턴될때 <code>tensor</code> 오브젝트가 아닌 기입된 실제 값을 보고싶다면 <code>item()</code> 함수를 별도로 호출해야 하며, 해당 함수는 <code>tensor</code> 에 1개 값만 들어있을때 사용 가능하다는 점입니다.</p>
+<p>슬라이싱의 경우 또한 <code>numpy</code> 패키지와 동일한 방법을 고수한다. 2차원 행렬구조의 경우 <code>x[i, j]</code> 와 같은 포맷으로 <code>i</code> 번째 로우, <code>j</code> 번째 컬럼을 리턴하며, <code>x[i1:i2, j1:j2]</code> 와 같이 범위 설정이 가능하다.</p>
+<p>유의가 필요한 부분은 1개의 값이 리턴될때 <code>tensor</code> 오브젝트가 아닌 기입된 실제 값을 보고싶다면 <code>item()</code> 함수를 별도로 호출해야 하며, 해당 함수는 <code>tensor</code> 에 1개 값만 들어있을때 사용 가능하다는 점이다.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -502,7 +502,7 @@ if (!doNotTrack) {
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="행렬-구조-변경-reshaping">행렬 구조 변경 (Reshaping)</h2>
-<p><code>np.reshape</code>이 아닌 <code>view</code> 함수를 이용하게 됩니다. 매개변수로 들어가는 <strong>차원의 element 수은 항상 input <code>tensor</code>의 element 수와 같아야 하며</strong> (예. (4, 4) -&gt; (2, 8)), 마지막 숫자가 유추 가능한 경우 -1 으로 매개변수를 대체할 수 있습니다 (하단 예시 참조).</p>
+<p><code>np.reshape</code>이 아닌 <code>view</code> 함수를 이용하게 된다. 매개변수로 들어가는 <strong>차원의 element 수은 항상 input <code>tensor</code>의 element 수와 같아야 하며</strong> (예. (4, 4) -&gt; (2, 8)), 마지막 숫자가 유추 가능한 경우 -1 으로 매개변수를 대체할 수 있다 (하단 예시 참조).</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
