@@ -2,13 +2,55 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://meme2515.github.io/tags/adam/</loc>
+    <lastmod>2022-06-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/categories/</loc>
+    <lastmod>2022-06-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/momentum/</loc>
+    <lastmod>2022-06-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/categories/neural-network/</loc>
+    <lastmod>2022-06-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/neural_network/</loc>
+    <lastmod>2022-06-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/optimizer/</loc>
+    <lastmod>2022-06-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/categories/optimizer/</loc>
+    <lastmod>2022-06-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/rmsprop/</loc>
+    <lastmod>2022-06-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/</loc>
+    <lastmod>2022-06-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/</loc>
+    <lastmod>2022-06-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/%EA%B2%BD%EC%82%AC%ED%95%98%EA%B0%95/</loc>
+    <lastmod>2022-06-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/%EB%AA%A8%EB%A9%98%ED%85%80/</loc>
+    <lastmod>2022-06-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/neural_network/optimizer/</loc>
+    <lastmod>2022-06-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/%EC%B5%9C%EC%A0%81%ED%99%94/</loc>
+    <lastmod>2022-06-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94/</loc>
+    <lastmod>2022-06-15T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://meme2515.github.io/categories/batch-job/</loc>
     <lastmod>2022-06-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/categories/batch-scheduling/</loc>
-    <lastmod>2022-06-13T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/categories/</loc>
     <lastmod>2022-06-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/tags/devops/</loc>
@@ -23,16 +65,10 @@
     <loc>https://meme2515.github.io/categories/mlops/</loc>
     <lastmod>2022-06-13T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://meme2515.github.io/</loc>
-    <lastmod>2022-06-13T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://meme2515.github.io/tags/sre/</loc>
     <lastmod>2022-06-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/categories/sre/</loc>
-    <lastmod>2022-06-13T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/tags/</loc>
     <lastmod>2022-06-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/categories/task-management/</loc>
@@ -55,12 +91,6 @@
   </url><url>
     <loc>https://meme2515.github.io/tags/%ED%83%9C%EC%8A%A4%ED%81%AC-%EC%8A%A4%EC%BC%80%EC%A4%84%EB%A7%81/</loc>
     <lastmod>2022-06-13T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/categories/neural-network/</loc>
-    <lastmod>2022-06-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/neural_network/</loc>
-    <lastmod>2022-06-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/tags/pytorch/</loc>
     <lastmod>2022-06-11T00:00:00+00:00</lastmod>
