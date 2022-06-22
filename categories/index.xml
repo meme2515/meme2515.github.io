@@ -6,12 +6,28 @@
         <description>Recent content in Categories on Soon Hyung Kwon</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Wed, 15 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 20 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Autograd</title>
+        <link>https://meme2515.github.io/categories/autograd/</link>
+        <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/categories/autograd/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Neural Network</title>
         <link>https://meme2515.github.io/categories/neural-network/</link>
-        <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
+        <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
         
         <guid>https://meme2515.github.io/categories/neural-network/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Pytorch</title>
+        <link>https://meme2515.github.io/categories/pytorch/</link>
+        <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/categories/pytorch/</guid>
         <description></description>
         </item>
         <item>
@@ -68,14 +84,6 @@
         <pubDate>Mon, 13 Jun 2022 00:00:00 +0000</pubDate>
         
         <guid>https://meme2515.github.io/categories/task-management/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Pytorch</title>
-        <link>https://meme2515.github.io/categories/pytorch/</link>
-        <pubDate>Sat, 11 Jun 2022 00:00:00 +0000</pubDate>
-        
-        <guid>https://meme2515.github.io/categories/pytorch/</guid>
         <description></description>
         </item>
         

@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='파이토치 노드를 구성하는 Tensor 소개'><title>PyTorch Deep Learning - 1. Tensor Basics</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='파이토치 노드를 구성하는 Tensor 소개'><title>PyTorch Deep Learning - 1. Tensor</title>
 
 <link rel='canonical' href='https://meme2515.github.io/neural_network/pytorch_1/'>
 
-<link rel="stylesheet" href="/scss/style.min.0d6801e40f97865d11b796a59ab5cccec41427c09bbb58dec945c9cf7412db70.css"><meta property='og:title' content='PyTorch Deep Learning - 1. Tensor Basics'>
+<link rel="stylesheet" href="/scss/style.min.0d6801e40f97865d11b796a59ab5cccec41427c09bbb58dec945c9cf7412db70.css"><meta property='og:title' content='PyTorch Deep Learning - 1. Tensor'>
 <meta property='og:description' content='파이토치 노드를 구성하는 Tensor 소개'>
 <meta property='og:url' content='https://meme2515.github.io/neural_network/pytorch_1/'>
 <meta property='og:site_name' content='Soon Hyung Kwon'>
 <meta property='og:type' content='article'><meta property='article:section' content='Neural_network' /><meta property='article:tag' content='pytorch' /><meta property='article:tag' content='파이토치' /><meta property='article:tag' content='뉴럴넷' /><meta property='article:tag' content='pytorch 사용법' /><meta property='article:tag' content='신경망' /><meta property='article:tag' content='머신러닝' /><meta property='article:tag' content='텐서' /><meta property='article:tag' content='pytorch tensor' /><meta property='article:published_time' content='2022-06-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-06-11T00:00:00&#43;00:00'/><meta property='og:image' content='https://meme2515.github.io/neural_network/pytorch.jpeg' />
-<meta name="twitter:title" content="PyTorch Deep Learning - 1. Tensor Basics">
+<meta name="twitter:title" content="PyTorch Deep Learning - 1. Tensor">
 <meta name="twitter:description" content="파이토치 노드를 구성하는 Tensor 소개"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://meme2515.github.io/neural_network/pytorch.jpeg' />
 <script type="application/javascript">
@@ -179,7 +179,7 @@ if (!doNotTrack) {
         <div class="article-image">
             <a href="/neural_network/pytorch_1/">
                 
-                    <img src="/neural_network/pytorch.jpeg" loading="lazy" alt="Featured image of post PyTorch Deep Learning - 1. Tensor Basics" />
+                    <img src="/neural_network/pytorch.jpeg" loading="lazy" alt="Featured image of post PyTorch Deep Learning - 1. Tensor" />
                 
             </a>
         </div>
@@ -202,7 +202,7 @@ if (!doNotTrack) {
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/neural_network/pytorch_1/">PyTorch Deep Learning - 1. Tensor Basics</a>
+            <a href="/neural_network/pytorch_1/">PyTorch Deep Learning - 1. Tensor</a>
         </h2>
     
         
@@ -240,7 +240,7 @@ if (!doNotTrack) {
 
 
                 <time class="article-time--reading">
-                    4 minute read
+                    5 minute read
                 </time>
             </div>
         
@@ -256,6 +256,18 @@ if (!doNotTrack) {
     
     <p>본 글은 유튜버 <em>Python Engineer</em> 의 <a class="link" href="https://www.youtube.com/watch?v=c36lUUr864M"  target="_blank" rel="noopener"
     >Deep Learning With PyTorch</a> 을 기반으로 작성되었습니다. 글을 읽기 위한 사전지식은 행렬구조에 대한 이해, <code>numpy</code> 등 기본적인 파이썬 패키지에 대한 이해, 뉴럴넷에 대한 기본적인 이론으로 유튜브 비디오가 요하는 것과 동일합니다.</p>
+<p><strong>PyTorch Deep Learning 글 목록</strong></p>
+<ol>
+<li><a class="link" href="https://meme2515.github.io/neural_network/pytorch_1/"  target="_blank" rel="noopener"
+    >PyTorch Deep Learning - 1. Tensor</a></li>
+<li><a class="link" href="https://meme2515.github.io/neural_network/pytorch_2/"  target="_blank" rel="noopener"
+    >PyTorch Deep Learning - 2. Autograd</a></li>
+<li>PyTorch Deep Learning - 3. Backpropagation &amp; Gradient Descent</li>
+<li>PyTorch Deep Learning - 4. Model, Loss &amp; Optimizer</li>
+<li>PyTorch Deep Learning - 5. Dataset &amp; Dataloader</li>
+<li>PyTorch Deep Learning - 6. Activation Functions</li>
+<li>PyTorch Deep Learning - 7. Save &amp; Load Models</li>
+</ol>
 <h2 id="소개">소개</h2>
 <p><code>tensor</code>란 <code>numpy</code>와 유사하게 다차원 행렬을 다룰수있는 PyTorch 패키치의 자료구조다. 신경망 개론 수업에서 <code>numpy</code> 패키지를 활용해 node와 weight, bias 등을 구현하고는 하는데 같은 개념의 연산을 <strong>GPU 등 적합한 하드웨어 자원을 통해 수행하고자 할때</strong> <code>tensor</code>를 이용하게 된다. Tensorflow 패키지 또한 동일한 개념과 이름을 가진 <code>tf.Tensor</code>를 사용한다.</p>
 <h2 id="tensor-생성">Tensor 생성</h2>
@@ -593,6 +605,25 @@ if (!doNotTrack) {
     <h2 class="section-title">Related content</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/neural_network/pytorch_2/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/neural_network/pytorch.jpeg" loading="lazy" data-key="pytorch_2" data-hash="/neural_network/pytorch.jpeg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PyTorch Deep Learning - 2. Autograd</h2>
+        </div>
+    </a>
+</article>
+
             
                 
 <article class="has-image">
