@@ -2,13 +2,52 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://meme2515.github.io/categories/anaconda/</loc>
+    <lastmod>2022-06-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/categories/</loc>
+    <lastmod>2022-06-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/categories/conda/</loc>
+    <lastmod>2022-06-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/conda-%ED%99%98%EA%B2%BD/</loc>
+    <lastmod>2022-06-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/machine_learning/conda_1/</loc>
+    <lastmod>2022-06-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/categories/environment-sharing/</loc>
+    <lastmod>2022-06-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/machine_learning/</loc>
+    <lastmod>2022-06-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/categories/python/</loc>
+    <lastmod>2022-06-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/</loc>
+    <lastmod>2022-06-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/</loc>
+    <lastmod>2022-06-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/%EC%A3%BC%ED%94%BC%ED%84%B0/</loc>
+    <lastmod>2022-06-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/%EC%BD%98%EB%8B%A4-yaml/</loc>
+    <lastmod>2022-06-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/%EC%BD%98%EB%8B%A4-%ED%99%98%EA%B2%BD-%EA%B3%B5%EC%9C%A0/</loc>
+    <lastmod>2022-06-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/%ED%8C%8C%EC%9D%B4%EC%8D%AC/</loc>
+    <lastmod>2022-06-23T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://meme2515.github.io/tags/autograd/</loc>
     <lastmod>2022-06-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/categories/autograd/</loc>
-    <lastmod>2022-06-20T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/categories/</loc>
     <lastmod>2022-06-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/categories/neural-network/</loc>
@@ -30,12 +69,6 @@
     <lastmod>2022-06-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/tags/pytorch-%EC%82%AC%EC%9A%A9%EB%B2%95/</loc>
-    <lastmod>2022-06-20T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/</loc>
-    <lastmod>2022-06-20T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/tags/</loc>
     <lastmod>2022-06-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/tags/%EA%B2%BD%EC%82%AC%ED%95%98%EA%B0%95/</loc>

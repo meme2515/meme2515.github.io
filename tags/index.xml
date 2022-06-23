@@ -6,7 +6,47 @@
         <description>Recent content in Tags on Soon Hyung Kwon</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Mon, 20 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 23 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>conda 환경</title>
+        <link>https://meme2515.github.io/tags/conda-%ED%99%98%EA%B2%BD/</link>
+        <pubDate>Thu, 23 Jun 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/conda-%ED%99%98%EA%B2%BD/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>주피터</title>
+        <link>https://meme2515.github.io/tags/%EC%A3%BC%ED%94%BC%ED%84%B0/</link>
+        <pubDate>Thu, 23 Jun 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/%EC%A3%BC%ED%94%BC%ED%84%B0/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>콘다 YAML</title>
+        <link>https://meme2515.github.io/tags/%EC%BD%98%EB%8B%A4-yaml/</link>
+        <pubDate>Thu, 23 Jun 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/%EC%BD%98%EB%8B%A4-yaml/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>콘다 환경 공유</title>
+        <link>https://meme2515.github.io/tags/%EC%BD%98%EB%8B%A4-%ED%99%98%EA%B2%BD-%EA%B3%B5%EC%9C%A0/</link>
+        <pubDate>Thu, 23 Jun 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/%EC%BD%98%EB%8B%A4-%ED%99%98%EA%B2%BD-%EA%B3%B5%EC%9C%A0/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>파이썬</title>
+        <link>https://meme2515.github.io/tags/%ED%8C%8C%EC%9D%B4%EC%8D%AC/</link>
+        <pubDate>Thu, 23 Jun 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/%ED%8C%8C%EC%9D%B4%EC%8D%AC/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>autograd</title>
         <link>https://meme2515.github.io/tags/autograd/</link>
         <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>

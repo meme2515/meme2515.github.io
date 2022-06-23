@@ -6,7 +6,39 @@
         <description>Recent content in Categories on Soon Hyung Kwon</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Mon, 20 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 23 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Anaconda</title>
+        <link>https://meme2515.github.io/categories/anaconda/</link>
+        <pubDate>Thu, 23 Jun 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/categories/anaconda/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Conda</title>
+        <link>https://meme2515.github.io/categories/conda/</link>
+        <pubDate>Thu, 23 Jun 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/categories/conda/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Environment Sharing</title>
+        <link>https://meme2515.github.io/categories/environment-sharing/</link>
+        <pubDate>Thu, 23 Jun 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/categories/environment-sharing/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Python</title>
+        <link>https://meme2515.github.io/categories/python/</link>
+        <pubDate>Thu, 23 Jun 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/categories/python/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Autograd</title>
         <link>https://meme2515.github.io/categories/autograd/</link>
         <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
