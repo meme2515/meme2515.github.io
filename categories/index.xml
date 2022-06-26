@@ -6,7 +6,31 @@
         <description>Recent content in Categories on Soon Hyung Kwon</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Thu, 23 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 26 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Batch Norm</title>
+        <link>https://meme2515.github.io/categories/batch-norm/</link>
+        <pubDate>Sun, 26 Jun 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/categories/batch-norm/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>PyTorch</title>
+        <link>https://meme2515.github.io/categories/pytorch/</link>
+        <pubDate>Sun, 26 Jun 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/categories/pytorch/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Regularization</title>
+        <link>https://meme2515.github.io/categories/regularization/</link>
+        <pubDate>Sun, 26 Jun 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/categories/regularization/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Anaconda</title>
         <link>https://meme2515.github.io/categories/anaconda/</link>
         <pubDate>Thu, 23 Jun 2022 00:00:00 +0000</pubDate>
@@ -52,14 +76,6 @@
         <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
         
         <guid>https://meme2515.github.io/categories/neural-network/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Pytorch</title>
-        <link>https://meme2515.github.io/categories/pytorch/</link>
-        <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
-        
-        <guid>https://meme2515.github.io/categories/pytorch/</guid>
         <description></description>
         </item>
         <item>
