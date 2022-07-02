@@ -6,7 +6,39 @@
         <description>Recent content in Categories on Soon Hyung Kwon</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Tue, 28 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 02 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>AWS</title>
+        <link>https://meme2515.github.io/categories/aws/</link>
+        <pubDate>Sat, 02 Jul 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/categories/aws/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>EC2</title>
+        <link>https://meme2515.github.io/categories/ec2/</link>
+        <pubDate>Sat, 02 Jul 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/categories/ec2/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>GUI</title>
+        <link>https://meme2515.github.io/categories/gui/</link>
+        <pubDate>Sat, 02 Jul 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/categories/gui/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>XRDP</title>
+        <link>https://meme2515.github.io/categories/xrdp/</link>
+        <pubDate>Sat, 02 Jul 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/categories/xrdp/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Neural Network</title>
         <link>https://meme2515.github.io/categories/neural-network/</link>
         <pubDate>Tue, 28 Jun 2022 00:00:00 +0000</pubDate>

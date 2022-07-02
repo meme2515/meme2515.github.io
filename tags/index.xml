@@ -6,7 +6,55 @@
         <description>Recent content in Tags on Soon Hyung Kwon</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Tue, 28 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 02 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>AWS GUI</title>
+        <link>https://meme2515.github.io/tags/aws-gui/</link>
+        <pubDate>Sat, 02 Jul 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/aws-gui/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>AWS 그래픽 인터페이스</title>
+        <link>https://meme2515.github.io/tags/aws-%EA%B7%B8%EB%9E%98%ED%94%BD-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4/</link>
+        <pubDate>Sat, 02 Jul 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/aws-%EA%B7%B8%EB%9E%98%ED%94%BD-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>EC2</title>
+        <link>https://meme2515.github.io/tags/ec2/</link>
+        <pubDate>Sat, 02 Jul 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/ec2/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Putty</title>
+        <link>https://meme2515.github.io/tags/putty/</link>
+        <pubDate>Sat, 02 Jul 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/putty/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>RDP</title>
+        <link>https://meme2515.github.io/tags/rdp/</link>
+        <pubDate>Sat, 02 Jul 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/rdp/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>XRDP</title>
+        <link>https://meme2515.github.io/tags/xrdp/</link>
+        <pubDate>Sat, 02 Jul 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/xrdp/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>pytorch</title>
         <link>https://meme2515.github.io/tags/pytorch/</link>
         <pubDate>Tue, 28 Jun 2022 00:00:00 +0000</pubDate>

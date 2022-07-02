@@ -2,8 +2,50 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://meme2515.github.io/categories/aws/</loc>
+    <lastmod>2022-07-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/cloud_network/aws_gui/</loc>
+    <lastmod>2022-07-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/aws-gui/</loc>
+    <lastmod>2022-07-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/aws-%EA%B7%B8%EB%9E%98%ED%94%BD-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4/</loc>
+    <lastmod>2022-07-02T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://meme2515.github.io/categories/</loc>
-    <lastmod>2022-06-28T00:00:00+00:00</lastmod>
+    <lastmod>2022-07-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/cloud_network/</loc>
+    <lastmod>2022-07-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/ec2/</loc>
+    <lastmod>2022-07-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/categories/ec2/</loc>
+    <lastmod>2022-07-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/categories/gui/</loc>
+    <lastmod>2022-07-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/putty/</loc>
+    <lastmod>2022-07-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/rdp/</loc>
+    <lastmod>2022-07-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/</loc>
+    <lastmod>2022-07-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/</loc>
+    <lastmod>2022-07-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/xrdp/</loc>
+    <lastmod>2022-07-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/categories/xrdp/</loc>
+    <lastmod>2022-07-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/categories/neural-network/</loc>
     <lastmod>2022-06-28T00:00:00+00:00</lastmod>
@@ -24,12 +66,6 @@
     <lastmod>2022-06-28T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/tags/pytorch-%EC%82%AC%EC%9A%A9%EB%B2%95/</loc>
-    <lastmod>2022-06-28T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/</loc>
-    <lastmod>2022-06-28T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/tags/</loc>
     <lastmod>2022-06-28T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/tags/%EB%89%B4%EB%9F%B4%EB%84%B7/</loc>

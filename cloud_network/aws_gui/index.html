@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='EC2 기본 인스턴스 생성 및 XRDP/Putty 설치, RDP 접속 과정 상세'><title>AWS EC2 인스턴스 생성 및 XRDP GUI 설정</title>
+
+<link rel='canonical' href='https://meme2515.github.io/cloud_network/aws_gui/'>
+
+<link rel="stylesheet" href="/scss/style.min.0d6801e40f97865d11b796a59ab5cccec41427c09bbb58dec945c9cf7412db70.css"><meta property='og:title' content='AWS EC2 인스턴스 생성 및 XRDP GUI 설정'>
+<meta property='og:description' content='EC2 기본 인스턴스 생성 및 XRDP/Putty 설치, RDP 접속 과정 상세'>
+<meta property='og:url' content='https://meme2515.github.io/cloud_network/aws_gui/'>
+<meta property='og:site_name' content='Soon Hyung Kwon'>
+<meta property='og:type' content='article'><meta property='article:section' content='Cloud_network' /><meta property='article:tag' content='EC2' /><meta property='article:tag' content='XRDP' /><meta property='article:tag' content='AWS GUI' /><meta property='article:tag' content='AWS 그래픽 인터페이스' /><meta property='article:tag' content='Putty' /><meta property='article:tag' content='RDP' /><meta property='article:published_time' content='2022-07-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-07-02T00:00:00&#43;00:00'/><meta property='og:image' content='https://meme2515.github.io/cloud_network/aws_gui_2.jpg' />
+<meta name="twitter:title" content="AWS EC2 인스턴스 생성 및 XRDP GUI 설정">
+<meta name="twitter:description" content="EC2 기본 인스턴스 생성 및 XRDP/Putty 설치, RDP 접속 과정 상세"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://meme2515.github.io/cloud_network/aws_gui_2.jpg' />
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-135204357-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hud342b0d5be633fdc127bd0653c60e8c3_234674_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Soon Hyung Kwon</a></h1>
+            <h2 class="site-description">데이터 블로그입니다 :)</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/meme2515'
+                        target="_blank"
+                        title="GitHub"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M200,513c0-20.3,0-40.7,0-61c3.1,0.6,1.9,3.1,1.9,4.8c0.1,16.3,0.2,32.6,0,48.9c-0.1,4.1,1,5.4,5.2,5.4   c36.6-0.2,73.2-0.2,109.8,0c4.4,0,5.1-1.6,5.1-5.5c-0.2-25-0.1-49.9-0.1-74.9c0-9.3,0.2-18.6,0.2-27.9c2.8,1.2,1.6,3.8,1.6,5.7   c0.1,34.8,0.1,69.6,0.1,104.4C282.7,513,241.3,513,200,513z" fill="#D1D1D1"/><path d="M322.2,402.8c-0.1,9.3-0.2,18.6-0.2,27.9c0,25-0.1,49.9,0.1,74.9c0,3.9-0.7,5.5-5.1,5.5   c-36.6-0.2-73.2-0.2-109.8,0c-4.2,0-5.3-1.3-5.2-5.4c0.2-16.3,0.1-32.6,0-48.9c0-1.7,1.2-4.2-1.9-4.8c-9.7,0.9-19.3,3.2-29.2,2.8   c-33.5-1.3-59.5-15.4-74.7-45.8c-8.2-16.4-17.8-31.7-29.1-46c-3.1-3.9-7.9-5.5-11.5-8.7c-1.1-1-2.4-1.8-3.3-3   c-2.3-3.3-1.2-5.8,2.8-6.2c18.5-1.9,33.8,4.2,46.2,18.1c6.3,7.1,10.2,15.8,16.3,23.1c12.3,14.7,28,22.7,47,24.9   c11.5,1.3,22.4-0.9,33.3-4.2c2.2-0.6,3.1-2,3.3-4.3c0.7-10.3,2.8-20.3,6.8-29.9c1.8-4.3,4.7-7.9,6.9-12.3   c-10.3-2.6-20.7-3.4-30.5-6.4c-27.1-8.2-50.9-21.6-68.2-44.7c-8.3-11-14.1-23.3-17.4-36.5c-1.8-7.2-3.9-14.4-3.8-22   c0.1-13.3-0.5-26.7,0.3-40c0.9-16.8,3.1-33.5,9.2-49.2c3.8-9.7,9.3-18.6,17.1-25.9c2.4-2.3,3.3-4.1,1.8-7.9   c-7.4-19.7-8.1-39.8-1.8-60c0.2-0.6,0.3-1.3,0.4-2c2.2-10.3,4.5-11.3,14.3-7.4c19.2,7.5,33.3,21,45.3,37.3c3.4,4.6,2.7,6.6,10,1.9   c9.7-6.2,21-8.1,32.2-9.3c20.1-2.1,40.3-1.5,60.4-1.1c14.3,0.3,28.5,2.2,42,7.2c3.1,1.1,6,2.8,8.7,4.8c2.1,1.6,3.6,1.6,5.6-1.1   c9.1-12.8,19.5-24.4,33-32.6c6.6-4,13.4-7.7,21.4-8.6c3.3-0.4,4.7,0.7,5.6,3.3c8.3,22.9,9.5,45.7-0.2,68.5   c-1.2,2.8-0.8,4.6,1.3,6.5c16,15,21.8,34.5,24.8,55.5c2.5,17.7,3.2,35.5,2.7,53.3c-0.8,31.2-11.4,58.4-34.4,80.1   c-13.5,12.7-29.7,21.1-47.1,27.5c-12.4,4.6-25.5,5.8-38.5,9c1.3,3.1,3.7,5.4,4.3,8.5c-0.3,1.3,0.4,2,1.6,2.3   c0.1,0.6,0.3,1.1,0.4,1.7c0.3,2.1,0.1,4.3,2.5,5.4c0.5,2.2,1,4.5,1.4,6.7c-0.1,1.7-0.7,3.5,1.6,4.3c0,0.6,0.1,1.2,0.1,1.9   c-1.5,2.3-0.1,4.1,1.1,6C322.1,398.9,322.2,400.9,322.2,402.8z" fill="#A7A7A7"/><path d="M322,397c-1.1-1.9-2.6-3.7-1.1-6C322.1,392.9,323,394.8,322,397z" fill="#D1D1D1"/><path d="M317.7,378.2c-2.4-1.1-2.2-3.3-2.5-5.4C317.4,374,317.7,376,317.7,378.2z" fill="#D1D1D1"/><path d="M320.8,389.1c-2.3-0.8-1.7-2.6-1.6-4.3C321.5,385.6,321,387.5,320.8,389.1z" fill="#D1D1D1"/><path d="M314.8,371.1c-1.2-0.3-1.9-1-1.6-2.3C314.5,369.1,315.1,369.8,314.8,371.1z" fill="#D1D1D1"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.linkedin.com/in/soon-hyung-kwon-73a3221ab/'
+                        target="_blank"
+                        title="LinkedIn"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M1,53c2.5,0,1.7-2,1.9-3.3C5.9,29,16.6,13.9,36.6,7.4c16.1-5.2,32.9-4.6,47.9,4c9.4,5.5,16.6,14,20.4,24.5   c2.8,7.8,4.9,15.9,4,24.2c-2.1,20.9-11.5,38.3-34.5,46.4c-17.4,6-34.3,3.8-50.2-5.7c-1-3.6-3.5-5.4-7.1-6c0,0,0,0,0,0   c-0.1-1.4-0.3-2.8-2.2-2.8C7.7,84,4.3,74.3,2.9,63.8C2.7,62.6,3.2,60.9,1,61C1,58.3,1,55.7,1,53z" fill="#A7A7A7"/><path d="M276.2,216.1c4.3-2.6,6-6.4,8.2-9.5c10.9-15,24.4-26.6,41.2-34.9c23-11.3,47.4-12.5,72-10.2   c18.9,1.7,36.8,8.1,53.1,18.5c19.4,12.4,33.3,29.6,42.8,50.2c5.8,12.5,9.6,25.8,11.9,39.6c2.1,12.9,3.7,25.6,3.7,38.7   c-0.1,65-0.1,130,0.1,195c0,4.6-1.3,5.8-5.8,5.7c-30.7-0.2-61.3-0.2-92,0c-4.5,0-5.5-1.3-5.5-5.6c0.1-61.3,0.4-122.7-0.1-184   c-0.1-13.9-2-27.7-9.2-40.4c-6.4-11.2-15.3-19.2-27-23.8c-15.7-6.2-31.9-7.4-48.3-2.8c-16.6,4.6-28.1,15.5-36.3,30.3   c-4.6,8.3-6.2,17-7.5,26.3c-1.3,10-1.1,19.8-1.1,29.7c-0.2,54.7-0.2,109.3,0,164c0,5-1.2,6.4-6.3,6.3c-30.3-0.3-60.7-0.2-91,0   c-4.2,0-5.7-1.3-5.6-5.2c0.1-2.8,0.3-5.6,0.3-8.4c0-105.5,0.1-211-0.1-316.5c0-4.4,0.9-6,5.7-6c30.5,0.2,61,0.2,91.5,0   c4.1,0,5.5,1,5.4,5.3C276,190.6,276.2,202.9,276.2,216.1z" fill="#A7A7A7"/><path d="M109,176.1c0,3.5,0.1,7,0.1,10.5c0,105.3,0,210.6,0,316c0,6.4,0,6.4-6.5,6.4c-31.8,0-63.7,0-95.5,0   c-0.1-2.5-0.2-5-0.2-7.5c0-78.8,0-157.5,0-236.3c0-28.1,0.1-56.3-0.1-84.4c0-3.6,0.9-4.9,4.7-4.9C44,176.1,76.5,176,109,176.1z" fill="#A7A7A7"/><path d="M109,176.1c-32.5,0-64.9,0-97.4-0.2c-3.8,0-4.7,1.2-4.7,4.9C7,208.9,6.9,237,6.9,265.2   c0,78.8,0,157.5,0,236.3c0,2.5,0.1,5,0.2,7.5c-1.7,0.1-3-0.3-3-2.3c0-1.3,0-2.7,0-4c0-106.8,0-213.5,0-320.3c0-7.6,0.7-8.3,8.2-8.3   c30.5,0,61,0,91.4,0.1C105.5,174.1,108.2,172.7,109,176.1z" fill="#E0E0E0"/><path d="M17.1,94.9c3.6,0.6,6.1,2.4,7.1,6C21.1,99.7,18.8,97.7,17.1,94.9z" fill="#E0E0E0"/><path d="M14.9,92.1c1.9,0,2,1.4,2.2,2.8C15,95,15,93.6,14.9,92.1z" fill="#E0E0E0"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/about' >
+                
+                
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/machine_learning' >
+                
+                
+                
+                <span>Machine Learning</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/neural_network' >
+                
+                
+                
+                <span>Neural Network</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/mlops' >
+                
+                
+                
+                <span>MLOps</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/cloud_network' >
+                
+                
+                
+                <span>Cloud &amp; Network</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/cloud_network/aws_gui/">
+                
+                    <img src="/cloud_network/aws_gui_2.jpg" loading="lazy" alt="Featured image of post AWS EC2 인스턴스 생성 및 XRDP GUI 설정" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/xrdp/" >
+                XRDP
+            </a>
+        
+            <a href="/categories/aws/" >
+                AWS
+            </a>
+        
+            <a href="/categories/ec2/" >
+                EC2
+            </a>
+        
+            <a href="/categories/gui/" >
+                GUI
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/cloud_network/aws_gui/">AWS EC2 인스턴스 생성 및 XRDP GUI 설정</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            EC2 기본 인스턴스 생성 및 XRDP/Putty 설치, RDP 접속 과정 상세
+        </h3>
+        
+    </div>
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jul 02, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    4 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="소개">소개</h2>
+<p>본 글에서는 <a class="link" href="https://aws.amazon.com"  target="_blank" rel="noopener"
+    >AWS</a> 에서 가장 기본적인 EC2 인스턴스 생성 및 <a class="link" href="https://ubuntu.com/"  target="_blank" rel="noopener"
+    >우분투</a> 설치, <a class="link" href="http://xrdp.org/"  target="_blank" rel="noopener"
+    >XRDP</a> 를 활용한 GUI를 설정까지의 과정을 정리하고자 한다. 로컬 환경은 Windows 11 이며, 2022년 7월 2일을 기준으로 작성되었다.</p>
+<h2 id="왜-리눅스를-쓸까">왜 리눅스를 쓸까?</h2>
+<p>분석가와 데이터 사이언티스트에게 클라우드 장점은 직관적으로 다가온다. 우선 떠오르는 몇가지를 다음과 같이 정리해보았다.</p>
+<ol>
+<li>몇 대의 PC를 사용하듯 수요에 따라 자유롭게 인스턴스 생성 및 <strong>성능/용량 조절이 가능하다</strong>.</li>
+<li>하드웨어 관리에 대한 걱정없이 <strong>24시간 사용이 가능</strong>하다.</li>
+<li>Database, Analytics, ML 등 영역마다 특화된 제품들이 출시되어 있어 별도 <strong>설계없이 쉽게 사용</strong>할 수 있다.</li>
+</ol>
+<p>하지만 이와 달리 클라우드 EC2 환경에서 리눅스를 사용이 권장되는 이유는 컴퓨터 공학과가 아니라면 다소 공감하기 어려울 수 있다 (당장 내가 그랬었다). 당장 로컬환경에서 사용되는 운영체제가 Windows, 혹은 MacOS 인데, 사적이건 공적이건 클라우드 환경에서 익숙하지 않은 리눅스를 사용하기 위해서는 그만한 학습시간이 필요하기 때문에 정당화가 필요하다.</p>
+<p>우선 EC2 환경은 다음과 같이 Windows, MacOS 를 모두 지원하고 있다.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/cloud_network/aws_gui_3_2.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 1. EC2 환경 설정 페이지 캡처</td>
+</tr>
+</tbody>
+</table></div>
+<p>그럼에도 불구하고 서버, 이 경우 클라우드 환경에서 리눅스 운영체제가 선호되는 이유는 다음과 같이 정리할 수 있다.</p>
+<ol>
+<li>리눅스는 <strong>무료이며, 오픈소스이다</strong>. 이는 개발처가 분명한 Windows나 MacOS에 비해 유지보수 비용이 낮음을 의미한다.</li>
+<li>리눅스는 기타 운영체제에 비해 <strong>우수한 안정성/보안성</strong>이 검증되었다.</li>
+<li>리눅스는 커맨드 라인 기반 운영체제이기 때문에 기타 운영체제에 비해 <strong>가볍고 빠르다</strong>.</li>
+</ol>
+<p>교과서적인 내용을 벗어나, 당장 <a class="link" href="https://www.docker.com/"  target="_blank" rel="noopener"
+    >Docker</a>, <a class="link" href="https://www.ansible.com/"  target="_blank" rel="noopener"
+    >Ansible</a>, <a class="link" href="https://airflow.apache.org/"  target="_blank" rel="noopener"
+    >Airflow</a> 과 같은 개발/데이터 분야에서 사용되는 툴들은 기본적으로 윈도우를 지원하지 않는다. 이는 위와 같은 이유로 이미 서버/개발 환경에서 리눅스 사용이 기준으로 자리잡았기 때문이며, 따라서 커뮤니티의 트렌드를 쫒다보면 자연스럽게 리눅스를 사용하고 있는 자신을 발견하게된다.</p>
+<h2 id="ec2">EC2</h2>
+<p>온프레미스 서버를 대체하는 개념으로 AWS의 가장 핵심이 되는 서비스이다. 아마존으로부터 한 대의 컴퓨터를 임대하는 개념으로 생각할 수 있다. 다음을 통해 EC2의 인스턴스를 생성하는 기본적인 방법을 살펴보자.</p>
+<h3 id="인스턴스-생성">인스턴스 생성</h3>
+<p>EC2 콘솔에 접속해 다음과 같은 Launch Instance 옵션을 클릭한다.</p>
+<p><img src="/cloud_network/aws_gui_3_3.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<p>서버에 적절할 이름을 지어주고, 운영체제 (AWS는 이를 AMI, Amazon Machine Image, 라 부르며 적절한 소프트웨어가 기본으로 탑재되어있다) 로 Ubuntu 를 선택한다.</p>
+<p><img src="/cloud_network/aws_gui_3_4.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<p>인스턴스의 성능과 보안체계를 설정하는 부분이다. 무료 티어가 적용되는 t2.micro 를 선택하고, key pair 를 생성해 로컬 폴더에 다운로드하면 된다. 다운로드 시 파일 포맷은 .pem 으로 지정한다.</p>
+<p><img src="/cloud_network/aws_gui_3_5.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<p>이후 Launch Instance 버튼을 클릭하면 EC2 설정이 끝난 것이다. Instances 페이지에서 다음과 같이 생성한 인스턴스가 동작하는 것을 확인할 수 있다.</p>
+<p><img src="/cloud_network/aws_gui_3_6.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<h3 id="ssh-연결">SSH 연결</h3>
+<p>인스턴스 생성이 끝났다면 <a class="link" href="https://en.wikipedia.org/wiki/Secure_Shell"  target="_blank" rel="noopener"
+    >SSH (Secure Shell)</a> 프로토콜을 이용해 인스턴스의 커맨드 라인에 접속할 수 있다. Instances 페이지에서 생성된 인스턴스 선택 후, 상단의 Connect 버튼을 누른다.</p>
+<p><img src="/cloud_network/aws_gui_3_7.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<p>SSH Client 탭의 정보를 기반으로 <a class="link" href="https://git-scm.com/downloads"  target="_blank" rel="noopener"
+    >Git Bash</a>, 혹은 Windows Powershell 에서 다음 커맨드를 입력한다. 커맨드 입력시에는 생성한 key pair 의 .pem 파일과 동일한 디렉토리에 있어야한다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"> ssh -i &#34;{keypair.pem}&#34; ubuntu@{ec2_public_DNS}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/cloud_network/aws_gui_3_8.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<p>이로서 EC2 인스턴스의 커맨드 라인 사용을 위한 세팅이 끝났다!</p>
+<h2 id="xdrp-gui">XDRP GUI</h2>
+<p>XDRP란 윈도우의 원격 접속 프토로콜인 <a class="link" href="https://support.microsoft.com/en-us/windows/how-to-use-remote-desktop-5fe128d5-8fb1-7a23-3b8a-41e636865e8c"  target="_blank" rel="noopener"
+    >RDP (Remote Desktop Protocol)</a> 를 통해 원격 리눅스 서버에 접속을 가능하게 해주는 오픈소스 소프트웨어이다. 커맨드 라인 접속 프로토콜인 SSH와 달리 우분투의 그래픽 인터페이스 사용이 가능하다. 인스턴스에 대한 SSH 접속을 마쳤다면 다음 커맨드를 순차적으로 실행해 Ubuntu 에 XDRP 를 설치 및 설정하자.</p>
+<h3 id="우분투-xdrp-설치">우분투 XDRP 설치</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"> sudo apt update &amp;&amp; sudo apt upgrade
+</span></span><span class="line"><span class="cl"> sudo sed -i &#39;s/^PasswordAuthentication no/PasswordAuthentication yes/&#39; /etc/ssh/sshd_config
+</span></span><span class="line"><span class="cl"> sudo /etc/init.d/ssh restart
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>과정에서 커맨드 라인이 Y/n 값을 요구한다면 Y 를 입력 후 엔터를 누르면 된다. 다음과 같은 화면이 나오면 OK를 선택하자.</p>
+<p><img src="/cloud_network/aws_gui_3_9.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"> sudo passwd ubuntu
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>우분투에 대한 비밀번호 설정이다. 설정하고 싶은 비밀번호를 2회 입력하면 된다.</p>
+<p><img src="/cloud_network/aws_gui_3_10.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"> sudo apt install xrdp xfce4 xfce4-goodies tightvncserver
+</span></span><span class="line"><span class="cl"> echo xfce4-session&gt; /home/ubuntu/.xsession
+</span></span><span class="line"><span class="cl"> sudo cp /home/ubuntu/.xsession /etc/skel
+</span></span><span class="line"><span class="cl"> sudo sed -i &#39;0,/-1/s//ask-1/&#39; /etc/xrdp/xrdp.ini
+</span></span><span class="line"><span class="cl"> sudo service xrdp restart
+</span></span><span class="line"><span class="cl"> sudo reboot
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>인스턴스가 재시작 될때까지 기다린 후, 다시 SSH 로 접속하자.</p>
+<h3 id="putty">Putty</h3>
+<p><a class="link" href="https://www.putty.org/"  target="_blank" rel="noopener"
+    >Putty</a> 란 원격 접속을 위한 소프트웨어이다 (<a class="link" href="https://dololak.tistory.com/24"  target="_blank" rel="noopener"
+    >세부 설명 및 사용법 기초</a>). 단순 SSH 접속에 비해 더 세부적인 설정이 가능하며, XDRP 사용을 위해 설치가 필요하다. 다음 커맨드를 통해 Ubuntu 인스턴스에 Putty 를 설치하자.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"> sudo apt-get install putty
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>이후 AWS 인스턴스 페이지에서 Public IP 와 Private IP 를 확인해야 한다.</p>
+<p><img src="/cloud_network/aws_gui_3_11.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<p>Windows 로컬 환경으로 돌아와, <a class="link" href="https://www.putty.org/"  target="_blank" rel="noopener"
+    >https://www.putty.org/</a> 에서 클라이언트를 다운로드 및 실행하면 다음과 같은 화면을 확인할 수 있다. Host Name 에 확인한 Public IP 를 입력하자.</p>
+<p><img src="/cloud_network/aws_gui_3_12.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<p>Putty 클라이언트의 SSH -&gt; Tunnels 설정으로 들어가 Destination 란에 Private IP 와 3389 포트를 입력한다. 이후 Source Port를 9000 으로 지정 후 Add 버튼을 클릭.</p>
+<p><img src="/cloud_network/aws_gui_3_17.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<p>SSH -&gt; Auth 설정으로 들어가 저장한 .pem 파일을 찾아준다.</p>
+<p><img src="/cloud_network/aws_gui_3_14.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<p>클라이언트의 Open 버튼을 클릭한 후, 확인 버튼을 누르면 로그인창이 뜨게 된다. id는 ubuntu, 비밀번호는 이전에 설정했던 비밀번호를 입력하자.</p>
+<p><img src="/cloud_network/aws_gui_3_15.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<p>Putty 접속이 완료됐다. GUI 실행 시에는 이처럼 Putty 접속이 항상 선행되어야 한다.</p>
+<h3 id="remote-desktop">Remote Desktop</h3>
+<p>GUI 접속 단계이다. Windows 에 기본 설치되어있는 RDP 클라이언트 실행 후, 127.0.0.1:8888 에 접속하자.</p>
+<p><img src="/cloud_network/aws_gui_3_18.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<p>다음 화면에서 username 은 ubuntu, password 는 지정한 비밀번호를 입력해준다.</p>
+<p><img src="/cloud_network/aws_gui_3_19.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<p>GUI 접속 화면을 확인할 수 있다. 이제 필요한 환경설정을 진행해주면 된다.</p>
+<p><img src="/cloud_network/aws_gui_3_20.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/ec2/">EC2</a>
+        
+            <a href="/tags/xrdp/">XRDP</a>
+        
+            <a href="/tags/aws-gui/">AWS GUI</a>
+        
+            <a href="/tags/aws-%EA%B7%B8%EB%9E%98%ED%94%BD-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4/">AWS 그래픽 인터페이스</a>
+        
+            <a href="/tags/putty/">Putty</a>
+        
+            <a href="/tags/rdp/">RDP</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "meme2515" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2022 Soon Hyung Kwon
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.11.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#소개">소개</a></li>
+    <li><a href="#왜-리눅스를-쓸까">왜 리눅스를 쓸까?</a></li>
+    <li><a href="#ec2">EC2</a>
+      <ol>
+        <li><a href="#인스턴스-생성">인스턴스 생성</a></li>
+        <li><a href="#ssh-연결">SSH 연결</a></li>
+      </ol>
+    </li>
+    <li><a href="#xdrp-gui">XDRP GUI</a>
+      <ol>
+        <li><a href="#우분투-xdrp-설치">우분투 XDRP 설치</a></li>
+        <li><a href="#putty">Putty</a></li>
+        <li><a href="#remote-desktop">Remote Desktop</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
