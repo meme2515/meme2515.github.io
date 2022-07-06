@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>리눅스 on Soon Hyung Kwon</title>
+        <link>https://meme2515.github.io/tags/%EB%A6%AC%EB%88%85%EC%8A%A4/</link>
+        <description>Recent content in 리눅스 on Soon Hyung Kwon</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Wed, 06 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/tags/%EB%A6%AC%EB%88%85%EC%8A%A4/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>리눅스/우분투 명령어 모음 (Cheatsheet)</title>
+        <link>https://meme2515.github.io/computer_science/linux_cheatsheet/</link>
+        <pubDate>Wed, 06 Jul 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/computer_science/linux_cheatsheet/</guid>
+        <description>&lt;img src="https://meme2515.github.io/computer_science/linux.jpg" alt="Featured image of post 리눅스/우분투 명령어 모음 (Cheatsheet)" /&gt;&lt;h2 id=&#34;linux-명령어-모음&#34;&gt;Linux 명령어 모음&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/computer_science/Linux-Reference-1-1.jpg&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 1. Linux 명령어 모음&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;ubuntu-명령어-모음&#34;&gt;Ubuntu 명령어 모음&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/computer_science/Ubuntu-Reference-1-1.jpg&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 2. Ubuntu 명령어 모음&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
