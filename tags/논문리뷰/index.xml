@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>논문리뷰 on Soon Hyung Kwon</title>
+        <link>https://meme2515.github.io/tags/%EB%85%BC%EB%AC%B8%EB%A6%AC%EB%B7%B0/</link>
+        <description>Recent content in 논문리뷰 on Soon Hyung Kwon</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Tue, 12 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/tags/%EB%85%BC%EB%AC%B8%EB%A6%AC%EB%B7%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>(논문 리뷰) 쉽게 이해하는 AlexNet 과 PyTorch 코드 예시</title>
+        <link>https://meme2515.github.io/neural_network/alexnet/</link>
+        <pubDate>Tue, 12 Jul 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/neural_network/alexnet/</guid>
+        <description>&lt;img src="https://meme2515.github.io/neural_network/alexnet_1.png" alt="Featured image of post (논문 리뷰) 쉽게 이해하는 AlexNet 과 PyTorch 코드 예시" /&gt;&lt;h2 id=&#34;소개&#34;&gt;소개&lt;/h2&gt;
+&lt;p&gt;2012년 토론토 대학의 &lt;a class=&#34;link&#34; href=&#34;https://www.cs.toronto.edu/~kriz/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Alex Krizhevsky&lt;/a&gt; 팀이 공개한 AlexNet 은 &lt;a class=&#34;link&#34; href=&#34;https://image-net.org/challenges/LSVRC/2012/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;ILSVRC-2012&lt;/a&gt; 대회에서 2등 모델의 정확도 26.2%를 10% 이상 상회하는 15.3% 의 정확도를 기록해 많은 관심을 받았던 CNN 구조이다. 특히 GPU 를 활용한 연산가속이 컴퓨터 비전 커뮤니티에서 적극적으로 사용되는 것에 기여하였으며, 이외에도 &lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Rectifier_%28neural_networks%29&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;ReLU 활성화 함수&lt;/a&gt;, Overlapping Pooling 등 &amp;lsquo;22년 현재 당연하게 받아들여지는 CNN 구조를 정립했다.&lt;/p&gt;
+&lt;h2 id=&#34;imagenet-ilsvrc&#34;&gt;ImageNet (ILSVRC)&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;스탠포드 대학 교수인 &lt;a class=&#34;link&#34; href=&#34;https://profiles.stanford.edu/fei-fei-li&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Fei-Fei Li&lt;/a&gt; 가 주로 알고리즘 위주의 연구가 이루어지던 당시 AI 분야에 기여하기위해 2009년 공개한 이미지-레이블 데이터셋이다.&lt;/li&gt;
+&lt;li&gt;매년 &lt;a class=&#34;link&#34; href=&#34;https://www.image-net.org/challenges/LSVRC/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;ImageNet Large Scale Visual Recognition Challenge (ILSVRC)&lt;/a&gt; 라는 레이블 예측 대회를 개최하고 있으며, 2012년 기준 약 120만개의 이미지-레이블 셋으로 이루어져 있었다 (22년 현재 1,400만).&lt;/li&gt;
+&lt;li&gt;Top-1 에러율, top-5 에러율 등으로 모델의 정확도를 평가하는데, 여기서 top-5 에러란 likelihood 가 가장 높은 5개 레이블에 실제 레이블이 포함되지 않은 경우를 가르킨다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/alexnet_4.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 1. ImageNet 데이터 예시&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;cnn-구조&#34;&gt;CNN 구조&lt;/h2&gt;
+&lt;h3 id=&#34;relu-nonlinearity&#34;&gt;ReLU Nonlinearity&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;논문이 게재되던 시점 CNN 구조에서 주로 사용되던 tanh, sigmoid 활성화 함수는 학습 속도가 느리다는 문제점을 안고있다. 따라서 AlexNet은 &lt;a class=&#34;link&#34; href=&#34;https://www.cs.toronto.edu/~fritz/absps/reluICML.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Nair and Hinton&lt;/a&gt; 에서 처음 소개된 ReLU 활성화 함수를 사용해 학습속도를 단축시킨다 (fig 2. 참조).&lt;/li&gt;
+&lt;li&gt;논문은 ReLU activation function 을 다음과 같이 정의한다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;$$
+f(x) = max(0,x)
+$$&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ReLU 활성화를 사용하게 된 배경에는 2012 당시 AlexNet 의 구조가 기타 CNN에 비해 복잡하고, 크다는 점이 있었다 (&amp;lsquo;92년 공개된 LeNet-5 가 대략 6만개의 학습 가능한 파라미터를 가지고 있는 반면, AlexNet은 6천만개의 파라미터를 가지고있다).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/alexnet_3.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 2. CIFAR-10 데이터에 대한 ReLU (실선) vs. tanh (점선) 학습율 비교&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;training-on-multiple-gpus&#34;&gt;Training on Multiple GPUs&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;AlexNet 팀은 2012년 당시 최신 GPU 였던 NVIDIA GTX 580 2대를 활용해 모델을 학습시켰다. 각 GPU는 3GB 의 메모리를 가지고 있었으며, 적은 메모리 용량으로 인해 한대의 GPU를 사용해 전체 ImageNet 데이터를 학습하는 것이 불가능했다.&lt;/li&gt;
+&lt;li&gt;2대의 GPU는 서로의 메모리에 직접적으로 접근할 수 있으며, 학습 과정에서의 병렬처리는 뉴런, 또는 커널을 반으로 나눠 각 GPU 에 할당하는 방식을 취한다. 다만 모든 레이어에서 커뮤니케이션이 이루어지는 것은 아니고, 특정 레이어에서만 이러한 기능을 활용해 리소스를 관리한다.&lt;/li&gt;
+&lt;li&gt;GPU 병렬처리는 학습 시간을 단축시킬뿐만 아니라, GPU 한대에서 처리가능한 사이즈의 네트워크에 비해 top-1 과 top-5 에러율을 각각 1.7% 와 1.2% 감소시킨다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;local-response-normalization-lrn&#34;&gt;Local Response Normalization (LRN)&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&amp;lsquo;22년 기준 최신 CNN 구조에서는 잘 사용되지 않는 개념이다. AlexNet 이후 연구에 따르면 모델의 성능에 크게 기여하지 않는 것으로 밝혀졌다.&lt;/li&gt;
+&lt;li&gt;ReLU 활성화 함수 사용으로 인풋 정규화를 반드시 사용해야할 이유는 없으나, AlexNet 의 경우 Local Response Normalization 이 모델의 일반화에 도움을 준다는 점을 발견했다.&lt;/li&gt;
+&lt;li&gt;인접한 $n$ 개 채널에 대한 정규화라고 이해하면된다. 하단 슬라이드의 좌측 도표 참고.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/alexnet_5.jpg&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 3. Local Response Normalization 예시&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;$a^i_{x,y}$ 가 채널 $i$ 에 대한 $x, y$ 좌표의 ReLU activation output 이라고 했을때, LRN 이 적용된 아웃풋 $b^i_{x,y}$ 는 다음과 같이 정의된다.
+&lt;ul&gt;
+&lt;li&gt;$n$ 은 인접 채널 수를 특정하는 파라미터, $N$ 은 전체 채널 수&lt;/li&gt;
+&lt;li&gt;논문은 $k = 2$, $n = 5$, $\alpha = 10^{-4}$, $\beta = 0.75$ 로 설정&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;$$
+b^i_{x,y} = a^i_{x,y}/(k + \alpha \sum_{j=max(0,i-n/2)}^{min(N-1,i+n/2)}(a^j_{x,y})^2)^\beta
+$$&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;실제 인접 뉴런 간 정규화가 이루어지는 사람의 두뇌를 기반으로 하고있으며, top-1 과 top-5 에러율을 각각 1.4% 와 1.2% 감소시키는 효과를 보였다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;overlapping-pooling&#34;&gt;Overlapping Pooling&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&amp;lsquo;12년 당시 pooling layer 는 각각의 pool 이 겹치지 않도록 stride 를 설정하는 것이 일반적이었으나, 이를 서로 겹치도록 설정함으로 top-1 에러율과 top-5 에러율을 각각 0.4% 와 0.3% 씩 감소시켰다.&lt;/li&gt;
+&lt;li&gt;기본적인 룰은 $z$ x $z$ 의 pooling kernel 에서 $z$ 보다 작은 stride 사이즈, $s &amp;lt; z$ 를 적용시키는 것이다. 논문에서는 $s=2$, $z=3$ 를 사용하였다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;overall-architecture&#34;&gt;Overall Architecture&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;총 8개의 레이어를 가지고 있으며, 5개의 convolution 레이어 후 3개의 FC 레이어를 가지는 전형적인 CNN 구조이다. 마지막 FC 레이어는 1,000 개의 뉴런을 가지고 있는데 이에 softmax 함수를 적용해 클레스 레이블을 유추한다.&lt;/li&gt;
+&lt;li&gt;2번, 4번, 5번 convolution 레이어의 경우 GPU 간 소통이 이루어지지 않는다. 따라서 같은 GPU 의 메모리에 속한 뉴런과의 관계만을 통해 학습을 진행한다. FC 레이어의 경우 앞선 레이어의 모든 뉴런과 연결되어있다.&lt;/li&gt;
+&lt;li&gt;1번, 2번 convolution 레이어에만 LRN 이 적용된다. 해당 2개 레이어와 5번 convolution 레이어는 또한 Max Pooling 레이어를 가지고 있다.&lt;/li&gt;
+&lt;li&gt;모든 convolution 레이어와 FC 레이어에 ReLU 활성화가 적용된다.&lt;/li&gt;
+&lt;li&gt;최초 인풋 사이즈는 227 x 227 x 3 이다 (논문에는 224 x 224 x 3 으로 잘못 표기되어있는 것으로 보인다).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/alexnet_1.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 4. AlexNet 구조 (실제 논문 또한 이미지의 상단이 잘려있다)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;코드-예시&#34;&gt;코드 예시&lt;/h3&gt;
+&lt;p&gt;아래는 &lt;a class=&#34;link&#34; href=&#34;https://paperswithcode.com/method/alexnet&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Papers With Code&lt;/a&gt; 에 링크된 &lt;a class=&#34;link&#34; href=&#34;https://github.com/dansuh17/alexnet-pytorch/blob/d0c1b1c52296ffcbecfbf5b17e1d1685b4ca6744/model.py#L40&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;구현 예시&lt;/a&gt;이다. 논문에서 보이지 않는 디테일은 다음과 같다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Convolution 레이어와 FC 레이어가 분리되어 있다.&lt;/li&gt;
+&lt;li&gt;Output 의 클래스 수를 설정할 수 있다. 기본값은 논문과 같은 1,000 으로 설정.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;36
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;37
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;class AlexNet(nn.Module):
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    def __init__(self, num_classes=1000):
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        super().__init__()
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        self.net = nn.Sequential(
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.Conv2d(in_channels=3, out_channels=96, kernel_size=11, stride=4),  # (b x 96 x 55 x 55)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.ReLU(),
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.LocalResponseNorm(size=5, alpha=0.0001, beta=0.75, k=2),  # section 3.3
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.MaxPool2d(kernel_size=3, stride=2),  # (b x 96 x 27 x 27)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.Conv2d(96, 256, 5, padding=2),  # (b x 256 x 27 x 27)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.ReLU(),
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.LocalResponseNorm(size=5, alpha=0.0001, beta=0.75, k=2),
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.MaxPool2d(kernel_size=3, stride=2),  # (b x 256 x 13 x 13)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.Conv2d(256, 384, 3, padding=1),  # (b x 384 x 13 x 13)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.ReLU(),
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.Conv2d(384, 384, 3, padding=1),  # (b x 384 x 13 x 13)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.ReLU(),
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.Conv2d(384, 256, 3, padding=1),  # (b x 256 x 13 x 13)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.ReLU(),
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.MaxPool2d(kernel_size=3, stride=2),  # (b x 256 x 6 x 6)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        )
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        # classifier is just a name for linear layers
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        self.classifier = nn.Sequential(
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.Dropout(p=0.5, inplace=True),
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.Linear(in_features=(256 * 6 * 6), out_features=4096),
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.ReLU(),
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.Dropout(p=0.5, inplace=True),
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.Linear(in_features=4096, out_features=4096),
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.ReLU(),
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.Linear(in_features=4096, out_features=num_classes),
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        )
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        self.init_bias()  # initialize bias
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    def init_bias(self):
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        ...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    def forward(self, x):
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        ...
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;overfitting&#34;&gt;Overfitting&lt;/h2&gt;
+&lt;p&gt;AlexNet 은 약 6천만개의 파라미터에 대한 과적합을 방지하기 위해 다음 두가지 방법 (Data Augmentation 과 Dropout)을 사용한다. Dropout 을 사용한 초기 아키텍쳐 중 하나이며, PCA Color Augmentation 개념이 조금 어렵게 다가온다.&lt;/p&gt;
+&lt;h3 id=&#34;data-augmentation&#34;&gt;Data Augmentation&lt;/h3&gt;
+&lt;p&gt;아래 translation, reflection 및 PCA color augmentation 기법을 통한 데이터 증강은 학습 과정과 병행되며 (디스크에 저장하지 않는다), GPU 가 아닌 CPU 에서 별도로 처리되기 때문에 사실상 연산에 부담을 주지 않는다.&lt;/p&gt;
+&lt;h4 id=&#34;translation--reflection&#34;&gt;Translation &amp;amp; Reflection&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;256 x 256 이미지에서 랜덤하게 추출된 5개의 224 x 224 패치와 (4개의 코너 패치와 한개의 중앙 패치), 패치들에 적용된 좌우반전을 통해 10배 사이즈의 학습 데이터를 구축했다. 이후 이 10개 증강 이미지에 대한 평균값을 통해 레이블을 예측하게 된다.&lt;/li&gt;
+&lt;li&gt;이러한 데이터 증강 없이 학습된 네트워크는 심각한 과적합 문제를 가지고있다. 네트워크의 큰 사이즈 때문이며, 데이터 증강 기법을 사용하지 않는다면 네트워크 사이즈를 줄이는 방법 밖에는 없다고 저자는 기술한다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;pca-color-augmentation&#34;&gt;PCA Color Augmentation&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;데이터 증강을 목적으로 RGB 채널의 강도를 조정하는 방식이며, PCA 를 통해 얻은 채널 별 분산에 비례하는 난수를 각 채널에 더하거나 빼주게된다.&lt;/li&gt;
+&lt;li&gt;PCA 는 한개의 이미지가 아닌 모든 학습 데이터의 RGB 채널값을 대상으로 적용하게 된다. 따라서 자연스러운 채널 별 분산치를 얻을 수 있다.&lt;/li&gt;
+&lt;li&gt;모든 RGB 픽셀 값에 대한 3 x 3 공분산 행렬의 eigenvector 를 $p$, eigenvalue 를 $\lambda$ 라고 칭하고, $\alpha$ 는 평균이 0, 표준 편차가 0.1인 Gaussian 분포의 난수일때, RGB 이미지 픽셀 $[I^R_{xy}, I^G_{xy}, I^B_{xy}]$ 에 다음의 값을 더하는 방식이다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;$$
+[p_1, p_2, p_3][\alpha_1 \lambda_1, \alpha_2 \lambda_2, \alpha_2 \lambda_2]^T
+$$&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;개인적으로 아직 관련 이해도와 설명이 아쉽다. 차후 별도의 글을 통해 PCA 개념을 다시 짚어볼 계획.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;dropout&#34;&gt;Dropout&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;모델의 성능을 높이기 위한 가장 좋은 방식은 여러 모델의 결과값을 구해 평균을 내는 것이나, 모델의 규모가 너무 크기때문에 이는 현실적으로 어려운 접근법이다.&lt;/li&gt;
+&lt;li&gt;그 대안으로 논문은 0.5 의 확률로 개별 뉴런을 활성화하거나 비활성화하는 Dropout 방식을 제안한다. 이러한 확률로 비활성화된 뉴런은 순전파, 역전파 과정에 기여하지 않으며, 활성/비활성화의 사이클을 통해 여러개의 네트워크를 학습시키는 것과 동일한 결과를 얻을 수 있다.&lt;/li&gt;
+&lt;li&gt;Dropout 방식은 뉴런이 다른 특정 뉴런에 지나치게 의존하는 것을 사전에 방지한다. 개별 뉴런이 이전 레이어의 activation 정보를 적절히 조합하도록 유도하는 구조이다.&lt;/li&gt;
+&lt;li&gt;테스트시에는 이러한 학습과정으로 인해 뉴런의 아웃풋값에 0.5를 곱하게 된다.&lt;/li&gt;
+&lt;li&gt;AlexNet은 처음 2개의 FC 레이어에서만 Dropout 을 사용하고 있다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;details-of-learning&#34;&gt;Details of Learning&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;모델은 SGD 방식으로 학습되었으며, batch size는 128, momentum은 0.9, weight decay는 0.0005로 설정되었다.&lt;/li&gt;
+&lt;li&gt;모든 weight 는 평균이 0, 표준편차가 0.01 인 Gaussian Distribution 의 난수로 설정되었으며, 2번, 3번, 5번 convolution 레이어와 모든 hidden FC 레이어의 bias 값은 1로 설정되었다 (ReLU activation 에 양수값을 input 함으로 훈련으로 가속시키는 효과를 가짐; 나머지 bias 값은 0 으로 설정).&lt;/li&gt;
+&lt;li&gt;learning rate 는 모든 레이어에 동일하게 적용되었으며, 학습과정에서 manual 하게 조정되었다.
+&lt;ul&gt;
+&lt;li&gt;최초 learning rate는 0.01 로 설정&lt;/li&gt;
+&lt;li&gt;validation error rate 감소가 멈췄을 경우, learning rate 를 10 으로 나눔&lt;/li&gt;
+&lt;li&gt;학습 종료까지 총 세번의 learning rate 조정 발생&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;총 학습은 120만개의 이미지를 대상으로 90 사이클 진행.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;results&#34;&gt;Results&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;ILSVRC-2010 데이터셋을 대상으로 top-1 에러율, top-5 에러율 각각 37.5% 와 17.0% 를 기록함 (대회 진행 시 우승 모델의 성능은 각각 47.1%와 28.2%).&lt;/li&gt;
+&lt;li&gt;ILSVRC-2012 데이터셋의 test set label 은 &amp;lsquo;12년 당시 공개되지 않았음으로 validation error rate를 기록, 18.2%의 top-5 에러율을 보였다.
+&lt;ul&gt;
+&lt;li&gt;5개 CNN 구조의 평균값을 구했을때 16.4% 에러율 기록&lt;/li&gt;
+&lt;li&gt;6번째 convolution 레이어를 추가한 후, &amp;lsquo;11년 대회 데이터셋을 기반으로 fine tuning 을 진행했을때 16.6% 에러율 기록, 5개 CNN 모델의 평균값과 다시 평균을 내었을때 15.3% 의 에러율을 보였다&lt;/li&gt;
+&lt;li&gt;해당 대회의 2번째 높은 에러율은 26.2% 였음&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

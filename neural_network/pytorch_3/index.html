@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='파이토치를 활용한 오차역전파와 경사하강 실습'><title>PyTorch Deep Learning - 3. Backpropagation &amp; Gradient Descent</title>
+
+<link rel='canonical' href='https://meme2515.github.io/neural_network/pytorch_3/'>
+
+<link rel="stylesheet" href="/scss/style.min.0d6801e40f97865d11b796a59ab5cccec41427c09bbb58dec945c9cf7412db70.css"><meta property='og:title' content='PyTorch Deep Learning - 3. Backpropagation &amp; Gradient Descent'>
+<meta property='og:description' content='파이토치를 활용한 오차역전파와 경사하강 실습'>
+<meta property='og:url' content='https://meme2515.github.io/neural_network/pytorch_3/'>
+<meta property='og:site_name' content='Soon Hyung Kwon'>
+<meta property='og:type' content='article'><meta property='article:section' content='Neural_network' /><meta property='article:tag' content='pytorch' /><meta property='article:tag' content='파이토치' /><meta property='article:tag' content='뉴럴넷' /><meta property='article:tag' content='pytorch 사용법' /><meta property='article:tag' content='신경망' /><meta property='article:tag' content='머신러닝' /><meta property='article:tag' content='텐서' /><meta property='article:tag' content='pytorch tensor' /><meta property='article:published_time' content='2022-06-28T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-06-28T00:00:00&#43;00:00'/><meta property='og:image' content='https://meme2515.github.io/neural_network/pytorch.jpeg' />
+<meta name="twitter:title" content="PyTorch Deep Learning - 3. Backpropagation &amp; Gradient Descent">
+<meta name="twitter:description" content="파이토치를 활용한 오차역전파와 경사하강 실습"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://meme2515.github.io/neural_network/pytorch.jpeg' />
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-135204357-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hud342b0d5be633fdc127bd0653c60e8c3_234674_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Soon Hyung Kwon</a></h1>
+            <h2 class="site-description">데이터 블로그입니다 :)</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/meme2515'
+                        target="_blank"
+                        title="GitHub"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M200,513c0-20.3,0-40.7,0-61c3.1,0.6,1.9,3.1,1.9,4.8c0.1,16.3,0.2,32.6,0,48.9c-0.1,4.1,1,5.4,5.2,5.4   c36.6-0.2,73.2-0.2,109.8,0c4.4,0,5.1-1.6,5.1-5.5c-0.2-25-0.1-49.9-0.1-74.9c0-9.3,0.2-18.6,0.2-27.9c2.8,1.2,1.6,3.8,1.6,5.7   c0.1,34.8,0.1,69.6,0.1,104.4C282.7,513,241.3,513,200,513z" fill="#D1D1D1"/><path d="M322.2,402.8c-0.1,9.3-0.2,18.6-0.2,27.9c0,25-0.1,49.9,0.1,74.9c0,3.9-0.7,5.5-5.1,5.5   c-36.6-0.2-73.2-0.2-109.8,0c-4.2,0-5.3-1.3-5.2-5.4c0.2-16.3,0.1-32.6,0-48.9c0-1.7,1.2-4.2-1.9-4.8c-9.7,0.9-19.3,3.2-29.2,2.8   c-33.5-1.3-59.5-15.4-74.7-45.8c-8.2-16.4-17.8-31.7-29.1-46c-3.1-3.9-7.9-5.5-11.5-8.7c-1.1-1-2.4-1.8-3.3-3   c-2.3-3.3-1.2-5.8,2.8-6.2c18.5-1.9,33.8,4.2,46.2,18.1c6.3,7.1,10.2,15.8,16.3,23.1c12.3,14.7,28,22.7,47,24.9   c11.5,1.3,22.4-0.9,33.3-4.2c2.2-0.6,3.1-2,3.3-4.3c0.7-10.3,2.8-20.3,6.8-29.9c1.8-4.3,4.7-7.9,6.9-12.3   c-10.3-2.6-20.7-3.4-30.5-6.4c-27.1-8.2-50.9-21.6-68.2-44.7c-8.3-11-14.1-23.3-17.4-36.5c-1.8-7.2-3.9-14.4-3.8-22   c0.1-13.3-0.5-26.7,0.3-40c0.9-16.8,3.1-33.5,9.2-49.2c3.8-9.7,9.3-18.6,17.1-25.9c2.4-2.3,3.3-4.1,1.8-7.9   c-7.4-19.7-8.1-39.8-1.8-60c0.2-0.6,0.3-1.3,0.4-2c2.2-10.3,4.5-11.3,14.3-7.4c19.2,7.5,33.3,21,45.3,37.3c3.4,4.6,2.7,6.6,10,1.9   c9.7-6.2,21-8.1,32.2-9.3c20.1-2.1,40.3-1.5,60.4-1.1c14.3,0.3,28.5,2.2,42,7.2c3.1,1.1,6,2.8,8.7,4.8c2.1,1.6,3.6,1.6,5.6-1.1   c9.1-12.8,19.5-24.4,33-32.6c6.6-4,13.4-7.7,21.4-8.6c3.3-0.4,4.7,0.7,5.6,3.3c8.3,22.9,9.5,45.7-0.2,68.5   c-1.2,2.8-0.8,4.6,1.3,6.5c16,15,21.8,34.5,24.8,55.5c2.5,17.7,3.2,35.5,2.7,53.3c-0.8,31.2-11.4,58.4-34.4,80.1   c-13.5,12.7-29.7,21.1-47.1,27.5c-12.4,4.6-25.5,5.8-38.5,9c1.3,3.1,3.7,5.4,4.3,8.5c-0.3,1.3,0.4,2,1.6,2.3   c0.1,0.6,0.3,1.1,0.4,1.7c0.3,2.1,0.1,4.3,2.5,5.4c0.5,2.2,1,4.5,1.4,6.7c-0.1,1.7-0.7,3.5,1.6,4.3c0,0.6,0.1,1.2,0.1,1.9   c-1.5,2.3-0.1,4.1,1.1,6C322.1,398.9,322.2,400.9,322.2,402.8z" fill="#A7A7A7"/><path d="M322,397c-1.1-1.9-2.6-3.7-1.1-6C322.1,392.9,323,394.8,322,397z" fill="#D1D1D1"/><path d="M317.7,378.2c-2.4-1.1-2.2-3.3-2.5-5.4C317.4,374,317.7,376,317.7,378.2z" fill="#D1D1D1"/><path d="M320.8,389.1c-2.3-0.8-1.7-2.6-1.6-4.3C321.5,385.6,321,387.5,320.8,389.1z" fill="#D1D1D1"/><path d="M314.8,371.1c-1.2-0.3-1.9-1-1.6-2.3C314.5,369.1,315.1,369.8,314.8,371.1z" fill="#D1D1D1"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.linkedin.com/in/soon-hyung-kwon-73a3221ab/'
+                        target="_blank"
+                        title="LinkedIn"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M1,53c2.5,0,1.7-2,1.9-3.3C5.9,29,16.6,13.9,36.6,7.4c16.1-5.2,32.9-4.6,47.9,4c9.4,5.5,16.6,14,20.4,24.5   c2.8,7.8,4.9,15.9,4,24.2c-2.1,20.9-11.5,38.3-34.5,46.4c-17.4,6-34.3,3.8-50.2-5.7c-1-3.6-3.5-5.4-7.1-6c0,0,0,0,0,0   c-0.1-1.4-0.3-2.8-2.2-2.8C7.7,84,4.3,74.3,2.9,63.8C2.7,62.6,3.2,60.9,1,61C1,58.3,1,55.7,1,53z" fill="#A7A7A7"/><path d="M276.2,216.1c4.3-2.6,6-6.4,8.2-9.5c10.9-15,24.4-26.6,41.2-34.9c23-11.3,47.4-12.5,72-10.2   c18.9,1.7,36.8,8.1,53.1,18.5c19.4,12.4,33.3,29.6,42.8,50.2c5.8,12.5,9.6,25.8,11.9,39.6c2.1,12.9,3.7,25.6,3.7,38.7   c-0.1,65-0.1,130,0.1,195c0,4.6-1.3,5.8-5.8,5.7c-30.7-0.2-61.3-0.2-92,0c-4.5,0-5.5-1.3-5.5-5.6c0.1-61.3,0.4-122.7-0.1-184   c-0.1-13.9-2-27.7-9.2-40.4c-6.4-11.2-15.3-19.2-27-23.8c-15.7-6.2-31.9-7.4-48.3-2.8c-16.6,4.6-28.1,15.5-36.3,30.3   c-4.6,8.3-6.2,17-7.5,26.3c-1.3,10-1.1,19.8-1.1,29.7c-0.2,54.7-0.2,109.3,0,164c0,5-1.2,6.4-6.3,6.3c-30.3-0.3-60.7-0.2-91,0   c-4.2,0-5.7-1.3-5.6-5.2c0.1-2.8,0.3-5.6,0.3-8.4c0-105.5,0.1-211-0.1-316.5c0-4.4,0.9-6,5.7-6c30.5,0.2,61,0.2,91.5,0   c4.1,0,5.5,1,5.4,5.3C276,190.6,276.2,202.9,276.2,216.1z" fill="#A7A7A7"/><path d="M109,176.1c0,3.5,0.1,7,0.1,10.5c0,105.3,0,210.6,0,316c0,6.4,0,6.4-6.5,6.4c-31.8,0-63.7,0-95.5,0   c-0.1-2.5-0.2-5-0.2-7.5c0-78.8,0-157.5,0-236.3c0-28.1,0.1-56.3-0.1-84.4c0-3.6,0.9-4.9,4.7-4.9C44,176.1,76.5,176,109,176.1z" fill="#A7A7A7"/><path d="M109,176.1c-32.5,0-64.9,0-97.4-0.2c-3.8,0-4.7,1.2-4.7,4.9C7,208.9,6.9,237,6.9,265.2   c0,78.8,0,157.5,0,236.3c0,2.5,0.1,5,0.2,7.5c-1.7,0.1-3-0.3-3-2.3c0-1.3,0-2.7,0-4c0-106.8,0-213.5,0-320.3c0-7.6,0.7-8.3,8.2-8.3   c30.5,0,61,0,91.4,0.1C105.5,174.1,108.2,172.7,109,176.1z" fill="#E0E0E0"/><path d="M17.1,94.9c3.6,0.6,6.1,2.4,7.1,6C21.1,99.7,18.8,97.7,17.1,94.9z" fill="#E0E0E0"/><path d="M14.9,92.1c1.9,0,2,1.4,2.2,2.8C15,95,15,93.6,14.9,92.1z" fill="#E0E0E0"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/about' >
+                
+                
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/machine_learning' >
+                
+                
+                
+                <span>Machine Learning</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/neural_network' >
+                
+                
+                
+                <span>Neural Network</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/mlops' >
+                
+                
+                
+                <span>MLOps</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/cloud_network' >
+                
+                
+                
+                <span>Cloud &amp; Network</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/computer_science' >
+                
+                
+                
+                <span>Computer Science</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/neural_network/pytorch_3/">
+                
+                    <img src="/neural_network/pytorch.jpeg" loading="lazy" alt="Featured image of post PyTorch Deep Learning - 3. Backpropagation &amp; Gradient Descent" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/pytorch/" >
+                PyTorch
+            </a>
+        
+            <a href="/categories/neural-network/" >
+                Neural Network
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/neural_network/pytorch_3/">PyTorch Deep Learning - 3. Backpropagation &amp; Gradient Descent</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            파이토치를 활용한 오차역전파와 경사하강 실습
+        </h3>
+        
+    </div>
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jun 28, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    4 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="소개">소개</h2>
+<p>머신러닝과 분야에서 가장 뼈대가 되는 수학 공식은 <a class="link" href="https://ko.wikipedia.org/wiki/%EA%B2%BD%EC%82%AC_%ED%95%98%EA%B0%95%EB%B2%95"  target="_blank" rel="noopener"
+    >경사하강</a>이다. 왜일까? <a class="link" href="https://ko.wikipedia.org/wiki/%EC%84%9C%ED%8F%AC%ED%8A%B8_%EB%B2%A1%ED%84%B0_%EB%A8%B8%EC%8B%A0"  target="_blank" rel="noopener"
+    >SVM</a>, <a class="link" href="https://ko.wikipedia.org/wiki/%EC%84%A0%ED%98%95_%ED%9A%8C%EA%B7%80"  target="_blank" rel="noopener"
+    >선형회귀</a>, <a class="link" href="https://www.ibm.com/kr-ko/cloud/learn/neural-networks"  target="_blank" rel="noopener"
+    >신경망</a>과 같은 통상적인 예측 모델은 모두 다른 방식으로 예측값 $\tilde{Y}$ 를 예측하지만, 이 모든 모델의 정확도를 향상하는 학습과정에서는 언제나 알고리즘에 알맞는 경사하강 공식을 사용하기 때문이다. 구체적으로 경사하강이란 모델의 성능을 더 나은 방향으로 개선시킬 수 있도록 조절 가능한 모델의 변수를 업데이트하는 과정을 가르킨다.</p>
+<p>모든 경사하강 과정은 그에 알맞는 기울기 값, 즉 <a class="link" href="https://en.wikipedia.org/wiki/Gradient"  target="_blank" rel="noopener"
+    >gradient</a> 를 필요로하며, 이는 모델의 변수가 어떤 방향으로 (음수 또는 양수) 움직일때 성능이 개선되는지에 대한 정보를 제공한다. 신경망의 경우, 이러한 변수 별 gradient 값을 연산하기 위해 오차역전파라는 방법을 사용한다. 해당 글에서는 PyTorch 프레임워크를 사용하여 오차역전파를 수행하고, 신경망 모델의 경사하강을 구현하기까지의 과정을 실습해보고자 한다.</p>
+<h2 id="autograd-복습">Autograd 복습</h2>
+<p><a class="link" href="https://meme2515.github.io/neural_network/pytorch_2/"  target="_blank" rel="noopener"
+    >PyTorch Deep Learning - 2. Autograd</a> 글에서 살펴보았듯 신경망의 gradient 값을 도출하기 위해서는 역전파를 수행해야하며, 이는 PyTorch 라이브러리의 autograd 기능을 활용해 구현이 가능하다.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/neural_network/pytorch_2_1.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 1. 단일 뉴런의 역전파 과정</td>
+</tr>
+</tbody>
+</table></div>
+<p>$x = 1$ 의 인풋을 활용해 $y = 2$ 를 예측하는 단일 뉴런 모델의 역전파 과정을 PyTorch 로 구현한 코드는 다음과 같다. 이 경우 가중치인 $w$ 의 초기값이 최적치에 비해 낮기 때문에 gradient 는 음수가 되어야 한다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"> import torch
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> x = torch.tensor(1.0)
+</span></span><span class="line"><span class="cl"> y = torch.tensor(2.0)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> w = torch.tensor(1.0, requires_grad=True)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> # forward pass and compute the loss
+</span></span><span class="line"><span class="cl"> y_hat = w * x
+</span></span><span class="line"><span class="cl"> loss = (y_hat - y)**2
+</span></span><span class="line"><span class="cl"> print(loss)
+</span></span><span class="line"><span class="cl"> &gt;&gt;&gt; tensor(1., grad_fn=&lt;PowBackward0&gt;)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> # backward pass
+</span></span><span class="line"><span class="cl"> loss.backward()
+</span></span><span class="line"><span class="cl"> print(w.grad)
+</span></span><span class="line"><span class="cl"> &gt;&gt;&gt; tensor(-2.)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="경사하강">경사하강</h2>
+<p>경사하강이란 연산한 gradient 의 반대방향, 즉 손실함수를 낮추는 방향으로 모델의 파라미터를 업데이트하는 과정을 일컫는다. 아래 그림에서 start 지점의 gradient, 즉 미분값은 경사가 상대적으로 큰 양수값이며, 따라서 손실함수 $J(W)$ 를 최소화하기 위해 반대방향인 음수값으로 $w$ 를 업데이트하는 과정을 확인할 수 있다. 아직 gradient가 어떻게 손실함수를 낮추는 방향을 제시하는가에 대한 직관적인 이해가 이루어지지 않는다면 <a class="link" href="https://www.youtube.com/watch?v=GEdLNvPIbiM"  target="_blank" rel="noopener"
+    >1</a>, <a class="link" href="https://www.youtube.com/watch?v=IHZwWFHWa-w"  target="_blank" rel="noopener"
+    >2</a> 비디오를 참고하길 바란다. 또한 <a class="link" href="http://localhost:1313/neural_network/optimizer/"  target="_blank" rel="noopener"
+    >해당</a> 글은 Momentum, RMSProp, Adam 등 다양한 경사하강법을 소개하고있다.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/neural_network/pytorch_3_1.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 2. 단일 뉴런의 역전파 과정</td>
+</tr>
+</tbody>
+</table></div>
+<p>신경망 모델에서 경사하강을 수행하기 위해서는 다음과 같은 과정을 순차적으로 수행해야한다.</p>
+<ol>
+<li><strong>Prediction</strong>: 현재 파라미터 값을 사용한 예측</li>
+<li><strong>Loss Computation</strong>: 손실값 계산</li>
+<li><strong>Gradients Computation</strong>: 예측값을 기반으로 한 gradient 연산</li>
+<li><strong>Parameter updates</strong>: gradient 값을 기반으로 한 파라미터 업데이트</li>
+</ol>
+<h3 id="manual-접근법">Manual 접근법</h3>
+<p>우선 PyTorch 라이브러리 없이 Numpy 만으로 이와 같은 손실함수 과정을 구현하는 코드를 살펴보자. 해당 코드의 gradient 는 MSE 함수에 대한 미분값을 별도로 계산한 것이며, 다음 식을 기반으로 하고있다.</p>
+<p>$$
+\frac{\delta J}{\delta w} = \frac{1}{N} \cdot 2x (wx - y)
+$$</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"> import numpy as np
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> X = np.array([1, 2, 3, 4], dtype=np.float32)
+</span></span><span class="line"><span class="cl"> Y = np.array([2, 4, 6, 8], dypte=np.float32)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> w = 0.0
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> # model prediction
+</span></span><span class="line"><span class="cl"> def forward(x):
+</span></span><span class="line"><span class="cl">    return w * x
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"> # loss = MSE
+</span></span><span class="line"><span class="cl"> def loss(y, y_pred):
+</span></span><span class="line"><span class="cl">    return ((y_pred - y) ** 2).mean()
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> # gradient
+</span></span><span class="line"><span class="cl"> def gradient(x, y, y_pred):
+</span></span><span class="line"><span class="cl">    return np.dot(2 * x, y_pred - y).mean()
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> # training
+</span></span><span class="line"><span class="cl"> learning_rate = 0.01
+</span></span><span class="line"><span class="cl"> n_iters = 10
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> for epoch in range(n_iters):
+</span></span><span class="line"><span class="cl">    y_pred = forward(X)
+</span></span><span class="line"><span class="cl">    l = loss(Y, y_pred)
+</span></span><span class="line"><span class="cl">    dw = gradient(X, Y, y_pred)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    # update weights
+</span></span><span class="line"><span class="cl">    w -= learning_rate * dw
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="autograd-활용">Autograd 활용</h3>
+<p>다음 코드는 상단 경사하강 과정의 Gradients Computation 단계에서 수식이 아닌 Autograd 패키지의 자동미분 기능을 사용한 것이다. gradient 함수가 사라지고, 학습과정의 코드 변화를 확인할 수 있다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"> import torch
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> X = torch.tensor([1, 2, 3, 4], dtype=torch.float32)
+</span></span><span class="line"><span class="cl"> Y = torch.tensor([2, 4, 6, 8], dypte=torch.float32)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> # requires_grad 매개변수 설정
+</span></span><span class="line"><span class="cl"> w = torch.tensor(0.0, dtype=torch.float32, requires_grad=True)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> # model prediction
+</span></span><span class="line"><span class="cl"> def forward(x):
+</span></span><span class="line"><span class="cl">    return w * x
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"> # loss = MSE
+</span></span><span class="line"><span class="cl"> def loss(y, y_pred):
+</span></span><span class="line"><span class="cl">    return ((y_pred - y) ** 2).mean()
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> # training
+</span></span><span class="line"><span class="cl"> learning_rate = 0.01
+</span></span><span class="line"><span class="cl"> n_iters = 10
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> for epoch in range(n_iters):
+</span></span><span class="line"><span class="cl">    y_pred = forward(X)
+</span></span><span class="line"><span class="cl">    l = loss(Y, y_pred)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    # backward pass
+</span></span><span class="line"><span class="cl">    l.backward()
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    # update weights
+</span></span><span class="line"><span class="cl">    with torch.no_grad():
+</span></span><span class="line"><span class="cl">        w -= learning_rate * w.grad
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    # reset gradient
+</span></span><span class="line"><span class="cl">    w.grad.zero_()
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/pytorch/">pytorch</a>
+        
+            <a href="/tags/%ED%8C%8C%EC%9D%B4%ED%86%A0%EC%B9%98/">파이토치</a>
+        
+            <a href="/tags/%EB%89%B4%EB%9F%B4%EB%84%B7/">뉴럴넷</a>
+        
+            <a href="/tags/pytorch-%EC%82%AC%EC%9A%A9%EB%B2%95/">pytorch 사용법</a>
+        
+            <a href="/tags/%EC%8B%A0%EA%B2%BD%EB%A7%9D/">신경망</a>
+        
+            <a href="/tags/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/">머신러닝</a>
+        
+            <a href="/tags/%ED%85%90%EC%84%9C/">텐서</a>
+        
+            <a href="/tags/pytorch-tensor/">pytorch tensor</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/neural_network/pytorch_2/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/neural_network/pytorch.jpeg" loading="lazy" data-key="pytorch_2" data-hash="/neural_network/pytorch.jpeg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PyTorch Deep Learning - 2. Autograd</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/neural_network/pytorch_1/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/neural_network/pytorch.jpeg" loading="lazy" data-key="pytorch_1" data-hash="/neural_network/pytorch.jpeg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PyTorch Deep Learning - 1. Tensor</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/neural_network/optimizer/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/neural_network/adam.png" loading="lazy" data-key="optimizer" data-hash="/neural_network/adam.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">수학적으로 이해하는 최적화 기법 - 모멘텀, RMSProp, ADAM </h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "meme2515" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2022 Soon Hyung Kwon
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.11.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#소개">소개</a></li>
+    <li><a href="#autograd-복습">Autograd 복습</a></li>
+    <li><a href="#경사하강">경사하강</a>
+      <ol>
+        <li><a href="#manual-접근법">Manual 접근법</a></li>
+        <li><a href="#autograd-활용">Autograd 활용</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

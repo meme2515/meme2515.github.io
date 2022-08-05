@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='배치정규화 등장 배경과 구현 방법, 성능 개선 방식 등 설명'><title>배치정규화 (Batch Normalization) 란?</title>
+
+<link rel='canonical' href='https://meme2515.github.io/neural_network/batchnorm/'>
+
+<link rel="stylesheet" href="/scss/style.min.0d6801e40f97865d11b796a59ab5cccec41427c09bbb58dec945c9cf7412db70.css"><meta property='og:title' content='배치정규화 (Batch Normalization) 란?'>
+<meta property='og:description' content='배치정규화 등장 배경과 구현 방법, 성능 개선 방식 등 설명'>
+<meta property='og:url' content='https://meme2515.github.io/neural_network/batchnorm/'>
+<meta property='og:site_name' content='Soon Hyung Kwon'>
+<meta property='og:type' content='article'><meta property='article:section' content='Neural_network' /><meta property='article:tag' content='배치정규화' /><meta property='article:tag' content='정규화' /><meta property='article:tag' content='regularization' /><meta property='article:tag' content='neural network' /><meta property='article:published_time' content='2022-06-26T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-06-26T00:00:00&#43;00:00'/><meta property='og:image' content='https://meme2515.github.io/neural_network/batchnorm.png' />
+<meta name="twitter:title" content="배치정규화 (Batch Normalization) 란?">
+<meta name="twitter:description" content="배치정규화 등장 배경과 구현 방법, 성능 개선 방식 등 설명"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://meme2515.github.io/neural_network/batchnorm.png' />
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-135204357-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hud342b0d5be633fdc127bd0653c60e8c3_234674_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Soon Hyung Kwon</a></h1>
+            <h2 class="site-description">데이터 블로그입니다 :)</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/meme2515'
+                        target="_blank"
+                        title="GitHub"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M200,513c0-20.3,0-40.7,0-61c3.1,0.6,1.9,3.1,1.9,4.8c0.1,16.3,0.2,32.6,0,48.9c-0.1,4.1,1,5.4,5.2,5.4   c36.6-0.2,73.2-0.2,109.8,0c4.4,0,5.1-1.6,5.1-5.5c-0.2-25-0.1-49.9-0.1-74.9c0-9.3,0.2-18.6,0.2-27.9c2.8,1.2,1.6,3.8,1.6,5.7   c0.1,34.8,0.1,69.6,0.1,104.4C282.7,513,241.3,513,200,513z" fill="#D1D1D1"/><path d="M322.2,402.8c-0.1,9.3-0.2,18.6-0.2,27.9c0,25-0.1,49.9,0.1,74.9c0,3.9-0.7,5.5-5.1,5.5   c-36.6-0.2-73.2-0.2-109.8,0c-4.2,0-5.3-1.3-5.2-5.4c0.2-16.3,0.1-32.6,0-48.9c0-1.7,1.2-4.2-1.9-4.8c-9.7,0.9-19.3,3.2-29.2,2.8   c-33.5-1.3-59.5-15.4-74.7-45.8c-8.2-16.4-17.8-31.7-29.1-46c-3.1-3.9-7.9-5.5-11.5-8.7c-1.1-1-2.4-1.8-3.3-3   c-2.3-3.3-1.2-5.8,2.8-6.2c18.5-1.9,33.8,4.2,46.2,18.1c6.3,7.1,10.2,15.8,16.3,23.1c12.3,14.7,28,22.7,47,24.9   c11.5,1.3,22.4-0.9,33.3-4.2c2.2-0.6,3.1-2,3.3-4.3c0.7-10.3,2.8-20.3,6.8-29.9c1.8-4.3,4.7-7.9,6.9-12.3   c-10.3-2.6-20.7-3.4-30.5-6.4c-27.1-8.2-50.9-21.6-68.2-44.7c-8.3-11-14.1-23.3-17.4-36.5c-1.8-7.2-3.9-14.4-3.8-22   c0.1-13.3-0.5-26.7,0.3-40c0.9-16.8,3.1-33.5,9.2-49.2c3.8-9.7,9.3-18.6,17.1-25.9c2.4-2.3,3.3-4.1,1.8-7.9   c-7.4-19.7-8.1-39.8-1.8-60c0.2-0.6,0.3-1.3,0.4-2c2.2-10.3,4.5-11.3,14.3-7.4c19.2,7.5,33.3,21,45.3,37.3c3.4,4.6,2.7,6.6,10,1.9   c9.7-6.2,21-8.1,32.2-9.3c20.1-2.1,40.3-1.5,60.4-1.1c14.3,0.3,28.5,2.2,42,7.2c3.1,1.1,6,2.8,8.7,4.8c2.1,1.6,3.6,1.6,5.6-1.1   c9.1-12.8,19.5-24.4,33-32.6c6.6-4,13.4-7.7,21.4-8.6c3.3-0.4,4.7,0.7,5.6,3.3c8.3,22.9,9.5,45.7-0.2,68.5   c-1.2,2.8-0.8,4.6,1.3,6.5c16,15,21.8,34.5,24.8,55.5c2.5,17.7,3.2,35.5,2.7,53.3c-0.8,31.2-11.4,58.4-34.4,80.1   c-13.5,12.7-29.7,21.1-47.1,27.5c-12.4,4.6-25.5,5.8-38.5,9c1.3,3.1,3.7,5.4,4.3,8.5c-0.3,1.3,0.4,2,1.6,2.3   c0.1,0.6,0.3,1.1,0.4,1.7c0.3,2.1,0.1,4.3,2.5,5.4c0.5,2.2,1,4.5,1.4,6.7c-0.1,1.7-0.7,3.5,1.6,4.3c0,0.6,0.1,1.2,0.1,1.9   c-1.5,2.3-0.1,4.1,1.1,6C322.1,398.9,322.2,400.9,322.2,402.8z" fill="#A7A7A7"/><path d="M322,397c-1.1-1.9-2.6-3.7-1.1-6C322.1,392.9,323,394.8,322,397z" fill="#D1D1D1"/><path d="M317.7,378.2c-2.4-1.1-2.2-3.3-2.5-5.4C317.4,374,317.7,376,317.7,378.2z" fill="#D1D1D1"/><path d="M320.8,389.1c-2.3-0.8-1.7-2.6-1.6-4.3C321.5,385.6,321,387.5,320.8,389.1z" fill="#D1D1D1"/><path d="M314.8,371.1c-1.2-0.3-1.9-1-1.6-2.3C314.5,369.1,315.1,369.8,314.8,371.1z" fill="#D1D1D1"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.linkedin.com/in/soon-hyung-kwon-73a3221ab/'
+                        target="_blank"
+                        title="LinkedIn"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M1,53c2.5,0,1.7-2,1.9-3.3C5.9,29,16.6,13.9,36.6,7.4c16.1-5.2,32.9-4.6,47.9,4c9.4,5.5,16.6,14,20.4,24.5   c2.8,7.8,4.9,15.9,4,24.2c-2.1,20.9-11.5,38.3-34.5,46.4c-17.4,6-34.3,3.8-50.2-5.7c-1-3.6-3.5-5.4-7.1-6c0,0,0,0,0,0   c-0.1-1.4-0.3-2.8-2.2-2.8C7.7,84,4.3,74.3,2.9,63.8C2.7,62.6,3.2,60.9,1,61C1,58.3,1,55.7,1,53z" fill="#A7A7A7"/><path d="M276.2,216.1c4.3-2.6,6-6.4,8.2-9.5c10.9-15,24.4-26.6,41.2-34.9c23-11.3,47.4-12.5,72-10.2   c18.9,1.7,36.8,8.1,53.1,18.5c19.4,12.4,33.3,29.6,42.8,50.2c5.8,12.5,9.6,25.8,11.9,39.6c2.1,12.9,3.7,25.6,3.7,38.7   c-0.1,65-0.1,130,0.1,195c0,4.6-1.3,5.8-5.8,5.7c-30.7-0.2-61.3-0.2-92,0c-4.5,0-5.5-1.3-5.5-5.6c0.1-61.3,0.4-122.7-0.1-184   c-0.1-13.9-2-27.7-9.2-40.4c-6.4-11.2-15.3-19.2-27-23.8c-15.7-6.2-31.9-7.4-48.3-2.8c-16.6,4.6-28.1,15.5-36.3,30.3   c-4.6,8.3-6.2,17-7.5,26.3c-1.3,10-1.1,19.8-1.1,29.7c-0.2,54.7-0.2,109.3,0,164c0,5-1.2,6.4-6.3,6.3c-30.3-0.3-60.7-0.2-91,0   c-4.2,0-5.7-1.3-5.6-5.2c0.1-2.8,0.3-5.6,0.3-8.4c0-105.5,0.1-211-0.1-316.5c0-4.4,0.9-6,5.7-6c30.5,0.2,61,0.2,91.5,0   c4.1,0,5.5,1,5.4,5.3C276,190.6,276.2,202.9,276.2,216.1z" fill="#A7A7A7"/><path d="M109,176.1c0,3.5,0.1,7,0.1,10.5c0,105.3,0,210.6,0,316c0,6.4,0,6.4-6.5,6.4c-31.8,0-63.7,0-95.5,0   c-0.1-2.5-0.2-5-0.2-7.5c0-78.8,0-157.5,0-236.3c0-28.1,0.1-56.3-0.1-84.4c0-3.6,0.9-4.9,4.7-4.9C44,176.1,76.5,176,109,176.1z" fill="#A7A7A7"/><path d="M109,176.1c-32.5,0-64.9,0-97.4-0.2c-3.8,0-4.7,1.2-4.7,4.9C7,208.9,6.9,237,6.9,265.2   c0,78.8,0,157.5,0,236.3c0,2.5,0.1,5,0.2,7.5c-1.7,0.1-3-0.3-3-2.3c0-1.3,0-2.7,0-4c0-106.8,0-213.5,0-320.3c0-7.6,0.7-8.3,8.2-8.3   c30.5,0,61,0,91.4,0.1C105.5,174.1,108.2,172.7,109,176.1z" fill="#E0E0E0"/><path d="M17.1,94.9c3.6,0.6,6.1,2.4,7.1,6C21.1,99.7,18.8,97.7,17.1,94.9z" fill="#E0E0E0"/><path d="M14.9,92.1c1.9,0,2,1.4,2.2,2.8C15,95,15,93.6,14.9,92.1z" fill="#E0E0E0"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/about' >
+                
+                
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/machine_learning' >
+                
+                
+                
+                <span>Machine Learning</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/neural_network' >
+                
+                
+                
+                <span>Neural Network</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/mlops' >
+                
+                
+                
+                <span>MLOps</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/cloud_network' >
+                
+                
+                
+                <span>Cloud &amp; Network</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/computer_science' >
+                
+                
+                
+                <span>Computer Science</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/neural_network/batchnorm/">
+                
+                    <img src="/neural_network/batchnorm.png" loading="lazy" alt="Featured image of post 배치정규화 (Batch Normalization) 란?" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/regularization/" >
+                Regularization
+            </a>
+        
+            <a href="/categories/batch-norm/" >
+                Batch Norm
+            </a>
+        
+            <a href="/categories/pytorch/" >
+                PyTorch
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/neural_network/batchnorm/">배치정규화 (Batch Normalization) 란?</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            배치정규화 등장 배경과 구현 방법, 성능 개선 방식 등 설명
+        </h3>
+        
+    </div>
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jun 26, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="관련-논문위키-링크">관련 논문/위키 링크</h2>
+<ol>
+<li><a class="link" href="https://arxiv.org/abs/1502.03167"  target="_blank" rel="noopener"
+    >Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li><a class="link" href="https://arxiv.org/abs/1805.11604"  target="_blank" rel="noopener"
+    >How Does Batch Normalization Help Optimization?</a></li>
+<li><a class="link" href="https://en.wikipedia.org/wiki/Batch_normalization"  target="_blank" rel="noopener"
+    >Wikipedia - Batch Normalization</a></li>
+</ol>
+<h2 id="tldr">TL;DR</h2>
+<p>딥러닝 모델의 mini-batch 학습은, 학습 단계 별 데이터의 분포가 서로 다르다는 점에서 그 복잡성이 올라가고는 한다. 배치정규화 논문이 공개되기 전에는 이 문제를 해결하기 위해 단순히 input data $X$ 를 정규화 하는것에 그쳤으나, 해당 논문을 개재한 Google 팀은 각 중간 레이어의 아웃풋에 또한 정규화를 적용함으로 모델의 학습속도를 끌어올릴 수 있다는 점을 발견했다. 이와 같은 레이어 별 정규화 과정은 배치 스텝마다 별도로 적용되어야 하며 <em>(input data $X$에 대한 정규화는 전체 분포에 대한 정보가 있기때문에 일괄적으로 이루어질 수 있지만 중간 레이어의 결과값은 그렇지 못함)</em>, 따라서 이를 <strong>배치정규화</strong>라 칭한다.</p>
+<h2 id="internal-covariate-shift">Internal Covariate Shift</h2>
+<p>Google 팀이 중간레이어의 아웃풋을 정규화하게 된 배경에는 그들이 internal covariate shift 라고 명명한 문제가 존재한다. 비신경망 머신러닝 모델에 서로 다른 분포를 가진 데이터를 넣을떄 발생하는 <a class="link" href="https://www.google.com/search?client=firefox-b-d&amp;q=covariate&#43;shift"  target="_blank" rel="noopener"
+    >covariate shift</a> 라는 문제를 중간레이어 개념에 도입한 것인데, 특히 hyperbolic tangent, sigmoid와 같은 <a class="link" href="https://en.wikipedia.org/wiki/Activation_function"  target="_blank" rel="noopener"
+    >비선형 활성화 함수 (non-linear activation function)</a> 를 무겁게 사용하는 딥러닝 모델의 경우 이와 같은 분포 차이에 취약해질 여지가 많다.</p>
+<p>$$
+g(x) = \frac{1}{1 + e^{-x}}
+$$</p>
+<p>위의 sigmoid 함수에서 input 값 $x$가 조금만 올라가거나 내려가도 학습 속도는 기하급수적으로 느려지게된다는 점을 기억할 것이다 <em>(함수의 결과값이 0에 가까워지며 그 기울기가 작아지기 때문)</em>. 분포차가 심한 데이터를 단계별로 학습할때 이와 같은 문제로 인해 convergence를 찾는 과정이 심각하게 느려질 수 있다.</p>
+<p>또 하나의 문제는 레이어를 통과할수록 배치 간 데이터의 분포가 점차 더 큰 차이를 가지게 된다는 점이다. 신경망 구조가 워낙 복잡하기도 하지만, 이전 레이어의 가중치 (weight) 와 편향 (bias) 이 학습과정에서 계속 업데이트 되기 때문인데, 이쯤되면 중간레이어의 정규화 없이 학습이 이루어진다는게 오히려 이상하게 보인다.</p>
+<h2 id="방법론">방법론</h2>
+<p>일반적인 배치정규화는 activation function 의 아웃풋 $a$ 가 아닌 인풋 $z$ 에 적용된다. 비교적 일정하고, 적정한 범위내의 데이터를 activation function 에 집어넣어 activation layer 내 가능한 많은 노드가 제 역할을 하게하자는 취지이다. 한 개 레이어에서 배치정규화를 수행하는 방법은 다음과 같다.</p>
+<p>$$
+\mu = \frac{1}{m} \sum_{i} z^i
+$$</p>
+<p>$$
+\sigma^2 = \frac{1}{m} \sum_{i} (z_i - \mu)^2
+$$</p>
+<p>우선 선형함수 $z$ 의 평균 $\mu$ 와 분산 $\sigma^2$ 를 구한다. 해당 값들은 레이어, 배치 별로 그 값이 다르기 때문에 학습, 예측 단계에서 매번 계산이 필요하다.</p>
+<p>$$
+z_{norm}^i = \frac{z^i - \mu}{\sqrt{\sigma^2 + \epsilon}}
+$$</p>
+<p>정규화 수식을 이용하여 $z_{norm}$ 값을 구한다. 여기서 수식의 분모에 있는 $\epsilon$ 은 $\sigma^2$ 가 $0$ 일 경우에 대비한 아주 작은 safety term 이다. 이로 인해 $z_{norm}$ 은 평균이 $0$ 이며, 표준편차가 $1$ 에 해당하는 분포를 가지게된다.</p>
+<p>Input에 대한 정규화 처리는 이 단계에서 끝나겠지만 배치정규화는 다음과 같이 평균값과 표준편차에 대한 자유도를 주게된다. 처음 접했을때 다소 헷갈렸던 부분인데 데이터에 관계 없이 고른 분포를 추출하는 과정이라고 생각하면된다.</p>
+<p>$$
+\tilde{z^i} = \Gamma z_{norm}^i + \Beta
+$$</p>
+<p>여기서 $\Gamma$ 와 $\Beta$ 는 학습을 통해 최적값에 수렴하게된다. 이후 레이어, 배치 별 정규화가 적용된 $\tilde{z^i}$ 를 활성함수의 인풋으로 사용하면 배치정규화가 적용된 것이다.</p>
+<h2 id="기타-효과">기타 효과</h2>
+<p>구체적으로 배치정규화가 모델의 학습과정을 개선시키는 방법은 다음과 같이 정리할 수 있다.</p>
+<h3 id="1-학습-속도-개선">1. 학습 속도 개선</h3>
+<p><img src="/neural_network/batchnorm_2.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<p>정규화된 분포는 어떻게 학습 속도를 개선할까? 위 그림에서 왼쪽 그래프는 정규화가 적용되지 않은 경우의 손실함수를, 오른쪽 그래프는 정규화가 적용된 경우의 손실함수를 시각화 하고있다. 왼쪽의 경우 전반적인 손실함수 결과값이 $x$ 축 변수보다 $y$ 축 변수의 움직임에 더 민감한 부분을 확인할 수 있는데, 따라서 큰 학습속도 $\alpha$ 를 적용할 경우 방향성을 잃어 최적값을 찾지 못하는 문제가 발생할 여지를 가지게 된다. <strong>두 변수의 스케일 차이가 학습률에 제약을 가져오는 것이다</strong>.</p>
+<p>반면 오른쪽 그래프에서는 손실함수의 결과값이 두 개 변수에 유사한 민감도를 가지고 있는 점을 확인할 수 있다. 물론 이 경우 또한 지나치게 큰 $\alpha$ 값은 문제를 야기하겠지만, 전자의 경우에 비해 그 정도가 개선되었다는 점을 독자는 시각적으로 확인이 가능할 것이다.</p>
+<h3 id="2-초기값에-대한-내성">2. 초기값에 대한 내성</h3>
+<p>위 그림을 다시 참조하자. 왼쪽 그래프의 경우 초기값이 타원의 오른쪽 끝에 있을 경우와, 중하단에 있을 경우 중심점 (최적값) 으로 부터의 상당한 거리차가 발생한다. 이는 모델의 초기값에 따른 학습속도 차이가 발생할 수 있음을 의미한다. 오른쪽 그래프 또한 이러한 문제점을 어느정도 안고 있지만, 적어도 동일한 붉은 원 안에서는 거리차가 발생하지 않는다는 점을 확인할 수 있다.</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%EB%B0%B0%EC%B9%98%EC%A0%95%EA%B7%9C%ED%99%94/">배치정규화</a>
+        
+            <a href="/tags/%EC%A0%95%EA%B7%9C%ED%99%94/">정규화</a>
+        
+            <a href="/tags/regularization/">regularization</a>
+        
+            <a href="/tags/neural-network/">neural network</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "meme2515" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2022 Soon Hyung Kwon
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.11.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#관련-논문위키-링크">관련 논문/위키 링크</a></li>
+    <li><a href="#tldr">TL;DR</a></li>
+    <li><a href="#internal-covariate-shift">Internal Covariate Shift</a></li>
+    <li><a href="#방법론">방법론</a></li>
+    <li><a href="#기타-효과">기타 효과</a>
+      <ol>
+        <li><a href="#1-학습-속도-개선">1. 학습 속도 개선</a></li>
+        <li><a href="#2-초기값에-대한-내성">2. 초기값에 대한 내성</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

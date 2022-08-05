@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Autograd on Soon Hyung Kwon</title>
+        <link>https://meme2515.github.io/categories/autograd/</link>
+        <description>Recent content in Autograd on Soon Hyung Kwon</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Mon, 20 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/categories/autograd/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>PyTorch Deep Learning - 2. Autograd</title>
+        <link>https://meme2515.github.io/neural_network/pytorch_2/</link>
+        <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/neural_network/pytorch_2/</guid>
+        <description>&lt;img src="https://meme2515.github.io/neural_network/pytorch.jpeg" alt="Featured image of post PyTorch Deep Learning - 2. Autograd" /&gt;&lt;h2 id=&#34;소개&#34;&gt;소개&lt;/h2&gt;
+&lt;p&gt;신경망을 수학적으로 구현함에 있어 가장 까다로운 부분은 &lt;a class=&#34;link&#34; href=&#34;http://wiki.hash.kr/index.php/%EC%97%AD%EC%A0%84%ED%8C%8C&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;역전파 (backpropagation)&lt;/a&gt; 과정이다. 짧게 설명하자면, 모델에 존재하는 각각의 가중치(weight)와 편향(bias)이 &lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Loss_function&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;손실함수&lt;/a&gt;에 어떠한 영향을 끼치는지를 연산한 다음, 이 정보를 활용해 가중치와 편향의 값을 손실함수를 줄이는 방향으로 갱신시키는 과정이다. 개념적인 이해가 필요하다면 앞선 역전파 해시넷 링크와 더불어 &lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=Ilg3gGewQ5U&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;1&lt;/a&gt;번, &lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=1Q_etC_GHHk&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;2&lt;/a&gt;번 비디오를 참고하자.&lt;/p&gt;
+&lt;p&gt;역전파 과정에서 가장 중요한 수학적 요소는 손실함수에 대한 가중치와 편향의 편미분 (partial derivative) 연산이다. 가중치가 증가할때 손실함수 또한 같이 증가한다면 가중치값을 내리고, 편향 값이 내려갈때 손실함수가 증가한다면 반대로 편향값을 증가시키는 식이다. 이러한 과정을 반복함으로 인해 모델은 가능한 낮은 손실함수, 즉 높은 정확도를 가지게 된다.&lt;/p&gt;
+&lt;p&gt;하지만 신경망 네트워크에는 경우에 따라 수십만개의 가중치와 편향이 존재하고, 이를 학습 사이클마다 일일이 손으로 계산할 수 없기 때문에 편미분 연산을 자동적으로 처리해주는 알고리즘을 필요로 하게 되었다. 주요 딥러닝 프레임워크인 PyTorch 의 &lt;a class=&#34;link&#34; href=&#34;https://pytorch.org/tutorials/beginner/blitz/autograd_tutorial.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Autograd&lt;/a&gt; 패키지는 이러한 역전파 과정을 자동적으로 처리해주는 기능을 가지고있다.&lt;/p&gt;
+&lt;h2 id=&#34;자동-미분-automatic-differentiation&#34;&gt;자동 미분 (Automatic Differentiation)&lt;/h2&gt;
+&lt;p&gt;Autograd 패키지를 소개하기에 앞서, 자동 미분이 어떠한 방식으로 이루어지는지를 우선 살펴보고자 한다. 자동 미분의 접근 방식은 크게 세가지 (Numerical, Symbolic, Automatic) 가 존재한다.&lt;/p&gt;
+&lt;h3 id=&#34;a-numerical&#34;&gt;a. Numerical&lt;/h3&gt;
+&lt;p&gt;Numerical 접근은 고등학교 수학에서 등장하는, 극한을 통한 미분의 정의를 이용한다. $f(x)$가 input vector $x$에 대한 손실함수라고 가정했을때의 공식은 다음과 같다.&lt;/p&gt;
+&lt;p&gt;$$
+\begin{align}
+\frac{\delta f}{\delta x_i} = \lim_{h \to 0} \frac{f(x+he^i) - f(x)}{h}
+\end{align}
+$$&lt;/p&gt;
+&lt;p&gt;여기서 $x$란 길이 $n$의 input 벡터이며, $e^i$ 란 길이가 $n$이며 $i$ 번째 값이 1, 나머지 값이 0인 단위벡터 (unit vector) 이다.&lt;/p&gt;
+&lt;p&gt;$$
+\begin{align}
+x = \begin{bmatrix}
+x_1 \
+x_2 \
+\dots \
+x_n
+\end{bmatrix}
+; \
+e^1 = \begin{bmatrix}
+1 \
+0 \
+\dots \
+0
+\end{bmatrix}
+; \
+e^2 = \begin{bmatrix}
+0 \
+1 \
+\dots \
+0
+\end{bmatrix}
+; \
+\dots
+\end{align}
+$$&lt;/p&gt;
+&lt;p&gt;따라서 (1)번 식은 $x^i$ 값이 아주 작게 움직였을때, 함수 $f$의 결과값이 얼만큼 움직이는지를 나타내고있다.&lt;/p&gt;
+&lt;p&gt;Numerical 접근에선 크게 두가지 문제점이 존재한다. 첫번째 문제는 극한 (limit) 정의를 코드로 구현할 때 발생하는 오차 문제 (rounding error) 이다. 이는 아주 작은 $h$ 값을 컴퓨터의 floating point로 표현할 때 발생하는 물리적인 한계에서 비롯된 문제이다. 관심이 있는 독자들은 &lt;a class=&#34;link&#34; href=&#34;https://blog.demofox.org/2017/11/21/floating-point-precision/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;링크&lt;/a&gt;를 통해 더 자세한 내용을 확인하자.&lt;/p&gt;
+&lt;p&gt;두번째 문제는 해당 접근법이 $O(n)$ 만큼의 연산, 즉 각 가중치와 편향 값에 대한 개별적인 연산을 수행해야 한다는 점이다. 이는 수십만개의 가중치와 편향 값을 학습하는 신경망 네트워크에 지나친 연산 부담을 줄 수 있다.&lt;/p&gt;
+&lt;h3 id=&#34;b-symbolic&#34;&gt;b. Symbolic&lt;/h3&gt;
+&lt;p&gt;Symbolic 접근은 사람이 실제 미분 연산시에 사용하는 연산 규칙 (예를 들어 $\sin (x)$ 의 미분값은 $\cos (x)$) 을 기반으로 편미분을 구하는 방식이다. 해당 접근법에서 손실함수는 가중치와 편향의 수식으로 표현되며, 연산 규칙을 그 기반으로 하기에 numerical 접근법의 오차 문제를 해결한다. 대표적인 예시로 &lt;a class=&#34;link&#34; href=&#34;https://www.sympy.org/en/index.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;SymPy&lt;/a&gt; 패키지가 있다.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/pytorch_2_2.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 1. SymPy 패키지 적분 연산 사용 예시&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;(고등학생때 알았더라면&amp;hellip;!)&lt;/p&gt;
+&lt;p&gt;얼핏 생각하기에 타당해 보이는 symbolic 접근 또한 역전파 적용이 어려운 이유가 존재한다. 가장 대표적인 문제는 expression swell 인데, 손실함수의 수식보다 그 미분 수식이 기하급수적으로 복잡해지는 문제이다. 다음 예시와 함께 미분의 곱 규칙을 생각해보자.&lt;/p&gt;
+&lt;p&gt;$$
+h(x) = f(x)g(x) \newline
+h&amp;rsquo;(x) = f&amp;rsquo;(x)g(x) + f(x)g&amp;rsquo;(x) \newline
+$$&lt;/p&gt;
+&lt;p&gt;$f(x)$를 다음과 같이 정의하면 $h&amp;rsquo;(x)$는 더욱 복잡해진다.&lt;/p&gt;
+&lt;p&gt;$$
+f(x) = u(x)v(x) \newline
+h&amp;rsquo;(x) = (u&amp;rsquo;(x)v(x) + u(x)v&amp;rsquo;(x))g(x) + u(x)v(x)g&amp;rsquo;(x) \newline
+$$&lt;/p&gt;
+&lt;p&gt;이는 한가지 예시에 불과하고, 미분 수식의 복잡성은 손실함수의 수식과 비례하지 않기 때문에 해당 접근은 numerical 접근의 $O(n)$ 연산을 뛰어넘는 연산 부담을 네트워크에 줄 가능성이 있다. 또한 미분 연산의 대상이 항상 특정 수식으로 표현되어야 한다는 제약을 가지고 있다.&lt;/p&gt;
+&lt;h3 id=&#34;c-automatic&#34;&gt;c. Automatic&lt;/h3&gt;
+&lt;p&gt;Automatic 접근은 수식에 기반하는 대신, 덧셈, 곱셈과 같은 개별적인 연산자 그래프 (DAG) 를 생성하여 미분 연산 과정을 가장 작은 단위에서 수행하는 접근법이다. 다음 그래프를 참고하자.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/pytorch_2_3.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 2. 단일 뉴런의 Autograd DAG 예시&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;여기서 $w$는 가중치, $b$는 편향, $z$는 활성함수를 나타낸다 (편의를 위해 loss 또한 $L$로 지칭하겠다). 위 그래프에서 가중치 $w$의 편미분값, $\frac{\delta L}{\delta w}$ 값을 연산한다고 가정해보자. 우선 &lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Cross_entropy&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;CE (Cross Entropy)&lt;/a&gt; 함수의 미분식을 통해 $\frac{\delta L}{\delta z}$ 를 구한 후, $z$ 함수의 미분식을 사용해 구한 $\frac{\delta z}{\delta w}$를 $\frac{\delta L}{\delta z}$ 에 곱해줌으로서 $\frac{\delta L}{\delta z} \cdot \frac{\delta z}{\delta w} = \frac{\delta L}{\delta w}$를 연산할 수 있다. 더 작은 단위의 (레이어가 아닌 연산자 단위) 역전파라 생각해도 무방할 듯 하며, 복잡해 보이지만 편미분의 정의를 되새기며 기호와 그래프를 유심히 따라가면 그 의미가 전달 될 것이라 생각한다.&lt;/p&gt;
+&lt;h2 id=&#34;jacobian-vector-products-jvps&#34;&gt;Jacobian-Vector Products (JVPs)&lt;/h2&gt;
+&lt;p&gt;위 Fig 3. 의 예시에서는 2개의 input $w$, $b$와, 1개의 output $L$에 대한 연산자 그래프를 살펴보았다. Input의 개수가 $n$이고, output의 개수가 $m$인 경우는 어떨까? 해당 연산자 그래프에 대해서 다음과 같은 &lt;a class=&#34;link&#34; href=&#34;https://ko.wikipedia.org/wiki/%EC%95%BC%EC%BD%94%EB%B9%84_%ED%96%89%EB%A0%AC&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;편미분 매트릭스 (야코비 행렬, Jacobian Matrix)&lt;/a&gt;를 구할 수 있을 것이다.&lt;/p&gt;
+&lt;p&gt;(여기서 $x$는 input을, $f$는 output을 뜻하고 있다)&lt;/p&gt;
+&lt;p&gt;$$
+\begin{equation*}
+J_{f} = 
+\begin{bmatrix}
+\frac{\delta f_1}{\delta x_1 } &amp;amp; \frac{\delta f_2}{\delta x_1 } &amp;amp; \cdots &amp;amp; \frac{\delta f_m}{\delta x_1 } \newline
+\frac{\delta f_1}{\delta x_2 } &amp;amp; \frac{\delta f_2}{\delta x_2 } &amp;amp; \cdots &amp;amp; \frac{\delta f_m}{\delta x_2 } \newline
+\vdots  &amp;amp; \vdots  &amp;amp; \ddots &amp;amp; \vdots  \newline
+\frac{\delta f_1}{\delta x_n } &amp;amp; \frac{\delta f_2}{\delta x_n } &amp;amp; \cdots &amp;amp; \frac{\delta f_m}{\delta x_n } \newline
+\end{bmatrix}
+\end{equation*}
+$$&lt;/p&gt;
+&lt;p&gt;야코비 행렬은 모든 input과 output의 조합에 대한 편미분 값을 가지고 있으며, 각 열에는 output $f_i$, 행에는 input $x_j$에 속하는 값이 정렬되어있다. 특정 output 값 $f_i$에 대한 모든 input $x$의 편미분 벡터를 구하기 위해서는 다음과 같이 적합한 벡터 $r$을 곱해주어야 한다.&lt;/p&gt;
+&lt;p&gt;$$
+\begin{equation*}
+\frac{\delta f_i}{\delta x} = 
+J_f r =
+\begin{bmatrix}
+\frac{\delta f_1}{\delta x_1 } &amp;amp; \frac{\delta f_2}{\delta x_1 } &amp;amp; \cdots &amp;amp; \frac{\delta f_m}{\delta x_1 } \newline
+\frac{\delta f_1}{\delta x_2 } &amp;amp; \frac{\delta f_2}{\delta x_2 } &amp;amp; \cdots &amp;amp; \frac{\delta f_m}{\delta x_2 } \newline
+\vdots  &amp;amp; \vdots  &amp;amp; \ddots &amp;amp; \vdots  \newline
+\frac{\delta f_1}{\delta x_n } &amp;amp; \frac{\delta f_2}{\delta x_n } &amp;amp; \cdots &amp;amp; \frac{\delta f_m}{\delta x_n } \newline
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+1 \newline
+0 \newline
+\vdots \newline
+0 \newline
+\end{bmatrix}
+=
+\begin{bmatrix}
+\frac{\delta f_1}{\delta x_1 } \newline
+\frac{\delta f_1}{\delta x_2 } \newline
+\vdots \newline
+\frac{\delta f_1}{\delta x_n } \newline
+\end{bmatrix}
+\end{equation*}
+$$&lt;/p&gt;
+&lt;h2 id=&#34;autograd-사용법&#34;&gt;Autograd 사용법&lt;/h2&gt;
+&lt;p&gt;PyTorch의 Autograd 패키지는 이러한 야코비 행렬을 연산해주는 기능을 가지고있다. 우선 input 벡터인 $x$를 지정하는 법을 알아보자.&lt;/p&gt;
+&lt;h3 id=&#34;requires_grad-파라미터&#34;&gt;requires_grad 파라미터&lt;/h3&gt;
+&lt;p&gt;Input 벡터로 사용하고자 하는 tensor를 최초로 생성할때는 &lt;code&gt;requires_grad&lt;/code&gt; 파라미터를 &lt;code&gt;True&lt;/code&gt;로 설정해야한다. 다음 예시를 확인하자.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; import torch
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; x = torch.randn(3, requires_grad=True)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; print(x)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &amp;gt;&amp;gt;&amp;gt; tensor([-1.0475, 0.2038, 0.2971], requires_grad=True)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; y = x + 2
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; print(y)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &amp;gt;&amp;gt;&amp;gt; tensor([1.6828, 2.3467, 2.6648], grad_fn=&amp;lt;AddBackward0&amp;gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; z = y * y * 2
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; print(z)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &amp;gt;&amp;gt;&amp;gt; tensor([1.5855, 2.3060, 2.3540], grad_fn=&amp;lt;MulBackward0&amp;gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; z = z.mean()
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; print(z)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &amp;gt;&amp;gt;&amp;gt; tensor(8.9153, grad_fn=&amp;lt;MeanBackward0&amp;gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;code&gt;x&lt;/code&gt; tensor 생성 시 &lt;code&gt;requires_grad&lt;/code&gt; 파라미터를 True로 설정할 경우, &lt;code&gt;x&lt;/code&gt;를 변수로 사용한 함숫값 &lt;code&gt;y&lt;/code&gt;, &lt;code&gt;z&lt;/code&gt; tensor에 &lt;code&gt;grad_fn&lt;/code&gt; 이라는 미분 함수가 내제되어있는 것을 확인할 수 있다. 이는 언급했던 연산자 그래프의 노드에 해당하며, 편미분 연산시에는 이러한 노드를 순차적으로 되돌아가며 결과값을 연산하게된다.&lt;/p&gt;
+&lt;h3 id=&#34;backward-함수&#34;&gt;backward() 함수&lt;/h3&gt;
+&lt;p&gt;앞선 예시에서 최종 함숫값인 &lt;code&gt;z&lt;/code&gt;에 다음과 같이 &lt;code&gt;backward&lt;/code&gt; 함수를 호출할 시, 역전파에 필요한 편미분값 $\frac{\delta z}{\delta x}$ 를 &lt;code&gt;x.grad&lt;/code&gt; 속성을 통해 확인할 수 있다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; z.backward() # dz/dx
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; print(x.grad)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &amp;gt;&amp;gt;&amp;gt; tensor([0.0160, 3.3650, 4.5153])
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;이 경우에는 &lt;code&gt;z&lt;/code&gt;가 단일값이기 때문에 야코비 행렬이 그대로 리턴되었다. &lt;code&gt;z&lt;/code&gt;가 단일값이 아닌 벡터일때는 어떻게 해야할까? 결과값이 매트릭스이기 때문에 어떤 $z$값에 대한 편미분을 구해야 하는지가 명확하지 않다. 이러한 경우 앞선 예시에 사용된 벡터 $r$을 매개변수로 집어넣어야 한다. 다음 예시를 확인하자.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; x = torch.randn(3, requires_grad=True)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; y = x + 2
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; z = y * y * 2
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; z.backward()
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &amp;gt;&amp;gt;&amp;gt; RuntimeError: grad can be implicitly created only for scalar outputs.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; r = torch.tensor([1.0, 0, 0], dtype=torch.float32)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; z.backward(r)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; print(x.grad)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &amp;gt;&amp;gt;&amp;gt; tensor([5.0823, 0.0000, 0.0000])
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;대부분의 경우 편미분 연산은 단일값인 손실함수 $L$에 대해 이루어지기 때문에 &lt;code&gt;backward&lt;/code&gt; 함수 사용 시 별도의 매개변수는 사용하지 않게된다. 관련 내용에 궁금증이 남는다면 &lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=hjnVLfvhN0Q&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;본 영상&lt;/a&gt;을 참고하자.&lt;/p&gt;
+&lt;h2 id=&#34;참고-링크&#34;&gt;참고 링크&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=c36lUUr864M&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.youtube.com/watch?v=c36lUUr864M&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=wG_nF1awSSY&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.youtube.com/watch?v=wG_nF1awSSY&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

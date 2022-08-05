@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>DevOps on Soon Hyung Kwon</title>
+        <link>https://meme2515.github.io/tags/devops/</link>
+        <description>Recent content in DevOps on Soon Hyung Kwon</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Mon, 13 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/tags/devops/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>배치 관리 소프트웨어 런데크 (Rundeck)</title>
+        <link>https://meme2515.github.io/mlops/rundeck/</link>
+        <pubDate>Mon, 13 Jun 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/mlops/rundeck/</guid>
+        <description>&lt;img src="https://meme2515.github.io/mlops/rundeck-wordmark.svg" alt="Featured image of post 배치 관리 소프트웨어 런데크 (Rundeck)" /&gt;&lt;h2 id=&#34;프로그램-사용-배경&#34;&gt;프로그램 사용 배경&lt;/h2&gt;
+&lt;p&gt;업무 중 머신러닝 학습 데이터 생성을 위해 6대 로컬 PC에서 다소 리소스 인텐시브한 작업을 반복적으로, 장기간 진행할 니즈가 생겼다. 최초에는 6대 각각의 로컬 환경에서 Windows 공식 배치관리 툴인 &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/windows/win32/taskschd/task-scheduler-start-page&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Task Scheduler&lt;/a&gt; 에 관련 .bat 파일을 등록할 요량이었으나 다음과 같은 이유로 별도 배치 관리 툴을 찾아보게 되었다.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;6대 PC에서 개별적인 로컬 스케줄러를 관리한다는 것은 물리적인 모니터링을 필요로하기에 데이터 생성 기간동안 지나치게 많은 시간을 뺏길 것 같았다. &lt;strong&gt;빠른 대응이 가능한 중앙화된 모니터링 체계&lt;/strong&gt;가 필요했다.&lt;/li&gt;
+&lt;li&gt;프로세스는 경우에 따른 작업 시간이 달라 일정기간 지속 시 재시작 가능한 &lt;strong&gt;룰 기반 배치 관리&lt;/strong&gt;가 필요했다.&lt;/li&gt;
+&lt;li&gt;데이터 생성 도중 프로세스에 변동이 있을 가능성이 있었기때문에 &lt;strong&gt;프로세스 일괄 수정이 가능&lt;/strong&gt;한 툴이 필요했다.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;최초 머리에 떠오른 솔루션은 &lt;a class=&#34;link&#34; href=&#34;https://airflow.apache.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Apache Airflow&lt;/a&gt; 였으나 그닥 익숙한 솔루션도 되지 못했고, 모니터링 환경이 Windows 10 이었기때문에 환경 세팅에 어려움이 있었다. 그렇게 구글링을 계속하며 &lt;a class=&#34;link&#34; href=&#34;https://www.ansible.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Ansible&lt;/a&gt;과 같은 SSH 기반 솔루션을 생각했으나 보안상 이유로 다시 세팅에 어려움이 있었고&amp;hellip; 적합한 오픈소스 솔루션인 &lt;a class=&#34;link&#34; href=&#34;https://www.pagerduty.com/integrations/rundeck-runbook-automation/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Rundeck&lt;/a&gt;를 발견했다.&lt;/p&gt;
+&lt;h2 id=&#34;rundeck-소개&#34;&gt;Rundeck 소개&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/mlops/rundeck_example.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 1. Rundeck 파이프라인 예 - 유저가 생성한 Job 들을 Node 별로 할당 및 실행, 에러 발생 등 유사시 알림 설정&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;미국의 클라우드 소프트웨어 업체인 &lt;a class=&#34;link&#34; href=&#34;https://www.pagerduty.com&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;PagerDuty&lt;/a&gt; 사에서 개발한 작업 관리 소프트웨어이며, Physical, VM, Container, Serverless 환경에서 스크립트, API 호출 등의 작업을 스케줄링 및 관리 할 수 있다. 유학 중 룸메이트가 취업했다고 좋아하던 회사인데 좋은 프로그램을 만들고있었다.&lt;/p&gt;
+&lt;p&gt;많은 유즈 케이스들이 있는데, 가장 대중적인 예시는 &lt;a class=&#34;link&#34; href=&#34;https://sre.google/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;SRE (사이트 신뢰성 엔지니어링)&lt;/a&gt; 영역이다. Google 엔지니어 &lt;a class=&#34;link&#34; href=&#34;https://www.linkedin.com/in/benjamin-treynor-sloss-207120/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Ben Treynor Sloss&lt;/a&gt;가 창안한 개념인데, DevOps가 개발과 운영영역 간 사일로를 줄이는 철학적 접근이라고 한다면, SRE란 operation 영역의 문제들을 엔지니어링 관점에서 해결하는 방법론이라고 정의할 수 있다. 조직의 SRE팀이 계정 및 권한 관리, 인프라 리소스 관리 등의 운영 관점의 문제들을 자동화를 통해 해결하고나면, Dev팀은 소프트웨어 개발에, Ops팀은 제품 안정화에 더욱 집중할 수 있다는 식이다 (나도 현재는 이정도로만 이해하고 있고, 관심이 있다면 &lt;a class=&#34;link&#34; href=&#34;https://www.dynatrace.com/news/blog/what-is-site-reliability-engineering/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;1번&lt;/a&gt;, &lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=uTEL8Ff1Zvk&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;2번&lt;/a&gt; 링크에서 더욱 상세한 내용을 확인할 수 있다).&lt;/p&gt;
+&lt;p&gt;Rundeck 솔루션은 이러한 SRE 관점의 운영 절차를 표준화할 수 있는 플랫폼을 제공하며, 이러한 절차들은 조직 내에서 안전하게 공유되게 된다. 나의 경우는 아직 관련 지식이 부족하며, 당장 필요한 영역은 workload automation 으로 한정되어있기 때문에 깊은 내용은 추후에 더 알아보기로 하자.&lt;/p&gt;
+&lt;p&gt;핵심적으로 짚고 넘어가야 할 개념은 다음과 같다.&lt;/p&gt;
+&lt;h3 id=&#34;projects&#34;&gt;Projects&lt;/h3&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.rundeck.com/docs/manual/projects/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Rundeck Documentation - Projects&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Rundeck 내 작업 환경의 개념이다. 한개 Rundeck 서버에 여러개의 Project를 관리할 수 있으며, 프로젝트의 개념은 사용자가 정의하기 나름이다. 팀, 인프라, 어플리케이션, 환경 등 사용 목적에 맞게 Project를 구분하게 된다.&lt;/p&gt;
+&lt;h3 id=&#34;jobs&#34;&gt;Jobs&lt;/h3&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.rundeck.com/docs/manual/04-jobs.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Rundeck Documentation - Jobs&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;실행하고자 하는 프로세스의 묶음이다. &lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Batch_file&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;윈도우 batch 파일&lt;/a&gt;, &lt;a class=&#34;link&#34; href=&#34;https://airflow.apache.org/docs/apache-airflow/stable/concepts/dags.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Airflow의 DAG&lt;/a&gt; 개념과 유사하다.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/mlops/airflow_example.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 2. Airflow의 DAG 개념 예 - branch_b를 에러 케이스라고 보면 될 듯 하다&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Rundeck 내에서는 Job 단위로 스케줄러 설정이 가능하고, 개별적인 히스토리가 남게된다. 한개 Job을 생성할 때 input option을 설정하거나, 에러 핸들링 룰을 생성하는 등 부수적인 옵션이 주어지게 된다.&lt;/p&gt;
+&lt;h3 id=&#34;steps&#34;&gt;Steps&lt;/h3&gt;
+&lt;p&gt;CLI 커맨드, 스크립트 실행, 다른 Job 호출 등 하나의 Job을 구성하는 개별적인 태스크를 지칭하는 용어이다. 또한 개별 Step 내에서 다양한 플러그인 활용이 가능하다.&lt;/p&gt;
+&lt;h3 id=&#34;nodes&#34;&gt;Nodes&lt;/h3&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.rundeck.com/docs/manual/05-nodes.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Rundeck Documentation - Nodes&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Job이 실행되는 대상이다 (Physical, VM, Container, API, Database 등). 나의 경우에는 6대로 분할된 로컬 PC에 해당한다. 각각의 Node는 태그와 속성값을 지니게된다.&lt;/p&gt;
+&lt;p&gt;Rundeck의 &lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=QSY_qw9Buic&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;공식 소개 영상&lt;/a&gt;을 확인하면 Projects -&amp;gt; Jobs -&amp;gt; Steps -&amp;gt; Nodes 순으로 계층구조 개념을 띄고있다.&lt;/p&gt;
+&lt;h2 id=&#34;설치-방법-&#34;&gt;설치 방법 💻&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.rundeck.com/docs/administration/install/windows.html#folder-structure&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;윈도우 설치 Doc&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.rundeck.com/docs/administration/install/linux-deb.html#installing-rundeck&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Ubuntu 설치 Doc&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.rundeck.com/docs/administration/install/linux-rpm.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;CentOS 설치 Doc&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;내가-사용한-방법&#34;&gt;내가 사용한 방법&lt;/h2&gt;
+&lt;h3 id=&#34;winrm&#34;&gt;WinRM&lt;/h3&gt;
+&lt;p&gt;네트워크를 통해 원격으로 터미널을 제어하는 방법은 SSH (Secure Shell) 커맨드가 가장 익숙했고, Windows 10 부터는 OpenSSH라는 연관 툴을 기본으로 제공한다는 &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;공식 가이드&lt;/a&gt;를 확인해 세팅을 시도했다. 하지만 세팅에 필요한 PowerShell이 보안상의 이유로 제한되어있어 진행이 어려웠다.&lt;/p&gt;
+&lt;p&gt;이런 저런 대안을 찾아보다 Rundeck에서 제공하는 &lt;a class=&#34;link&#34; href=&#34;https://github.com/diyan/pywinrm&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;pywinrim&lt;/a&gt; 이라는 플러그인을 통해 Windows Node 설정이 가능하다는 &lt;a class=&#34;link&#34; href=&#34;https://docs.rundeck.com/docs/learning/howto/configuring-windows-nodes.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;공식 가이드&lt;/a&gt;를 확인했다. WinRM (Windows Remote Management)은 SSH의 Windows 네이티브 버전 정도로 이해가 되는데, 실제 프로토콜 방식은 굉장히 다르다고한다 (&lt;a class=&#34;link&#34; href=&#34;https://www.reddit.com/r/sysadmin/comments/nadfbs/winrm_vs_openssh/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;연관 글&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;pywinrm은 이런 WinRM 연결을 파이썬 환경에서 구현 가능하도록 하는 패키지인데, Rundeck내에서 해당 패키지를 활용한 노드 생성 기능을 구현한 듯 했다. 하지만 세팅이 생각보다 간단하지는 않았고, 나는 파이썬 스크립팅을 선호했기에 해당 패키지를 별도로 사용해 Rundeck에서는 .py 파일만 실행하는 접근법을 택했다.&lt;/p&gt;
+&lt;p&gt;하단은 pywinrm 패키지 사용 예시이다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; import winrm
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; s = winrm.Session(&amp;#39;windows-host.example.com&amp;#39;, auth=(&amp;#39;username&amp;#39;, &amp;#39;password&amp;#39;))
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; r = s.run_cmd(&amp;#39;ipconfig&amp;#39;, [&amp;#39;/all&amp;#39;])
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &amp;gt;&amp;gt;&amp;gt; r.status_code
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; 0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &amp;gt;&amp;gt;&amp;gt; r.std_out
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; Windows IP Configuration
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    Host Name . . . . . . . . . . . . : WINDOWS-HOST
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    Primary Dns Suffix  . . . . . . . :
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    Node Type . . . . . . . . . . . . : Hybrid
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    IP Routing Enabled. . . . . . . . : No
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    WINS Proxy Enabled. . . . . . . . : No
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; ...
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;filezilla-pscp&#34;&gt;FileZilla, PSCP&lt;/h3&gt;
+&lt;p&gt;학습 데이터 생성에 필요한 초기 데이터를 6대 PC에 분할하는 작업을 위해 메인 PC에 세팅한 &lt;a class=&#34;link&#34; href=&#34;https://filezilla-project.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;FileZilla&lt;/a&gt; 서버를 활용했다. 세팅 난이도도 높지 않고, 단순한 파일공유 (FTP) 프로그램으로 생각하면 될 듯 하다.&lt;/p&gt;
+&lt;p&gt;일련의 과정을 통해 생성된 학습 데이터는 각각 6대 PC로 부터 실제 학습을 수행할 리눅스 서버에 &lt;a class=&#34;link&#34; href=&#34;https://documentation.help/PuTTY/pscp.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;PSCP&lt;/a&gt; 커맨드를 통해 전송했다. 윈도우 환경에서 리눅스 환경으로 파일을 전송하기 위해 주로 사용되는 명령어라고 한다.&lt;/p&gt;
+&lt;h2 id=&#34;결론&#34;&gt;결론&lt;/h2&gt;
+&lt;p&gt;6대 PC에 스케줄링된 batch job의 성공 여부를 하나의 환경에서 모니터링 가능한 체계를 구축했다. 또한 일정시간 이상 batch job 지속 시 이를 취소하는 룰을 손쉽게 세팅할 수 있었고, 핵심 코드 또한 중심이 되는 서버 PC에서 수정이 가능하도록 했다. 언급한 3가지 요건을 어느정도 충족한 결과였다.&lt;/p&gt;
+&lt;p&gt;MLOps와 어느정도 연관성이 있는지는 사실 잘 모르겠다. 리소스 인텐시브한 데이터 생성 과정에서 유지/보수가 가능한 체계를 구축했다는데 의미가 있을수는 있으나 구축하게 될 모델과 직접적인 연관성이 있는건 아니고, Rundeck 이라는 프로그램 또한 분야에서 자주 활용되는 툴은 아닌 것 같다는 인상을 받았다.&lt;/p&gt;
+&lt;p&gt;다만 데이터 생성 과정을 여러대의 PC에 분산하고, 이를 모니터링 할 수 있는 체계는 생각보다 유용했고, 다시 사용할 일이 있지않을까 하는 생각이 들었다. 향후에는 조금 더 언급량이 많은 Ansible이나 Airflow같은 툴을 리눅스 기반의 환경에서 사용해보고 싶다.&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

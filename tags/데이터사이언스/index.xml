@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>데이터사이언스 on Soon Hyung Kwon</title>
+        <link>https://meme2515.github.io/tags/%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%82%AC%EC%9D%B4%EC%96%B8%EC%8A%A4/</link>
+        <description>Recent content in 데이터사이언스 on Soon Hyung Kwon</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Fri, 10 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/tags/%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%82%AC%EC%9D%B4%EC%96%B8%EC%8A%A4/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>About</title>
+        <link>https://meme2515.github.io/about/</link>
+        <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/about/</guid>
+        <description>&lt;img src="https://meme2515.github.io/about.jpg" alt="Featured image of post About" /&gt;&lt;p&gt;email: &lt;a class=&#34;link&#34; href=&#34;mailto:meme2515@gmail.com&#34; &gt;meme2515@gmail.com&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;제가 기술을 좋아하는 이유는, 거창하게 말하면 시대를 만들어 간다는 느낌을 받기 때문인 것 같아요. 구체적으로 사람들이 자주 언급하는 감정은 아니지만 그렇다고 또 대단히 특별할 것은 없는 욕구라고 생각해요. 산업혁명이 일어나고, 컴퓨터가 개인화되고, 이어폰에서 줄이 사라지고, 자동차가 전기로 움직였듯이 제가 느낌 가장 가시적인 시대의 변화는 기술의 발전으로 이루어졌고, 작은 제 삶에서 세상에 무언가 내가 뿌듯해할만한 기여를 할 수 있다면 기술을 통해서가 아닐까 하고 생각했습니다.&lt;/p&gt;
+&lt;p&gt;하지만 사람들은 전기차, 내연기관차 가릴 것 없이 주말 드라이브에서 웃고 울겠지요. 다른 일을 해봤으면 어땠을까 또한 자주 상상해봅니다. 더 나은 사회를 조직하는 일도 있을것이고, 질서를 지키는 일도, 아픈 사람을 고치는 일도, 듣기 좋은 음악을 만드는 일도 멋있어 보이더라구요. 그래도 제가 그나마 익숙하고 잘할 수 있는 분야에서, 그저 수단으로써 기술이 우리 삶에서 가지는 위치를 인지하고, 묵묵하게 제가 할 수 있는 것들을 찾고 나아가려고 항상 노력하고 있어요.&lt;/p&gt;
+&lt;p&gt;어렸을때 8년간 인도네시아라는 나라에서 생활하고 공부했습니다. 이후에 4년간 미국 &lt;a class=&#34;link&#34; href=&#34;https://www.berkeley.edu/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;UC버클리&lt;/a&gt;에서 유학하며 경제학과 신설된 데이터과학 학부 과정을 마쳤습니다. 현재 &lt;a class=&#34;link&#34; href=&#34;https://www.ey.com/ko_kr&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;EY&lt;/a&gt;라는 국내 회계법인 산하 컨설팅펌에서 데이터 관련 IT 컨설팅을 수행하는 업무를 맡고 있어요. 짧지만 자동차 제조, 핸드폰 글로벌 리테일, 가구업 글로벌 리테일, 식품제조업, 게임업, 유통업 등을 경험해 보았습니다. 컨설팅으로 시작하게 된 계기는 여러가지가 있겠지만 가능한 어릴때 가능한 많은 기업을 경험하고, 그들의 니즈를 경청하고, 다양한 데이터를 보고 싶었어요. 장점은 역동성과 업무 역량의 빠른 성장이고 단점은 공부할 시간이 없다입니다.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Python&lt;/code&gt; 으로 컴퓨터 공학에 입문했고 데이터를 배웠습니다. 경제학에 배경을 두고 있어 &lt;code&gt;Matlab&lt;/code&gt;, &lt;code&gt;STATA&lt;/code&gt; 등의 통계툴을 다뤄본 경험이 있고 업무적으로 &lt;code&gt;BigQuery&lt;/code&gt;, &lt;code&gt;Apache AirFlow&lt;/code&gt;, &lt;code&gt;PyTorch&lt;/code&gt; 등의 파이프라인 구축 및 모델링 프레임워크를 사용하고 있습니다. &lt;code&gt;Tableau&lt;/code&gt;, &lt;code&gt;Spotfire&lt;/code&gt; 등의 대시보드 툴 또한 자주 사용하고 있어요. 개인적으로 많은 관심을 가지고 있는 분야로는 MLOps, Deep Learning, Fintech 등이 있습니다.&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

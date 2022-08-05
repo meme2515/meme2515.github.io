@@ -1,0 +1,1964 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Soon Hyung Kwon</title>
+        <link>https://meme2515.github.io/</link>
+        <description>Recent content on Soon Hyung Kwon</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Fri, 15 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>결정 트리 (Decision Tree) 기초 개념</title>
+        <link>https://meme2515.github.io/machine_learning/decision_tree/</link>
+        <pubDate>Fri, 15 Jul 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/machine_learning/decision_tree/</guid>
+        <description>&lt;img src="https://meme2515.github.io/machine_learning/decision_tree_1.png" alt="Featured image of post 결정 트리 (Decision Tree) 기초 개념" /&gt;&lt;h2 id=&#34;소개&#34;&gt;소개&lt;/h2&gt;
+&lt;p&gt;구직 활동 중 한 회사에서 입사제의를 받았다고 가정하자. 개인마다 그 정도에는 차이가 있겠지만, 제안을 수락하기 까지에는 일종의 의사결정 체계가 존재할 것이다. 대표적으로 다음과 같은 질문을 자신에게 던져볼 수 있다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;나의 배경과 직급에 적당한 보수를 받을 수 있는가?&lt;/li&gt;
+&lt;li&gt;출근 위치는 내가 감내할 수 있는 거리 내에 있는가?&lt;/li&gt;
+&lt;li&gt;직원 복지제도가 존재하는가?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;질문에 연관성이 있는 데이터를 가지고 있다면 (보수, 통근거리, 복지제도 유무), 다수의 입사제의에 대해 수락(1) 또는 거절(0) 중 하나의 클래스로 제안에 대한 답변을 분류할 수 있는 알고리즘을 만들 수 있다. 이와 같이 일련의 결정 체계를 통해 분류와 회귀 문제를 효율적으로 수행하는 머신러닝 알고리즘을 결정 트리라고 부른다.&lt;/p&gt;
+&lt;p&gt;버클리와 스탠포드에서 1977년 개발한 &lt;strong&gt;CART 알고리즘&lt;/strong&gt; (Breiman et al.) 을 그 기반으로 하고있으며, 2010년 후반부터 널리 사용되고있는 &lt;a class=&#34;link&#34; href=&#34;https://lightgbm.readthedocs.io/en/v3.3.2/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;LightGBM&lt;/a&gt;, &lt;a class=&#34;link&#34; href=&#34;https://xgboost.readthedocs.io/en/stable/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;XGBoost&lt;/a&gt; 와 같은 앙상블 학습 알고리즘의 기반이기도하다.&lt;/p&gt;
+&lt;h2 id=&#34;결정-트리&#34;&gt;결정 트리&lt;/h2&gt;
+&lt;p&gt;머신러닝 예시에서 자주 사용되는 Iris 데이터셋을 활용해 모델의 작동방법을 자세히 알아보자. 아래 시각화된 모델은 주어진 붓꽃의 꽃잎 길이를 기반으로 품종을 분류한다. 먼저 첫 노드에서는 꽃잎의 길이 (petal width) 가 0.8 cm 보다 작거나 같은지 확인한 다음, 그렇다면 붓꽃의 품좀을 setosa 클래스로 분류한다.&lt;/p&gt;
+&lt;p&gt;만약 꽃잎의 길이가 0.8 cm 보다 클 경우, 모델은 다음 노드로 이동하여 꽃잎 길이가 1.75 cm 보다 작거나 같은지 확인한다. 그렇다면 붓꽃을 versicolor 클래스로, 그렇지 않다면 virginica 클래스로 분류한다.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/decision_tree_2.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 1. Sklearn 패키지의 결정 트리 모델 예시&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;노드의 &lt;strong&gt;samples 속성&lt;/strong&gt;은 학습 과정에서 얼마나 많은 훈련 샘플이 적용되었는지를 헤아리고 있다. 예를 들어 위 예시의 경우 총 150 개의 데이터를 기반으로 학습되었으며, setosa 클래스에는 50 개의 데이터가, versicolor 클래스에는 54 개의 데이터가 학습 과정에서 사용되었던 것을 확인할 수 있다.&lt;/p&gt;
+&lt;p&gt;이에 반해 &lt;strong&gt;value 속성&lt;/strong&gt;은 노드에 속한 각 클래스 별 데이터의 수를 보여준다. 예를 들어 우측 하단의 virginica 클래스에는 setosa 클래스가 0 개, versicolor 클래스가 1 개, virginica 클래스가 45 개가 분류되었다. 분류 체계가 완벽하지 않음을 뜻하며, 이는 &lt;strong&gt;gini 속성&lt;/strong&gt;, 즉 이후 설명할 지니 불순도와 연계된다.&lt;/p&gt;
+&lt;h2 id=&#34;지니-불순도와-엔트로피&#34;&gt;지니 불순도와 엔트로피&lt;/h2&gt;
+&lt;h3 id=&#34;지니-불순도-gini-impurity-score&#34;&gt;지니 불순도 (Gini Impurity Score)&lt;/h3&gt;
+&lt;p&gt;지니 불순도는 &lt;strong&gt;특정 노드에 얼마나 다양한 클래스가 분포해있는지를 측정하는 성능 지표&lt;/strong&gt;이다. 노드에 속해있는 샘플의 클래스 분포가 작을수록 0 에 가까워지며, $p_{i,k}$ 를 $i$ 번째 노드에 속한 샘플 중 클래스 $k$ 에 속한 샘플의 비율이라고 했을때 노드 $i$ 에 대한 지니 불순도 $G_i$ 는 다음과 같이 정의할 수 있다.&lt;/p&gt;
+&lt;p&gt;$$
+G_i = 1 - \sum_{k=1}^n p_{i,k}^2
+$$&lt;/p&gt;
+&lt;h3 id=&#34;엔트로피-entropy&#34;&gt;엔트로피 (Entropy)&lt;/h3&gt;
+&lt;p&gt;지니 불순도와 interchangeably 사용되는 개념이며, 본래 열역학의 개념이다 (분자가 안정되고 질서 정연할 수록 엔트로피는 0에 가까워진다). 노드 $i$ 에 대한 엔트로피 $H_i$ 는 다음과 같이 정의된다.&lt;/p&gt;
+&lt;p&gt;$$
+H_i = - \sum_{k=1, p_{i,k} \neq 0}^n p_{i,k} \cdot log_2(p_{i,k})
+$$&lt;/p&gt;
+&lt;p&gt;지니 불순도와 엔트로피 간 생성하는 모델에 큰 차이는 없으며, 지니 불순도의 연산속도가 더 빠르기 때문에 일반적으로 트리 기반 모델은 지니 불순도 평가 지표를 사용하고있다. 다만 모델에 차이가 발생하는 경우 엔트로피가 상대적으로 더 균형 잡힌 트리를 만들게된다.&lt;/p&gt;
+&lt;p&gt;여기서 드는 의문점은 지니 불순도와 엔트로피 모두 개별적인 노드에 대한 성능 지표라는 점이다. 일반적인 기계학습이란 모델의 단일 성능 지표 (RMSE, Cross Entropy 등) 를 기반으로 오차율을 줄이는 과정을 거치게 되는데, &lt;strong&gt;결정 트리는 학습 과정 시 전체 모델이 아닌 개별 노드의 성능만을 최적화한다&lt;/strong&gt;. 이러한 알고리즘을 &lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Greedy_algorithm&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Greedy Algorithm&lt;/a&gt; 이라 칭한다.&lt;/p&gt;
+&lt;h2 id=&#34;cart-훈련-알고리즘&#34;&gt;CART 훈련 알고리즘&lt;/h2&gt;
+&lt;p&gt;CART (Classification And Regression Tree) 는 데이터에 대한 최적의 의사 결정 기준을 찾기 위해 고안된 알고리즘이다. 개념적으로 CART 알고리즘은 다음과 같은 순서로 수행된다.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;훈련 세트를 여러 특성 $k$ 와 임곗값 $t_k$ 의 조합으로 반복해 분리한다 (예. 꽃잎의 길이 &amp;lt;= 2.45 cm).&lt;/li&gt;
+&lt;li&gt;매 사이클 마다 나누어진 두 서브셋에 대한 다음 비용 함수를 계산한다. &lt;em&gt;(여기서 $G$ 는 서브셋의 불순도, $m$ 은 서브셋의 샘플 수를 뜻한다)&lt;/em&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;$$
+J(k, t_k) = \frac{m_{left}}{m} G_{left} + \frac{m_{right}}{m} G_{right}
+$$&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;가장 작은 비용 함수를 가진 특성과 임곗값 조합으로 데이터를 나눈다.&lt;/li&gt;
+&lt;li&gt;요건을 충족할때 까지 동일한 방식을 통해 나누어진 서브셋에 대한 최적의 특성과 임곗값 조합을 찾는다.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;설명한바와 같이 CART 알고리즘은 Greedy Algorithm (탐욕적 알고리즘) 이다. 매 단계에서 알고리즘은 주어진 노드에 대한 최적의 특성과 임곗값 조합을 찾을뿐, 그 이후 과정에 대한 고려는 하지 않는다.&lt;/p&gt;
+&lt;h2 id=&#34;하이퍼파라미터&#34;&gt;하이퍼파라미터&lt;/h2&gt;
+&lt;p&gt;결정 트리는 별다른 데이터 전처리를 필요로하지 않을뿐만 아니라, 별다른 하이퍼파라미터 또한 필요로 하지 않는다. 대표적으로 조절할 수 있는 것은 결정 트리의 깊이 (depth) 인데, 이는 트리의 높이에 해당하는 개념이며 Scikit-learn 패키지는 &lt;code&gt;max_depth&lt;/code&gt; 매개변수를 통해 이를 조절한다. &lt;code&gt;max_depth&lt;/code&gt; 의 값이 낮을수록 모델을 규제하는 효과를 가진다. 이외에 Scikit-learn 패키지 DecisionTreeClassifier 가 가진 매개변수는 다음과 같다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;min_samples_split&lt;/code&gt; : 분할되기 위해 노드가 가져야 하는 최소 샘플 수&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;min_samples_leaf&lt;/code&gt; : 리프 노드가 가지고 있어야 할 최소 샘플 수&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;max_leaf_nodes&lt;/code&gt; : 리프 노드의 최대 수&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;max_features&lt;/code&gt; : 각 노드에서 분할에 사용할 특성의 최대 수&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;회귀-문제-적용&#34;&gt;회귀 문제 적용&lt;/h2&gt;
+&lt;p&gt;클래스의 개념에 노드에 속한 샘플의 평균값을 대입하면 결정 트리를 회귀 문제에 또한 적용할 수 있다. 다만 여기서 CART 알고리즘은 훈련 세트를 불순도를 최소화하는 방향으로 분할하는 대신 평균제곱오차 (MSE) 를 최소화하도록 분할하도록 작동한다.&lt;/p&gt;
+&lt;p&gt;$$
+J(k,t_k) = \frac{m_{left}}{m} MSE_{left} + \frac{m_{right}}{m} MSE_{right}
+$$&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/decision_tree_3.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 2. 결정 트리를 사용한 회귀 모델 예시&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;참고-자료&#34;&gt;참고 자료&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Hands-On Machine Learning with Scikit-Learn, Keras &amp;amp; Tensorflow&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.explorium.ai/blog/the-complete-guide-to-decision-trees/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.explorium.ai/blog/the-complete-guide-to-decision-trees/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>(논문 리뷰) 쉽게 이해하는 AlexNet 과 PyTorch 코드 예시</title>
+        <link>https://meme2515.github.io/neural_network/alexnet/</link>
+        <pubDate>Tue, 12 Jul 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/neural_network/alexnet/</guid>
+        <description>&lt;img src="https://meme2515.github.io/neural_network/alexnet_1.png" alt="Featured image of post (논문 리뷰) 쉽게 이해하는 AlexNet 과 PyTorch 코드 예시" /&gt;&lt;h2 id=&#34;소개&#34;&gt;소개&lt;/h2&gt;
+&lt;p&gt;2012년 토론토 대학의 &lt;a class=&#34;link&#34; href=&#34;https://www.cs.toronto.edu/~kriz/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Alex Krizhevsky&lt;/a&gt; 팀이 공개한 AlexNet 은 &lt;a class=&#34;link&#34; href=&#34;https://image-net.org/challenges/LSVRC/2012/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;ILSVRC-2012&lt;/a&gt; 대회에서 2등 모델의 정확도 26.2%를 10% 이상 상회하는 15.3% 의 정확도를 기록해 많은 관심을 받았던 CNN 구조이다. 특히 GPU 를 활용한 연산가속이 컴퓨터 비전 커뮤니티에서 적극적으로 사용되는 것에 기여하였으며, 이외에도 &lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Rectifier_%28neural_networks%29&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;ReLU 활성화 함수&lt;/a&gt;, Overlapping Pooling 등 &amp;lsquo;22년 현재 당연하게 받아들여지는 CNN 구조를 정립했다.&lt;/p&gt;
+&lt;h2 id=&#34;imagenet-ilsvrc&#34;&gt;ImageNet (ILSVRC)&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;스탠포드 대학 교수인 &lt;a class=&#34;link&#34; href=&#34;https://profiles.stanford.edu/fei-fei-li&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Fei-Fei Li&lt;/a&gt; 가 주로 알고리즘 위주의 연구가 이루어지던 당시 AI 분야에 기여하기위해 2009년 공개한 이미지-레이블 데이터셋이다.&lt;/li&gt;
+&lt;li&gt;매년 &lt;a class=&#34;link&#34; href=&#34;https://www.image-net.org/challenges/LSVRC/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;ImageNet Large Scale Visual Recognition Challenge (ILSVRC)&lt;/a&gt; 라는 레이블 예측 대회를 개최하고 있으며, 2012년 기준 약 120만개의 이미지-레이블 셋으로 이루어져 있었다 (22년 현재 1,400만).&lt;/li&gt;
+&lt;li&gt;Top-1 에러율, top-5 에러율 등으로 모델의 정확도를 평가하는데, 여기서 top-5 에러란 likelihood 가 가장 높은 5개 레이블에 실제 레이블이 포함되지 않은 경우를 가르킨다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/alexnet_4.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 1. ImageNet 데이터 예시&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;cnn-구조&#34;&gt;CNN 구조&lt;/h2&gt;
+&lt;h3 id=&#34;relu-nonlinearity&#34;&gt;ReLU Nonlinearity&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;논문이 게재되던 시점 CNN 구조에서 주로 사용되던 tanh, sigmoid 활성화 함수는 학습 속도가 느리다는 문제점을 안고있다. 따라서 AlexNet은 &lt;a class=&#34;link&#34; href=&#34;https://www.cs.toronto.edu/~fritz/absps/reluICML.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Nair and Hinton&lt;/a&gt; 에서 처음 소개된 ReLU 활성화 함수를 사용해 학습속도를 단축시킨다 (fig 2. 참조).&lt;/li&gt;
+&lt;li&gt;논문은 ReLU activation function 을 다음과 같이 정의한다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;$$
+f(x) = max(0,x)
+$$&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ReLU 활성화를 사용하게 된 배경에는 2012 당시 AlexNet 의 구조가 기타 CNN에 비해 복잡하고, 크다는 점이 있었다 (&amp;lsquo;92년 공개된 LeNet-5 가 대략 6만개의 학습 가능한 파라미터를 가지고 있는 반면, AlexNet은 6천만개의 파라미터를 가지고있다).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/alexnet_3.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 2. CIFAR-10 데이터에 대한 ReLU (실선) vs. tanh (점선) 학습율 비교&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;training-on-multiple-gpus&#34;&gt;Training on Multiple GPUs&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;AlexNet 팀은 2012년 당시 최신 GPU 였던 NVIDIA GTX 580 2대를 활용해 모델을 학습시켰다. 각 GPU는 3GB 의 메모리를 가지고 있었으며, 적은 메모리 용량으로 인해 한대의 GPU를 사용해 전체 ImageNet 데이터를 학습하는 것이 불가능했다.&lt;/li&gt;
+&lt;li&gt;2대의 GPU는 서로의 메모리에 직접적으로 접근할 수 있으며, 학습 과정에서의 병렬처리는 뉴런, 또는 커널을 반으로 나눠 각 GPU 에 할당하는 방식을 취한다. 다만 모든 레이어에서 커뮤니케이션이 이루어지는 것은 아니고, 특정 레이어에서만 이러한 기능을 활용해 리소스를 관리한다.&lt;/li&gt;
+&lt;li&gt;GPU 병렬처리는 학습 시간을 단축시킬뿐만 아니라, GPU 한대에서 처리가능한 사이즈의 네트워크에 비해 top-1 과 top-5 에러율을 각각 1.7% 와 1.2% 감소시킨다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;local-response-normalization-lrn&#34;&gt;Local Response Normalization (LRN)&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&amp;lsquo;22년 기준 최신 CNN 구조에서는 잘 사용되지 않는 개념이다. AlexNet 이후 연구에 따르면 모델의 성능에 크게 기여하지 않는 것으로 밝혀졌다.&lt;/li&gt;
+&lt;li&gt;ReLU 활성화 함수 사용으로 인풋 정규화를 반드시 사용해야할 이유는 없으나, AlexNet 의 경우 Local Response Normalization 이 모델의 일반화에 도움을 준다는 점을 발견했다.&lt;/li&gt;
+&lt;li&gt;인접한 $n$ 개 채널에 대한 정규화라고 이해하면된다. 하단 슬라이드의 좌측 도표 참고.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/alexnet_5.jpg&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 3. Local Response Normalization 예시&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;$a^i_{x,y}$ 가 채널 $i$ 에 대한 $x, y$ 좌표의 ReLU activation output 이라고 했을때, LRN 이 적용된 아웃풋 $b^i_{x,y}$ 는 다음과 같이 정의된다.
+&lt;ul&gt;
+&lt;li&gt;$n$ 은 인접 채널 수를 특정하는 파라미터, $N$ 은 전체 채널 수&lt;/li&gt;
+&lt;li&gt;논문은 $k = 2$, $n = 5$, $\alpha = 10^{-4}$, $\beta = 0.75$ 로 설정&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;$$
+b^i_{x,y} = a^i_{x,y}/(k + \alpha \sum_{j=max(0,i-n/2)}^{min(N-1,i+n/2)}(a^j_{x,y})^2)^\beta
+$$&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;실제 인접 뉴런 간 정규화가 이루어지는 사람의 두뇌를 기반으로 하고있으며, top-1 과 top-5 에러율을 각각 1.4% 와 1.2% 감소시키는 효과를 보였다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;overlapping-pooling&#34;&gt;Overlapping Pooling&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&amp;lsquo;12년 당시 pooling layer 는 각각의 pool 이 겹치지 않도록 stride 를 설정하는 것이 일반적이었으나, 이를 서로 겹치도록 설정함으로 top-1 에러율과 top-5 에러율을 각각 0.4% 와 0.3% 씩 감소시켰다.&lt;/li&gt;
+&lt;li&gt;기본적인 룰은 $z$ x $z$ 의 pooling kernel 에서 $z$ 보다 작은 stride 사이즈, $s &amp;lt; z$ 를 적용시키는 것이다. 논문에서는 $s=2$, $z=3$ 를 사용하였다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;overall-architecture&#34;&gt;Overall Architecture&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;총 8개의 레이어를 가지고 있으며, 5개의 convolution 레이어 후 3개의 FC 레이어를 가지는 전형적인 CNN 구조이다. 마지막 FC 레이어는 1,000 개의 뉴런을 가지고 있는데 이에 softmax 함수를 적용해 클레스 레이블을 유추한다.&lt;/li&gt;
+&lt;li&gt;2번, 4번, 5번 convolution 레이어의 경우 GPU 간 소통이 이루어지지 않는다. 따라서 같은 GPU 의 메모리에 속한 뉴런과의 관계만을 통해 학습을 진행한다. FC 레이어의 경우 앞선 레이어의 모든 뉴런과 연결되어있다.&lt;/li&gt;
+&lt;li&gt;1번, 2번 convolution 레이어에만 LRN 이 적용된다. 해당 2개 레이어와 5번 convolution 레이어는 또한 Max Pooling 레이어를 가지고 있다.&lt;/li&gt;
+&lt;li&gt;모든 convolution 레이어와 FC 레이어에 ReLU 활성화가 적용된다.&lt;/li&gt;
+&lt;li&gt;최초 인풋 사이즈는 227 x 227 x 3 이다 (논문에는 224 x 224 x 3 으로 잘못 표기되어있는 것으로 보인다).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/alexnet_1.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 4. AlexNet 구조 (실제 논문 또한 이미지의 상단이 잘려있다)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;코드-예시&#34;&gt;코드 예시&lt;/h3&gt;
+&lt;p&gt;아래는 &lt;a class=&#34;link&#34; href=&#34;https://paperswithcode.com/method/alexnet&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Papers With Code&lt;/a&gt; 에 링크된 &lt;a class=&#34;link&#34; href=&#34;https://github.com/dansuh17/alexnet-pytorch/blob/d0c1b1c52296ffcbecfbf5b17e1d1685b4ca6744/model.py#L40&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;구현 예시&lt;/a&gt;이다. 논문에서 보이지 않는 디테일은 다음과 같다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Convolution 레이어와 FC 레이어가 분리되어 있다.&lt;/li&gt;
+&lt;li&gt;Output 의 클래스 수를 설정할 수 있다. 기본값은 논문과 같은 1,000 으로 설정.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;36
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;37
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;class AlexNet(nn.Module):
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    def __init__(self, num_classes=1000):
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        super().__init__()
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        self.net = nn.Sequential(
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.Conv2d(in_channels=3, out_channels=96, kernel_size=11, stride=4),  # (b x 96 x 55 x 55)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.ReLU(),
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.LocalResponseNorm(size=5, alpha=0.0001, beta=0.75, k=2),  # section 3.3
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.MaxPool2d(kernel_size=3, stride=2),  # (b x 96 x 27 x 27)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.Conv2d(96, 256, 5, padding=2),  # (b x 256 x 27 x 27)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.ReLU(),
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.LocalResponseNorm(size=5, alpha=0.0001, beta=0.75, k=2),
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.MaxPool2d(kernel_size=3, stride=2),  # (b x 256 x 13 x 13)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.Conv2d(256, 384, 3, padding=1),  # (b x 384 x 13 x 13)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.ReLU(),
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.Conv2d(384, 384, 3, padding=1),  # (b x 384 x 13 x 13)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.ReLU(),
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.Conv2d(384, 256, 3, padding=1),  # (b x 256 x 13 x 13)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.ReLU(),
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.MaxPool2d(kernel_size=3, stride=2),  # (b x 256 x 6 x 6)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        )
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        # classifier is just a name for linear layers
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        self.classifier = nn.Sequential(
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.Dropout(p=0.5, inplace=True),
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.Linear(in_features=(256 * 6 * 6), out_features=4096),
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.ReLU(),
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.Dropout(p=0.5, inplace=True),
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.Linear(in_features=4096, out_features=4096),
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.ReLU(),
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            nn.Linear(in_features=4096, out_features=num_classes),
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        )
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        self.init_bias()  # initialize bias
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    def init_bias(self):
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        ...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    def forward(self, x):
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        ...
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;overfitting&#34;&gt;Overfitting&lt;/h2&gt;
+&lt;p&gt;AlexNet 은 약 6천만개의 파라미터에 대한 과적합을 방지하기 위해 다음 두가지 방법 (Data Augmentation 과 Dropout)을 사용한다. Dropout 을 사용한 초기 아키텍쳐 중 하나이며, PCA Color Augmentation 개념이 조금 어렵게 다가온다.&lt;/p&gt;
+&lt;h3 id=&#34;data-augmentation&#34;&gt;Data Augmentation&lt;/h3&gt;
+&lt;p&gt;아래 translation, reflection 및 PCA color augmentation 기법을 통한 데이터 증강은 학습 과정과 병행되며 (디스크에 저장하지 않는다), GPU 가 아닌 CPU 에서 별도로 처리되기 때문에 사실상 연산에 부담을 주지 않는다.&lt;/p&gt;
+&lt;h4 id=&#34;translation--reflection&#34;&gt;Translation &amp;amp; Reflection&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;256 x 256 이미지에서 랜덤하게 추출된 5개의 224 x 224 패치와 (4개의 코너 패치와 한개의 중앙 패치), 패치들에 적용된 좌우반전을 통해 10배 사이즈의 학습 데이터를 구축했다. 이후 이 10개 증강 이미지에 대한 평균값을 통해 레이블을 예측하게 된다.&lt;/li&gt;
+&lt;li&gt;이러한 데이터 증강 없이 학습된 네트워크는 심각한 과적합 문제를 가지고있다. 네트워크의 큰 사이즈 때문이며, 데이터 증강 기법을 사용하지 않는다면 네트워크 사이즈를 줄이는 방법 밖에는 없다고 저자는 기술한다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;pca-color-augmentation&#34;&gt;PCA Color Augmentation&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;데이터 증강을 목적으로 RGB 채널의 강도를 조정하는 방식이며, PCA 를 통해 얻은 채널 별 분산에 비례하는 난수를 각 채널에 더하거나 빼주게된다.&lt;/li&gt;
+&lt;li&gt;PCA 는 한개의 이미지가 아닌 모든 학습 데이터의 RGB 채널값을 대상으로 적용하게 된다. 따라서 자연스러운 채널 별 분산치를 얻을 수 있다.&lt;/li&gt;
+&lt;li&gt;모든 RGB 픽셀 값에 대한 3 x 3 공분산 행렬의 eigenvector 를 $p$, eigenvalue 를 $\lambda$ 라고 칭하고, $\alpha$ 는 평균이 0, 표준 편차가 0.1인 Gaussian 분포의 난수일때, RGB 이미지 픽셀 $[I^R_{xy}, I^G_{xy}, I^B_{xy}]$ 에 다음의 값을 더하는 방식이다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;$$
+[p_1, p_2, p_3][\alpha_1 \lambda_1, \alpha_2 \lambda_2, \alpha_2 \lambda_2]^T
+$$&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;개인적으로 아직 관련 이해도와 설명이 아쉽다. 차후 별도의 글을 통해 PCA 개념을 다시 짚어볼 계획.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;dropout&#34;&gt;Dropout&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;모델의 성능을 높이기 위한 가장 좋은 방식은 여러 모델의 결과값을 구해 평균을 내는 것이나, 모델의 규모가 너무 크기때문에 이는 현실적으로 어려운 접근법이다.&lt;/li&gt;
+&lt;li&gt;그 대안으로 논문은 0.5 의 확률로 개별 뉴런을 활성화하거나 비활성화하는 Dropout 방식을 제안한다. 이러한 확률로 비활성화된 뉴런은 순전파, 역전파 과정에 기여하지 않으며, 활성/비활성화의 사이클을 통해 여러개의 네트워크를 학습시키는 것과 동일한 결과를 얻을 수 있다.&lt;/li&gt;
+&lt;li&gt;Dropout 방식은 뉴런이 다른 특정 뉴런에 지나치게 의존하는 것을 사전에 방지한다. 개별 뉴런이 이전 레이어의 activation 정보를 적절히 조합하도록 유도하는 구조이다.&lt;/li&gt;
+&lt;li&gt;테스트시에는 이러한 학습과정으로 인해 뉴런의 아웃풋값에 0.5를 곱하게 된다.&lt;/li&gt;
+&lt;li&gt;AlexNet은 처음 2개의 FC 레이어에서만 Dropout 을 사용하고 있다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;details-of-learning&#34;&gt;Details of Learning&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;모델은 SGD 방식으로 학습되었으며, batch size는 128, momentum은 0.9, weight decay는 0.0005로 설정되었다.&lt;/li&gt;
+&lt;li&gt;모든 weight 는 평균이 0, 표준편차가 0.01 인 Gaussian Distribution 의 난수로 설정되었으며, 2번, 3번, 5번 convolution 레이어와 모든 hidden FC 레이어의 bias 값은 1로 설정되었다 (ReLU activation 에 양수값을 input 함으로 훈련으로 가속시키는 효과를 가짐; 나머지 bias 값은 0 으로 설정).&lt;/li&gt;
+&lt;li&gt;learning rate 는 모든 레이어에 동일하게 적용되었으며, 학습과정에서 manual 하게 조정되었다.
+&lt;ul&gt;
+&lt;li&gt;최초 learning rate는 0.01 로 설정&lt;/li&gt;
+&lt;li&gt;validation error rate 감소가 멈췄을 경우, learning rate 를 10 으로 나눔&lt;/li&gt;
+&lt;li&gt;학습 종료까지 총 세번의 learning rate 조정 발생&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;총 학습은 120만개의 이미지를 대상으로 90 사이클 진행.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;results&#34;&gt;Results&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;ILSVRC-2010 데이터셋을 대상으로 top-1 에러율, top-5 에러율 각각 37.5% 와 17.0% 를 기록함 (대회 진행 시 우승 모델의 성능은 각각 47.1%와 28.2%).&lt;/li&gt;
+&lt;li&gt;ILSVRC-2012 데이터셋의 test set label 은 &amp;lsquo;12년 당시 공개되지 않았음으로 validation error rate를 기록, 18.2%의 top-5 에러율을 보였다.
+&lt;ul&gt;
+&lt;li&gt;5개 CNN 구조의 평균값을 구했을때 16.4% 에러율 기록&lt;/li&gt;
+&lt;li&gt;6번째 convolution 레이어를 추가한 후, &amp;lsquo;11년 대회 데이터셋을 기반으로 fine tuning 을 진행했을때 16.6% 에러율 기록, 5개 CNN 모델의 평균값과 다시 평균을 내었을때 15.3% 의 에러율을 보였다&lt;/li&gt;
+&lt;li&gt;해당 대회의 2번째 높은 에러율은 26.2% 였음&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>Precision, Recall, F1 스코어 등의 모델 평가 방법</title>
+        <link>https://meme2515.github.io/machine_learning/performance_measurement/</link>
+        <pubDate>Wed, 06 Jul 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/machine_learning/performance_measurement/</guid>
+        <description>&lt;img src="https://meme2515.github.io/machine_learning/performance_1.png" alt="Featured image of post Precision, Recall, F1 스코어 등의 모델 평가 방법" /&gt;&lt;h2 id=&#34;배경&#34;&gt;배경&lt;/h2&gt;
+&lt;p&gt;모델 평가 방법에 대한 사전지식이 없는 누군가에게 스팸 필터 모델에 대한 평가를 요구한다면 아마 정확도 (accuracy) 를 평가 기준으로 선택할 것이다. 정확도는 직관적으로 다음과 같이 정의할 수 있다.&lt;/p&gt;
+&lt;p&gt;$$
+\text{Accuracy} = \frac{\text{Number of correct labels}}{\text{Number of all cases}}
+$$&lt;/p&gt;
+&lt;p&gt;경우에 따라 정확도는 적절한 평가 지표가 될 수 있겠지만, 문제가 될 여지 또한 존재한다. 예를 들어 데이터셋에 90가지의 비스팸 메일과, 10가지의 스팸메일이 존재한다고 가정한다면, 별도의 수학적 계산 없이 무조건 메일을 비스팸으로 정의하는 더미 모델은 앞서 정의한 정확도가 90% 에 이르게 된다. 따라서 이 경우에 정확도는 모델의 성능 평가라는 목적에 부합하지 않는 지표이다.&lt;/p&gt;
+&lt;p&gt;다음 글에서는 이러한 &lt;a class=&#34;link&#34; href=&#34;https://machinelearningmastery.com/what-is-imbalanced-classification/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Class Imbalance&lt;/a&gt; 문제를 해결하기 위해 고안된 기타 평가 지표들을 설명하고있다.&lt;/p&gt;
+&lt;h2 id=&#34;confusion-matrix&#34;&gt;Confusion Matrix&lt;/h2&gt;
+&lt;p&gt;평가 지표 개념을 설명하기 전에 &lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Confusion_matrix&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;오차 행렬 (Confusion Matrix)&lt;/a&gt; 의 개념을 짚고가자. 기본적으로 오차 행렬은 문제 내 존재하는 클래스들의 예측 조합을 보여준다. 예를 들자면 90건의 클래스 Non-Spam 이 Non-Spam 으로 예측된 경우가 82건, Spam 으로 예측된 경우가 8건과 같은 식이다. 아래 그림을 확인하자.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/performance_1.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 1. 단순 OX 문제에 대한 오차 행렬&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;위 그림에서 Positive(1)이 스팸메일을 뜻할 경우 다음과 같은 네가지 경우의 수가 존재한다.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;True Positive (TP)&lt;/strong&gt;: 실제 스팸 메일이 스팸 메일로 올바르게 예측된 경우&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;False Positive (FP)&lt;/strong&gt;: 실제 비스팸 메일이 스팸 메일로 잘못 예측된 경우&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;False Negative (FN)&lt;/strong&gt;: 실제 스팸 메일이 비스팸 메일로 잘못 예측된 경우&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;True Negative (TN)&lt;/strong&gt;: 실제 비스팸 메일이 비스팸 메일로 올바르게 예측된 경우&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;이와 같은 오차 행렬의 언어를 사용하면 Accuracy 지표를 다음과 같이 정의할 수 있게된다.&lt;/p&gt;
+&lt;p&gt;$$
+\text{Accuracy} = \frac{\text{TP} + \text{TN}}{\text{TP} + \text{TN} + \text{FP} + \text{FN}}
+$$&lt;/p&gt;
+&lt;p&gt;경우의 수가 세분화 되었으니, 유사한 방법으로 성능 평가 지표에 대한 다양한 접근이 가능해졌다. 다음 부분에서는 대표적 대안 지표인 Precision 과 Recall 의 정의를 살펴보자.&lt;/p&gt;
+&lt;h2 id=&#34;precision--recall&#34;&gt;Precision &amp;amp; Recall&lt;/h2&gt;
+&lt;h3 id=&#34;precision&#34;&gt;Precision&lt;/h3&gt;
+&lt;p&gt;Precision 이란 다음과 같이 정의할 수 있다.&lt;/p&gt;
+&lt;p&gt;$$
+\text{Precision} = \frac{\text{TP}}{\text{TP} + \text{FP}}
+$$&lt;/p&gt;
+&lt;p&gt;즉, 기존 예시에서 &lt;strong&gt;스팸메일로 예측되었던 메일 중 실제 스팸메일의 비율&lt;/strong&gt;을 나타내는 지표이다. Precision 은 예측이 이미 이루어진 상황에서 예측값의 불순도를 측정하며, 무조건적으로 메일을 비스팸으로 분류하는 더미 모델의 경우 10% 의 Precision Score를 가지게 된다. &lt;em&gt;(여기서 positive(1) 값을 스팸으로 정의하는 것이 중요하다. 스팸 메일과 같은 minority class로 positive(1) 값을 설정해야 class imbalance 문제를 해결할 수 있다).&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Precision 이 중요한 지표로 작용하는 예시로는 신선한 야채를 골라내는 분류기가 있다. 골라낸 야채 중 상하고 오래된 야채의 비중이 높을수록 판매자는 여러 심각한 리스크를 떠안게 된다. 신선한 야채를 몇개 버릴지언정 상한 야채를 신선한 야채로 분류하는 비율은 최소한으로 유지해야한다.&lt;/p&gt;
+&lt;h3 id=&#34;recall&#34;&gt;Recall&lt;/h3&gt;
+&lt;p&gt;Recall 이란 다음과 같이 정의할 수 있다.&lt;/p&gt;
+&lt;p&gt;$$
+\text{Recall} = \frac{\text{TP}}{\text{TP} + \text{FN}}
+$$&lt;/p&gt;
+&lt;p&gt;Recall 은 &lt;strong&gt;실제 스팸메일 중 스팸메일로 예측된 메일의 비율&lt;/strong&gt;을 나타내는 지표이다. Recall 스코어는 예측이 이루어지기 전 실제 수치와 예측값의 유사도를 측정하며, 더미 모델의 경우 0% 의 Recall Score를 가지게 된다.&lt;/p&gt;
+&lt;p&gt;Recall 이 중요한 지표로 작용하는 예시로는 의료적 진단이 있다. 실제 암환자에게 정확한 진단을 내리지 못하는 경우가 많아질수록 환자가 치료시기를 놓칠 위험이 증가하게 된다. 아프지 않은 환자에게 암 진단을 내리는 경우가 생길지언정 실제 암 환자에게 암 진단을 내리지 못하는 비율은 최소한으로 유지해야한다.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/performance_3.jpg&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 2. Precision Recall 개념의 이해를 돕는 그림&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;f1-score&#34;&gt;F1 Score&lt;/h3&gt;
+&lt;p&gt;Precision 과 Recall 을 F1 Score 라는 하나의 지표로 통일하는 방법 또한 존재한다.&lt;/p&gt;
+&lt;p&gt;$$
+\text{F1 Score} = 2 \cdot \frac{\text{Recall} \cdot \text{Precision}}{\text{Recall} + \text{Precision}}
+$$&lt;/p&gt;
+&lt;p&gt;Precision 과 Recall 간 &lt;a class=&#34;link&#34; href=&#34;https://wikidocs.net/23088&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;조화평균 (Harmonic Mean)&lt;/a&gt; 값을 구하는 것인데, 산술평균이나 기하평균이 아닌 조화평균을 사용하는 이유는 Precision 과 Recall 간 분모값 차이로 인한 스케일 차이가 발생하기 때문이다. &lt;a class=&#34;link&#34; href=&#34;https://stackoverflow.com/questions/26355942/why-is-the-f-measure-a-harmonic-mean-and-not-an-arithmetic-mean-of-the-precision&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;참고 설명&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;tpr-fpr&#34;&gt;TPR, FPR&lt;/h3&gt;
+&lt;p&gt;TPR (True Positive Rate) 의 정의는 다음과 같으며, Recall 의 정의와 동일하다. 따라서 &lt;strong&gt;실제 스팸메일 중 스팸메일로 올바르게 예측된 메일의 비율&lt;/strong&gt; 을 측정한다.&lt;/p&gt;
+&lt;p&gt;$$
+TPR = \frac{TP}{TP + FN}
+$$&lt;/p&gt;
+&lt;p&gt;같은 지표가 TPR 이라는 또 다른 이름은 가지는 이유는 FPR (False Positive Rate) 의 개념과 대비하기 위해서다. FPR 은 다음과 같이 정의되며, &lt;strong&gt;실제 비스팸메일 중 스팸메일로 잘못 예측된 메일의 비율&lt;/strong&gt; 을 측정한다.&lt;/p&gt;
+&lt;p&gt;$$
+FPR = \frac{FP}{FP + TN}
+$$&lt;/p&gt;
+&lt;h3 id=&#34;sensitivity-specificity&#34;&gt;Sensitivity, Specificity&lt;/h3&gt;
+&lt;p&gt;의료 분야에서 주로 사용되는 지표인 Sensitivity 또한 TPR, Recall 의 정의와 동일하며, &lt;strong&gt;실제 스팸메일 중 스팸메일로 올바르게 예측된 메일의 비율&lt;/strong&gt; 을 측정한다.&lt;/p&gt;
+&lt;p&gt;$$
+\text{Sensitivity} = \frac{TP}{TP + FN}
+$$&lt;/p&gt;
+&lt;p&gt;Sensitivity 는 Specificity 의 다음 정의와 대비되며, &lt;strong&gt;실제 비스팸메일 중 비스팸메일로 올바르게 예측된 메일의 비율&lt;/strong&gt; 을 측정한다. 즉, FPR 이 비스팸메일 데이터의 오류에 대한 비율이라면 Sensitivity 는 정확도에 대한 비율이라고 이해하면 된다. 같은 분모를 가지고 있지만 다른 분자를 가지고 있는 것을 확인할 수 있다.&lt;/p&gt;
+&lt;p&gt;$$
+\text{Specificity} = \frac{TN}{FP + TN}
+$$&lt;/p&gt;
+&lt;h2 id=&#34;pr-curve-roc-curve&#34;&gt;PR Curve, ROC Curve&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/performance_5.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 3. 분류기 모델의 ROC, PR Curve 예시&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;precision-recall-pr-curve&#34;&gt;Precision-Recall (PR) Curve&lt;/h3&gt;
+&lt;p&gt;&amp;ldquo;신선한 야채를 몇개 버릴지언정&amp;rdquo;, &amp;ldquo;아프지 않은 환자에게 암 진단을 내리는 경우가 생길지언정&amp;rdquo; 과 같은 말은 이 두개 지표 사이에 trade-off 관계가 있음을 암시한다.&lt;/p&gt;
+&lt;p&gt;더미 모델이 아닌 실제 각 클래스에 속할 확률을 구하는 모델의 경우, &lt;strong&gt;확률이 몇퍼센트 이상일때 positive(1) 으로 분류할 것인가를 정의하는 threshold 파라미터&lt;/strong&gt;를 가지고 있게된다 &lt;em&gt;(30% 이상의 확률일때 스팸으로 분류, 50% 이상의 확률일때 스팸으로 분류 등)&lt;/em&gt;. 이 threshold 를 움직임에 따라 Precision Recall 지표값이 어떠한 상관관계를 가지고 있는지를 나타내는 그래프를 &lt;strong&gt;Precision-Recall Curve, 혹은 PR Curve&lt;/strong&gt; 라 칭한다.&lt;/p&gt;
+&lt;p&gt;위의 예시와 같이 일반적인 분류기는 Precision 이 상승하면 Recall 이 하락하고, Recall 이 상승하면 Precision 이 하락하는 관계를 가지고 있다.&lt;/p&gt;
+&lt;h3 id=&#34;roc-curve&#34;&gt;ROC Curve&lt;/h3&gt;
+&lt;p&gt;Receiver Operating Characteristic (ROC) Curve 또한 동일하게 threshold 의 움직임에 따라 TPR, FPR 지표의 상관관계를 나타내는 그래프이다. PR Curve 와는 반대로 하나의 지표가 상승할때 다른 하나의 지표 또한 같이 상승하는 관계를 가지고 있으며, 이는 TPR 은 정확도에 대한 지표인 반면 FPR 은 오류율에 대한 지표이기 때문이라고 이해하면 된다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;이상적인 모델은 ROC Curve 의 좌상단에 위치한, 즉 1의 TPR과 0의 FPR을 가지고 있는 모델이다&lt;/strong&gt;. 이는 스팸메일은 항상 스팸메일로, 비스팸메일은 항상 비스팸메일로 분류하는 모델을 뜻하기 때문이다.&lt;/p&gt;
+&lt;h3 id=&#34;area-under-the-curve&#34;&gt;Area Under the Curve&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Area Under the Curve (AUC)&lt;/strong&gt; 는 말 그대로 적분을 통해 &lt;strong&gt;PR Curve 와 ROC Curve 의 부피&lt;/strong&gt;를 구한 값이다. 어떤 그래프의 부피인가에 따라 ROC-AUC, PR-AUC 로 정의되며, 모델 평가에 가장 일반적으로 쓰이는 지표는 ROC-AUC 이다. AUC 는 (0, 1) 의 범위를 가지고 있기 떄문에 &lt;strong&gt;ROC-AUC, PR-AUC 모두 1에 가까울수록 정확도가 높은 분류기로 정의할 수 있다&lt;/strong&gt;.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/performance_6.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 4. 분류기 모델의 ROC-AUC 예시&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.floydhub.com/a-pirates-guide-to-accuracy-precision-recall-and-other-scores/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://blog.floydhub.com/a-pirates-guide-to-accuracy-precision-recall-and-other-scores/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://uberpython.wordpress.com/2012/01/01/precision-recall-sensitivity-and-specificity/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://uberpython.wordpress.com/2012/01/01/precision-recall-sensitivity-and-specificity/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.oreilly.com/library/view/hands-on-machine-learning/9781492032632/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Hands-On Machine Learning with Scikit-learn, Keras and Tersorflow&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        </item>
+        <item>
+        <title>리눅스/우분투 명령어 모음 (Cheatsheet)</title>
+        <link>https://meme2515.github.io/computer_science/linux_cheatsheet/</link>
+        <pubDate>Wed, 06 Jul 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/computer_science/linux_cheatsheet/</guid>
+        <description>&lt;img src="https://meme2515.github.io/computer_science/linux.jpg" alt="Featured image of post 리눅스/우분투 명령어 모음 (Cheatsheet)" /&gt;&lt;h2 id=&#34;linux-명령어-모음&#34;&gt;Linux 명령어 모음&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/computer_science/Linux-Reference-1-1.jpg&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 1. Linux 명령어 모음&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;ubuntu-명령어-모음&#34;&gt;Ubuntu 명령어 모음&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/computer_science/Ubuntu-Reference-1-1.jpg&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 2. Ubuntu 명령어 모음&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+        </item>
+        <item>
+        <title>PyTorch Deep Learning - 3. Backpropagation &amp; Gradient Descent</title>
+        <link>https://meme2515.github.io/neural_network/pytorch_3/</link>
+        <pubDate>Tue, 28 Jun 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/neural_network/pytorch_3/</guid>
+        <description>&lt;img src="https://meme2515.github.io/neural_network/pytorch.jpeg" alt="Featured image of post PyTorch Deep Learning - 3. Backpropagation &amp; Gradient Descent" /&gt;&lt;h2 id=&#34;소개&#34;&gt;소개&lt;/h2&gt;
+&lt;p&gt;머신러닝과 분야에서 가장 뼈대가 되는 수학 공식은 &lt;a class=&#34;link&#34; href=&#34;https://ko.wikipedia.org/wiki/%EA%B2%BD%EC%82%AC_%ED%95%98%EA%B0%95%EB%B2%95&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;경사하강&lt;/a&gt;이다. 왜일까? &lt;a class=&#34;link&#34; href=&#34;https://ko.wikipedia.org/wiki/%EC%84%9C%ED%8F%AC%ED%8A%B8_%EB%B2%A1%ED%84%B0_%EB%A8%B8%EC%8B%A0&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;SVM&lt;/a&gt;, &lt;a class=&#34;link&#34; href=&#34;https://ko.wikipedia.org/wiki/%EC%84%A0%ED%98%95_%ED%9A%8C%EA%B7%80&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;선형회귀&lt;/a&gt;, &lt;a class=&#34;link&#34; href=&#34;https://www.ibm.com/kr-ko/cloud/learn/neural-networks&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;신경망&lt;/a&gt;과 같은 통상적인 예측 모델은 모두 다른 방식으로 예측값 $\tilde{Y}$ 를 예측하지만, 이 모든 모델의 정확도를 향상하는 학습과정에서는 언제나 알고리즘에 알맞는 경사하강 공식을 사용하기 때문이다. 구체적으로 경사하강이란 모델의 성능을 더 나은 방향으로 개선시킬 수 있도록 조절 가능한 모델의 변수를 업데이트하는 과정을 가르킨다.&lt;/p&gt;
+&lt;p&gt;모든 경사하강 과정은 그에 알맞는 기울기 값, 즉 &lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Gradient&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;gradient&lt;/a&gt; 를 필요로하며, 이는 모델의 변수가 어떤 방향으로 (음수 또는 양수) 움직일때 성능이 개선되는지에 대한 정보를 제공한다. 신경망의 경우, 이러한 변수 별 gradient 값을 연산하기 위해 오차역전파라는 방법을 사용한다. 해당 글에서는 PyTorch 프레임워크를 사용하여 오차역전파를 수행하고, 신경망 모델의 경사하강을 구현하기까지의 과정을 실습해보고자 한다.&lt;/p&gt;
+&lt;h2 id=&#34;autograd-복습&#34;&gt;Autograd 복습&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://meme2515.github.io/neural_network/pytorch_2/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;PyTorch Deep Learning - 2. Autograd&lt;/a&gt; 글에서 살펴보았듯 신경망의 gradient 값을 도출하기 위해서는 역전파를 수행해야하며, 이는 PyTorch 라이브러리의 autograd 기능을 활용해 구현이 가능하다.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/pytorch_2_1.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 1. 단일 뉴런의 역전파 과정&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;$x = 1$ 의 인풋을 활용해 $y = 2$ 를 예측하는 단일 뉴런 모델의 역전파 과정을 PyTorch 로 구현한 코드는 다음과 같다. 이 경우 가중치인 $w$ 의 초기값이 최적치에 비해 낮기 때문에 gradient 는 음수가 되어야 한다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; import torch
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; x = torch.tensor(1.0)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; y = torch.tensor(2.0)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; w = torch.tensor(1.0, requires_grad=True)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; # forward pass and compute the loss
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; y_hat = w * x
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; loss = (y_hat - y)**2
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; print(loss)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &amp;gt;&amp;gt;&amp;gt; tensor(1., grad_fn=&amp;lt;PowBackward0&amp;gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; # backward pass
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; loss.backward()
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; print(w.grad)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &amp;gt;&amp;gt;&amp;gt; tensor(-2.)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;경사하강&#34;&gt;경사하강&lt;/h2&gt;
+&lt;p&gt;경사하강이란 연산한 gradient 의 반대방향, 즉 손실함수를 낮추는 방향으로 모델의 파라미터를 업데이트하는 과정을 일컫는다. 아래 그림에서 start 지점의 gradient, 즉 미분값은 경사가 상대적으로 큰 양수값이며, 따라서 손실함수 $J(W)$ 를 최소화하기 위해 반대방향인 음수값으로 $w$ 를 업데이트하는 과정을 확인할 수 있다. 아직 gradient가 어떻게 손실함수를 낮추는 방향을 제시하는가에 대한 직관적인 이해가 이루어지지 않는다면 &lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=GEdLNvPIbiM&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;1&lt;/a&gt;, &lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=IHZwWFHWa-w&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;2&lt;/a&gt; 비디오를 참고하길 바란다. 또한 &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/neural_network/optimizer/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;해당&lt;/a&gt; 글은 Momentum, RMSProp, Adam 등 다양한 경사하강법을 소개하고있다.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/pytorch_3_1.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 2. 단일 뉴런의 역전파 과정&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;신경망 모델에서 경사하강을 수행하기 위해서는 다음과 같은 과정을 순차적으로 수행해야한다.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Prediction&lt;/strong&gt;: 현재 파라미터 값을 사용한 예측&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Loss Computation&lt;/strong&gt;: 손실값 계산&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Gradients Computation&lt;/strong&gt;: 예측값을 기반으로 한 gradient 연산&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Parameter updates&lt;/strong&gt;: gradient 값을 기반으로 한 파라미터 업데이트&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;manual-접근법&#34;&gt;Manual 접근법&lt;/h3&gt;
+&lt;p&gt;우선 PyTorch 라이브러리 없이 Numpy 만으로 이와 같은 손실함수 과정을 구현하는 코드를 살펴보자. 해당 코드의 gradient 는 MSE 함수에 대한 미분값을 별도로 계산한 것이며, 다음 식을 기반으로 하고있다.&lt;/p&gt;
+&lt;p&gt;$$
+\frac{\delta J}{\delta w} = \frac{1}{N} \cdot 2x (wx - y)
+$$&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; import numpy as np
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; X = np.array([1, 2, 3, 4], dtype=np.float32)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; Y = np.array([2, 4, 6, 8], dypte=np.float32)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; w = 0.0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; # model prediction
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; def forward(x):
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    return w * x
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; # loss = MSE
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; def loss(y, y_pred):
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    return ((y_pred - y) ** 2).mean()
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; # gradient
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; def gradient(x, y, y_pred):
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    return np.dot(2 * x, y_pred - y).mean()
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; # training
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; learning_rate = 0.01
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; n_iters = 10
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; for epoch in range(n_iters):
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    y_pred = forward(X)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    l = loss(Y, y_pred)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    dw = gradient(X, Y, y_pred)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    # update weights
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    w -= learning_rate * dw
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;autograd-활용&#34;&gt;Autograd 활용&lt;/h3&gt;
+&lt;p&gt;다음 코드는 상단 경사하강 과정의 Gradients Computation 단계에서 수식이 아닌 Autograd 패키지의 자동미분 기능을 사용한 것이다. gradient 함수가 사라지고, 학습과정의 코드 변화를 확인할 수 있다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; import torch
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; X = torch.tensor([1, 2, 3, 4], dtype=torch.float32)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; Y = torch.tensor([2, 4, 6, 8], dypte=torch.float32)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; # requires_grad 매개변수 설정
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; w = torch.tensor(0.0, dtype=torch.float32, requires_grad=True)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; # model prediction
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; def forward(x):
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    return w * x
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; # loss = MSE
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; def loss(y, y_pred):
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    return ((y_pred - y) ** 2).mean()
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; # training
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; learning_rate = 0.01
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; n_iters = 10
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; for epoch in range(n_iters):
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    y_pred = forward(X)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    l = loss(Y, y_pred)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    # backward pass
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    l.backward()
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    # update weights
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    with torch.no_grad():
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        w -= learning_rate * w.grad
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    # reset gradient
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    w.grad.zero_()
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+        </item>
+        <item>
+        <title>배치정규화 (Batch Normalization) 란?</title>
+        <link>https://meme2515.github.io/neural_network/batchnorm/</link>
+        <pubDate>Sun, 26 Jun 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/neural_network/batchnorm/</guid>
+        <description>&lt;img src="https://meme2515.github.io/neural_network/batchnorm.png" alt="Featured image of post 배치정규화 (Batch Normalization) 란?" /&gt;&lt;h2 id=&#34;관련-논문위키-링크&#34;&gt;관련 논문/위키 링크&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/abs/1502.03167&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/abs/1805.11604&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;How Does Batch Normalization Help Optimization?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Batch_normalization&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Wikipedia - Batch Normalization&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;tldr&#34;&gt;TL;DR&lt;/h2&gt;
+&lt;p&gt;딥러닝 모델의 mini-batch 학습은, 학습 단계 별 데이터의 분포가 서로 다르다는 점에서 그 복잡성이 올라가고는 한다. 배치정규화 논문이 공개되기 전에는 이 문제를 해결하기 위해 단순히 input data $X$ 를 정규화 하는것에 그쳤으나, 해당 논문을 개재한 Google 팀은 각 중간 레이어의 아웃풋에 또한 정규화를 적용함으로 모델의 학습속도를 끌어올릴 수 있다는 점을 발견했다. 이와 같은 레이어 별 정규화 과정은 배치 스텝마다 별도로 적용되어야 하며 &lt;em&gt;(input data $X$에 대한 정규화는 전체 분포에 대한 정보가 있기때문에 일괄적으로 이루어질 수 있지만 중간 레이어의 결과값은 그렇지 못함)&lt;/em&gt;, 따라서 이를 &lt;strong&gt;배치정규화&lt;/strong&gt;라 칭한다.&lt;/p&gt;
+&lt;h2 id=&#34;internal-covariate-shift&#34;&gt;Internal Covariate Shift&lt;/h2&gt;
+&lt;p&gt;Google 팀이 중간레이어의 아웃풋을 정규화하게 된 배경에는 그들이 internal covariate shift 라고 명명한 문제가 존재한다. 비신경망 머신러닝 모델에 서로 다른 분포를 가진 데이터를 넣을떄 발생하는 &lt;a class=&#34;link&#34; href=&#34;https://www.google.com/search?client=firefox-b-d&amp;amp;q=covariate&amp;#43;shift&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;covariate shift&lt;/a&gt; 라는 문제를 중간레이어 개념에 도입한 것인데, 특히 hyperbolic tangent, sigmoid와 같은 &lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Activation_function&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;비선형 활성화 함수 (non-linear activation function)&lt;/a&gt; 를 무겁게 사용하는 딥러닝 모델의 경우 이와 같은 분포 차이에 취약해질 여지가 많다.&lt;/p&gt;
+&lt;p&gt;$$
+g(x) = \frac{1}{1 + e^{-x}}
+$$&lt;/p&gt;
+&lt;p&gt;위의 sigmoid 함수에서 input 값 $x$가 조금만 올라가거나 내려가도 학습 속도는 기하급수적으로 느려지게된다는 점을 기억할 것이다 &lt;em&gt;(함수의 결과값이 0에 가까워지며 그 기울기가 작아지기 때문)&lt;/em&gt;. 분포차가 심한 데이터를 단계별로 학습할때 이와 같은 문제로 인해 convergence를 찾는 과정이 심각하게 느려질 수 있다.&lt;/p&gt;
+&lt;p&gt;또 하나의 문제는 레이어를 통과할수록 배치 간 데이터의 분포가 점차 더 큰 차이를 가지게 된다는 점이다. 신경망 구조가 워낙 복잡하기도 하지만, 이전 레이어의 가중치 (weight) 와 편향 (bias) 이 학습과정에서 계속 업데이트 되기 때문인데, 이쯤되면 중간레이어의 정규화 없이 학습이 이루어진다는게 오히려 이상하게 보인다.&lt;/p&gt;
+&lt;h2 id=&#34;방법론&#34;&gt;방법론&lt;/h2&gt;
+&lt;p&gt;일반적인 배치정규화는 activation function 의 아웃풋 $a$ 가 아닌 인풋 $z$ 에 적용된다. 비교적 일정하고, 적정한 범위내의 데이터를 activation function 에 집어넣어 activation layer 내 가능한 많은 노드가 제 역할을 하게하자는 취지이다. 한 개 레이어에서 배치정규화를 수행하는 방법은 다음과 같다.&lt;/p&gt;
+&lt;p&gt;$$
+\mu = \frac{1}{m} \sum_{i} z^i
+$$&lt;/p&gt;
+&lt;p&gt;$$
+\sigma^2 = \frac{1}{m} \sum_{i} (z_i - \mu)^2
+$$&lt;/p&gt;
+&lt;p&gt;우선 선형함수 $z$ 의 평균 $\mu$ 와 분산 $\sigma^2$ 를 구한다. 해당 값들은 레이어, 배치 별로 그 값이 다르기 때문에 학습, 예측 단계에서 매번 계산이 필요하다.&lt;/p&gt;
+&lt;p&gt;$$
+z_{norm}^i = \frac{z^i - \mu}{\sqrt{\sigma^2 + \epsilon}}
+$$&lt;/p&gt;
+&lt;p&gt;정규화 수식을 이용하여 $z_{norm}$ 값을 구한다. 여기서 수식의 분모에 있는 $\epsilon$ 은 $\sigma^2$ 가 $0$ 일 경우에 대비한 아주 작은 safety term 이다. 이로 인해 $z_{norm}$ 은 평균이 $0$ 이며, 표준편차가 $1$ 에 해당하는 분포를 가지게된다.&lt;/p&gt;
+&lt;p&gt;Input에 대한 정규화 처리는 이 단계에서 끝나겠지만 배치정규화는 다음과 같이 평균값과 표준편차에 대한 자유도를 주게된다. 처음 접했을때 다소 헷갈렸던 부분인데 데이터에 관계 없이 고른 분포를 추출하는 과정이라고 생각하면된다.&lt;/p&gt;
+&lt;p&gt;$$
+\tilde{z^i} = \Gamma z_{norm}^i + \Beta
+$$&lt;/p&gt;
+&lt;p&gt;여기서 $\Gamma$ 와 $\Beta$ 는 학습을 통해 최적값에 수렴하게된다. 이후 레이어, 배치 별 정규화가 적용된 $\tilde{z^i}$ 를 활성함수의 인풋으로 사용하면 배치정규화가 적용된 것이다.&lt;/p&gt;
+&lt;h2 id=&#34;기타-효과&#34;&gt;기타 효과&lt;/h2&gt;
+&lt;p&gt;구체적으로 배치정규화가 모델의 학습과정을 개선시키는 방법은 다음과 같이 정리할 수 있다.&lt;/p&gt;
+&lt;h3 id=&#34;1-학습-속도-개선&#34;&gt;1. 학습 속도 개선&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/batchnorm_2.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;정규화된 분포는 어떻게 학습 속도를 개선할까? 위 그림에서 왼쪽 그래프는 정규화가 적용되지 않은 경우의 손실함수를, 오른쪽 그래프는 정규화가 적용된 경우의 손실함수를 시각화 하고있다. 왼쪽의 경우 전반적인 손실함수 결과값이 $x$ 축 변수보다 $y$ 축 변수의 움직임에 더 민감한 부분을 확인할 수 있는데, 따라서 큰 학습속도 $\alpha$ 를 적용할 경우 방향성을 잃어 최적값을 찾지 못하는 문제가 발생할 여지를 가지게 된다. &lt;strong&gt;두 변수의 스케일 차이가 학습률에 제약을 가져오는 것이다&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;반면 오른쪽 그래프에서는 손실함수의 결과값이 두 개 변수에 유사한 민감도를 가지고 있는 점을 확인할 수 있다. 물론 이 경우 또한 지나치게 큰 $\alpha$ 값은 문제를 야기하겠지만, 전자의 경우에 비해 그 정도가 개선되었다는 점을 독자는 시각적으로 확인이 가능할 것이다.&lt;/p&gt;
+&lt;h3 id=&#34;2-초기값에-대한-내성&#34;&gt;2. 초기값에 대한 내성&lt;/h3&gt;
+&lt;p&gt;위 그림을 다시 참조하자. 왼쪽 그래프의 경우 초기값이 타원의 오른쪽 끝에 있을 경우와, 중하단에 있을 경우 중심점 (최적값) 으로 부터의 상당한 거리차가 발생한다. 이는 모델의 초기값에 따른 학습속도 차이가 발생할 수 있음을 의미한다. 오른쪽 그래프 또한 이러한 문제점을 어느정도 안고 있지만, 적어도 동일한 붉은 원 안에서는 거리차가 발생하지 않는다는 점을 확인할 수 있다.&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Conda 환경 공유 방법</title>
+        <link>https://meme2515.github.io/machine_learning/conda_1/</link>
+        <pubDate>Thu, 23 Jun 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/machine_learning/conda_1/</guid>
+        <description>&lt;img src="https://meme2515.github.io/machine_learning/conda.png" alt="Featured image of post Conda 환경 공유 방법" /&gt;&lt;h2 id=&#34;배경&#34;&gt;배경&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.conda.io/en/latest/#&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;콘다&lt;/a&gt;는 윈도우, 맥OS, 리눅스에서 동작하는 패키지 관리 시스템이며, 데이터 분석 환경에서 주로 사용되지만 파이썬, R, 루비, 자바 등 다양한 언어를 지원한다. 본 글에서는 짧게 콘다 환경 생성과 세팅, 저장, 그리고 다른 컴퓨터에서 저장된 환경을 불러오는 법을 살펴보고자 한다.&lt;/p&gt;
+&lt;h2 id=&#34;환경-생성-및-세팅-저장&#34;&gt;환경 생성 및 세팅, 저장&lt;/h2&gt;
+&lt;h3 id=&#34;생성-및-패키지-설치&#34;&gt;생성 및 패키지 설치&lt;/h3&gt;
+&lt;p&gt;Conda 환경은 다음과 같이 생성할 수 있다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; conda create --name [환경이름] python=3.10
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;생성된 모든 conda 환경은 다음 커맨드로 확인할 수 있다. &lt;code&gt;*&lt;/code&gt; 표시는 현재 환경을 나타낸다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; conda env list
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &amp;gt;&amp;gt;&amp;gt; conda environments:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     base                       *
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     environment1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     environment2
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     ...
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;환경을 바꾸기 위해서는 &lt;code&gt;activate&lt;/code&gt; 커맨드를 사용한다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; conda activate environment1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; conda env list
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &amp;gt;&amp;gt;&amp;gt; conda environments:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     base
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     environment1               *
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     environment2
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     ...
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;현재 환경에 설치된 패키지는 다음과 같이 확인할 수 있다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; conda list
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &amp;gt;&amp;gt;&amp;gt; numba             0.48.0              py37h47e9c7a_0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     numpy             1.18.1              py37h93ca92e_0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     openssl           1.1.1d                  he774522_4
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     pandas            1.0.1               py37h47e9c7a_0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     ...
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;패키지를 설치하기 위해서는 주로 &lt;code&gt;pip install&lt;/code&gt;, 혹은 &lt;code&gt;conda install&lt;/code&gt; 커맨드를 사용하게 된다. &lt;a class=&#34;link&#34; href=&#34;https://pypi.org/project/pip/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;pip&lt;/a&gt;은 파이썬 전용 패키지인 반면, conda는 기타 언어의 패키지 관리를 지원한다는 차이점을 가지고있다. 다음 예시는 pip 패키지 매니저를 활용했다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; pip install cython
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; conda list
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &amp;gt;&amp;gt;&amp;gt; cython            0.29.15             py37ha925a31_0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     numba             0.48.0              py37h47e9c7a_0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     numpy             1.18.1              py37h93ca92e_0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     openssl           1.1.1d                  he774522_4
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     pandas            1.0.1               py37h47e9c7a_0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     ...
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;yaml-파일-저장&#34;&gt;YAML 파일 저장&lt;/h3&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.redhat.com/en/topics/automation/what-is-yaml&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;YAML&lt;/a&gt; 포맷으로 환경 설정을 저장하기 위해서는 다음 커맨드를 활용한다. YAML 파일명은 굳이 환경 이름과 매칭되지 않아도 괜찮다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; conda env export &amp;gt; environment1.yaml
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;이후 해당 커맨드를 실행한 경로에 environment1.yaml 이라는 파일이 생성되게 된다. 해당 파일을 열어보면 다음과 같이 설치된 패키지가 나열되어 있는것을 확인할 수 있다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; name: environment1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; channels:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - conda_forge
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - defaults
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; dependencies:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - cython=0.29.15=py37ha925a31_0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - numba=0.48.0=py37h47e9c7a_0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   ...
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;yaml-파일을-활용한-환경-생성&#34;&gt;YAML 파일을 활용한 환경 생성&lt;/h2&gt;
+&lt;p&gt;다른 컴퓨터에서 저장된 conda 환경과 동일한 환경을 생성하고자 할때, 커맨드창에서 YAML 파일 경로로 이동 후 다음을 실행시키면 된다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; conda env create --file environment1.yaml
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+        </item>
+        <item>
+        <title>PyTorch Deep Learning - 2. Autograd</title>
+        <link>https://meme2515.github.io/neural_network/pytorch_2/</link>
+        <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/neural_network/pytorch_2/</guid>
+        <description>&lt;img src="https://meme2515.github.io/neural_network/pytorch.jpeg" alt="Featured image of post PyTorch Deep Learning - 2. Autograd" /&gt;&lt;h2 id=&#34;소개&#34;&gt;소개&lt;/h2&gt;
+&lt;p&gt;신경망을 수학적으로 구현함에 있어 가장 까다로운 부분은 &lt;a class=&#34;link&#34; href=&#34;http://wiki.hash.kr/index.php/%EC%97%AD%EC%A0%84%ED%8C%8C&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;역전파 (backpropagation)&lt;/a&gt; 과정이다. 짧게 설명하자면, 모델에 존재하는 각각의 가중치(weight)와 편향(bias)이 &lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Loss_function&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;손실함수&lt;/a&gt;에 어떠한 영향을 끼치는지를 연산한 다음, 이 정보를 활용해 가중치와 편향의 값을 손실함수를 줄이는 방향으로 갱신시키는 과정이다. 개념적인 이해가 필요하다면 앞선 역전파 해시넷 링크와 더불어 &lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=Ilg3gGewQ5U&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;1&lt;/a&gt;번, &lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=1Q_etC_GHHk&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;2&lt;/a&gt;번 비디오를 참고하자.&lt;/p&gt;
+&lt;p&gt;역전파 과정에서 가장 중요한 수학적 요소는 손실함수에 대한 가중치와 편향의 편미분 (partial derivative) 연산이다. 가중치가 증가할때 손실함수 또한 같이 증가한다면 가중치값을 내리고, 편향 값이 내려갈때 손실함수가 증가한다면 반대로 편향값을 증가시키는 식이다. 이러한 과정을 반복함으로 인해 모델은 가능한 낮은 손실함수, 즉 높은 정확도를 가지게 된다.&lt;/p&gt;
+&lt;p&gt;하지만 신경망 네트워크에는 경우에 따라 수십만개의 가중치와 편향이 존재하고, 이를 학습 사이클마다 일일이 손으로 계산할 수 없기 때문에 편미분 연산을 자동적으로 처리해주는 알고리즘을 필요로 하게 되었다. 주요 딥러닝 프레임워크인 PyTorch 의 &lt;a class=&#34;link&#34; href=&#34;https://pytorch.org/tutorials/beginner/blitz/autograd_tutorial.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Autograd&lt;/a&gt; 패키지는 이러한 역전파 과정을 자동적으로 처리해주는 기능을 가지고있다.&lt;/p&gt;
+&lt;h2 id=&#34;자동-미분-automatic-differentiation&#34;&gt;자동 미분 (Automatic Differentiation)&lt;/h2&gt;
+&lt;p&gt;Autograd 패키지를 소개하기에 앞서, 자동 미분이 어떠한 방식으로 이루어지는지를 우선 살펴보고자 한다. 자동 미분의 접근 방식은 크게 세가지 (Numerical, Symbolic, Automatic) 가 존재한다.&lt;/p&gt;
+&lt;h3 id=&#34;a-numerical&#34;&gt;a. Numerical&lt;/h3&gt;
+&lt;p&gt;Numerical 접근은 고등학교 수학에서 등장하는, 극한을 통한 미분의 정의를 이용한다. $f(x)$가 input vector $x$에 대한 손실함수라고 가정했을때의 공식은 다음과 같다.&lt;/p&gt;
+&lt;p&gt;$$
+\begin{align}
+\frac{\delta f}{\delta x_i} = \lim_{h \to 0} \frac{f(x+he^i) - f(x)}{h}
+\end{align}
+$$&lt;/p&gt;
+&lt;p&gt;여기서 $x$란 길이 $n$의 input 벡터이며, $e^i$ 란 길이가 $n$이며 $i$ 번째 값이 1, 나머지 값이 0인 단위벡터 (unit vector) 이다.&lt;/p&gt;
+&lt;p&gt;$$
+\begin{align}
+x = \begin{bmatrix}
+x_1 \
+x_2 \
+\dots \
+x_n
+\end{bmatrix}
+; \
+e^1 = \begin{bmatrix}
+1 \
+0 \
+\dots \
+0
+\end{bmatrix}
+; \
+e^2 = \begin{bmatrix}
+0 \
+1 \
+\dots \
+0
+\end{bmatrix}
+; \
+\dots
+\end{align}
+$$&lt;/p&gt;
+&lt;p&gt;따라서 (1)번 식은 $x^i$ 값이 아주 작게 움직였을때, 함수 $f$의 결과값이 얼만큼 움직이는지를 나타내고있다.&lt;/p&gt;
+&lt;p&gt;Numerical 접근에선 크게 두가지 문제점이 존재한다. 첫번째 문제는 극한 (limit) 정의를 코드로 구현할 때 발생하는 오차 문제 (rounding error) 이다. 이는 아주 작은 $h$ 값을 컴퓨터의 floating point로 표현할 때 발생하는 물리적인 한계에서 비롯된 문제이다. 관심이 있는 독자들은 &lt;a class=&#34;link&#34; href=&#34;https://blog.demofox.org/2017/11/21/floating-point-precision/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;링크&lt;/a&gt;를 통해 더 자세한 내용을 확인하자.&lt;/p&gt;
+&lt;p&gt;두번째 문제는 해당 접근법이 $O(n)$ 만큼의 연산, 즉 각 가중치와 편향 값에 대한 개별적인 연산을 수행해야 한다는 점이다. 이는 수십만개의 가중치와 편향 값을 학습하는 신경망 네트워크에 지나친 연산 부담을 줄 수 있다.&lt;/p&gt;
+&lt;h3 id=&#34;b-symbolic&#34;&gt;b. Symbolic&lt;/h3&gt;
+&lt;p&gt;Symbolic 접근은 사람이 실제 미분 연산시에 사용하는 연산 규칙 (예를 들어 $\sin (x)$ 의 미분값은 $\cos (x)$) 을 기반으로 편미분을 구하는 방식이다. 해당 접근법에서 손실함수는 가중치와 편향의 수식으로 표현되며, 연산 규칙을 그 기반으로 하기에 numerical 접근법의 오차 문제를 해결한다. 대표적인 예시로 &lt;a class=&#34;link&#34; href=&#34;https://www.sympy.org/en/index.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;SymPy&lt;/a&gt; 패키지가 있다.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/pytorch_2_2.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 1. SymPy 패키지 적분 연산 사용 예시&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;(고등학생때 알았더라면&amp;hellip;!)&lt;/p&gt;
+&lt;p&gt;얼핏 생각하기에 타당해 보이는 symbolic 접근 또한 역전파 적용이 어려운 이유가 존재한다. 가장 대표적인 문제는 expression swell 인데, 손실함수의 수식보다 그 미분 수식이 기하급수적으로 복잡해지는 문제이다. 다음 예시와 함께 미분의 곱 규칙을 생각해보자.&lt;/p&gt;
+&lt;p&gt;$$
+h(x) = f(x)g(x) \newline
+h&amp;rsquo;(x) = f&amp;rsquo;(x)g(x) + f(x)g&amp;rsquo;(x) \newline
+$$&lt;/p&gt;
+&lt;p&gt;$f(x)$를 다음과 같이 정의하면 $h&amp;rsquo;(x)$는 더욱 복잡해진다.&lt;/p&gt;
+&lt;p&gt;$$
+f(x) = u(x)v(x) \newline
+h&amp;rsquo;(x) = (u&amp;rsquo;(x)v(x) + u(x)v&amp;rsquo;(x))g(x) + u(x)v(x)g&amp;rsquo;(x) \newline
+$$&lt;/p&gt;
+&lt;p&gt;이는 한가지 예시에 불과하고, 미분 수식의 복잡성은 손실함수의 수식과 비례하지 않기 때문에 해당 접근은 numerical 접근의 $O(n)$ 연산을 뛰어넘는 연산 부담을 네트워크에 줄 가능성이 있다. 또한 미분 연산의 대상이 항상 특정 수식으로 표현되어야 한다는 제약을 가지고 있다.&lt;/p&gt;
+&lt;h3 id=&#34;c-automatic&#34;&gt;c. Automatic&lt;/h3&gt;
+&lt;p&gt;Automatic 접근은 수식에 기반하는 대신, 덧셈, 곱셈과 같은 개별적인 연산자 그래프 (DAG) 를 생성하여 미분 연산 과정을 가장 작은 단위에서 수행하는 접근법이다. 다음 그래프를 참고하자.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/pytorch_2_3.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 2. 단일 뉴런의 Autograd DAG 예시&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;여기서 $w$는 가중치, $b$는 편향, $z$는 활성함수를 나타낸다 (편의를 위해 loss 또한 $L$로 지칭하겠다). 위 그래프에서 가중치 $w$의 편미분값, $\frac{\delta L}{\delta w}$ 값을 연산한다고 가정해보자. 우선 &lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Cross_entropy&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;CE (Cross Entropy)&lt;/a&gt; 함수의 미분식을 통해 $\frac{\delta L}{\delta z}$ 를 구한 후, $z$ 함수의 미분식을 사용해 구한 $\frac{\delta z}{\delta w}$를 $\frac{\delta L}{\delta z}$ 에 곱해줌으로서 $\frac{\delta L}{\delta z} \cdot \frac{\delta z}{\delta w} = \frac{\delta L}{\delta w}$를 연산할 수 있다. 더 작은 단위의 (레이어가 아닌 연산자 단위) 역전파라 생각해도 무방할 듯 하며, 복잡해 보이지만 편미분의 정의를 되새기며 기호와 그래프를 유심히 따라가면 그 의미가 전달 될 것이라 생각한다.&lt;/p&gt;
+&lt;h2 id=&#34;jacobian-vector-products-jvps&#34;&gt;Jacobian-Vector Products (JVPs)&lt;/h2&gt;
+&lt;p&gt;위 Fig 3. 의 예시에서는 2개의 input $w$, $b$와, 1개의 output $L$에 대한 연산자 그래프를 살펴보았다. Input의 개수가 $n$이고, output의 개수가 $m$인 경우는 어떨까? 해당 연산자 그래프에 대해서 다음과 같은 &lt;a class=&#34;link&#34; href=&#34;https://ko.wikipedia.org/wiki/%EC%95%BC%EC%BD%94%EB%B9%84_%ED%96%89%EB%A0%AC&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;편미분 매트릭스 (야코비 행렬, Jacobian Matrix)&lt;/a&gt;를 구할 수 있을 것이다.&lt;/p&gt;
+&lt;p&gt;(여기서 $x$는 input을, $f$는 output을 뜻하고 있다)&lt;/p&gt;
+&lt;p&gt;$$
+\begin{equation*}
+J_{f} = 
+\begin{bmatrix}
+\frac{\delta f_1}{\delta x_1 } &amp;amp; \frac{\delta f_2}{\delta x_1 } &amp;amp; \cdots &amp;amp; \frac{\delta f_m}{\delta x_1 } \newline
+\frac{\delta f_1}{\delta x_2 } &amp;amp; \frac{\delta f_2}{\delta x_2 } &amp;amp; \cdots &amp;amp; \frac{\delta f_m}{\delta x_2 } \newline
+\vdots  &amp;amp; \vdots  &amp;amp; \ddots &amp;amp; \vdots  \newline
+\frac{\delta f_1}{\delta x_n } &amp;amp; \frac{\delta f_2}{\delta x_n } &amp;amp; \cdots &amp;amp; \frac{\delta f_m}{\delta x_n } \newline
+\end{bmatrix}
+\end{equation*}
+$$&lt;/p&gt;
+&lt;p&gt;야코비 행렬은 모든 input과 output의 조합에 대한 편미분 값을 가지고 있으며, 각 열에는 output $f_i$, 행에는 input $x_j$에 속하는 값이 정렬되어있다. 특정 output 값 $f_i$에 대한 모든 input $x$의 편미분 벡터를 구하기 위해서는 다음과 같이 적합한 벡터 $r$을 곱해주어야 한다.&lt;/p&gt;
+&lt;p&gt;$$
+\begin{equation*}
+\frac{\delta f_i}{\delta x} = 
+J_f r =
+\begin{bmatrix}
+\frac{\delta f_1}{\delta x_1 } &amp;amp; \frac{\delta f_2}{\delta x_1 } &amp;amp; \cdots &amp;amp; \frac{\delta f_m}{\delta x_1 } \newline
+\frac{\delta f_1}{\delta x_2 } &amp;amp; \frac{\delta f_2}{\delta x_2 } &amp;amp; \cdots &amp;amp; \frac{\delta f_m}{\delta x_2 } \newline
+\vdots  &amp;amp; \vdots  &amp;amp; \ddots &amp;amp; \vdots  \newline
+\frac{\delta f_1}{\delta x_n } &amp;amp; \frac{\delta f_2}{\delta x_n } &amp;amp; \cdots &amp;amp; \frac{\delta f_m}{\delta x_n } \newline
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+1 \newline
+0 \newline
+\vdots \newline
+0 \newline
+\end{bmatrix}
+=
+\begin{bmatrix}
+\frac{\delta f_1}{\delta x_1 } \newline
+\frac{\delta f_1}{\delta x_2 } \newline
+\vdots \newline
+\frac{\delta f_1}{\delta x_n } \newline
+\end{bmatrix}
+\end{equation*}
+$$&lt;/p&gt;
+&lt;h2 id=&#34;autograd-사용법&#34;&gt;Autograd 사용법&lt;/h2&gt;
+&lt;p&gt;PyTorch의 Autograd 패키지는 이러한 야코비 행렬을 연산해주는 기능을 가지고있다. 우선 input 벡터인 $x$를 지정하는 법을 알아보자.&lt;/p&gt;
+&lt;h3 id=&#34;requires_grad-파라미터&#34;&gt;requires_grad 파라미터&lt;/h3&gt;
+&lt;p&gt;Input 벡터로 사용하고자 하는 tensor를 최초로 생성할때는 &lt;code&gt;requires_grad&lt;/code&gt; 파라미터를 &lt;code&gt;True&lt;/code&gt;로 설정해야한다. 다음 예시를 확인하자.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; import torch
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; x = torch.randn(3, requires_grad=True)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; print(x)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &amp;gt;&amp;gt;&amp;gt; tensor([-1.0475, 0.2038, 0.2971], requires_grad=True)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; y = x + 2
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; print(y)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &amp;gt;&amp;gt;&amp;gt; tensor([1.6828, 2.3467, 2.6648], grad_fn=&amp;lt;AddBackward0&amp;gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; z = y * y * 2
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; print(z)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &amp;gt;&amp;gt;&amp;gt; tensor([1.5855, 2.3060, 2.3540], grad_fn=&amp;lt;MulBackward0&amp;gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; z = z.mean()
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; print(z)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &amp;gt;&amp;gt;&amp;gt; tensor(8.9153, grad_fn=&amp;lt;MeanBackward0&amp;gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;code&gt;x&lt;/code&gt; tensor 생성 시 &lt;code&gt;requires_grad&lt;/code&gt; 파라미터를 True로 설정할 경우, &lt;code&gt;x&lt;/code&gt;를 변수로 사용한 함숫값 &lt;code&gt;y&lt;/code&gt;, &lt;code&gt;z&lt;/code&gt; tensor에 &lt;code&gt;grad_fn&lt;/code&gt; 이라는 미분 함수가 내제되어있는 것을 확인할 수 있다. 이는 언급했던 연산자 그래프의 노드에 해당하며, 편미분 연산시에는 이러한 노드를 순차적으로 되돌아가며 결과값을 연산하게된다.&lt;/p&gt;
+&lt;h3 id=&#34;backward-함수&#34;&gt;backward() 함수&lt;/h3&gt;
+&lt;p&gt;앞선 예시에서 최종 함숫값인 &lt;code&gt;z&lt;/code&gt;에 다음과 같이 &lt;code&gt;backward&lt;/code&gt; 함수를 호출할 시, 역전파에 필요한 편미분값 $\frac{\delta z}{\delta x}$ 를 &lt;code&gt;x.grad&lt;/code&gt; 속성을 통해 확인할 수 있다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; z.backward() # dz/dx
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; print(x.grad)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &amp;gt;&amp;gt;&amp;gt; tensor([0.0160, 3.3650, 4.5153])
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;이 경우에는 &lt;code&gt;z&lt;/code&gt;가 단일값이기 때문에 야코비 행렬이 그대로 리턴되었다. &lt;code&gt;z&lt;/code&gt;가 단일값이 아닌 벡터일때는 어떻게 해야할까? 결과값이 매트릭스이기 때문에 어떤 $z$값에 대한 편미분을 구해야 하는지가 명확하지 않다. 이러한 경우 앞선 예시에 사용된 벡터 $r$을 매개변수로 집어넣어야 한다. 다음 예시를 확인하자.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; x = torch.randn(3, requires_grad=True)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; y = x + 2
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; z = y * y * 2
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; z.backward()
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &amp;gt;&amp;gt;&amp;gt; RuntimeError: grad can be implicitly created only for scalar outputs.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; r = torch.tensor([1.0, 0, 0], dtype=torch.float32)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; z.backward(r)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; print(x.grad)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &amp;gt;&amp;gt;&amp;gt; tensor([5.0823, 0.0000, 0.0000])
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;대부분의 경우 편미분 연산은 단일값인 손실함수 $L$에 대해 이루어지기 때문에 &lt;code&gt;backward&lt;/code&gt; 함수 사용 시 별도의 매개변수는 사용하지 않게된다. 관련 내용에 궁금증이 남는다면 &lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=hjnVLfvhN0Q&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;본 영상&lt;/a&gt;을 참고하자.&lt;/p&gt;
+&lt;h2 id=&#34;참고-링크&#34;&gt;참고 링크&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=c36lUUr864M&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.youtube.com/watch?v=c36lUUr864M&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=wG_nF1awSSY&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.youtube.com/watch?v=wG_nF1awSSY&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        </item>
+        <item>
+        <title>수학적으로 이해하는 최적화 기법 - 모멘텀, RMSProp, ADAM </title>
+        <link>https://meme2515.github.io/neural_network/optimizer/</link>
+        <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/neural_network/optimizer/</guid>
+        <description>&lt;img src="https://meme2515.github.io/neural_network/adam.png" alt="Featured image of post 수학적으로 이해하는 최적화 기법 - 모멘텀, RMSProp, ADAM " /&gt;&lt;h2 id=&#34;관련-논문-링크&#34;&gt;관련 논문 링크&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/abs/1412.6980&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Adam: A Method for Stochastic Optimization&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/pdf/1609.04747.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;An overview of gradient descent optimization algorithms&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;tldr&#34;&gt;TL;DR&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://ml-cheatsheet.readthedocs.io/en/latest/gradient_descent.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;경사하강법&lt;/a&gt;이란 여러개의 변수를 활용해 정의된 머신러닝 모델의 &lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Loss_function&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;손실함수 (Loss Function)&lt;/a&gt; 를 최저치로 낮추는 기법이다. 변수 $i$ 에 대한 손실함수 $J$ 의 미분값을 $\alpha$, 혹은 &lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Learning_rate&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;학습률 (learning rate)&lt;/a&gt; 로 불리는 학습 속도 설정값에 곱한 후, 변수 $i$ 에 적용되는 가중치 $\theta_i$ 에서 빼주는 방식이다. 수식은 다음과 같이 정의된다.&lt;/p&gt;
+&lt;p&gt;$$
+\theta_i := \theta_i - \alpha \frac{\partial}{\partial \theta_i}J(\theta)
+$$&lt;/p&gt;
+&lt;p&gt;다만 mini-batch 경사하강의 경우 매 iteration에서 리소스적인 문제로 전체 데이터가 아닌 부분 데이터를 활용하기 때문에 여기서 하강이 이루어지는 방향이 직진성을 띄고 있지 않을 가능성이 높은데, &lt;strong&gt;모멘텀&lt;/strong&gt;은 이러한 문제를 해결하기 위해 &lt;strong&gt;변수 별 미분값의 점진적 평균값 (지수 가중 평균) 을 구해 하강의 방향성을 찾는다&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/adam_2.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;위 그림에서 y축 변수의 하강 방향은 지그재그 형태를 띄는 반면, x축 변수의 하강 방향은 일정한 방향성을 띄고있다. 이로 인해 기본적인 형태의 경사하강 진행 시 &lt;strong&gt;학습 과정이 불필요하게 길어지게되는 결과&lt;/strong&gt;를 야기하게되나, 모멘텀 최적화 방식을 이용하면 y축 변수 하강 방향의 점진적 평균은 0에 가까워지며, x축 변수 하강 방향의 점진적 평균값은 유지되기 때문에 &lt;strong&gt;불필요한 학습 과정이 줄어드는 (직진성) 효과를 가진다&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;RMSProp은 유사하지만 평균치가 아닌 제곱평균제곱근 (RMS) 을 통해 그 방향성을 구하고자하며, ADAM 은 이 두가지 최적화 방식의 조합이다.&lt;/p&gt;
+&lt;h2 id=&#34;지수-가중-평균의-정의-exponentially-weighted-averages&#34;&gt;지수 가중 평균의 정의 (Exponentially Weighted Averages)&lt;/h2&gt;
+&lt;h3 id=&#34;개념-및-정의&#34;&gt;개념 및 정의&lt;/h3&gt;
+&lt;p&gt;위 세개의 최적화 개념을 수학적으로 이해하기 위해서는 지수 가중 평균 (EWMA) 개념을 먼저 이해할 필요가 있다. 개념은 생각보다 복잡하지 않은데, $\theta_1,\theta_2, \theta_3, &amp;hellip; , \theta_n$ 와 같이 순차적인 $n$개의 데이터셋이 있을 시 $n$ 보다 작거나 같은 시점 $t$ 의 지수 가중 평균 $V_t$는 다음과 같이 정의된다.&lt;/p&gt;
+&lt;p&gt;$$
+V_0 = 0；　
+V_t = \beta V_{t-1} + (1-\beta)\theta_t
+$$&lt;/p&gt;
+&lt;p&gt;여기서 $\beta$ 값은 사용자가 지정하며 (가장 일반적인 값은 $0.9$ 이다), 이렇게 계산된 $V_t$ 값은 대략 $t - \frac{1}{1 - \beta}$ 부터 $t$ 까지 기간의 단순 평균치에 근접하게 된다. 누적된 평균값에 일정 비율로 현재 값을 반영하는 접근법이며, Bayesian 통계와 개념적으로 유사한 부분이 있다.&lt;/p&gt;
+&lt;p&gt;아래 그래프는 파란색으로 표기된 Original 데이터에 조금씩 큰 $\beta$ 값을 사용하며 계산한 EWMA 를 시각화한 결과이다. 회색이 가장 낮은 $\beta$, 빨간색이 가장 높은 $\beta$ 에 해당하는데, &lt;strong&gt;$\beta$ 값이 높을수록 과거 데이터에 큰 영향을 받으며 신규 데이터에 대한 적응 딜레이가 생기는 점이 확인 가능하다&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/adam_4.jpeg&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;bias-correction&#34;&gt;Bias Correction&lt;/h3&gt;
+&lt;p&gt;예리한 독자라면 알아챘겠지만, 위 알고리즘을 그대로 적용할 시 초반 $V_t$ 값은 거의 $0$ 에 근접한 값이 나오게 된다.&lt;/p&gt;
+&lt;p&gt;더 나은 방법은 &lt;strong&gt;$V_t$ 를 $\frac{V_t}{1 - \beta^t}$ 로 스케일링하는 것&lt;/strong&gt;이다. 이로 인해 실제 데이터와 다르게 $0$ 에 가까웠던 작은 $t$ 영역의 값은 큰 폭으로 상향되고, 큰 $t$ 영역의 값은 별다른 영향을 받지 않게 된다. 이와 같이 적절한 초기 값을 부여함으로 인해 값이 작은 $t$ 영역의 EWMA 값을 실제 데이터와 유사하게 바꿀 수 있으며, 이를 &lt;strong&gt;Bias Correction&lt;/strong&gt; 이라고 한다.&lt;/p&gt;
+&lt;h2 id=&#34;momentum&#34;&gt;Momentum&lt;/h2&gt;
+&lt;p&gt;TL;DR 섹션에서 첨부한 이미지를 다시 보자. 붉은색 경사하강은 지그재그 방향으로 움직이고 있기 떄문에 파란색 경사하강을 유도하기 위해서는 &lt;strong&gt;y축 움직임을 최소화하고, x축 움직임을 최대화해야 한다&lt;/strong&gt;. 여기서 우리는 EWMA 개념을 다음 pseudo code와 같이 적용한다 ($w_i$ 는 $i$ 변수에 적용되는 가중치를 의미).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; on interation t:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    compute dy, dx on current mini-batch
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    V_dy = beta * V_dy + (1 - beta) * dy
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    V_dx = beta * V_dx + (1 - beta) * dx
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    w_y = w_y - alpha * V_dy
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    w_x = w_x - alpha * V_dx
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;해당 로직을 적용하면 &lt;strong&gt;y축 변수는 음수와 양수 사이를 반복적으로 움직이기 때문에 점차 $0$ 에 가까운 EWMA 값에 수렴하게 되며, x축 변수는 계속해 양수 방향으로 움직이기 때문에 EWMA 값은 양수 방향을 유지하게 된다&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;한 가지 유념해야 할 부분은, 경사하강법에 모멘텀을 적용하게 되면 기존에는 없던 $\beta, \alpha$ 두 개 하이퍼파라미터가 발생하게 된다는 점이다. 앞서 언급했듯 초기 $\beta$ 값은 $0.9$ 정도로 세팅하는 것이 세월에 따른 검증을 통해 권장되고 있으며, 이는 대략 과거 10개 iteration 의 평균 미분값에 해당하게 된다. Bias correction 의 경우 초기 iteration 에서만 영향을 끼치기 때문에 실제 모델링 시 생략되는 경우가 많다.&lt;/p&gt;
+&lt;h2 id=&#34;rmsprop&#34;&gt;RMSProp&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://machinelearningmastery.com/gradient-descent-with-rmsprop-from-scratch/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;RMSProp&lt;/a&gt; (Root Mean Squared Prop) 은 모멘텀과 유사하게 경사하강의 방향성을 찾는 알고리즘이다. 구체적인 설명에 들어가기 전 다음 pseudo code를 확인하자.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; on interation t:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    compute dy, dx on current mini-batch
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    S_dy = beta * S_dy + (1 - beta) * (dy ** 2)  # element-wise square
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    S_dx = beta * S_dx + (1 - beta) * (dx ** 2)  # element-wise square
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    w_y = w_y - alpha * ( dy / (sqrt(S_dy) + epsilon) )
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    w_x = w_x - alpha * ( dx / (sqrt(S_dx) + epsilon) )
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;모멘텀 알고리즘이 $V_{dy}$ 와 $V_{dx}$ 값을 업데이트하기 위해 변수 별 미분값 $d_y$ 와 $d_x$ 을 그대로 사용했던 것과 달리, RMSProp 알고리즘은 두 미분값의 제곱을 사용하고 있다. 자연스럽게 y축 변수는 위아래로 큰 움직임을 가지고있기 때문에 $d_y$ 의 제곱값의 누적치는 큰 결과값을 가지게 되며 (x축 변수의 경우 반대로 작은 결과값), 이러한 누적치의 제곱근을 $d_y$ 에서 나누어줌으로써 경사하강 과정에서 $w_y$ 를 상대적으로 작은 값으로 업데이트하게 된다 (x축 변수의 경우 상대적으로 큰 값).&lt;/p&gt;
+&lt;p&gt;$\epsilon$ 은 단순한 safety term 정도로 이해하면 되는데, $\sqrt{S_{dy}}$ 값이 0이 될때 $\frac{d_y}{\sqrt{S_{dy}}}$ 이 무한대로 커지는 경우를 방지하기 위해 $\epsilon = 10^{-8}$ 라는 식의 아주 작은 값을 대입하는 것이라고 이해하면 된다. 개념적인 설명이 길어 어렵게 느낄 수 있지만, 천천히 위 코드의 진행과정을 읽어보며 설명을 참조하면 단순히 모멘텀 알고리즘에 단순평균이 아닌 RMS 개념을 도입했다는 것을 이해할 수 있을 것이다.&lt;/p&gt;
+&lt;p&gt;여담으로 한가지 재밌는 점은 RMSProp 알고리즘의 경우 학술적인 논문이 아닌 &lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Turing_Award&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Turing Award&lt;/a&gt; 수상자 &lt;a class=&#34;link&#34; href=&#34;https://www.cs.toronto.edu/~hinton/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Geoffrey Hinton&lt;/a&gt; 교수가 &lt;a class=&#34;link&#34; href=&#34;https://www.utoronto.ca/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;토론토 대학&lt;/a&gt;에서 가르치던 수업에서 제안한 모멘텀 알고리즘의 대안으로 처음 알려지게 되었다는 점이다. 관심이 있다면 &lt;a class=&#34;link&#34; href=&#34;https://www.cs.toronto.edu/~tijmen/csc321/slides/lecture_slides_lec6.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;본 링크&lt;/a&gt;에서 해당 수업의 파워포인트 슬라이드를 확인할 수 있다.&lt;/p&gt;
+&lt;h2 id=&#34;adam&#34;&gt;ADAM&lt;/h2&gt;
+&lt;p&gt;모멘텀 알고리즘, RMSProp 알고리즘까지 개념적인 이해가 이루어졌다면 바로 다음 ADAM (Adaptive Moment Estimation) Optimizer 알고리즘을 이해할 수 있을 것이다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; on interation t:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    compute dy, dx on current mini-batch
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    V_dy = beta_1 * V_dy + (1 - beta_1) * dy
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    V_dx = beta_1 * V_dx + (1 - beta_1) * dx
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    S_dy = beta_2 * S_dy + (1 - beta_2) * (dy ** 2)  # element-wise square
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    S_dx = beta_2 * S_dx + (1 - beta_2) * (dx ** 2)  # element-wise square
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    V_dy = V_dy / (1 - beta_1 ** t)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    V_dx = V_dx / (1 - beta_1 ** t)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    S_dy = V_dy / (1 - beta_2 ** t)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    S_dx = V_dx / (1 - beta_2 ** t)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    w_y = w_y - alpha * ( V_dy / (sqrt(S_dy) + epsilon) )
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    w_x = w_x - alpha * ( V_dx / (sqrt(S_dx) + epsilon) )
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;모멘텀의 $V$ 값, RMSProp의 $S$ 값을 개별적으로 구한 후, 각각 bias correction 이 이루어진 $V$ 값에서 $S$ 값의 제곱근을 나눈 결과를 기반으로 경사하강을 진행하는 방식이다. 반복적인 실험을 통해 일반화가 가능할 정도로 그 효과성이 검증되었으며, $\beta_1$ 의 경우 $0.9$, $\beta_2$ 의 경우 $0.999$, $\epsilon$ 의 경우 $10^{-8}$ 의 초기값을 기본으로 하고있다. $\alpha$ 값의 경우 모델에 따라 기본적인 튜닝을 필요로 한다.&lt;/p&gt;
+&lt;p&gt;PyTorch, Keras, Tensorflow 와 같은 메이저한 딥러닝 프레임워크는 당연히 ADAM Optimizer, RMSProp, 모멘텀과 같은 최적화 알고리즘을 기본으로 제공하고 있으며, 이러한 최적화 알고리즘의 작동방식과 각 하이퍼파라미터의 의미를 정확하게 알고있다면 보다 효율적인 모델링이 가능할 것이다.&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>배치 관리 소프트웨어 런데크 (Rundeck)</title>
+        <link>https://meme2515.github.io/mlops/rundeck/</link>
+        <pubDate>Mon, 13 Jun 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/mlops/rundeck/</guid>
+        <description>&lt;img src="https://meme2515.github.io/mlops/rundeck-wordmark.svg" alt="Featured image of post 배치 관리 소프트웨어 런데크 (Rundeck)" /&gt;&lt;h2 id=&#34;프로그램-사용-배경&#34;&gt;프로그램 사용 배경&lt;/h2&gt;
+&lt;p&gt;업무 중 머신러닝 학습 데이터 생성을 위해 6대 로컬 PC에서 다소 리소스 인텐시브한 작업을 반복적으로, 장기간 진행할 니즈가 생겼다. 최초에는 6대 각각의 로컬 환경에서 Windows 공식 배치관리 툴인 &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/windows/win32/taskschd/task-scheduler-start-page&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Task Scheduler&lt;/a&gt; 에 관련 .bat 파일을 등록할 요량이었으나 다음과 같은 이유로 별도 배치 관리 툴을 찾아보게 되었다.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;6대 PC에서 개별적인 로컬 스케줄러를 관리한다는 것은 물리적인 모니터링을 필요로하기에 데이터 생성 기간동안 지나치게 많은 시간을 뺏길 것 같았다. &lt;strong&gt;빠른 대응이 가능한 중앙화된 모니터링 체계&lt;/strong&gt;가 필요했다.&lt;/li&gt;
+&lt;li&gt;프로세스는 경우에 따른 작업 시간이 달라 일정기간 지속 시 재시작 가능한 &lt;strong&gt;룰 기반 배치 관리&lt;/strong&gt;가 필요했다.&lt;/li&gt;
+&lt;li&gt;데이터 생성 도중 프로세스에 변동이 있을 가능성이 있었기때문에 &lt;strong&gt;프로세스 일괄 수정이 가능&lt;/strong&gt;한 툴이 필요했다.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;최초 머리에 떠오른 솔루션은 &lt;a class=&#34;link&#34; href=&#34;https://airflow.apache.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Apache Airflow&lt;/a&gt; 였으나 그닥 익숙한 솔루션도 되지 못했고, 모니터링 환경이 Windows 10 이었기때문에 환경 세팅에 어려움이 있었다. 그렇게 구글링을 계속하며 &lt;a class=&#34;link&#34; href=&#34;https://www.ansible.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Ansible&lt;/a&gt;과 같은 SSH 기반 솔루션을 생각했으나 보안상 이유로 다시 세팅에 어려움이 있었고&amp;hellip; 적합한 오픈소스 솔루션인 &lt;a class=&#34;link&#34; href=&#34;https://www.pagerduty.com/integrations/rundeck-runbook-automation/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Rundeck&lt;/a&gt;를 발견했다.&lt;/p&gt;
+&lt;h2 id=&#34;rundeck-소개&#34;&gt;Rundeck 소개&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/mlops/rundeck_example.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 1. Rundeck 파이프라인 예 - 유저가 생성한 Job 들을 Node 별로 할당 및 실행, 에러 발생 등 유사시 알림 설정&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;미국의 클라우드 소프트웨어 업체인 &lt;a class=&#34;link&#34; href=&#34;https://www.pagerduty.com&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;PagerDuty&lt;/a&gt; 사에서 개발한 작업 관리 소프트웨어이며, Physical, VM, Container, Serverless 환경에서 스크립트, API 호출 등의 작업을 스케줄링 및 관리 할 수 있다. 유학 중 룸메이트가 취업했다고 좋아하던 회사인데 좋은 프로그램을 만들고있었다.&lt;/p&gt;
+&lt;p&gt;많은 유즈 케이스들이 있는데, 가장 대중적인 예시는 &lt;a class=&#34;link&#34; href=&#34;https://sre.google/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;SRE (사이트 신뢰성 엔지니어링)&lt;/a&gt; 영역이다. Google 엔지니어 &lt;a class=&#34;link&#34; href=&#34;https://www.linkedin.com/in/benjamin-treynor-sloss-207120/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Ben Treynor Sloss&lt;/a&gt;가 창안한 개념인데, DevOps가 개발과 운영영역 간 사일로를 줄이는 철학적 접근이라고 한다면, SRE란 operation 영역의 문제들을 엔지니어링 관점에서 해결하는 방법론이라고 정의할 수 있다. 조직의 SRE팀이 계정 및 권한 관리, 인프라 리소스 관리 등의 운영 관점의 문제들을 자동화를 통해 해결하고나면, Dev팀은 소프트웨어 개발에, Ops팀은 제품 안정화에 더욱 집중할 수 있다는 식이다 (나도 현재는 이정도로만 이해하고 있고, 관심이 있다면 &lt;a class=&#34;link&#34; href=&#34;https://www.dynatrace.com/news/blog/what-is-site-reliability-engineering/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;1번&lt;/a&gt;, &lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=uTEL8Ff1Zvk&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;2번&lt;/a&gt; 링크에서 더욱 상세한 내용을 확인할 수 있다).&lt;/p&gt;
+&lt;p&gt;Rundeck 솔루션은 이러한 SRE 관점의 운영 절차를 표준화할 수 있는 플랫폼을 제공하며, 이러한 절차들은 조직 내에서 안전하게 공유되게 된다. 나의 경우는 아직 관련 지식이 부족하며, 당장 필요한 영역은 workload automation 으로 한정되어있기 때문에 깊은 내용은 추후에 더 알아보기로 하자.&lt;/p&gt;
+&lt;p&gt;핵심적으로 짚고 넘어가야 할 개념은 다음과 같다.&lt;/p&gt;
+&lt;h3 id=&#34;projects&#34;&gt;Projects&lt;/h3&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.rundeck.com/docs/manual/projects/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Rundeck Documentation - Projects&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Rundeck 내 작업 환경의 개념이다. 한개 Rundeck 서버에 여러개의 Project를 관리할 수 있으며, 프로젝트의 개념은 사용자가 정의하기 나름이다. 팀, 인프라, 어플리케이션, 환경 등 사용 목적에 맞게 Project를 구분하게 된다.&lt;/p&gt;
+&lt;h3 id=&#34;jobs&#34;&gt;Jobs&lt;/h3&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.rundeck.com/docs/manual/04-jobs.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Rundeck Documentation - Jobs&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;실행하고자 하는 프로세스의 묶음이다. &lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Batch_file&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;윈도우 batch 파일&lt;/a&gt;, &lt;a class=&#34;link&#34; href=&#34;https://airflow.apache.org/docs/apache-airflow/stable/concepts/dags.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Airflow의 DAG&lt;/a&gt; 개념과 유사하다.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/mlops/airflow_example.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 2. Airflow의 DAG 개념 예 - branch_b를 에러 케이스라고 보면 될 듯 하다&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Rundeck 내에서는 Job 단위로 스케줄러 설정이 가능하고, 개별적인 히스토리가 남게된다. 한개 Job을 생성할 때 input option을 설정하거나, 에러 핸들링 룰을 생성하는 등 부수적인 옵션이 주어지게 된다.&lt;/p&gt;
+&lt;h3 id=&#34;steps&#34;&gt;Steps&lt;/h3&gt;
+&lt;p&gt;CLI 커맨드, 스크립트 실행, 다른 Job 호출 등 하나의 Job을 구성하는 개별적인 태스크를 지칭하는 용어이다. 또한 개별 Step 내에서 다양한 플러그인 활용이 가능하다.&lt;/p&gt;
+&lt;h3 id=&#34;nodes&#34;&gt;Nodes&lt;/h3&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.rundeck.com/docs/manual/05-nodes.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Rundeck Documentation - Nodes&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Job이 실행되는 대상이다 (Physical, VM, Container, API, Database 등). 나의 경우에는 6대로 분할된 로컬 PC에 해당한다. 각각의 Node는 태그와 속성값을 지니게된다.&lt;/p&gt;
+&lt;p&gt;Rundeck의 &lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=QSY_qw9Buic&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;공식 소개 영상&lt;/a&gt;을 확인하면 Projects -&amp;gt; Jobs -&amp;gt; Steps -&amp;gt; Nodes 순으로 계층구조 개념을 띄고있다.&lt;/p&gt;
+&lt;h2 id=&#34;설치-방법-&#34;&gt;설치 방법 💻&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.rundeck.com/docs/administration/install/windows.html#folder-structure&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;윈도우 설치 Doc&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.rundeck.com/docs/administration/install/linux-deb.html#installing-rundeck&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Ubuntu 설치 Doc&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.rundeck.com/docs/administration/install/linux-rpm.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;CentOS 설치 Doc&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;내가-사용한-방법&#34;&gt;내가 사용한 방법&lt;/h2&gt;
+&lt;h3 id=&#34;winrm&#34;&gt;WinRM&lt;/h3&gt;
+&lt;p&gt;네트워크를 통해 원격으로 터미널을 제어하는 방법은 SSH (Secure Shell) 커맨드가 가장 익숙했고, Windows 10 부터는 OpenSSH라는 연관 툴을 기본으로 제공한다는 &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;공식 가이드&lt;/a&gt;를 확인해 세팅을 시도했다. 하지만 세팅에 필요한 PowerShell이 보안상의 이유로 제한되어있어 진행이 어려웠다.&lt;/p&gt;
+&lt;p&gt;이런 저런 대안을 찾아보다 Rundeck에서 제공하는 &lt;a class=&#34;link&#34; href=&#34;https://github.com/diyan/pywinrm&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;pywinrim&lt;/a&gt; 이라는 플러그인을 통해 Windows Node 설정이 가능하다는 &lt;a class=&#34;link&#34; href=&#34;https://docs.rundeck.com/docs/learning/howto/configuring-windows-nodes.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;공식 가이드&lt;/a&gt;를 확인했다. WinRM (Windows Remote Management)은 SSH의 Windows 네이티브 버전 정도로 이해가 되는데, 실제 프로토콜 방식은 굉장히 다르다고한다 (&lt;a class=&#34;link&#34; href=&#34;https://www.reddit.com/r/sysadmin/comments/nadfbs/winrm_vs_openssh/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;연관 글&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;pywinrm은 이런 WinRM 연결을 파이썬 환경에서 구현 가능하도록 하는 패키지인데, Rundeck내에서 해당 패키지를 활용한 노드 생성 기능을 구현한 듯 했다. 하지만 세팅이 생각보다 간단하지는 않았고, 나는 파이썬 스크립팅을 선호했기에 해당 패키지를 별도로 사용해 Rundeck에서는 .py 파일만 실행하는 접근법을 택했다.&lt;/p&gt;
+&lt;p&gt;하단은 pywinrm 패키지 사용 예시이다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; import winrm
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; s = winrm.Session(&amp;#39;windows-host.example.com&amp;#39;, auth=(&amp;#39;username&amp;#39;, &amp;#39;password&amp;#39;))
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; r = s.run_cmd(&amp;#39;ipconfig&amp;#39;, [&amp;#39;/all&amp;#39;])
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &amp;gt;&amp;gt;&amp;gt; r.status_code
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; 0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &amp;gt;&amp;gt;&amp;gt; r.std_out
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; Windows IP Configuration
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    Host Name . . . . . . . . . . . . : WINDOWS-HOST
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    Primary Dns Suffix  . . . . . . . :
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    Node Type . . . . . . . . . . . . : Hybrid
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    IP Routing Enabled. . . . . . . . : No
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    WINS Proxy Enabled. . . . . . . . : No
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; ...
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;filezilla-pscp&#34;&gt;FileZilla, PSCP&lt;/h3&gt;
+&lt;p&gt;학습 데이터 생성에 필요한 초기 데이터를 6대 PC에 분할하는 작업을 위해 메인 PC에 세팅한 &lt;a class=&#34;link&#34; href=&#34;https://filezilla-project.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;FileZilla&lt;/a&gt; 서버를 활용했다. 세팅 난이도도 높지 않고, 단순한 파일공유 (FTP) 프로그램으로 생각하면 될 듯 하다.&lt;/p&gt;
+&lt;p&gt;일련의 과정을 통해 생성된 학습 데이터는 각각 6대 PC로 부터 실제 학습을 수행할 리눅스 서버에 &lt;a class=&#34;link&#34; href=&#34;https://documentation.help/PuTTY/pscp.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;PSCP&lt;/a&gt; 커맨드를 통해 전송했다. 윈도우 환경에서 리눅스 환경으로 파일을 전송하기 위해 주로 사용되는 명령어라고 한다.&lt;/p&gt;
+&lt;h2 id=&#34;결론&#34;&gt;결론&lt;/h2&gt;
+&lt;p&gt;6대 PC에 스케줄링된 batch job의 성공 여부를 하나의 환경에서 모니터링 가능한 체계를 구축했다. 또한 일정시간 이상 batch job 지속 시 이를 취소하는 룰을 손쉽게 세팅할 수 있었고, 핵심 코드 또한 중심이 되는 서버 PC에서 수정이 가능하도록 했다. 언급한 3가지 요건을 어느정도 충족한 결과였다.&lt;/p&gt;
+&lt;p&gt;MLOps와 어느정도 연관성이 있는지는 사실 잘 모르겠다. 리소스 인텐시브한 데이터 생성 과정에서 유지/보수가 가능한 체계를 구축했다는데 의미가 있을수는 있으나 구축하게 될 모델과 직접적인 연관성이 있는건 아니고, Rundeck 이라는 프로그램 또한 분야에서 자주 활용되는 툴은 아닌 것 같다는 인상을 받았다.&lt;/p&gt;
+&lt;p&gt;다만 데이터 생성 과정을 여러대의 PC에 분산하고, 이를 모니터링 할 수 있는 체계는 생각보다 유용했고, 다시 사용할 일이 있지않을까 하는 생각이 들었다. 향후에는 조금 더 언급량이 많은 Ansible이나 Airflow같은 툴을 리눅스 기반의 환경에서 사용해보고 싶다.&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>PyTorch Deep Learning - 1. Tensor</title>
+        <link>https://meme2515.github.io/neural_network/pytorch_1/</link>
+        <pubDate>Sat, 11 Jun 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/neural_network/pytorch_1/</guid>
+        <description>&lt;img src="https://meme2515.github.io/neural_network/pytorch.jpeg" alt="Featured image of post PyTorch Deep Learning - 1. Tensor" /&gt;&lt;h2 id=&#34;소개&#34;&gt;소개&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;tensor&lt;/code&gt;란 &lt;code&gt;numpy&lt;/code&gt;와 유사하게 다차원 행렬을 다룰수있는 PyTorch 패키치의 자료구조다. 신경망 개론 수업에서 &lt;code&gt;numpy&lt;/code&gt; 패키지를 활용해 node와 weight, bias 등을 구현하고는 하는데 같은 개념의 연산을 &lt;strong&gt;GPU 등 적합한 하드웨어 자원을 통해 수행하고자 할때&lt;/strong&gt; &lt;code&gt;tensor&lt;/code&gt;를 이용하게 된다. Tensorflow 패키지 또한 동일한 개념과 이름을 가진 &lt;code&gt;tf.Tensor&lt;/code&gt;를 사용한다.&lt;/p&gt;
+&lt;h2 id=&#34;tensor-생성&#34;&gt;Tensor 생성&lt;/h2&gt;
+&lt;p&gt;값이 비어있는 tensor를 생성하기 위해서는 &lt;code&gt;torch.empty()&lt;/code&gt; 메소드를 다음과 같이 호출한다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; import torch
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; x1 = torch.empty(1) # scalar 생성
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; x2 = torch.empty(3) # 1d vector 생성
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; x3 = torch.empty(2, 3) # 2d matrix 생성
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; x4 = torch.empty(2, 2, 3) # 3d matrix 생성
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;유사하게 0과 1 사이의 랜덤한 값이 부여된 tensor를 사용하기 위해서는 &lt;code&gt;torch.rand()&lt;/code&gt; 함수를, 0값의 경우 &lt;code&gt;torch.zeros()&lt;/code&gt; 함수를, 1값의 경우 &lt;code&gt;torch.ones()&lt;/code&gt; 함수를 차원값과 함께 호출한다 (&lt;code&gt;numpy&lt;/code&gt;와 유사하게 구성).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; x1 = torch.rand(2, 2, 3)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;데이터-타입&#34;&gt;데이터 타입&lt;/h2&gt;
+&lt;p&gt;별도로 데이터 타입을 지정하지 않은 경우 위 저장된 변수의 데이터 타입은 &lt;code&gt;torch.float32&lt;/code&gt;로 자동 지정된다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; x1 = torch.ones(2, 2, 3)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; print(x1.dtype) # output: torch.float32
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;다른 데이터 타입을 사용하고자 할 경우 &lt;code&gt;tensor&lt;/code&gt; 생성시 &lt;code&gt;dtype&lt;/code&gt; 매개변수로 다음과 같이 지정이 가능하다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; x1 = torch.ones(2, 2, 3, dtype=torch.int)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; print(x1.dtype) # output: torch.int
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; x2 = torch.ones(2, 2, 3, dtype=torch.double)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; print(x2.dtype) # output: torch.double
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; x3 = torch.ones(2, 2, 3, dtype=torch.float16)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; print(x3.dtype) # output: torch.float16
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;행렬-구조-확인&#34;&gt;행렬 구조 확인&lt;/h2&gt;
+&lt;p&gt;생성된 &lt;code&gt;tensor&lt;/code&gt;의 구조는 &lt;code&gt;size&lt;/code&gt; 함수를 통해 확인이 가능하다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; x1 = torch.ones(2, 2, dtype=torch.int)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; print(x1.size) # output: torch.Size([2, 2])
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;불러오기-기능&#34;&gt;불러오기 기능&lt;/h2&gt;
+&lt;h3 id=&#34;python-list&#34;&gt;Python List&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;numpy&lt;/code&gt; 패키지의 &lt;code&gt;np.array&lt;/code&gt; 함수와 동일하게 행렬구조를 가진 파이썬 &lt;code&gt;list&lt;/code&gt; 로부터 &lt;code&gt;tensor&lt;/code&gt; 생성을 지원한다. &lt;code&gt;torch.tensor()&lt;/code&gt; 함수의 매개변수로 &lt;code&gt;list&lt;/code&gt; 를 넣어주는 일반적인 구조다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; x1 = torch.tensor([2.5, 0.1])
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;numpy-array&#34;&gt;Numpy Array&lt;/h3&gt;
+&lt;p&gt;자연스럽게 &lt;code&gt;numpy.array&lt;/code&gt; 를 활용한 &lt;code&gt;tensor&lt;/code&gt; 생성 또한 &lt;code&gt;torch.from_numpy()&lt;/code&gt; 함수를 통해 다음과 같이 지원한다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; import numpy as np
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; x1_np = np.array([2,5, 0.1])
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; x1 = torch.from_numpy(x1_np)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;반대로 &lt;code&gt;tensor&lt;/code&gt; 에서 &lt;code&gt;numpy&lt;/code&gt; 로의 변환은 다음과 같이 수행한다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; x1 = torch.tensor([2.5, 0.1])
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; x1_np = x1.numpy()
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;여기서 유의할 부분은 &lt;strong&gt;&lt;code&gt;tensor&lt;/code&gt; 의 메모리 위치가 GPU 가 아닌 CPU 일 경우, x1의 변형은 x1_np 에 그대로 반영&lt;/strong&gt;되게 된다는 점이다. 이는 위의 두개 예시 (&lt;code&gt;tensor&lt;/code&gt; -&amp;gt; &lt;code&gt;numpy&lt;/code&gt;, &lt;code&gt;numpy&lt;/code&gt; -&amp;gt; &lt;code&gt;tensor&lt;/code&gt;)에 공통적으로 적용된다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; x1 = torch.tensor([2.5, 0.1])
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; x1_np = x1.numpy()
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; x1.add_(1)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; print(x1_np) # output: [3.5, 1.1]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;CUDA 지원 하드웨어 가용이 가능한 경우, 다음 두가지 방식을 통해 &lt;code&gt;tensor&lt;/code&gt; 저장 위치를 GPU로 설정할 수 있다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; if torch.cuda.is_available():
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    device = torch.device(&amp;#34;cuda&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    x1 = torch.tensor([2.5, 0.1], device=device) # 1. 생성 시 GPU 메모리 가용
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    x2 = torch.tensor([2.5, 0.1])
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    x2 = x2.to(device) # 2. 생성 후 GPU 메모리 가용
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    x3 = x1 + x2
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    x3 = x3.to(&amp;#34;cpu&amp;#34;) # CPU 메모리 가용
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;행렬-연산&#34;&gt;행렬 연산&lt;/h2&gt;
+&lt;h3 id=&#34;일반적인-연산&#34;&gt;일반적인 연산&lt;/h3&gt;
+&lt;p&gt;덧셈, 곱셈과 같은 기본적인 행렬 연산 방식또한 &lt;code&gt;numpy&lt;/code&gt;와 크게 다르지 않다. &lt;code&gt;+&lt;/code&gt;, &lt;code&gt;*&lt;/code&gt; 등의 수학 기호, 또는 &lt;code&gt;torch.add()&lt;/code&gt;, &lt;code&gt;torch.mul()&lt;/code&gt; 등의 함수를 호출해 연산을 수행할 수 있다.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;numpy&lt;/code&gt;와 동일하게 내적 연산을 위해서는 &lt;code&gt;torch.mul()&lt;/code&gt; 이 아닌 다른 함수를 호출한다. 이와 관련된 내용은 이후 글에서 언급할 예정.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; x = torch.rand(2, 2)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; y = torch.rand(2, 2)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; # 덧셈
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; z1 = x + y
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; z2 = torch.add(x, y)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; # 뺄셈
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; z3 = x - y
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; z4 = torch.sub(x, y)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; # 곱셈, element-wise
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; z5 = x * y
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; z6 = torch.mul(x, y)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; # 나눗셈, element-wise
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; z7 = x / y
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; z8 = torch.div(x, y)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;바꿔치기-연산-in-place-operation&#34;&gt;바꿔치기 연산 (In-Place Operation)&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;torch&lt;/code&gt; 는 &lt;code&gt;.add_&lt;/code&gt;, &lt;code&gt;.sub_&lt;/code&gt; 등 &amp;lsquo;_&amp;rsquo; 접미사가 붙은 바꿔치기 연산 함수를 제공한다. 바꿔치기 라는 단어에서 유추 가능하듯 이는 &lt;strong&gt;타겟 변수의 값을 바꾸는 효과&lt;/strong&gt;를 가지게 된다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; x = torch.rand(2, 2)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; y = torch.rand(2, 2)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; y.add_(x) # y 변수의 값이 y + x 의 output으로 변경
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;슬라이싱&#34;&gt;슬라이싱&lt;/h2&gt;
+&lt;p&gt;슬라이싱의 경우 또한 &lt;code&gt;numpy&lt;/code&gt; 패키지와 동일한 방법을 고수한다. 2차원 행렬구조의 경우 &lt;code&gt;x[i, j]&lt;/code&gt; 와 같은 포맷으로 &lt;code&gt;i&lt;/code&gt; 번째 로우, &lt;code&gt;j&lt;/code&gt; 번째 컬럼을 리턴하며, &lt;code&gt;x[i1:i2, j1:j2]&lt;/code&gt; 와 같이 범위 설정이 가능하다.&lt;/p&gt;
+&lt;p&gt;유의가 필요한 부분은 1개의 값이 리턴될때 &lt;code&gt;tensor&lt;/code&gt; 오브젝트가 아닌 기입된 실제 값을 보고싶다면 &lt;code&gt;item()&lt;/code&gt; 함수를 별도로 호출해야 하며, 해당 함수는 &lt;code&gt;tensor&lt;/code&gt; 에 1개 값만 들어있을때 사용 가능하다는 점이다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; x = torch.rand(5, 2)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; print(x[:, 0]) # 1번 컬럼 슬라이스
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; print(x[0, :]) # 1번 로우 슬라이스
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; print(x[1, 1]) # 2번 로우, 2번 컬럼 슬라이스 (tensor 형태 유지)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; print(x[1, 1]).item() # 2번 로우, 2번 값
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;행렬-구조-변경-reshaping&#34;&gt;행렬 구조 변경 (Reshaping)&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;np.reshape&lt;/code&gt;이 아닌 &lt;code&gt;view&lt;/code&gt; 함수를 이용하게 된다. 매개변수로 들어가는 &lt;strong&gt;차원의 element 수은 항상 input &lt;code&gt;tensor&lt;/code&gt;의 element 수와 같아야 하며&lt;/strong&gt; (예. (4, 4) -&amp;gt; (2, 8)), 마지막 숫자가 유추 가능한 경우 -1 으로 매개변수를 대체할 수 있다 (하단 예시 참조).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; x = torch.rand(4, 4)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; y1 = x.view(16) # x.view(-1)와 동일
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; y2 = x.view(2, 8) # x.view(-1, 8)와 동일
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+        </item>
+        <item>
+        <title>About</title>
+        <link>https://meme2515.github.io/about/</link>
+        <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/about/</guid>
+        <description>&lt;img src="https://meme2515.github.io/about.jpg" alt="Featured image of post About" /&gt;&lt;p&gt;email: &lt;a class=&#34;link&#34; href=&#34;mailto:meme2515@gmail.com&#34; &gt;meme2515@gmail.com&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;제가 기술을 좋아하는 이유는, 거창하게 말하면 시대를 만들어 간다는 느낌을 받기 때문인 것 같아요. 구체적으로 사람들이 자주 언급하는 감정은 아니지만 그렇다고 또 대단히 특별할 것은 없는 욕구라고 생각해요. 산업혁명이 일어나고, 컴퓨터가 개인화되고, 이어폰에서 줄이 사라지고, 자동차가 전기로 움직였듯이 제가 느낌 가장 가시적인 시대의 변화는 기술의 발전으로 이루어졌고, 작은 제 삶에서 세상에 무언가 내가 뿌듯해할만한 기여를 할 수 있다면 기술을 통해서가 아닐까 하고 생각했습니다.&lt;/p&gt;
+&lt;p&gt;하지만 사람들은 전기차, 내연기관차 가릴 것 없이 주말 드라이브에서 웃고 울겠지요. 다른 일을 해봤으면 어땠을까 또한 자주 상상해봅니다. 더 나은 사회를 조직하는 일도 있을것이고, 질서를 지키는 일도, 아픈 사람을 고치는 일도, 듣기 좋은 음악을 만드는 일도 멋있어 보이더라구요. 그래도 제가 그나마 익숙하고 잘할 수 있는 분야에서, 그저 수단으로써 기술이 우리 삶에서 가지는 위치를 인지하고, 묵묵하게 제가 할 수 있는 것들을 찾고 나아가려고 항상 노력하고 있어요.&lt;/p&gt;
+&lt;p&gt;어렸을때 8년간 인도네시아라는 나라에서 생활하고 공부했습니다. 이후에 4년간 미국 &lt;a class=&#34;link&#34; href=&#34;https://www.berkeley.edu/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;UC버클리&lt;/a&gt;에서 유학하며 경제학과 신설된 데이터과학 학부 과정을 마쳤습니다. 현재 &lt;a class=&#34;link&#34; href=&#34;https://www.ey.com/ko_kr&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;EY&lt;/a&gt;라는 국내 회계법인 산하 컨설팅펌에서 데이터 관련 IT 컨설팅을 수행하는 업무를 맡고 있어요. 짧지만 자동차 제조, 핸드폰 글로벌 리테일, 가구업 글로벌 리테일, 식품제조업, 게임업, 유통업 등을 경험해 보았습니다. 컨설팅으로 시작하게 된 계기는 여러가지가 있겠지만 가능한 어릴때 가능한 많은 기업을 경험하고, 그들의 니즈를 경청하고, 다양한 데이터를 보고 싶었어요. 장점은 역동성과 업무 역량의 빠른 성장이고 단점은 공부할 시간이 없다입니다.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Python&lt;/code&gt; 으로 컴퓨터 공학에 입문했고 데이터를 배웠습니다. 경제학에 배경을 두고 있어 &lt;code&gt;Matlab&lt;/code&gt;, &lt;code&gt;STATA&lt;/code&gt; 등의 통계툴을 다뤄본 경험이 있고 업무적으로 &lt;code&gt;BigQuery&lt;/code&gt;, &lt;code&gt;Apache AirFlow&lt;/code&gt;, &lt;code&gt;PyTorch&lt;/code&gt; 등의 파이프라인 구축 및 모델링 프레임워크를 사용하고 있습니다. &lt;code&gt;Tableau&lt;/code&gt;, &lt;code&gt;Spotfire&lt;/code&gt; 등의 대시보드 툴 또한 자주 사용하고 있어요. 개인적으로 많은 관심을 가지고 있는 분야로는 MLOps, Deep Learning, Fintech 등이 있습니다.&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
