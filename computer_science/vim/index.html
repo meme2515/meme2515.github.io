@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='CLI 에디터 사용 이유, 기본 단축키 및 Vim 프로그래밍 Cheatsheet'><title>Vim 에디터 소개와 기본적인 명령어 정리</title>
+
+<link rel='canonical' href='https://meme2515.github.io/computer_science/vim/'>
+
+<link rel="stylesheet" href="/scss/style.min.0d6801e40f97865d11b796a59ab5cccec41427c09bbb58dec945c9cf7412db70.css"><meta property='og:title' content='Vim 에디터 소개와 기본적인 명령어 정리'>
+<meta property='og:description' content='CLI 에디터 사용 이유, 기본 단축키 및 Vim 프로그래밍 Cheatsheet'>
+<meta property='og:url' content='https://meme2515.github.io/computer_science/vim/'>
+<meta property='og:site_name' content='Soon Hyung Kwon'>
+<meta property='og:type' content='article'><meta property='article:section' content='Computer_science' /><meta property='article:tag' content='Vim' /><meta property='article:tag' content='리눅스' /><meta property='article:tag' content='유닉스' /><meta property='article:tag' content='Vim 에디터' /><meta property='article:tag' content='커맨드 라인' /><meta property='article:published_time' content='2022-09-05T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-09-05T00:00:00&#43;00:00'/><meta property='og:image' content='https://meme2515.github.io/computer_science/vim.bmp' />
+<meta name="twitter:title" content="Vim 에디터 소개와 기본적인 명령어 정리">
+<meta name="twitter:description" content="CLI 에디터 사용 이유, 기본 단축키 및 Vim 프로그래밍 Cheatsheet"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://meme2515.github.io/computer_science/vim.bmp' />
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-135204357-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hud342b0d5be633fdc127bd0653c60e8c3_234674_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Soon Hyung Kwon</a></h1>
+            <h2 class="site-description">데이터 블로그입니다 :)</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/meme2515'
+                        target="_blank"
+                        title="GitHub"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M200,513c0-20.3,0-40.7,0-61c3.1,0.6,1.9,3.1,1.9,4.8c0.1,16.3,0.2,32.6,0,48.9c-0.1,4.1,1,5.4,5.2,5.4   c36.6-0.2,73.2-0.2,109.8,0c4.4,0,5.1-1.6,5.1-5.5c-0.2-25-0.1-49.9-0.1-74.9c0-9.3,0.2-18.6,0.2-27.9c2.8,1.2,1.6,3.8,1.6,5.7   c0.1,34.8,0.1,69.6,0.1,104.4C282.7,513,241.3,513,200,513z" fill="#D1D1D1"/><path d="M322.2,402.8c-0.1,9.3-0.2,18.6-0.2,27.9c0,25-0.1,49.9,0.1,74.9c0,3.9-0.7,5.5-5.1,5.5   c-36.6-0.2-73.2-0.2-109.8,0c-4.2,0-5.3-1.3-5.2-5.4c0.2-16.3,0.1-32.6,0-48.9c0-1.7,1.2-4.2-1.9-4.8c-9.7,0.9-19.3,3.2-29.2,2.8   c-33.5-1.3-59.5-15.4-74.7-45.8c-8.2-16.4-17.8-31.7-29.1-46c-3.1-3.9-7.9-5.5-11.5-8.7c-1.1-1-2.4-1.8-3.3-3   c-2.3-3.3-1.2-5.8,2.8-6.2c18.5-1.9,33.8,4.2,46.2,18.1c6.3,7.1,10.2,15.8,16.3,23.1c12.3,14.7,28,22.7,47,24.9   c11.5,1.3,22.4-0.9,33.3-4.2c2.2-0.6,3.1-2,3.3-4.3c0.7-10.3,2.8-20.3,6.8-29.9c1.8-4.3,4.7-7.9,6.9-12.3   c-10.3-2.6-20.7-3.4-30.5-6.4c-27.1-8.2-50.9-21.6-68.2-44.7c-8.3-11-14.1-23.3-17.4-36.5c-1.8-7.2-3.9-14.4-3.8-22   c0.1-13.3-0.5-26.7,0.3-40c0.9-16.8,3.1-33.5,9.2-49.2c3.8-9.7,9.3-18.6,17.1-25.9c2.4-2.3,3.3-4.1,1.8-7.9   c-7.4-19.7-8.1-39.8-1.8-60c0.2-0.6,0.3-1.3,0.4-2c2.2-10.3,4.5-11.3,14.3-7.4c19.2,7.5,33.3,21,45.3,37.3c3.4,4.6,2.7,6.6,10,1.9   c9.7-6.2,21-8.1,32.2-9.3c20.1-2.1,40.3-1.5,60.4-1.1c14.3,0.3,28.5,2.2,42,7.2c3.1,1.1,6,2.8,8.7,4.8c2.1,1.6,3.6,1.6,5.6-1.1   c9.1-12.8,19.5-24.4,33-32.6c6.6-4,13.4-7.7,21.4-8.6c3.3-0.4,4.7,0.7,5.6,3.3c8.3,22.9,9.5,45.7-0.2,68.5   c-1.2,2.8-0.8,4.6,1.3,6.5c16,15,21.8,34.5,24.8,55.5c2.5,17.7,3.2,35.5,2.7,53.3c-0.8,31.2-11.4,58.4-34.4,80.1   c-13.5,12.7-29.7,21.1-47.1,27.5c-12.4,4.6-25.5,5.8-38.5,9c1.3,3.1,3.7,5.4,4.3,8.5c-0.3,1.3,0.4,2,1.6,2.3   c0.1,0.6,0.3,1.1,0.4,1.7c0.3,2.1,0.1,4.3,2.5,5.4c0.5,2.2,1,4.5,1.4,6.7c-0.1,1.7-0.7,3.5,1.6,4.3c0,0.6,0.1,1.2,0.1,1.9   c-1.5,2.3-0.1,4.1,1.1,6C322.1,398.9,322.2,400.9,322.2,402.8z" fill="#A7A7A7"/><path d="M322,397c-1.1-1.9-2.6-3.7-1.1-6C322.1,392.9,323,394.8,322,397z" fill="#D1D1D1"/><path d="M317.7,378.2c-2.4-1.1-2.2-3.3-2.5-5.4C317.4,374,317.7,376,317.7,378.2z" fill="#D1D1D1"/><path d="M320.8,389.1c-2.3-0.8-1.7-2.6-1.6-4.3C321.5,385.6,321,387.5,320.8,389.1z" fill="#D1D1D1"/><path d="M314.8,371.1c-1.2-0.3-1.9-1-1.6-2.3C314.5,369.1,315.1,369.8,314.8,371.1z" fill="#D1D1D1"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.linkedin.com/in/soon-hyung-kwon-73a3221ab/'
+                        target="_blank"
+                        title="LinkedIn"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M1,53c2.5,0,1.7-2,1.9-3.3C5.9,29,16.6,13.9,36.6,7.4c16.1-5.2,32.9-4.6,47.9,4c9.4,5.5,16.6,14,20.4,24.5   c2.8,7.8,4.9,15.9,4,24.2c-2.1,20.9-11.5,38.3-34.5,46.4c-17.4,6-34.3,3.8-50.2-5.7c-1-3.6-3.5-5.4-7.1-6c0,0,0,0,0,0   c-0.1-1.4-0.3-2.8-2.2-2.8C7.7,84,4.3,74.3,2.9,63.8C2.7,62.6,3.2,60.9,1,61C1,58.3,1,55.7,1,53z" fill="#A7A7A7"/><path d="M276.2,216.1c4.3-2.6,6-6.4,8.2-9.5c10.9-15,24.4-26.6,41.2-34.9c23-11.3,47.4-12.5,72-10.2   c18.9,1.7,36.8,8.1,53.1,18.5c19.4,12.4,33.3,29.6,42.8,50.2c5.8,12.5,9.6,25.8,11.9,39.6c2.1,12.9,3.7,25.6,3.7,38.7   c-0.1,65-0.1,130,0.1,195c0,4.6-1.3,5.8-5.8,5.7c-30.7-0.2-61.3-0.2-92,0c-4.5,0-5.5-1.3-5.5-5.6c0.1-61.3,0.4-122.7-0.1-184   c-0.1-13.9-2-27.7-9.2-40.4c-6.4-11.2-15.3-19.2-27-23.8c-15.7-6.2-31.9-7.4-48.3-2.8c-16.6,4.6-28.1,15.5-36.3,30.3   c-4.6,8.3-6.2,17-7.5,26.3c-1.3,10-1.1,19.8-1.1,29.7c-0.2,54.7-0.2,109.3,0,164c0,5-1.2,6.4-6.3,6.3c-30.3-0.3-60.7-0.2-91,0   c-4.2,0-5.7-1.3-5.6-5.2c0.1-2.8,0.3-5.6,0.3-8.4c0-105.5,0.1-211-0.1-316.5c0-4.4,0.9-6,5.7-6c30.5,0.2,61,0.2,91.5,0   c4.1,0,5.5,1,5.4,5.3C276,190.6,276.2,202.9,276.2,216.1z" fill="#A7A7A7"/><path d="M109,176.1c0,3.5,0.1,7,0.1,10.5c0,105.3,0,210.6,0,316c0,6.4,0,6.4-6.5,6.4c-31.8,0-63.7,0-95.5,0   c-0.1-2.5-0.2-5-0.2-7.5c0-78.8,0-157.5,0-236.3c0-28.1,0.1-56.3-0.1-84.4c0-3.6,0.9-4.9,4.7-4.9C44,176.1,76.5,176,109,176.1z" fill="#A7A7A7"/><path d="M109,176.1c-32.5,0-64.9,0-97.4-0.2c-3.8,0-4.7,1.2-4.7,4.9C7,208.9,6.9,237,6.9,265.2   c0,78.8,0,157.5,0,236.3c0,2.5,0.1,5,0.2,7.5c-1.7,0.1-3-0.3-3-2.3c0-1.3,0-2.7,0-4c0-106.8,0-213.5,0-320.3c0-7.6,0.7-8.3,8.2-8.3   c30.5,0,61,0,91.4,0.1C105.5,174.1,108.2,172.7,109,176.1z" fill="#E0E0E0"/><path d="M17.1,94.9c3.6,0.6,6.1,2.4,7.1,6C21.1,99.7,18.8,97.7,17.1,94.9z" fill="#E0E0E0"/><path d="M14.9,92.1c1.9,0,2,1.4,2.2,2.8C15,95,15,93.6,14.9,92.1z" fill="#E0E0E0"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/about' >
+                
+                
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/machine_learning' >
+                
+                
+                
+                <span>Machine Learning</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/neural_network' >
+                
+                
+                
+                <span>Neural Network</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/mlops' >
+                
+                
+                
+                <span>MLOps</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/statistics' >
+                
+                
+                
+                <span>Statistics</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/computer_science' >
+                
+                
+                
+                <span>Computer Science</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/cloud_network' >
+                
+                
+                
+                <span>Cloud &amp; Network</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/daily' >
+                
+                
+                
+                <span>Daily</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/computer_science/vim/">
+                
+                    <img src="/computer_science/vim.bmp" loading="lazy" alt="Featured image of post Vim 에디터 소개와 기본적인 명령어 정리" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%EB%A6%AC%EB%88%85%EC%8A%A4/" >
+                리눅스
+            </a>
+        
+            <a href="/categories/vim/" >
+                Vim
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/computer_science/vim/">Vim 에디터 소개와 기본적인 명령어 정리</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            CLI 에디터 사용 이유, 기본 단축키 및 Vim 프로그래밍 Cheatsheet
+        </h3>
+        
+    </div>
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Sep 05, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    5 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="mit에서-공개한-vim-관련-강의">MIT에서 공개한 Vim 관련 강의</h2>
+<p>유명한 <a class="link" href="https://missing.csail.mit.edu/"  target="_blank" rel="noopener"
+    >The Missing Semester of Your CS Education</a> 의 Vim 관련 강의 비디오 링크.</p>
+<p><a class="link" href="https://www.youtube.com/watch?v=a6Q8Na575qc"  target="_blank" rel="noopener"
+    ><img src="/computer_science/vim_2.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image"
+	
+	
+></a></p>
+<h2 id="등장-배경과-특징">등장 배경과 특징</h2>
+<p>1976년 배포된 유닉스 운영체제의 텍스트 에디터 프로그램이었던 <a class="link" href="https://en.wikipedia.org/wiki/Vi"  target="_blank" rel="noopener"
+    >vi</a> 의 개선판으로, 그 이름 또한 Vi IMproved 의 약자이다. 최초 버전은 1991년 배포되었으며, 현재까지 VS Code, Sublime 등과 함께 개발자들이 가장 선호하는 텍스트 에디터 중 하나이다. 아직까지도 리눅스, 맥OS 등의 주요 유닉스 기반 운영체제에 기본으로 탑재되어 있다.</p>
+<p>Vim을 처음 접한 사용자는 마우스 사용 없이 문서 수정이 이루어지는 환경이 당황스럽게 받아들여질 수 밖에 없다. 하지만 이는 일정 수준 사용에 익숙해지면 마우스를 조작하는 시간을 절약할 수 있다는 의미이기도 하다 (물론 나는 익숙하지 않다). 당연하지만 Vim 의 문서 수정 방식은 VSCode 같은 기존 텍스트 에디터를 더 편하게 사용하기 위해 고안된 것이 아니라, 주로 검은 화면에 키보드로 입력한 명령어만으로 컴퓨터를 조작하던 시절 문서를 수정하기 위한 가장 현실적인 방안으로 고안된 것이다.</p>
+<p>Vim 은 개발자들이 문서를 작성하기보다 수정하는 일에 더 많은 시간을 보낸다는 점에 집중한다. 따라서 기능의 많은 부분들이 방대한 양의 텍스트를 효율적으로 다룰수 있도록 설계되어있다. 또한 맥OS, 리눅스, 윈도우 환경에서 모두 쉽고 빠르게 사용할 수 있기 때문에 범용성이 높다는 특징 또한 존재한다 (사실 개발자용 텍스트 에디터는 모두 이렇기에 특징이라고 하기는 어렵다).</p>
+<h2 id="장단점-정리-및-기본-개념-소개">장단점 정리 및 기본 개념 소개</h2>
+<h3 id="기타-환경-대비-장단점">기타 환경 대비 장단점</h3>
+<p>장점</p>
+<ul>
+<li>일정 수준 이상 익숙해진다면 마우스+키보드 조합에 비해 월등한 효율을 낼 수 있다.</li>
+<li>.vimrc 파일 수정을 통해 생각할 수 있는 거의 모든 customization 이 가능하다. 또한 다른 유저가 공개한 설정을 사용함으로서 바로 효율적인 세팅을 이용할 수 있다.</li>
+<li>SSH 터미널 세션에서 별도 GUI 로딩이 필요하지 않다. GUI 세팅이 어렵다면 사실상 유일하게 사용할 수 있는 텍스트 에디터이다 (이게 크다).</li>
+</ul>
+<p>단점</p>
+<ul>
+<li>단축키, 각종 모드 등 배워야 할 것이 많다. 굳이 배우지 않아도 예외적인 사례 몇가지를 제외하면 사실 개발에 큰 지장을 주지 않는다.</li>
+<li>폰트 구분, 이미지 렌더링, UI 개발 등 여러 현대적인 그래픽 기반 기능들을 태생적으로 제공하지 못한다.</li>
+</ul>
+<p>뭣모르고 하는 소리일 수 있겠지만, 개인적으로는 VSCode 와 같은 주류 IDE 를 메인으로 사용하고, SSH 접속과 같은 상황에 Vim 을 서브 에디터로 사용하는 것이 바람직하다고 생각한다. 굳이 모든 상황에 CLI 환경 에디터를 고집함으로서 생기는 득보다는 실이 크지 않을까 조심스럽게 적어본다.</p>
+<h3 id="데이터-사이언티스트는-vim을-공부해야할까">데이터 사이언티스트는 Vim을 공부해야할까?</h3>
+<p>나는 그렇다고 생각한다, 다만 너무 깊이 들어갈 필요는 없을듯하다. 대학교, 부트캠프 등에서 노트북 기반 환경에 익숙해진 초심자는 커맨드 라인에서 문서 편집이 오히려 불편하고, 귀찮은 경험이 될 수 있다. 하지만 클라우드 등 서버 컴퓨팅을 활용 시 발생할 수 있는 여러 문제들 (사내 보안, 자원 절약, 한정된 시간 등) 로 인해 Vim 은 유일한 문서 편집 방법이 될 가능성이 많다.</p>
+<p>또한 단순 실험에서 벗어나 스크립트를 작성하고, 모델을 저장/로드하는 과정에서 터미널 사용은 필수적이다. 터미널에서 파일을 브라우징하며 짤막한 코드 수정이 필요할때 Vim 은 실제로 많은 시간을 단축시켜준다.</p>
+<h3 id="vim-모드">Vim 모드</h3>
+<p>Vim 은 모드 기반의 에디터이다. 여타 텍스트 에디터가 파일을 열게되면 바로 편집, 읽기 기능을 제공하는 것과 다르게 Vim은 주로 문서 탐색 기능을 제공하는 Normal 모드, 편집 기능을 제공하는 Insert 모드, 명령어 입력을 지원하는 Command 모드, 하이라이팅 기능을 제공하는 Visual 모드로 구분할 수 있다.</p>
+<h4 id="normal-모드">Normal 모드</h4>
+<p>개발자가 가장 많은 시간을 할애하는 모드이며, <code>vim filename</code> 커맨드로 문서를 열면 기본적으로 Normal 모드에서 편집을 시작하게 된다. Undo, redo, find, replace 등 직접적인 텍스트 입력 및 하이라이팅을 제외한 거의 모든 기능을 제공하며, 기타 모드에서 <code>esc</code> 키를 클릭하면 다시 Normal 모드로 돌아올 수 있다.</p>
+<h4 id="insert-모드">Insert 모드</h4>
+<p>직접적인 텍스트 입력을 지원하며, Normal 모드에서 <code>i</code> 키를 클릭해 전환한다. 일반적인 텍스트 에디터와 동일한 상태라고 생각하면 되지만, Vim 의 강점인 단축키가 대부분 지원되지 않는다.</p>
+<h4 id="command-모드">Command 모드</h4>
+<p>프로그래밍 언어처럼 명령어를 입력할 수 있는 모드이며, Normal 모드에서 <code>:</code> 키를 입력해 전환할 수 있다. 예를 들자면 <code>:q</code> 입력 후 엔터를 누르면 문서를 닫는 식이다.</p>
+<h4 id="visual-모드">Visual 모드</h4>
+<p>하이라이팅 기능을 제공하며, Normal 모드에서 <code>v</code> 키를 입력해 전환한다. 주로 코드의 특정 부분을 선택해 복사 및 잘라내기 기능을 수행할때 활용한다.</p>
+<h3 id="기본적인-커맨드-정리">기본적인 커맨드 정리</h3>
+<p>다음 커맨드들은 별도 표기가 없다면 모두 Normal 모드에서만 지원된다.</p>
+<h4 id="저장-및-파일-닫기">저장 및 파일 닫기</h4>
+<p><code>:w filename</code> 현재 문서를 filename 문서에 저장한다. 문서 이름을 지정하지 않으면 현재 문서에 저장한다.</p>
+<p><code>:q</code> Vim 을 종료한다. 문서 편집이 이루어졌다면 저장이 필요하다는 문구가 뜨게된다.</p>
+<p><code>:q!</code> 문서 저장없이 Vim 을 종료한다.</p>
+<p><code>wq</code> 문서를 저장하고 Vim 을 종료한다.</p>
+<h4 id="파일-탐색">파일 탐색</h4>
+<p>화살표키, 또는 j, k, h, l 키로 커서를 이동할 수 있다. 권장되는 탐색 방법은 후자인데, 단축키 조합이 빈번한 Vim 에서 손가락의 움직임을 최소화할 수 있기 때문이다.</p>
+<p><code>j</code> 아래 <code>k</code> 위 <code>h</code> 왼쪽 <code>l</code> 오른쪽 이동에 해당한다.</p>
+<p><code>w</code> 다음 단어로 이동. <code>B</code> 이전 단어로 이동.</p>
+<p><code>b</code> 단어의 처음으로 이동. <code>e</code> 단어의 마지막으로 이동.</p>
+<p><code>0</code> 현재 라인의 처음으로 이동. <code>$</code> 현재 라인의 마지막으로 이동.</p>
+<p><code>:123</code> 123 번째 줄로 이동.</p>
+<p><code>ctrl-f</code> 한페이지 위로. <code>ctrl-b</code> 한페이지 아래로.</p>
+<p><code>ctrl-u</code> 반페이지 위로. <code>ctrl-d</code> 반페이지 아래로.</p>
+<p><code>gg</code> 파일의 첫 라인으로 이동. <code>G</code> 파일의 마지막 라인으로 이동.</p>
+<h4 id="찾기-기능">찾기 기능</h4>
+<p><code>/foo</code> 파일에서 foo 를 검색한다. 엔터를 누르면 검색 결과간 이동이 가능하다.</p>
+<p><code>n</code> 다음 검색 결과로 이동.</p>
+<p><code>N</code> 이전 검색 결과로 이동.</p>
+<h4 id="텍스트-편집">텍스트 편집</h4>
+<p><code>dd</code> 혹은 <code>:d</code> 현재 라인 잘라내기.</p>
+<p><code>yy</code> 혹은 <code>:y</code> 현재 라인 복사하기.</p>
+<p><code>p</code> 잘라내거나 복사한 내용 붙여넣기.</p>
+<h4 id="undoredo">Undo/Redo</h4>
+<p><code>u</code> 마지막 액션 취소.</p>
+<p><code>U</code> 현재 라인에 모든 수정 내용 취소.</p>
+<p><code>ctrl-u</code> redo.</p>
+<h4 id="텍스트-하이라이트">텍스트 하이라이트</h4>
+<p><code>v</code> 캐릭터 레벨에서 하이라이트.</p>
+<p><code>V</code> 라인 레벨에서 하이라이트 (위/아래 이동만 가능).</p>
+<p><code>ctrl-v</code> 행렬 레벨에서 하이라이트.</p>
+<p>텍스트 하이라이트 후, 잘라내기 (<code>d</code>), 복사 (<code>y</code>), 붙여넣기 (<code>p</code>) 등의 기능을 사용할 수 있다. Visual 모드에서 Normal 모드로 돌아가기 위해서는 <code>esc</code> 키를 누르면 된다.</p>
+<h2 id="더-나아가기">더 나아가기</h2>
+<p><a class="link" href="https://www.youtube.com/watch?v=a6Q8Na575qc"  target="_blank" rel="noopener"
+    >The Missing Semester</a>와 <a class="link" href="https://web.stanford.edu/class/cs107/resources/vim.html"  target="_blank" rel="noopener"
+    >Stanford CS107</a>에서 짧지만 양질의 Vim 강의를 제공한다. 두 강의 모두 기본적인 소개는 물론 고급 사용법의 공부법 또한 제공하니 관심이 있다면 참고하면 좋을듯 하다.</p>
+<h2 id="참고-링크">참고 링크</h2>
+<ol>
+<li><a class="link" href="https://en.wikipedia.org/wiki/Vim_%28text_editor%29"  target="_blank" rel="noopener"
+    >https://en.wikipedia.org/wiki/Vim_(text_editor)</a></li>
+<li><a class="link" href="https://en.wikipedia.org/wiki/Vi"  target="_blank" rel="noopener"
+    >https://en.wikipedia.org/wiki/Vi</a></li>
+<li><a class="link" href="https://medium.com/@fay_jai/what-is-vim-and-why-use-vim-54c67ce3c18e"  target="_blank" rel="noopener"
+    >https://medium.com/@fay_jai/what-is-vim-and-why-use-vim-54c67ce3c18e</a></li>
+<li><a class="link" href="https://www.youtube.com/watch?v=a6Q8Na575qc"  target="_blank" rel="noopener"
+    >https://www.youtube.com/watch?v=a6Q8Na575qc</a></li>
+<li><a class="link" href="https://web.stanford.edu/class/cs107/resources/vim.html"  target="_blank" rel="noopener"
+    >https://web.stanford.edu/class/cs107/resources/vim.html</a></li>
+</ol>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/vim/">Vim</a>
+        
+            <a href="/tags/%EB%A6%AC%EB%88%85%EC%8A%A4/">리눅스</a>
+        
+            <a href="/tags/%EC%9C%A0%EB%8B%89%EC%8A%A4/">유닉스</a>
+        
+            <a href="/tags/vim-%EC%97%90%EB%94%94%ED%84%B0/">Vim 에디터</a>
+        
+            <a href="/tags/%EC%BB%A4%EB%A7%A8%EB%93%9C-%EB%9D%BC%EC%9D%B8/">커맨드 라인</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/computer_science/linux_cheatsheet/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/computer_science/linux.jpg" loading="lazy" data-key="linux_cheatsheet" data-hash="/computer_science/linux.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">리눅스/우분투 명령어 모음 (Cheatsheet)</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "meme2515" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2022 Soon Hyung Kwon
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.11.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#mit에서-공개한-vim-관련-강의">MIT에서 공개한 Vim 관련 강의</a></li>
+    <li><a href="#등장-배경과-특징">등장 배경과 특징</a></li>
+    <li><a href="#장단점-정리-및-기본-개념-소개">장단점 정리 및 기본 개념 소개</a>
+      <ol>
+        <li><a href="#기타-환경-대비-장단점">기타 환경 대비 장단점</a></li>
+        <li><a href="#데이터-사이언티스트는-vim을-공부해야할까">데이터 사이언티스트는 Vim을 공부해야할까?</a></li>
+        <li><a href="#vim-모드">Vim 모드</a>
+          <ol>
+            <li><a href="#normal-모드">Normal 모드</a></li>
+            <li><a href="#insert-모드">Insert 모드</a></li>
+            <li><a href="#command-모드">Command 모드</a></li>
+            <li><a href="#visual-모드">Visual 모드</a></li>
+          </ol>
+        </li>
+        <li><a href="#기본적인-커맨드-정리">기본적인 커맨드 정리</a>
+          <ol>
+            <li><a href="#저장-및-파일-닫기">저장 및 파일 닫기</a></li>
+            <li><a href="#파일-탐색">파일 탐색</a></li>
+            <li><a href="#찾기-기능">찾기 기능</a></li>
+            <li><a href="#텍스트-편집">텍스트 편집</a></li>
+            <li><a href="#undoredo">Undo/Redo</a></li>
+            <li><a href="#텍스트-하이라이트">텍스트 하이라이트</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#더-나아가기">더 나아가기</a></li>
+    <li><a href="#참고-링크">참고 링크</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
