@@ -12,7 +12,7 @@
         <pubDate>Fri, 15 Jul 2022 00:00:00 +0000</pubDate>
         
         <guid>https://meme2515.github.io/machine_learning/decision_tree/</guid>
-        <description>&lt;img src="https://meme2515.github.io/machine_learning/decision_tree_1.png" alt="Featured image of post 결정 트리 (Decision Tree) 기초 개념" /&gt;&lt;h2 id=&#34;소개&#34;&gt;소개&lt;/h2&gt;
+        <description>&lt;img src="https://meme2515.github.io/machine_learning/images/decision_tree_1.png" alt="Featured image of post 결정 트리 (Decision Tree) 기초 개념" /&gt;&lt;h2 id=&#34;소개&#34;&gt;소개&lt;/h2&gt;
 &lt;p&gt;구직 활동 중 한 회사에서 입사제의를 받았다고 가정하자. 개인마다 그 정도에는 차이가 있겠지만, 제안을 수락하기 까지에는 일종의 의사결정 체계가 존재할 것이다. 대표적으로 다음과 같은 질문을 자신에게 던져볼 수 있다.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;나의 배경과 직급에 적당한 보수를 받을 수 있는가?&lt;/li&gt;
@@ -29,7 +29,7 @@
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/decision_tree_2.png&#34;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/images/decision_tree_2.png&#34;
 	
 	
 	
@@ -93,7 +93,7 @@ $$&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/decision_tree_3.png&#34;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/images/decision_tree_3.png&#34;
 	
 	
 	
@@ -125,7 +125,7 @@ $$&lt;/p&gt;
         <pubDate>Wed, 06 Jul 2022 00:00:00 +0000</pubDate>
         
         <guid>https://meme2515.github.io/machine_learning/performance_measurement/</guid>
-        <description>&lt;img src="https://meme2515.github.io/machine_learning/performance_1.png" alt="Featured image of post Precision, Recall, F1 스코어 등의 모델 평가 방법" /&gt;&lt;h2 id=&#34;배경&#34;&gt;배경&lt;/h2&gt;
+        <description>&lt;img src="https://meme2515.github.io/machine_learning/images/performance_1.png" alt="Featured image of post Precision, Recall, F1 스코어 등의 모델 평가 방법" /&gt;&lt;h2 id=&#34;배경&#34;&gt;배경&lt;/h2&gt;
 &lt;p&gt;모델 평가 방법에 대한 사전지식이 없는 누군가에게 스팸 필터 모델에 대한 평가를 요구한다면 아마 정확도 (accuracy) 를 평가 기준으로 선택할 것이다. 정확도는 직관적으로 다음과 같이 정의할 수 있다.&lt;/p&gt;
 &lt;p&gt;$$
 \text{Accuracy} = \frac{\text{Number of correct labels}}{\text{Number of all cases}}
@@ -139,7 +139,7 @@ $$&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/performance_1.png&#34;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/images/performance_1.png&#34;
 	
 	
 	
@@ -187,7 +187,7 @@ $$&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/performance_3.jpg&#34;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/images/performance_3.jpg&#34;
 	
 	
 	
@@ -235,7 +235,7 @@ $$&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/performance_5.png&#34;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/images/performance_5.png&#34;
 	
 	
 	
@@ -265,7 +265,7 @@ $$&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/performance_6.png&#34;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/images/performance_6.png&#34;
 	
 	
 	
@@ -300,7 +300,7 @@ $$&lt;/p&gt;
         <pubDate>Thu, 23 Jun 2022 00:00:00 +0000</pubDate>
         
         <guid>https://meme2515.github.io/machine_learning/conda_1/</guid>
-        <description>&lt;img src="https://meme2515.github.io/machine_learning/conda.png" alt="Featured image of post Conda 환경 공유 방법" /&gt;&lt;h2 id=&#34;배경&#34;&gt;배경&lt;/h2&gt;
+        <description>&lt;img src="https://meme2515.github.io/machine_learning/images/conda.png" alt="Featured image of post Conda 환경 공유 방법" /&gt;&lt;h2 id=&#34;배경&#34;&gt;배경&lt;/h2&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.conda.io/en/latest/#&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;콘다&lt;/a&gt;는 윈도우, 맥OS, 리눅스에서 동작하는 패키지 관리 시스템이며, 데이터 분석 환경에서 주로 사용되지만 파이썬, R, 루비, 자바 등 다양한 언어를 지원한다. 본 글에서는 짧게 콘다 환경 생성과 세팅, 저장, 그리고 다른 컴퓨터에서 저장된 환경을 불러오는 법을 살펴보고자 한다.&lt;/p&gt;
 &lt;h2 id=&#34;환경-생성-및-세팅-저장&#34;&gt;환경 생성 및 세팅, 저장&lt;/h2&gt;

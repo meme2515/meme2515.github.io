@@ -12,7 +12,7 @@
         <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
         
         <guid>https://meme2515.github.io/neural_network/optimizer/</guid>
-        <description>&lt;img src="https://meme2515.github.io/neural_network/adam.png" alt="Featured image of post 수학적으로 이해하는 최적화 기법 - 모멘텀, RMSProp, ADAM " /&gt;&lt;h2 id=&#34;관련-논문-링크&#34;&gt;관련 논문 링크&lt;/h2&gt;
+        <description>&lt;img src="https://meme2515.github.io/neural_network/images/adam.png" alt="Featured image of post 수학적으로 이해하는 최적화 기법 - 모멘텀, RMSProp, ADAM " /&gt;&lt;h2 id=&#34;관련-논문-링크&#34;&gt;관련 논문 링크&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/abs/1412.6980&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Adam: A Method for Stochastic Optimization&lt;/a&gt;&lt;/li&gt;
@@ -28,7 +28,7 @@
 \theta_i := \theta_i - \alpha \frac{\partial}{\partial \theta_i}J(\theta)
 $$&lt;/p&gt;
 &lt;p&gt;다만 mini-batch 경사하강의 경우 매 iteration에서 리소스적인 문제로 전체 데이터가 아닌 부분 데이터를 활용하기 때문에 여기서 하강이 이루어지는 방향이 직진성을 띄고 있지 않을 가능성이 높은데, &lt;strong&gt;모멘텀&lt;/strong&gt;은 이러한 문제를 해결하기 위해 &lt;strong&gt;변수 별 미분값의 점진적 평균값 (지수 가중 평균) 을 구해 하강의 방향성을 찾는다&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/adam_2.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/images/adam_2.png&#34;
 	
 	
 	
@@ -49,7 +49,7 @@ V_t = \beta V_{t-1} + (1-\beta)\theta_t
 $$&lt;/p&gt;
 &lt;p&gt;여기서 $\beta$ 값은 사용자가 지정하며 (가장 일반적인 값은 $0.9$ 이다), 이렇게 계산된 $V_t$ 값은 대략 $t - \frac{1}{1 - \beta}$ 부터 $t$ 까지 기간의 단순 평균치에 근접하게 된다. 누적된 평균값에 일정 비율로 현재 값을 반영하는 접근법이며, Bayesian 통계와 개념적으로 유사한 부분이 있다.&lt;/p&gt;
 &lt;p&gt;아래 그래프는 파란색으로 표기된 Original 데이터에 조금씩 큰 $\beta$ 값을 사용하며 계산한 EWMA 를 시각화한 결과이다. 회색이 가장 낮은 $\beta$, 빨간색이 가장 높은 $\beta$ 에 해당하는데, &lt;strong&gt;$\beta$ 값이 높을수록 과거 데이터에 큰 영향을 받으며 신규 데이터에 대한 적응 딜레이가 생기는 점이 확인 가능하다&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/adam_4.jpeg&#34;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/images/adam_4.jpeg&#34;
 	
 	
 	

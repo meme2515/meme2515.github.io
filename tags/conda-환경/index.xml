@@ -12,7 +12,7 @@
         <pubDate>Thu, 23 Jun 2022 00:00:00 +0000</pubDate>
         
         <guid>https://meme2515.github.io/machine_learning/conda_1/</guid>
-        <description>&lt;img src="https://meme2515.github.io/machine_learning/conda.png" alt="Featured image of post Conda 환경 공유 방법" /&gt;&lt;h2 id=&#34;배경&#34;&gt;배경&lt;/h2&gt;
+        <description>&lt;img src="https://meme2515.github.io/machine_learning/images/conda.png" alt="Featured image of post Conda 환경 공유 방법" /&gt;&lt;h2 id=&#34;배경&#34;&gt;배경&lt;/h2&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.conda.io/en/latest/#&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;콘다&lt;/a&gt;는 윈도우, 맥OS, 리눅스에서 동작하는 패키지 관리 시스템이며, 데이터 분석 환경에서 주로 사용되지만 파이썬, R, 루비, 자바 등 다양한 언어를 지원한다. 본 글에서는 짧게 콘다 환경 생성과 세팅, 저장, 그리고 다른 컴퓨터에서 저장된 환경을 불러오는 법을 살펴보고자 한다.&lt;/p&gt;
 &lt;h2 id=&#34;환경-생성-및-세팅-저장&#34;&gt;환경 생성 및 세팅, 저장&lt;/h2&gt;

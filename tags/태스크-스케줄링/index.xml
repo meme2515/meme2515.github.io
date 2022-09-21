@@ -12,7 +12,7 @@
         <pubDate>Mon, 13 Jun 2022 00:00:00 +0000</pubDate>
         
         <guid>https://meme2515.github.io/mlops/rundeck/</guid>
-        <description>&lt;img src="https://meme2515.github.io/mlops/rundeck-wordmark.svg" alt="Featured image of post 배치 관리 소프트웨어 런데크 (Rundeck)" /&gt;&lt;h2 id=&#34;프로그램-사용-배경&#34;&gt;프로그램 사용 배경&lt;/h2&gt;
+        <description>&lt;img src="https://meme2515.github.io/mlops/images/rundeck-wordmark.svg" alt="Featured image of post 배치 관리 소프트웨어 런데크 (Rundeck)" /&gt;&lt;h2 id=&#34;프로그램-사용-배경&#34;&gt;프로그램 사용 배경&lt;/h2&gt;
 &lt;p&gt;업무 중 머신러닝 학습 데이터 생성을 위해 6대 로컬 PC에서 다소 리소스 인텐시브한 작업을 반복적으로, 장기간 진행할 니즈가 생겼다. 최초에는 6대 각각의 로컬 환경에서 Windows 공식 배치관리 툴인 &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/windows/win32/taskschd/task-scheduler-start-page&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Task Scheduler&lt;/a&gt; 에 관련 .bat 파일을 등록할 요량이었으나 다음과 같은 이유로 별도 배치 관리 툴을 찾아보게 되었다.&lt;/p&gt;
 &lt;ol&gt;
@@ -28,7 +28,7 @@
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/mlops/rundeck_example.png&#34;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/mlops/images/rundeck_example.png&#34;
 	
 	
 	
@@ -68,7 +68,7 @@
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/mlops/airflow_example.png&#34;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/mlops/images/airflow_example.png&#34;
 	
 	
 	

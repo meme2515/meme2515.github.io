@@ -12,7 +12,7 @@
         <pubDate>Fri, 15 Jul 2022 00:00:00 +0000</pubDate>
         
         <guid>https://meme2515.github.io/machine_learning/decision_tree/</guid>
-        <description>&lt;img src="https://meme2515.github.io/machine_learning/decision_tree_1.png" alt="Featured image of post 결정 트리 (Decision Tree) 기초 개념" /&gt;&lt;h2 id=&#34;소개&#34;&gt;소개&lt;/h2&gt;
+        <description>&lt;img src="https://meme2515.github.io/machine_learning/images/decision_tree_1.png" alt="Featured image of post 결정 트리 (Decision Tree) 기초 개념" /&gt;&lt;h2 id=&#34;소개&#34;&gt;소개&lt;/h2&gt;
 &lt;p&gt;구직 활동 중 한 회사에서 입사제의를 받았다고 가정하자. 개인마다 그 정도에는 차이가 있겠지만, 제안을 수락하기 까지에는 일종의 의사결정 체계가 존재할 것이다. 대표적으로 다음과 같은 질문을 자신에게 던져볼 수 있다.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;나의 배경과 직급에 적당한 보수를 받을 수 있는가?&lt;/li&gt;
@@ -29,7 +29,7 @@
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/decision_tree_2.png&#34;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/images/decision_tree_2.png&#34;
 	
 	
 	
@@ -93,7 +93,7 @@ $$&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/decision_tree_3.png&#34;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/images/decision_tree_3.png&#34;
 	
 	
 	

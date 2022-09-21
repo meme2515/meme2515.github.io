@@ -12,7 +12,7 @@
         <pubDate>Wed, 06 Jul 2022 00:00:00 +0000</pubDate>
         
         <guid>https://meme2515.github.io/machine_learning/performance_measurement/</guid>
-        <description>&lt;img src="https://meme2515.github.io/machine_learning/performance_1.png" alt="Featured image of post Precision, Recall, F1 스코어 등의 모델 평가 방법" /&gt;&lt;h2 id=&#34;배경&#34;&gt;배경&lt;/h2&gt;
+        <description>&lt;img src="https://meme2515.github.io/machine_learning/images/performance_1.png" alt="Featured image of post Precision, Recall, F1 스코어 등의 모델 평가 방법" /&gt;&lt;h2 id=&#34;배경&#34;&gt;배경&lt;/h2&gt;
 &lt;p&gt;모델 평가 방법에 대한 사전지식이 없는 누군가에게 스팸 필터 모델에 대한 평가를 요구한다면 아마 정확도 (accuracy) 를 평가 기준으로 선택할 것이다. 정확도는 직관적으로 다음과 같이 정의할 수 있다.&lt;/p&gt;
 &lt;p&gt;$$
 \text{Accuracy} = \frac{\text{Number of correct labels}}{\text{Number of all cases}}
@@ -26,7 +26,7 @@ $$&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/performance_1.png&#34;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/images/performance_1.png&#34;
 	
 	
 	
@@ -74,7 +74,7 @@ $$&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/performance_3.jpg&#34;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/images/performance_3.jpg&#34;
 	
 	
 	
@@ -122,7 +122,7 @@ $$&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/performance_5.png&#34;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/images/performance_5.png&#34;
 	
 	
 	
@@ -152,7 +152,7 @@ $$&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/performance_6.png&#34;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/machine_learning/images/performance_6.png&#34;
 	
 	
 	

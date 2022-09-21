@@ -12,7 +12,7 @@
         <pubDate>Sun, 26 Jun 2022 00:00:00 +0000</pubDate>
         
         <guid>https://meme2515.github.io/neural_network/batchnorm/</guid>
-        <description>&lt;img src="https://meme2515.github.io/neural_network/batchnorm.png" alt="Featured image of post 배치정규화 (Batch Normalization) 란?" /&gt;&lt;h2 id=&#34;관련-논문위키-링크&#34;&gt;관련 논문/위키 링크&lt;/h2&gt;
+        <description>&lt;img src="https://meme2515.github.io/neural_network/images/batchnorm.png" alt="Featured image of post 배치정규화 (Batch Normalization) 란?" /&gt;&lt;h2 id=&#34;관련-논문위키-링크&#34;&gt;관련 논문/위키 링크&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/abs/1502.03167&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift&lt;/a&gt;&lt;/li&gt;
@@ -53,7 +53,7 @@ $$&lt;/p&gt;
 &lt;h2 id=&#34;기타-효과&#34;&gt;기타 효과&lt;/h2&gt;
 &lt;p&gt;구체적으로 배치정규화가 모델의 학습과정을 개선시키는 방법은 다음과 같이 정리할 수 있다.&lt;/p&gt;
 &lt;h3 id=&#34;1-학습-속도-개선&#34;&gt;1. 학습 속도 개선&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/batchnorm_2.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/images/batchnorm_2.png&#34;
 	
 	
 	

@@ -12,7 +12,7 @@
         <pubDate>Tue, 12 Jul 2022 00:00:00 +0000</pubDate>
         
         <guid>https://meme2515.github.io/neural_network/alexnet/</guid>
-        <description>&lt;img src="https://meme2515.github.io/neural_network/alexnet_1.png" alt="Featured image of post (논문 리뷰) 쉽게 이해하는 AlexNet 과 PyTorch 코드 예시" /&gt;&lt;h2 id=&#34;소개&#34;&gt;소개&lt;/h2&gt;
+        <description>&lt;img src="https://meme2515.github.io/neural_network/images/alexnet_1.png" alt="Featured image of post (논문 리뷰) 쉽게 이해하는 AlexNet 과 PyTorch 코드 예시" /&gt;&lt;h2 id=&#34;소개&#34;&gt;소개&lt;/h2&gt;
 &lt;p&gt;2012년 토론토 대학의 &lt;a class=&#34;link&#34; href=&#34;https://www.cs.toronto.edu/~kriz/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Alex Krizhevsky&lt;/a&gt; 팀이 공개한 AlexNet 은 &lt;a class=&#34;link&#34; href=&#34;https://image-net.org/challenges/LSVRC/2012/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;ILSVRC-2012&lt;/a&gt; 대회에서 2등 모델의 정확도 26.2%를 10% 이상 상회하는 15.3% 의 정확도를 기록해 많은 관심을 받았던 CNN 구조이다. 특히 GPU 를 활용한 연산가속이 컴퓨터 비전 커뮤니티에서 적극적으로 사용되는 것에 기여하였으며, 이외에도 &lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Rectifier_%28neural_networks%29&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -28,7 +28,7 @@
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/alexnet_4.png&#34;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/images/alexnet_4.png&#34;
 	
 	
 	
@@ -62,7 +62,7 @@ $$&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/alexnet_3.png&#34;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/images/alexnet_3.png&#34;
 	
 	
 	
@@ -95,7 +95,7 @@ $$&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/alexnet_5.jpg&#34;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/images/alexnet_5.jpg&#34;
 	
 	
 	
@@ -143,7 +143,7 @@ $$&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/alexnet_1.png&#34;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/neural_network/images/alexnet_1.png&#34;
 	
 	
 	
