@@ -416,7 +416,7 @@ $$</p>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center">Fig 6. Multi-Head Attention 예시</td>
+<td style="text-align:center">Fig 4. Multi-Head Attention 예시</td>
 </tr>
 </tbody>
 </table></div>
@@ -440,16 +440,16 @@ $$</p>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center">Fig 7. Transformer 네트워크 구조</td>
+<td style="text-align:center">Fig 5. Transformer 네트워크 구조</td>
 </tr>
 </tbody>
 </table></div>
 <p>트랜스포머 네트워크는 machine translation, 즉 언어 간 해석 문제를 염두하고 만들어졌기 때문에 한개의 언어를 해석하는 encoder 블록, 다른 언어를 생성하는 decoder 블록으로 구분할 수 있다.</p>
 <h3 id="encoder">Encoder</h3>
-<p>Fig 7. 의 좌측 도식화에 해당하는 부분이다. 우선 임베딩된 인풋 문장 Jane visite l&rsquo;Afrique en septembre (Input Encoding) 에서 Q, K, V 특성을 추출한 후, 이에 Multi-Head Attention 을 적용해 문장에 대한 해석 정보가 담긴 매트릭스를 생성한다 (여기서 Q, K, V 특성은 세갈래의 화살표로 표기되어있다). 이후 일반적인 신경망 구조를 통해 해당 매트릭스에서 중요한 정보를 선별하며, 여기까지의 과정을 N 번 반복한다. Multi-Head Attention 과 Feed Forward 레이어에서 생성되는 아웃풋에는 여타 신경망의 <a class="link" href="https://meme2515.github.io/neural_network/batchnorm/"  target="_blank" rel="noopener"
+<p>Fig 5. 의 좌측 도식화에 해당하는 부분이다. 우선 임베딩된 인풋 문장 Jane visite l&rsquo;Afrique en septembre (Input Encoding) 에서 Q, K, V 특성을 추출한 후, 이에 Multi-Head Attention 을 적용해 문장에 대한 해석 정보가 담긴 매트릭스를 생성한다 (여기서 Q, K, V 특성은 세갈래의 화살표로 표기되어있다). 이후 일반적인 신경망 구조를 통해 해당 매트릭스에서 중요한 정보를 선별하며, 여기까지의 과정을 N 번 반복한다. Multi-Head Attention 과 Feed Forward 레이어에서 생성되는 아웃풋에는 여타 신경망의 <a class="link" href="https://meme2515.github.io/neural_network/batchnorm/"  target="_blank" rel="noopener"
     >Batch Normalization</a> 과 유사한 Add &amp; Normalization 이 적용된다.</p>
 <h3 id="decoder">Decoder</h3>
-<p>Fig 7. 의 우측 도식화에 해당하는 부분이다. 인풋엔 생성하고자 하는 문장의 단어들이 순차적으로 입력되며, 최초엔 이러한 문장 정보가 없기 때문에 start-of-sentence 라는 의미의 SOS 토큰 등을 활용하게 된다. 이후 임베딩된 단어 인풋에서 Q, K, V 특성을 추출 후, 이에 Multi-Head Attention 을 적용한다. Encoder 와 다른 점은 이 Multi-Head Attention 의 아웃풋이 해석 정보를 가진 매트릭스가 아닌 Q, 즉 인풋 단어에 대한 복수의 질문 정보를 담은 매트릭스라는 점이다.</p>
+<p>Fig 5. 의 우측 도식화에 해당하는 부분이다. 인풋엔 생성하고자 하는 문장의 단어들이 순차적으로 입력되며, 최초엔 이러한 문장 정보가 없기 때문에 start-of-sentence 라는 의미의 SOS 토큰 등을 활용하게 된다. 이후 임베딩된 단어 인풋에서 Q, K, V 특성을 추출 후, 이에 Multi-Head Attention 을 적용한다. Encoder 와 다른 점은 이 Multi-Head Attention 의 아웃풋이 해석 정보를 가진 매트릭스가 아닌 Q, 즉 인풋 단어에 대한 복수의 질문 정보를 담은 매트릭스라는 점이다.</p>
 <p>앞서 설명한 Encoder 는 궁극적으로 이에 대응하는 K, V 매트릭스를 생성하게 된다 (양 블록을 있는 두개의 화살표로 표현). 따라서 Decoder 의 질문에 대응하는 답변을 줄 수 있게 설계된 것이다. 이러한 두 갈래의 Q, K, V 특성은 다시 Multi-Head Attention 레이어에 적용되며, 이를 통해서 아웃풋된 두 언어의 상관성 정보를 담은 매트릭스는 Feed Forward 레이어를 통해 중요한 정보만을 남기게 된다. 여기까지의 과정 또한 N 번 반복 후, Softmax Activation 을 통해 여러 단어 중 가장 알맞은 단어를 선택하게 된다.</p>
 <p>Decoder 블록 또한 각 레이어 별로 Add &amp; Normalization 이 적용된다.</p>
 <h3 id="positional-encoding">Positional Encoding</h3>
@@ -471,7 +471,7 @@ $$</p>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center">Fig 4. Translation Invariance</td>
+<td style="text-align:center">Fig 6. Translation Invariance</td>
 </tr>
 </tbody>
 </table></div>
@@ -496,7 +496,7 @@ $$</p>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center">Fig 5. Positional Encoding 벡터 덧셈 예시</td>
+<td style="text-align:center">Fig 7. Positional Encoding 벡터 덧셈 예시</td>
 </tr>
 </tbody>
 </table></div>
@@ -525,7 +525,7 @@ $$</p>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center">Fig 5. Positional Encoding 함수 아웃풋 예시</td>
+<td style="text-align:center">Fig 8. Positional Encoding 함수 아웃풋 예시</td>
 </tr>
 </tbody>
 </table></div>

@@ -305,12 +305,12 @@ $$&lt;/p&gt;
 </description>
         </item>
         <item>
-        <title>PyTorch Deep Learning - 3. Backpropagation &amp; Gradient Descent</title>
+        <title>PyTorch Deep Learning - Backpropagation &amp; Gradient Descent</title>
         <link>https://meme2515.github.io/neural_network/pytorch_3/</link>
         <pubDate>Tue, 28 Jun 2022 00:00:00 +0000</pubDate>
         
         <guid>https://meme2515.github.io/neural_network/pytorch_3/</guid>
-        <description>&lt;img src="https://meme2515.github.io/neural_network/images/pytorch.jpeg" alt="Featured image of post PyTorch Deep Learning - 3. Backpropagation &amp; Gradient Descent" /&gt;&lt;h2 id=&#34;소개&#34;&gt;소개&lt;/h2&gt;
+        <description>&lt;img src="https://meme2515.github.io/neural_network/images/pytorch.jpeg" alt="Featured image of post PyTorch Deep Learning - Backpropagation &amp; Gradient Descent" /&gt;&lt;h2 id=&#34;소개&#34;&gt;소개&lt;/h2&gt;
 &lt;p&gt;머신러닝과 분야에서 가장 뼈대가 되는 수학 공식은 &lt;a class=&#34;link&#34; href=&#34;https://ko.wikipedia.org/wiki/%EA%B2%BD%EC%82%AC_%ED%95%98%EA%B0%95%EB%B2%95&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;경사하강&lt;/a&gt;이다. 왜일까? &lt;a class=&#34;link&#34; href=&#34;https://ko.wikipedia.org/wiki/%EC%84%9C%ED%8F%AC%ED%8A%B8_%EB%B2%A1%ED%84%B0_%EB%A8%B8%EC%8B%A0&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;SVM&lt;/a&gt;, &lt;a class=&#34;link&#34; href=&#34;https://ko.wikipedia.org/wiki/%EC%84%A0%ED%98%95_%ED%9A%8C%EA%B7%80&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -564,12 +564,12 @@ $$&lt;/p&gt;
 &lt;/div&gt;</description>
         </item>
         <item>
-        <title>PyTorch Deep Learning - 2. Autograd</title>
+        <title>PyTorch Deep Learning - Autograd</title>
         <link>https://meme2515.github.io/neural_network/pytorch_2/</link>
         <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
         
         <guid>https://meme2515.github.io/neural_network/pytorch_2/</guid>
-        <description>&lt;img src="https://meme2515.github.io/neural_network/images/pytorch.jpeg" alt="Featured image of post PyTorch Deep Learning - 2. Autograd" /&gt;&lt;h2 id=&#34;소개&#34;&gt;소개&lt;/h2&gt;
+        <description>&lt;img src="https://meme2515.github.io/neural_network/images/pytorch.jpeg" alt="Featured image of post PyTorch Deep Learning - Autograd" /&gt;&lt;h2 id=&#34;소개&#34;&gt;소개&lt;/h2&gt;
 &lt;p&gt;신경망을 수학적으로 구현함에 있어 가장 까다로운 부분은 &lt;a class=&#34;link&#34; href=&#34;http://wiki.hash.kr/index.php/%EC%97%AD%EC%A0%84%ED%8C%8C&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;역전파 (backpropagation)&lt;/a&gt; 과정이다. 짧게 설명하자면, 모델에 존재하는 각각의 가중치(weight)와 편향(bias)이 &lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Loss_function&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;손실함수&lt;/a&gt;에 어떠한 영향을 끼치는지를 연산한 다음, 이 정보를 활용해 가중치와 편향의 값을 손실함수를 줄이는 방향으로 갱신시키는 과정이다. 개념적인 이해가 필요하다면 앞선 역전파 해시넷 링크와 더불어 &lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=Ilg3gGewQ5U&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -823,12 +823,12 @@ $$&lt;/p&gt;
 </description>
         </item>
         <item>
-        <title>PyTorch Deep Learning - 1. Tensor</title>
+        <title>PyTorch Deep Learning - Tensor</title>
         <link>https://meme2515.github.io/neural_network/pytorch_1/</link>
         <pubDate>Sat, 11 Jun 2022 00:00:00 +0000</pubDate>
         
         <guid>https://meme2515.github.io/neural_network/pytorch_1/</guid>
-        <description>&lt;img src="https://meme2515.github.io/neural_network/images/pytorch.jpeg" alt="Featured image of post PyTorch Deep Learning - 1. Tensor" /&gt;&lt;h2 id=&#34;소개&#34;&gt;소개&lt;/h2&gt;
+        <description>&lt;img src="https://meme2515.github.io/neural_network/images/pytorch.jpeg" alt="Featured image of post PyTorch Deep Learning - Tensor" /&gt;&lt;h2 id=&#34;소개&#34;&gt;소개&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;tensor&lt;/code&gt;란 &lt;code&gt;numpy&lt;/code&gt;와 유사하게 다차원 행렬을 다룰수있는 PyTorch 패키치의 자료구조다. 신경망 개론 수업에서 &lt;code&gt;numpy&lt;/code&gt; 패키지를 활용해 node와 weight, bias 등을 구현하고는 하는데 같은 개념의 연산을 &lt;strong&gt;GPU 등 적합한 하드웨어 자원을 통해 수행하고자 할때&lt;/strong&gt; &lt;code&gt;tensor&lt;/code&gt;를 이용하게 된다. Tensorflow 패키지 또한 동일한 개념과 이름을 가진 &lt;code&gt;tf.Tensor&lt;/code&gt;를 사용한다.&lt;/p&gt;
 &lt;h2 id=&#34;tensor-생성&#34;&gt;Tensor 생성&lt;/h2&gt;
 &lt;p&gt;값이 비어있는 tensor를 생성하기 위해서는 &lt;code&gt;torch.empty()&lt;/code&gt; 메소드를 다음과 같이 호출한다.&lt;/p&gt;
