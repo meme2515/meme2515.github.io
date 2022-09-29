@@ -6,7 +6,31 @@
         <description>Recent content in Tags on Soon Hyung Kwon</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Sat, 24 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 27 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>VGGNet</title>
+        <link>https://meme2515.github.io/tags/vggnet/</link>
+        <pubDate>Tue, 27 Sep 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/vggnet/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>논문리뷰</title>
+        <link>https://meme2515.github.io/tags/%EB%85%BC%EB%AC%B8%EB%A6%AC%EB%B7%B0/</link>
+        <pubDate>Tue, 27 Sep 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/%EB%85%BC%EB%AC%B8%EB%A6%AC%EB%B7%B0/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>뉴럴넷</title>
+        <link>https://meme2515.github.io/tags/%EB%89%B4%EB%9F%B4%EB%84%B7/</link>
+        <pubDate>Tue, 27 Sep 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/%EB%89%B4%EB%9F%B4%EB%84%B7/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>adaboost</title>
         <link>https://meme2515.github.io/tags/adaboost/</link>
         <pubDate>Sat, 24 Sep 2022 00:00:00 +0000</pubDate>
@@ -156,22 +180,6 @@
         <pubDate>Tue, 12 Jul 2022 00:00:00 +0000</pubDate>
         
         <guid>https://meme2515.github.io/tags/alexnet/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>논문리뷰</title>
-        <link>https://meme2515.github.io/tags/%EB%85%BC%EB%AC%B8%EB%A6%AC%EB%B7%B0/</link>
-        <pubDate>Tue, 12 Jul 2022 00:00:00 +0000</pubDate>
-        
-        <guid>https://meme2515.github.io/tags/%EB%85%BC%EB%AC%B8%EB%A6%AC%EB%B7%B0/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>뉴럴넷</title>
-        <link>https://meme2515.github.io/tags/%EB%89%B4%EB%9F%B4%EB%84%B7/</link>
-        <pubDate>Tue, 12 Jul 2022 00:00:00 +0000</pubDate>
-        
-        <guid>https://meme2515.github.io/tags/%EB%89%B4%EB%9F%B4%EB%84%B7/</guid>
         <description></description>
         </item>
         <item>
