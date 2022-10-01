@@ -369,7 +369,12 @@ if (!doNotTrack) {
 <h3 id="전이-학습">전이 학습</h3>
 <p>깊어진 네트워크의 복잡성으로 인해 적절한 초기 가중치 세팅 (weight initilization) 없이는 네트워크 학습이 어려운 문제가 발생한다. 이를 해결하기 위해 저자는 레이어 수가 가장 적은 A 모델을 pre-train 모델로 활용하여, 더 깊은 모델 학습 시 레이어를 이어 붙이고, 이후 fine-tuning 을 진행한다.</p>
 <h3 id="이미지-리사이징">이미지 리사이징</h3>
-<p>네트워크는 기본적으로 인풋 이미지에서 랜덤하게 크롭된 224x224 이미지를 처리한다. 이러한 인풋 크롭이 진행되기 전, 이미지는 가로세로 비율이 유지되는 상태에서 리스케일되는데 (isotropical rescale - 1024x512 이미지가 512x256 사이즈로 리스케일 되어 2:1 비율을 유지하는 식), 리스케일 후 가로세로 중 더 작은 면의 이미지 크기를 학습 시 $S$, 테스팅 시 $Q$ 라 칭한다. 학습은 $S$ 를 256 또는 384로 고정하는 single-scale 방식, 혹은 이미지 별로 256 과 512 사이 랜덤한 숫자를 부여하는 multi-scale 방식으로 나뉘어진다.</p>
+<p>네트워크는 기본적으로 인풋 이미지에서 랜덤하게 크롭된 224x224 이미지를 처리한다. 이러한 인풋 크롭이 진행되기 전, 이미지는 가로세로 비율이 유지되는 상태에서 리스케일되는데 (isotropical rescale - 1024x512 이미지가 512x256 사이즈로 리스케일 되어 2:1 비율을 유지하는 식), 리스케일 후 가로세로 중 더 작은 면의 이미지 크기를 학습 시 $S$, 테스팅 시 $Q$ 라 칭한다.</p>
+<ul>
+<li>학습은 $S$ 를 256 또는 384로 고정하는 single-scale 방식, 혹은 이미지 별로 256 과 512 사이 랜덤한 숫자를 부여하는 multi-scale 방식으로 나뉘어진다.</li>
+<li>테스팅은 $Q$ 를 256 또는 384로 고정하는 single-sclae 방식, 혹은 224, 256, 288, 416, 512 중 세가지 숫자에서 랜덤하게 부여하는 multi-scale 방식으로 나뉘어진다.</li>
+<li>학습과 테스팅은 single/multi-sclae 방식의 조합 (single-multi, multi-single 도 가능) 으로 이루어진다.</li>
+</ul>
 <div class="table-wrapper"><table>
 <thead>
 <tr>
@@ -415,10 +420,55 @@ if (!doNotTrack) {
 </tbody>
 </table></div>
 <h2 id="모델-성능">모델 성능</h2>
-<p>모델의 성능은 깊이에 비례하며, 동일한 깊이라도 1x1 convolution 레이어보다 3x3 convolution 레이어를 구성하는 것이 성능에 도움이 된다는 점을 발견한다. 또한 test 이미지 사이즈가 고정된 경우, 랜덤하게 선택된 경우 모두 학습 시 랜덤한 이미지 사이즈를 사용한 경우에 모델 성능이 가장 좋았으며, 저자는 이러한 방식이 데이터 증강 역할을 수행해 이미지들에 대한 통계치를 얻는 것에 도움이 되었다고 결론짓는다.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/neural_network/images/vggnet_6.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 5. Single Test Scale 성능 비교</td>
+</tr>
+</tbody>
+</table></div>
+<p>여기서 top-1, top-5 error rate 란 AlexNet 과 동일하게 가장 높은 확률로 예측된 1개, 5개 레이블 중 실제 레이블이 포함되어 있는 비율이다. 모델의 깊이가 깊어질 수록 성능이 증가하며, LRN 레이어가 성능에 오히려 악영향을 끼치는 점을 확인할 수 있다.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/neural_network/images/vggnet_7.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 5. Multiple Test Scale 성능 비교</td>
+</tr>
+</tbody>
+</table></div>
+<p>저자는 모델의 성능은 깊이에 비례하며, 동일한 깊이라도 1x1 convolution 레이어보다 3x3 convolution 레이어를 구성하는 것이 성능에 도움이 된다는 점을 발견한다. 또한 test 이미지 사이즈가 고정된 경우, 랜덤하게 선택된 경우 모두 학습 시 랜덤한 이미지 사이즈를 사용한 경우에 모델 성능이 가장 좋았으며, 저자는 이러한 방식이 데이터 증강 역할을 수행해 이미지들에 대한 통계치를 얻는 것에 도움이 되었다고 결론짓는다.</p>
 <p>VGGNet 은 2014년 ILSVRC 챌린지에서 GooGLeNet 다음으로 2등을 차지했다. 마지막으로 저자는 VGGNet 이 다양한 task 와 데이터셋에서 높은 범용성을 보인다는 점을 언급한다.</p>
 <h2 id="레퍼런스">레퍼런스</h2>
 <ul>
+<li><a class="link" href="https://arxiv.org/pdf/1409.1556.pdf"  target="_blank" rel="noopener"
+    >https://arxiv.org/pdf/1409.1556.pdf</a></li>
 <li><a class="link" href="https://oi.readthedocs.io/en/latest/computer_vision/cnn/vggnet.html"  target="_blank" rel="noopener"
     >https://oi.readthedocs.io/en/latest/computer_vision/cnn/vggnet.html</a></li>
 <li><a class="link" href="https://bskyvision.com/504"  target="_blank" rel="noopener"
