@@ -6,20 +6,28 @@
         <description>Recent content in Categories on Soon Hyung Kwon</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Tue, 27 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>VGGNet</title>
-        <link>https://meme2515.github.io/categories/vggnet/</link>
-        <pubDate>Tue, 27 Sep 2022 00:00:00 +0000</pubDate>
+        <lastBuildDate>Sat, 26 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>CRNN</title>
+        <link>https://meme2515.github.io/categories/crnn/</link>
+        <pubDate>Sat, 26 Nov 2022 00:00:00 +0000</pubDate>
         
-        <guid>https://meme2515.github.io/categories/vggnet/</guid>
+        <guid>https://meme2515.github.io/categories/crnn/</guid>
         <description></description>
         </item>
         <item>
         <title>뉴럴넷</title>
         <link>https://meme2515.github.io/categories/%EB%89%B4%EB%9F%B4%EB%84%B7/</link>
-        <pubDate>Tue, 27 Sep 2022 00:00:00 +0000</pubDate>
+        <pubDate>Sat, 26 Nov 2022 00:00:00 +0000</pubDate>
         
         <guid>https://meme2515.github.io/categories/%EB%89%B4%EB%9F%B4%EB%84%B7/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>VGGNet</title>
+        <link>https://meme2515.github.io/categories/vggnet/</link>
+        <pubDate>Tue, 27 Sep 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/categories/vggnet/</guid>
         <description></description>
         </item>
         <item>

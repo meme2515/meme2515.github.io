@@ -2,34 +2,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://meme2515.github.io/neural_network/vggnet/</loc>
-    <lastmod>2022-09-27T00:00:00+00:00</lastmod>
+    <loc>https://meme2515.github.io/neural_network/crnn/</loc>
+    <lastmod>2022-11-26T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/categories/</loc>
-    <lastmod>2022-09-27T00:00:00+00:00</lastmod>
+    <lastmod>2022-11-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/crnn/</loc>
+    <lastmod>2022-11-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/categories/crnn/</loc>
+    <lastmod>2022-11-26T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/neural_network/</loc>
-    <lastmod>2022-09-27T00:00:00+00:00</lastmod>
+    <lastmod>2022-11-26T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/</loc>
-    <lastmod>2022-09-27T00:00:00+00:00</lastmod>
+    <lastmod>2022-11-26T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/tags/</loc>
+    <lastmod>2022-11-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/%EB%85%BC%EB%AC%B8%EB%A6%AC%EB%B7%B0/</loc>
+    <lastmod>2022-11-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/%EB%89%B4%EB%9F%B4%EB%84%B7/</loc>
+    <lastmod>2022-11-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/categories/%EB%89%B4%EB%9F%B4%EB%84%B7/</loc>
+    <lastmod>2022-11-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/neural_network/vggnet/</loc>
     <lastmod>2022-09-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/tags/vggnet/</loc>
     <lastmod>2022-09-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/categories/vggnet/</loc>
-    <lastmod>2022-09-27T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/tags/%EB%85%BC%EB%AC%B8%EB%A6%AC%EB%B7%B0/</loc>
-    <lastmod>2022-09-27T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/tags/%EB%89%B4%EB%9F%B4%EB%84%B7/</loc>
-    <lastmod>2022-09-27T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/categories/%EB%89%B4%EB%9F%B4%EB%84%B7/</loc>
     <lastmod>2022-09-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/tags/adaboost/</loc>
