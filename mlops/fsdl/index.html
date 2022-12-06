@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='MLOps 온라인 부트캠프 요약 및 후기'><title>Full Stack Deep Learning 2022 부트캠프</title>
+
+<link rel='canonical' href='https://meme2515.github.io/mlops/fsdl/'>
+
+<link rel="stylesheet" href="/scss/style.min.0d6801e40f97865d11b796a59ab5cccec41427c09bbb58dec945c9cf7412db70.css"><meta property='og:title' content='Full Stack Deep Learning 2022 부트캠프'>
+<meta property='og:description' content='MLOps 온라인 부트캠프 요약 및 후기'>
+<meta property='og:url' content='https://meme2515.github.io/mlops/fsdl/'>
+<meta property='og:site_name' content='Soon Hyung Kwon'>
+<meta property='og:type' content='article'><meta property='article:section' content='Mlops' /><meta property='article:tag' content='FSDL' /><meta property='article:tag' content='Full Stack Deep Learning' /><meta property='article:tag' content='MLOps' /><meta property='article:tag' content='부트캠프' /><meta property='article:published_time' content='2022-11-27T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-11-27T00:00:00&#43;00:00'/><meta property='og:image' content='https://meme2515.github.io/mlops/images/fsdl_title.jpg' />
+<meta name="twitter:title" content="Full Stack Deep Learning 2022 부트캠프">
+<meta name="twitter:description" content="MLOps 온라인 부트캠프 요약 및 후기"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://meme2515.github.io/mlops/images/fsdl_title.jpg' />
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-135204357-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hud342b0d5be633fdc127bd0653c60e8c3_234674_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Soon Hyung Kwon</a></h1>
+            <h2 class="site-description">데이터 블로그입니다 :)</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/meme2515'
+                        target="_blank"
+                        title="GitHub"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M200,513c0-20.3,0-40.7,0-61c3.1,0.6,1.9,3.1,1.9,4.8c0.1,16.3,0.2,32.6,0,48.9c-0.1,4.1,1,5.4,5.2,5.4   c36.6-0.2,73.2-0.2,109.8,0c4.4,0,5.1-1.6,5.1-5.5c-0.2-25-0.1-49.9-0.1-74.9c0-9.3,0.2-18.6,0.2-27.9c2.8,1.2,1.6,3.8,1.6,5.7   c0.1,34.8,0.1,69.6,0.1,104.4C282.7,513,241.3,513,200,513z" fill="#D1D1D1"/><path d="M322.2,402.8c-0.1,9.3-0.2,18.6-0.2,27.9c0,25-0.1,49.9,0.1,74.9c0,3.9-0.7,5.5-5.1,5.5   c-36.6-0.2-73.2-0.2-109.8,0c-4.2,0-5.3-1.3-5.2-5.4c0.2-16.3,0.1-32.6,0-48.9c0-1.7,1.2-4.2-1.9-4.8c-9.7,0.9-19.3,3.2-29.2,2.8   c-33.5-1.3-59.5-15.4-74.7-45.8c-8.2-16.4-17.8-31.7-29.1-46c-3.1-3.9-7.9-5.5-11.5-8.7c-1.1-1-2.4-1.8-3.3-3   c-2.3-3.3-1.2-5.8,2.8-6.2c18.5-1.9,33.8,4.2,46.2,18.1c6.3,7.1,10.2,15.8,16.3,23.1c12.3,14.7,28,22.7,47,24.9   c11.5,1.3,22.4-0.9,33.3-4.2c2.2-0.6,3.1-2,3.3-4.3c0.7-10.3,2.8-20.3,6.8-29.9c1.8-4.3,4.7-7.9,6.9-12.3   c-10.3-2.6-20.7-3.4-30.5-6.4c-27.1-8.2-50.9-21.6-68.2-44.7c-8.3-11-14.1-23.3-17.4-36.5c-1.8-7.2-3.9-14.4-3.8-22   c0.1-13.3-0.5-26.7,0.3-40c0.9-16.8,3.1-33.5,9.2-49.2c3.8-9.7,9.3-18.6,17.1-25.9c2.4-2.3,3.3-4.1,1.8-7.9   c-7.4-19.7-8.1-39.8-1.8-60c0.2-0.6,0.3-1.3,0.4-2c2.2-10.3,4.5-11.3,14.3-7.4c19.2,7.5,33.3,21,45.3,37.3c3.4,4.6,2.7,6.6,10,1.9   c9.7-6.2,21-8.1,32.2-9.3c20.1-2.1,40.3-1.5,60.4-1.1c14.3,0.3,28.5,2.2,42,7.2c3.1,1.1,6,2.8,8.7,4.8c2.1,1.6,3.6,1.6,5.6-1.1   c9.1-12.8,19.5-24.4,33-32.6c6.6-4,13.4-7.7,21.4-8.6c3.3-0.4,4.7,0.7,5.6,3.3c8.3,22.9,9.5,45.7-0.2,68.5   c-1.2,2.8-0.8,4.6,1.3,6.5c16,15,21.8,34.5,24.8,55.5c2.5,17.7,3.2,35.5,2.7,53.3c-0.8,31.2-11.4,58.4-34.4,80.1   c-13.5,12.7-29.7,21.1-47.1,27.5c-12.4,4.6-25.5,5.8-38.5,9c1.3,3.1,3.7,5.4,4.3,8.5c-0.3,1.3,0.4,2,1.6,2.3   c0.1,0.6,0.3,1.1,0.4,1.7c0.3,2.1,0.1,4.3,2.5,5.4c0.5,2.2,1,4.5,1.4,6.7c-0.1,1.7-0.7,3.5,1.6,4.3c0,0.6,0.1,1.2,0.1,1.9   c-1.5,2.3-0.1,4.1,1.1,6C322.1,398.9,322.2,400.9,322.2,402.8z" fill="#A7A7A7"/><path d="M322,397c-1.1-1.9-2.6-3.7-1.1-6C322.1,392.9,323,394.8,322,397z" fill="#D1D1D1"/><path d="M317.7,378.2c-2.4-1.1-2.2-3.3-2.5-5.4C317.4,374,317.7,376,317.7,378.2z" fill="#D1D1D1"/><path d="M320.8,389.1c-2.3-0.8-1.7-2.6-1.6-4.3C321.5,385.6,321,387.5,320.8,389.1z" fill="#D1D1D1"/><path d="M314.8,371.1c-1.2-0.3-1.9-1-1.6-2.3C314.5,369.1,315.1,369.8,314.8,371.1z" fill="#D1D1D1"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.linkedin.com/in/soon-hyung-kwon-73a3221ab/'
+                        target="_blank"
+                        title="LinkedIn"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M1,53c2.5,0,1.7-2,1.9-3.3C5.9,29,16.6,13.9,36.6,7.4c16.1-5.2,32.9-4.6,47.9,4c9.4,5.5,16.6,14,20.4,24.5   c2.8,7.8,4.9,15.9,4,24.2c-2.1,20.9-11.5,38.3-34.5,46.4c-17.4,6-34.3,3.8-50.2-5.7c-1-3.6-3.5-5.4-7.1-6c0,0,0,0,0,0   c-0.1-1.4-0.3-2.8-2.2-2.8C7.7,84,4.3,74.3,2.9,63.8C2.7,62.6,3.2,60.9,1,61C1,58.3,1,55.7,1,53z" fill="#A7A7A7"/><path d="M276.2,216.1c4.3-2.6,6-6.4,8.2-9.5c10.9-15,24.4-26.6,41.2-34.9c23-11.3,47.4-12.5,72-10.2   c18.9,1.7,36.8,8.1,53.1,18.5c19.4,12.4,33.3,29.6,42.8,50.2c5.8,12.5,9.6,25.8,11.9,39.6c2.1,12.9,3.7,25.6,3.7,38.7   c-0.1,65-0.1,130,0.1,195c0,4.6-1.3,5.8-5.8,5.7c-30.7-0.2-61.3-0.2-92,0c-4.5,0-5.5-1.3-5.5-5.6c0.1-61.3,0.4-122.7-0.1-184   c-0.1-13.9-2-27.7-9.2-40.4c-6.4-11.2-15.3-19.2-27-23.8c-15.7-6.2-31.9-7.4-48.3-2.8c-16.6,4.6-28.1,15.5-36.3,30.3   c-4.6,8.3-6.2,17-7.5,26.3c-1.3,10-1.1,19.8-1.1,29.7c-0.2,54.7-0.2,109.3,0,164c0,5-1.2,6.4-6.3,6.3c-30.3-0.3-60.7-0.2-91,0   c-4.2,0-5.7-1.3-5.6-5.2c0.1-2.8,0.3-5.6,0.3-8.4c0-105.5,0.1-211-0.1-316.5c0-4.4,0.9-6,5.7-6c30.5,0.2,61,0.2,91.5,0   c4.1,0,5.5,1,5.4,5.3C276,190.6,276.2,202.9,276.2,216.1z" fill="#A7A7A7"/><path d="M109,176.1c0,3.5,0.1,7,0.1,10.5c0,105.3,0,210.6,0,316c0,6.4,0,6.4-6.5,6.4c-31.8,0-63.7,0-95.5,0   c-0.1-2.5-0.2-5-0.2-7.5c0-78.8,0-157.5,0-236.3c0-28.1,0.1-56.3-0.1-84.4c0-3.6,0.9-4.9,4.7-4.9C44,176.1,76.5,176,109,176.1z" fill="#A7A7A7"/><path d="M109,176.1c-32.5,0-64.9,0-97.4-0.2c-3.8,0-4.7,1.2-4.7,4.9C7,208.9,6.9,237,6.9,265.2   c0,78.8,0,157.5,0,236.3c0,2.5,0.1,5,0.2,7.5c-1.7,0.1-3-0.3-3-2.3c0-1.3,0-2.7,0-4c0-106.8,0-213.5,0-320.3c0-7.6,0.7-8.3,8.2-8.3   c30.5,0,61,0,91.4,0.1C105.5,174.1,108.2,172.7,109,176.1z" fill="#E0E0E0"/><path d="M17.1,94.9c3.6,0.6,6.1,2.4,7.1,6C21.1,99.7,18.8,97.7,17.1,94.9z" fill="#E0E0E0"/><path d="M14.9,92.1c1.9,0,2,1.4,2.2,2.8C15,95,15,93.6,14.9,92.1z" fill="#E0E0E0"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/about' >
+                
+                
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/machine_learning' >
+                
+                
+                
+                <span>Machine Learning</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/neural_network' >
+                
+                
+                
+                <span>Neural Network</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/mlops' >
+                
+                
+                
+                <span>MLOps</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/statistics' >
+                
+                
+                
+                <span>Statistics</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/computer_science' >
+                
+                
+                
+                <span>Computer Science</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/cloud_network' >
+                
+                
+                
+                <span>Cloud &amp; Network</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/daily' >
+                
+                
+                
+                <span>Daily</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/mlops/fsdl/">
+                
+                    <img src="/mlops/images/fsdl_title.jpg" loading="lazy" alt="Featured image of post Full Stack Deep Learning 2022 부트캠프" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/fsdl/" >
+                FSDL
+            </a>
+        
+            <a href="/categories/mlops/" >
+                MLOps
+            </a>
+        
+            <a href="/categories/%EB%B6%80%ED%8A%B8%EC%BA%A0%ED%94%84/" >
+                부트캠프
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/mlops/fsdl/">Full Stack Deep Learning 2022 부트캠프</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            MLOps 온라인 부트캠프 요약 및 후기
+        </h3>
+        
+    </div>
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 27, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    15 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="부트캠프-소개-및-전반적인-느낌">부트캠프 소개 및 전반적인 느낌</h2>
+<p>회사분의 소개로 2022년 코호트의 일환이 되었다. Early Registration 으로 495 달러인 참가비보다 약간 저렴한 300 달러를 지불했고, 돈을 내면서 까지 참가하고 싶다는 생각이 들기까지는 카일님의 블로그에 올라온 <a class="link" href="https://zzsza.github.io/mlops/2019/10/06/fullstack-deeplearning-bootcamp/"  target="_blank" rel="noopener"
+    >긍정적인 리뷰</a>가 중요한 역할을 했던 것 같다.</p>
+<p>실용적인 ML을 추구하기 때문에 강사진의 업계 경험 및 배경 또한 중요하다고 생각했다. 강사진은 버클리 대학에서 박사과정을 마친 이력을 공유하고 있고, Weights &amp; Biases, OpenAI 등의 기업에서의 실무 경험을 가지고있다. 개별적인 강사진의 공개된 이력은 다음과 같다.</p>
+<ul>
+<li><a class="link" href="https://www.linkedin.com/in/charles-frye-38654abb/"  target="_blank" rel="noopener"
+    >Charles Frye</a>
+<ul>
+<li>University of Chicago 학부 졸업 (Computational Neuroscience 전공)</li>
+<li>University of California, Berkeley 박사 졸업 (Neuroscience 전공)</li>
+<li>Weights &amp; Biases 2년 근무</li>
+</ul>
+</li>
+<li><a class="link" href="https://www.linkedin.com/in/sergeykarayev/"  target="_blank" rel="noopener"
+    >Sergey Karayev</a>
+<ul>
+<li>University of Washington 학부 졸업 (Computer Science 전공)</li>
+<li>University of California, Berkeley 박사 졸업 (Computer Science 전공)</li>
+<li>Turnitin 2년 근무 (교육 관련 소프트웨어 개발사)</li>
+<li>GSV Ventures 3년 근무 (벤처 캐피탈)</li>
+</ul>
+</li>
+<li><a class="link" href="https://www.linkedin.com/in/josh-tobin-4b3b10a9/"  target="_blank" rel="noopener"
+    >Josh Tobin</a>
+<ul>
+<li>Columbia University 학부 졸업 (Mathematics 전공)</li>
+<li>University of California, Berkeley 박사 졸업 (Computer Science 전공)</li>
+<li>McKinsey &amp; Company 2년 근무</li>
+<li>OpenAI 3년 근무</li>
+<li>Gantry 창업 (ML 스타트업)</li>
+</ul>
+</li>
+</ul>
+<h2 id="lecture-내용-요약">Lecture 내용 요약</h2>
+<h3 id="lecture-1---when-to-use-ml-and-course-vision">Lecture 1 - When to Use ML and Course Vision</h3>
+<ul>
+<li><a class="link" href="https://www.youtube.com/watch?v=-Iob-FW5jVM"  target="_blank" rel="noopener"
+    >YouTube</a>, <a class="link" href="https://fullstackdeeplearning.com/course/2022/lecture-1-course-vision-and-when-to-use-ml/"  target="_blank" rel="noopener"
+    >Lecture Notes</a>, <a class="link" href="https://drive.google.com/file/d/18EVuJpnJ9z5Pz7oRYcgax_IzRVhbuAMC/view"  target="_blank" rel="noopener"
+    >Slides</a></li>
+</ul>
+<h4 id="course-vision">Course Vision</h4>
+<ul>
+<li>FSDL 과정이 처음 시작한 2018년에는 규모가 큰 기업들만 ML 제품을 내놓고 있는 상태였으며, 이들 이외의 기업들은 ML로 부터 부가가치를 창출하기 어렵다는 생각이 업계 전반에 있었다.</li>
+<li>2022년 현재에는 트랜스포머의 등장으로 인해 NLP 분야가 더 많은 적용 사례들을 찾아내고 있고, 이외에도 많은 ML 제품들의 등장으로 MLOps 라는 단어가 사용되기 시작했다.</li>
+<li>물론 업계 전반이 더 성숙해졌고, 주요한 연구 실적 또한 있었지만, ML 제품 개발이 더욱 활성화된 주요한 이유는 <strong>선행학습이 완료된 모델이 점차 상품화되고 있다는 점</strong>이다.
+<ul>
+<li>이제 HuggingFace 와 같은 툴을 이용하면 최신 NLP, 비전 모델을 코드 한두줄로 사용할 수 있다.</li>
+<li>회사들은 학습된 모델을 네트워크를 통해 제공하기 시작했다.</li>
+<li>Keras, PyTorch Lightning 을 중심으로 유관한 프레임워크들이 표준화되기 시작했다.</li>
+</ul>
+</li>
+</ul>
+<p><img src="/mlops/images/fsdl_2.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>AI 분야는 항상 대중의 관심 속에 있어왔지만, 기대에 부흥하지 못한 실용성으로 지난 수십년간 굴곡을 겪어왔다. 분야가 다시 성장하고 있는 지금, 또다른 혹한기를 피하기 위해 관련 연구를 real-world 제품으로 승화시켜야 한다.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_3.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>학계에서 다루는 ML 은 단차원적이다. 문제를 정의하고, 데이터를 수집하고, 정제한 다음 모델 개발 과정을 거쳐 잘 작동하는 ML 모델을 평가/보고함으로 과정이 끝난다.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_4.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>이에 반해 ML 제품은 배포 후 관리를 필요로한다. 실제 사용자들이 제품을 어떻게 경험하는지 관찰/측정한 후, 사용자들의 데이터에 기반한 data flywheel 을 만들어 모델을 고도화하게 된다.</li>
+<li>본 과정은 모델 학습을 넘어 <strong>좋은 ML 제품을 만들기 위해 필요한 지식과 노하우를 전달한다</strong>. 이러한 제품에 어떤 부분들이 있어야 하는지, 제품 개발에서 발생하는 문제 해결을 위한 접근법은 어떠한 것들이 있는지 등을 가르친다.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_5.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li><strong>MLOps</strong>
+<ul>
+<li>MLOps 란 지난 몇년간 새로 등장한 분야이며, ML 시스템에 대한 배포, 유지, 운영에 관한 개념을 다룬다. 통제/반복 가능한 환경에서 모델을 구축하는 법, high scale 세팅에서 시스템을 운영하는 법, 시스템 유지를 위해 팀이 협업하는 법 등을 다룬다.</li>
+</ul>
+</li>
+<li><strong>ML 기반 제품</strong>
+<ul>
+<li>ML 기반 제품이란 이와 유사성을 가진 개념이나, 완전히 같다고 볼 수 없다. 좋은 제품 개발은 운영 이외의 분야에 대한 깊은 생각을 필요로하고, 최종 제품에서 ML 이 어떠한 역할을 하는지에 집중하게 된다. 유저가 제품을 사용하면서 어떠한 경험을 가지는지, 조직과 효율적으로 협업하는 방법은 무엇인지, ML 분야의 프로덕트 매니징은 어떻게 이루어지는지 등의 개념을 다룬다.</li>
+</ul>
+</li>
+<li>본 과정은 좋은 ML 기반 제품을 만들기 위한 end-to-end 과정을 가르치며, 이에 필요한 기본적인 MLOps 개념만을 전달한다.</li>
+</ul>
+<h4 id="when-to-use-machine-learning">When To Use Machine Learning</h4>
+<ul>
+<li>
+<p><strong>ML 프로젝트는 일반적인 소프트웨어 개발보다 높은 실패율을 보인다.</strong> 많은 적용 분야에서 ML 이란 아직 연구 단계에 있기 때문이며, 때문에 100% 성공을 목표로 할 수는 없다.</p>
+</li>
+<li>
+<p>이외에도 ML 프로젝트가 실패하는 이유 중 대표적인 예시는 다음과 같다.</p>
+<ol>
+<li>기술적으로 불가능하거나 스코프 설정이 잘못되었기 때문</li>
+<li>제품화로의 도약을 이루지 못하기 때문</li>
+<li>조직적으로 ML 프로젝트 성공의 기준을 정하지 못했기 때문</li>
+<li>문제 해결을 이루어냈으나, 복잡성에 비례한 정당성을 가지지 못했기 때문</li>
+</ol>
+</li>
+<li>
+<p>따라서 ML 프로젝트를 시작하기 전, 다음과 같은 질문을 할 필요가 있다.</p>
+<ol>
+<li><strong>ML을 활용할 준비가 되었는가?</strong> 구체적으로는 적용할 제품이 있는가? 이미 데이터를 활용 가능한 방식으로 수집하고 있는가? 적절한 인력을 보유하고 있는가?</li>
+<li><strong>문제를 해결하기 위해 정말 ML이 필요한가?</strong> 문제는 애초에 해결되어야 하는 것인가? 룰베이스 혹은 간단한 통계학을 통한 문제 해결이 가능하진 않은가?</li>
+<li><strong>ML의 활용이 윤리적으로 올바른가?</strong></li>
+</ol>
+</li>
+<li>
+<p>모든 분야의 프로젝트와 같이, 적절한 ML 프로젝트 선정을 위해선 <strong>큰 임팩트</strong>와 <strong>적은 비용</strong>을 가진 유즈케이스 선정이 필요하다.</p>
+<ol>
+<li>큰 임팩트란 ML 이 서비스 파이프라인의 복잡한 구조를 해결하거나, 간단한 예측이 큰 의미를 가지는 경우를 뜻한다. 업계에서 ML 을 어떻게 활용하고 있는지 또한 좋은 지표가 될 수 있다.</li>
+<li>적은 비용이란 데이터의 이미 존재하거나, 잘못된 예측이 어느정도 허용되는 경우를 말한다.</li>
+</ol>
+</li>
+</ul>
+<p><img src="/mlops/images/fsdl_6.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li><strong>큰 임팩트를 가진 프로젝트</strong>
+<ol>
+<li><strong>ML 활용이 상대적 경제성을 가지는 경우.</strong></li>
+<li><strong>제품이 필요로 하는 것이 무엇인지를 고민해야 한다.</strong> <a class="link" href="https://spotify.design/article/three-principles-for-designing-ml-powered-products"  target="_blank" rel="noopener"
+    >Spotify - Discover Weekly 를 구현하면서 세운 3가지 원칙</a> 참조.</li>
+<li><strong>ML 이 특히 잘하는 것이 무엇인가를 생각.</strong> 시스템에 복잡하고 수동적으로 정의된 부분이 있다면 ML 적용이 큰 도움이 될 수 있다.</li>
+<li><strong>업계에서 ML 이 어떤 문제를 해결하고 있는지를 참고.</strong></li>
+</ol>
+</li>
+</ul>
+<p><img src="/mlops/images/fsdl_7.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li><strong>적은 비용을 가진 프로젝트</strong>
+<ol>
+<li><strong>데이터 유무를 파악.</strong> 새로운 데이터를 확보하는 것은 얼마나 어려운지, 데이터 레이블링은 어느정도의 비용이 드는지, 얼마나 많은 데이터가 필요할 것인지, 데이터는 얼마나 정적인지, 어떠한 보안 규제가 존재하는지 등.</li>
+<li><strong>모델 정확도의 중요성을 고려.</strong> 잘못된 예측으로 인한 비용은 어느정도인지, 실용성을 위해 모델의 정확도는 어느 정도여야 하는지를 파악해야 한다.</li>
+<li><strong>문제의 난이도에 대한 고민.</strong> ML 활용으로 해결될 문제는 얼마나 잘 정의되었는지, 관련 주제에 대한 논의가 충분히 존재하는지, 연산 자원은 얼마나 필요한지 등.</li>
+</ol>
+</li>
+</ul>
+<p><img src="/mlops/images/fsdl_8.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>
+<p><strong>ML이 어려워하는 대표적 문제들</strong></p>
+<ol>
+<li><strong>결과값이 복잡한 경우.</strong> 예측치의 정의가 불확실하거나, 고차원의 형상을 다루는 경우.</li>
+<li><strong>높은 정확도를 요구하는 경우.</strong> ML 모델은 예상치 못한 부분에서 실패하기 때문에, 일정 수준 이상의 정확도를 요구하는 경우 ML 적용이 적절하지 않을 수 있음.</li>
+<li><strong>일반화가 필요한 경우.</strong> 통계치에서 벗어난 데이터에 대한 예측을 요구하거나, 논리/계획을 세우거나 인과관계를 판단하는 작업을 요구하는 경우.</li>
+</ol>
+</li>
+<li>
+<p>같은 ML 프로젝트라 할지라도 프로젝트의 성격에 따라 계획 과정은 판이하게 달라진다. 관련한 방법론을 수립하기 위해 강사진은 다음과 같은 3가지 카테고리로 ML 제품을 구분한다.</p>
+<ul>
+<li><strong>Software 2.0</strong> : 전통적인 소프트웨어에 머신러닝을 적용하는 경우이다. 코드 작성 AI 인 Github Copilot 을 예시로 들 수 있다.</li>
+<li><strong>Human-in-the-loop</strong> : ML 시스템이 사람의 의사결정 체계를 돕거나, 효율성을 향상시키는 경우를 말한다. 단순한 스케치를 기반으로 PPT 슬라이드를 생성하는 등의 예시를 들 수 있으며, 이 경우 모델 아웃풋의 품질을 사람이 확인하는 과정이 수반된다.</li>
+<li><strong>Autonomous Systems</strong> : ML 을 활용해 사람이 개입할 필요가 없는 완전한 자동화 시스템을 구축하는 경우이다. 자율주행 등을 예시로 들 수 있다.</li>
+</ul>
+</li>
+</ul>
+<p><img src="/mlops/images/fsdl_9.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>Software 2.0 의 경우, <strong>ML 적용이 실제 성능 개선에 도움이 되는지</strong>를 꼼꼼하게 점검해 볼 필요가 있다. 또한 서비스 배포 후 data flywheel, 즉 신규 데이터를 기반으로 모델을 개선시킬 수 있는 사이클이 구축될 수 있는지 또한 검토가 필요하다.</li>
+<li>Human-in-the-loop 시스템의 경우 <strong>사용자가 어떠한 배경, 환경을 가지고 모델을 활용하는지</strong>를 염두해야 하며, <strong>그들의 니즈 또한 파악</strong>할 필요가 있다. 유저에게 실질적인 도움을 제공하려면 어느 정도 수준의 성능을 보여야 하는지 등을 고려해야 한다.</li>
+<li>Autonomous 시스템은 <strong>실패율과 그에 따른 결과</strong>에 집중할 필요가 있다. 사람이 개입할 여지가 없다면 실패 케이스들을 면밀하게 주시해야 하며, 자율주행이 이에 대한 좋은 예시라고 할 수 있다.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_10.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>언급했듯 Software 2.0 프로젝트 내에선 data flywheel 개념을 곱씹을 필요가 있다. 경우에 따라 차이가 존재할 수 있지만, 대체로 유저의 데이터를 수집하여 모델 개선에 활용한다면 성능이 서비스 기간이 지남에 따라 개선될 가능성이 높다.</li>
+<li>data flywheel 을 구축하기 전, 다음과 같은 3가지 질문에 대한 답이 필요하다.
+<ul>
+<li><strong>데이터 loop 이 존재하는가?</strong> Data flywheel 을 구축하기 위해서는 정제된 데이터를 스케일링이 가능한 방식으로 유저로 부터 수집할 수 있어야 한다.</li>
+<li><strong>더 많은 데이터가 더 나은 모델과 상응하는가?</strong> 모델러의 역량과는 별개로 문제 특성상 더 많은 데이터가 더 나은 모델을 의미하지 않는 경우가 발생할 수 있다. data flywheel 시스템 구축 전 더 많은 데이터가 가치를 전달하는지를 확실히 해 둘 필요가 있다.</li>
+<li><strong>모델의 성능이 제품 활용성에 기여하는가?</strong> 보다 근본적인 질문인데, 모델의 성능 개선이 유저의 경험에 긍정적으로 기여할 수 있는지 또한 짚고 넘어가야 할 부분이다.</li>
+</ul>
+</li>
+</ul>
+<p><img src="/mlops/images/fsdl_11.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>
+<p>상단 이미지는 <strong>영향성 vs. 실현 가능성</strong> 그래프에서 정의된 3가지 타입의 과제가 상대적으로 어디에 위치해 있는지를 보여준다. 대체로 <strong>모델을 구축하기 힘들수록 더 큰 영향을 끼친다</strong>라는 규칙이 통용된다.</p>
+<ul>
+<li>Software 2.0 는 data flywheel 구축을 통해 더 큰 영향력을 가질 수 있다. 모델의 성능이 증가하며, 이로 인한 사용자의 경험이 계속 개선되기 때문.</li>
+<li>Human-in-the-loop 시스템의 경우 충분한 고민이 반영된 설계 과정, 혹은 적절한 단계에서 배포 후 점차 성능을 개선시킨다는 &ldquo;good enough&rdquo; 마인드 셋이 제품에 대한 기대치와 목표 성능을 낮추는데 도움을 줄 수 있다.</li>
+<li>Autonomous 시스템은 사람의 개입을 유도해 모델의 실패에 대비하는 체계가 도움을 줄 수 있다.</li>
+</ul>
+</li>
+<li>
+<p>하지만 결국 엔지니어링의 가장 중요한 측면은 <strong>무언가를 만드는 일</strong>이다. 우리는 Google, Uber 와 항상 같은 환경을 구축할 필요가 없으며, 최신 툴과 완벽한 체계를 추구하기 전 먼저 문제에 대한 해결책을 찾는 것이 핵심이라는 점을 상기해야 한다.</p>
+</li>
+</ul>
+<h4 id="lifecycle">Lifecycle</h4>
+<p><img src="/mlops/images/fsdl_13.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>ML 프로젝트가 계획적/단계적으로 진행되기엔 현실적으로 어려운 부분이 많으며, 중간 과정에서 발견된 인사이트로 인해 이전 단계의 작업을 번복하거나, 성능 요건을 재정의 하는 등 단계 별 작업이 병렬적으로 진행되는 경향이 있다.</li>
+<li>본 부트캠프는 이러한 프로젝트 lifecycle 의 각 단계를 가급적 성공적으로 수행하는 방법을 전달하고, 채용, 인프라 등 프로젝트 외 요소들 또한 어떻게 다루어야 하는지 공유한다.</li>
+</ul>
+<h3 id="lecture-2---development-infrastructure--tooling">Lecture 2 - Development Infrastructure &amp; Tooling</h3>
+<ul>
+<li><a class="link" href="https://www.youtube.com/watch?list=PL1T8fO7ArWleMMI8KPJ_5D5XSlovTW_Ur&amp;v=BPYOsDCZbno&amp;feature=emb_title"  target="_blank" rel="noopener"
+    >YouTube</a>, <a class="link" href="https://fullstackdeeplearning.com/course/2022/lecture-2-development-infrastructure-and-tooling/"  target="_blank" rel="noopener"
+    >Lecture Notes</a>, <a class="link" href="https://drive.google.com/file/d/16pEG5GesO4_UAWiD5jrIReMGzoyn165M/view"  target="_blank" rel="noopener"
+    >Slides</a></li>
+</ul>
+<h4 id="introduction">Introduction</h4>
+<ul>
+<li>이상적인 ML 환경이란 <strong>정의된 프로젝트 목표와 샘플 데이터를 기반으로, 지속적으로 개선되는 예측 시스템을 큰 규모로 운영</strong>하는 것이다.</li>
+<li>현실은 이와는 다를 수 밖에 없다. 데이터에 대한 <strong>수집, 처리, 레이블, 버저닝</strong>이 필요하며, <strong>적합한 모델 구조와 사전 학습된 가중치</strong>를 찾아야하고, 프로젝트에 적합하게 <strong>디버깅</strong>해야 한다. 또한 여러 <strong>학습 과정을 기록 및 리뷰</strong>해야하며, 모델 배포 후에도 끊임없이 생성되는 데이터를 기반으로 모델을 개선해야 한다.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_2_1.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>이러한 환경의 3가지 주요한 컴포넌트는 <strong>데이터, 개발, 배포</strong>이다. 각각의 컴포넌트는 방대한 툴을 가지고 있고, 3주간 강의를 통해 이들 모두를 전반적으로 살핀다. 본 강의의 주제는 개발이다.</li>
+</ul>
+<h4 id="software-engineering">Software Engineering</h4>
+<p><img src="/mlops/images/fsdl_2_2.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>
+<p>개발 언어의 경우 데이터 컴퓨팅 분야에선 현재 <strong>Python</strong> 이 절대적인 우위를 점하고 있다. 너무나 많은 부속 라이브러리들이 개발되었기 때문이며, Julia, C/C++ 와 같은 경쟁자가 존재했지만 사실상 Python 이 생태계를 독점하고 있다.</p>
+</li>
+<li>
+<p>파이썬 코드를 작성하기 위해서는 에디터를 사용해야 한다. Vim, Emacs, Jupyter Notebook/Lab, PyCharm 등 수많은 옵션이 있지만 FSDL 팀이 제안하는 에디터는 <strong>VS Code</strong> 이다. 내장된 Git 버전 컨트롤, docs peeking, 원격 접속, 린터, 디버깅 기능 등을 제공하기 때문.</p>
+</li>
+<li>
+<p>수많은 현업들이 Jupyter Notebook 환경을 사용하지만, 에디터가 별다른 기능을 제공하지 못하고, 코드의 작성 순서가 중요하지 않으며, 버전 컨트롤, 테스팅이 어렵다는 문제를 가지고 있다. <a class="link" href="https://nbdev.fast.ai/"  target="_blank" rel="noopener"
+    >Nbdev</a> 패키지를 활용하면 이러한 문제들은 어느 정도 해결은 가능하다.</p>
+</li>
+</ul>
+<h4 id="deep-learning-frameworks">Deep Learning Frameworks</h4>
+<p><img src="/mlops/images/fsdl_2_3.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>딥러닝의 본질적인 요소인 행렬 연산은 사실 Numpy 정도의 라이브러리만으로 해결 가능하다. 하지만 CUDA 를 통한 GPU 자원 활용, 전통적이지 않은 형태의 레이어 구축, 옵티마이저/데이터 인터페이스 활용 등을 위해서는 딥러닝 프레임워크가 필요하다.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_2_4.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>
+<p>PyTorch, TensorFlow, Jax 등 다양한 프레임워크들이 존재하며, 모델을 구축 한 후 배포 환경에 따라 최적화된 execution graph 를 찾는다는 점에서 근본적인 작동 원리는 서로 유사하다.</p>
+<ul>
+<li>강사진은 <a class="link" href="https://pytorch.org/"  target="_blank" rel="noopener"
+    >PyTorch</a> 를 선호하는데, 구현된 모델 수, 연관 논문 수, 대회 수상 모델 수 등에서 압도적인 우세를 보이기 때문이다. 2021년도만 하더라도 ML 대회 우승 모델의 약 77%가 PyTorch 를 사용했다.</li>
+<li>PyTorch 의 경우 TorchScript 등의 파생 제품을 이용하면 실행 속도가 더욱 빨라지며, 분산 처리, 비전, 오디오, 모바일 배포 환경등의 생태계를 이루고 있다.</li>
+<li><a class="link" href="https://www.pytorchlightning.ai/"  target="_blank" rel="noopener"
+    >PyTorch Lightning</a> 을 PyTorch 와 함께 사용하면 코드를 보다 구조적으로 유지할 수 있으며, 어떠한 하드웨어에서도 코드를 실행할 수 있다. 모델 체크포인팅 등 추가적인 기능 또한 제공.</li>
+<li><a class="link" href="https://www.tensorflow.org/?gclid=CjwKCAiAhKycBhAQEiwAgf19euf21xRE6IFNBHwFXUSdIUSJu5-q_H8dscz8q1AeULry-_1pOeBGyBoCWO8QAvD_BwE"  target="_blank" rel="noopener"
+    >TensorFlow</a> 의 경우 브라우저에서 딥러닝을 실행할 수 있는 TensorFlow.js, 쉽게 딥러닝 개발이 가능한 Keras 등의 파생 제품을 가지고있다.</li>
+<li>이외의 옵션으로는 <a class="link" href="https://www.fast.ai/"  target="_blank" rel="noopener"
+    >FasiAI</a>, <a class="link" href="https://github.com/google/jax"  target="_blank" rel="noopener"
+    >JAX</a> 등이 있으며, 이들 라이브러리를 사용할 구체적인 이유가 있지않다면 비추천.</li>
+</ul>
+</li>
+<li>
+<p>대부분의 ML 프로젝트는 이미 배포/개발된 모델 구조를 기반으로 시작하게 된다.</p>
+<ul>
+<li><a class="link" href="https://onnx.ai/"  target="_blank" rel="noopener"
+    >ONNX</a> 는 딥러닝 모델을 저장하는 표준 방식을 제공하는 패키지이며, PyTorch 에서 Tensorflow 등으로의 모델 변환을 가능하게 한다. 잘 작동하는 경우도 있지만, 모든 경우의 수를 감안하지는 못한다.</li>
+<li><a class="link" href="https://huggingface.co/"  target="_blank" rel="noopener"
+    >Huggingface</a> 는 최근 가장 떠오르는 모델 저장소이다. NLP 라이브러리로 시작했지만, 오디오/이미지 분류 등의 다양한 분야로 확장했으며 약 60,000 개의 사전 학습 모델, 7,500 개의 데이터셋을 제공한다.</li>
+<li><a class="link" href="https://timm.fast.ai/"  target="_blank" rel="noopener"
+    >TIMM</a> 은 최신 비전 모델을 중점적으로 제공하는 서비스이다.</li>
+</ul>
+</li>
+</ul>
+<h4 id="distributed-training">Distributed Training</h4>
+<ul>
+<li>다수의 GPU 를 내장한, 다수의 PC 에서 모델 학습이 가능한 환경에 있다고 가정하자. <strong>(1) 데이터 배치</strong>와 <strong>(2) 모델 파라미터</strong> 를 GPU 에 분산하여 처리하게 되며, 데이터 배치가 한 개의 GPU 에 저장 가능하거나 그렇지 않을 수도, 모델 파라미터가 한 개의 GPU 에 저장 가능하거나 그렇지 않을 수도 있다.</li>
+<li>베스트 케이스는 데이터 배치와 모델 파라미터가 모두 한 개의 GPU 에 담길 수 있는 경우이다. 이와 같은 경우를 <strong>Trivial Parallelism</strong> 이라 부르며, 다른 GPU/PC 에서 독립적인 학습을 수행할 수 있다.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_2_7.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>모델 파라미터가 한 개 GPU 에 담기나, 데이터 배치가 담기지 않는 경우 <strong>Data Parallelism</strong> 을 수행할 수 있다. 즉, 단일 배치의 데이터를 여러대의 GPU 에 분산한 후 모델에 의해 연산된 gradient 의 평균값을 구하는 것이다.</li>
+<li>A100 등의 서버 카드를 활용한다며 연산 속도가 선형적으로 증가하며, 3090 과 같은 소비자용 카드 활용시 이보다 효율성이 떨어진다.</li>
+<li>PyTorch 라이브러리는 Data Parallelism 을 구현한 <a class="link" href="https://pytorch.org/docs/stable/generated/torch.nn.parallel.DistributedDataParallel.html"  target="_blank" rel="noopener"
+    >DistributedDataParallel</a> 라이브러리를 제공한다. 써드파티 라이브러리로는 <a class="link" href="https://horovod.ai/"  target="_blank" rel="noopener"
+    >Horovod</a> 같은 옵션이 있으며, PyTorch Lightning 을 활용한다면 이 두 라이브러리 활용이 더욱 쉬워진다. 두 개 라이브러리의 성능은 서로 유사한 편이다.</li>
+<li>이보다 복잡한 경우는 모델 파라미터가 한 개 GPU 에 담기지 않는 경우인데, 이 경우 대표적으로 세가지의 솔루션, (1) Sharded Data Parallelism, (2) Pipelined Model Parallelism, (3) Tensor Parallelism, 이 존재한다.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_2_5.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>
+<p><strong>Sharded Data Parallelism</strong></p>
+<ul>
+<li>Sharded 데이터 분산 처리는 GPU 메모리를 차지하는 요소인 (1) 모델 파라미터, (2) 미분값, (3) 옵티마이저 기록, (4) 데이터 배치를 모두 분산하여 다수의 GPU 메모리를 효율적으로 운영하는 방법이다.</li>
+<li>Microsoft 의 ZeRO 라는 방법론으로 처음 고안되었고, 기존 방식과 대비해 약 10배 큰 배치 사이즈를 적용할 수 있다.</li>
+<li>Microsoft DeepSpeed, Facebook FairScale 등의 라이브러리가 존재하며, PyTorch 또한 기본적으로 Fully Sharded DataParallel 기능을 제공한다.</li>
+<li>ZeRO 접근법은 한 대의 GPU 에 적용될 수 있다 (분산된 데이터를 순차적으로 처리).</li>
+</ul>
+</li>
+<li>
+<p><strong>Pipelined Model Parallelism</strong></p>
+<ul>
+<li>모델의 각 레이어를 개별적인 GPU 에 분산시키는 방식이다. 어렵지 않게 구현이 가능하지만 별도의 패키지를 활용하지 않는다면 각 단계에서 하나의 GPU 만 활용하게 되기에 효율적이지 않다.</li>
+<li>DeepSpeed 와 FairScale 같은 라이브러리는 연산 스케줄링을 통해 모든 GPU 가 한꺼번에 동작하도록 설정이 가능하다.</li>
+</ul>
+</li>
+<li>
+<p><strong>Tensor Parallelism</strong></p>
+<ul>
+<li>Tensor Parallelism 은 연산 대상 행렬을 다수의 GPU 에 분산하는 접근법이다. NVIDIA 에서 배포한 Megatron-LM repo 는 이러한 분산 방식을 Transformer 모델에 적용했다.</li>
+</ul>
+</li>
+</ul>
+<p><img src="/mlops/images/fsdl_2_6.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>GPT3 규모의 모델을 핸들링해야 한다면 언급한 3가지의 분산 처리 기법을 함께 사용하는 것 또한 가능하다. 관심이 있다면 <a class="link" href="https://huggingface.co/blog/bloom-megatron-deepspeed"  target="_blank" rel="noopener"
+    >BLOOM 학습</a> 관련 자료를 참고.</li>
+</ul>
+<h4 id="compute">Compute</h4>
+<p><img src="/mlops/images/fsdl_2_8.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+>
+<img src="/mlops/images/fsdl_2_9.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>
+<p>지난 10년 간 발전된 ML 모델이 요구하는 연산 자원은 빠른 속도로 성장했다.</p>
+</li>
+<li>
+<p>모델의 효율적인 학습을 위해선 GPU 활용은 필수적이다. 제조사 중 가장 큰 영향력을 행사하는 기업은 NVIDIA 이지만, Google 또한 자체적으로 설계/생산한 TPU 를 Google Cloud 를 통해 제공한다.</p>
+</li>
+<li>
+<p>GPU 를 선택할땐 다음의 3가지 고민이 필요하다</p>
+<ul>
+<li>한번에 얼마나 많은 데이터를 처리할 수 있는가?</li>
+<li>데이터를 얼마나 빠르게 처리할 수 있는가?</li>
+<li>CPU 와 GPU 간 통신 속도는 어느정도인가? 다수의 GPU 간 통신 속도는 어느정도인가?</li>
+</ul>
+</li>
+<li>
+<p>개선된 성능의 최신 GPU 구조는 거의 매년 소개되고 있다. 이러한 GPU 들은 소비자용과 기업용으로 나눌 수 있는데, 기업 환경에서는 항상 서버 카드를 사용해야 한다.</p>
+</li>
+</ul>
+<p><img src="/mlops/images/fsdl_2_10.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>
+<p>GPU 를 평가하는 2가지 중요한 지표는 RAM 과 Tensor TFlops 이다.</p>
+<ul>
+<li>RAM 이 더 큰 GPU 는 상대적으로 더 많은 모델 파라미터와 데이터를 처리할 수 있다.</li>
+<li>Tensor TFlops 란 NVIDIA 에서 개발한 딥러닝 전용 GPU 코어를 뜻한다. Mixed Precision 연산, 즉 연산 성격에 따라 16bit 와 32bit 부동소수점 (floating point) 타입을 적절히 혼용하여 연산 속도와 사용 용량을 개선하는 작업에 최적화 되어있다.</li>
+</ul>
+</li>
+<li>
+<p><a class="link" href="https://lambdalabs.com/gpu-benchmarks"  target="_blank" rel="noopener"
+    >Lambda Labs</a>, <a class="link" href="https://www.aime.info/en/blog/deep-learning-gpu-benchmarks-2021/"  target="_blank" rel="noopener"
+    >AIME</a> 과 같은 업체는 실사용 환경에 기반한 벤치마크 자료를 제공한다. NVIDIA A100 은 기존 V100 보다 2.5 배 정도 빠르며, RTX 칩 또한 V100 을 상회하는 성능을 보여준다.</p>
+</li>
+<li>
+<p>대형 클라우드 서비스인 Microsoft Azure, Google Cloud Platfrom, Amazon Web Services 등이 이러한 GPU 연산 자원을 이용할 수 있는 가장 기본적인 장소이며, 유사한 스타트업 서비스인 <a class="link" href="https://www.paperspace.com/"  target="_blank" rel="noopener"
+    >Paperspace</a>, <a class="link" href="https://www.coreweave.com/"  target="_blank" rel="noopener"
+    >CoreWeave</a>, <a class="link" href="https://lambdalabs.com/"  target="_blank" rel="noopener"
+    >Lambda Labs</a> 또한 참고할 만 하다.</p>
+</li>
+</ul>
+<p><img src="/mlops/images/fsdl_2_11.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>
+<p>TPU 의 경우 현재 4세대 까지 발전한 상태이며, 딥러닝을 위한 최적의 하드웨어이다. 상단의 그래프는 TPU 와 NVIDIA A100 의 성능을 비교한다.</p>
+</li>
+<li>
+<p>클라우드 서비스를 활용한 GPU 가용 비용은 미리 계산하기 까다로운 측면이 있기에 FSDL 팀은 이러한 문제를 해결하기 위한 <a class="link" href="https://fullstackdeeplearning.com/cloud-gpus/"  target="_blank" rel="noopener"
+    >GPU Cost Metric</a> 툴을 공개했다.</p>
+</li>
+<li>
+<p>성능/비용을 함께 고려했을때 고성능 GPU 는 시간당 비용이 비싸더라도 전체 학습 관점에서 비용을 절감하는 효과를 가질 수 있다. 예를 들어 동일한 트랜스포머 학습 시 4개의 V100 GPU 에서 72시간 동안 1,750 달러의 비용이 발생하지만, 4개의 A100 GPU 에선 8시간 동안 250 달러의 비용만 발생한다. 때문에 무조건 단가가 싼 GPU 를 활용하기 보다는 이러한 비용 절감 요소를 고려해 자원을 선택할 필요가 있다.</p>
+</li>
+<li>
+<p>다음과 같은 룰이 이러한 자원 선택 과정에 도움을 줄 수 있다.</p>
+<ul>
+<li><strong>가장 저렴한 클라우드 서비스에서 시간당 비용이 가장 비싼 GPU 활용</strong>할 것.</li>
+<li>Paperspace 와 같은 <strong>스타트업은 메이저 클라우드 사업자 대비 저렴한 비용으로 GPU 자원 제공</strong>.</li>
+</ul>
+</li>
+<li>
+<p>온프레미스 자원을 활용한다면 조립 PC 를 구축하거나, NVIDIA 와 같은 제조사에서 판매하는 딥러닝용 PC 를 구매할 수 있다. 128 GB 램, 2개의 RTX 3090 이 탑재된 PC 를 약 7,000 달러 정도에 구축할 수 있으며, 이보다 향상된 성능이 필요하다면 Lambda Labs 에서 판매하는 60,000 달러 학습용 PC 와 같은 옵션이 있다 (8개의 A100 탑재).</p>
+</li>
+<li>
+<p>온프레미스 vs. 클라우드</p>
+<ul>
+<li>GPU 자원을 소유하고 있다면 <strong>비용을 최소화한다는 관점보다는 활용도를 최대화한다는 관점에서 문제 접근이 가능</strong>하다.</li>
+<li>스케일 아웃을 지향한다면, 가장 저렴한 클라우드 사업자를 이용하는 편이 맞다.</li>
+<li>연산 부담이 큰 작업이라면 TPU 활용을 진지하게 고려해야 한다.</li>
+</ul>
+</li>
+</ul>
+<h4 id="resource-management">Resource Management</h4>
+<p><img src="/mlops/images/fsdl_2_12.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>
+<p>다수의 연산 자원이 확보되었다면 해당 자원들을 어떻게 관리/운영 할 것인지에 대한 고민 또한 필요하다.</p>
+</li>
+<li>
+<p>단일 자원 환경에선 <a class="link" href="https://python-poetry.org/"  target="_blank" rel="noopener"
+    >poetry</a>, <a class="link" href="https://docs.conda.io/en/latest/"  target="_blank" rel="noopener"
+    >conda</a>, <a class="link" href="https://pypi.org/project/pip-tools/"  target="_blank" rel="noopener"
+    >pip-tools</a> 와 같은 패키지 매니저 / 가상환경을 활용해 쉽게 분석 환경을 설정할 수 있다. 이에 반해 다수의 자원을 활용할 때에는 <a class="link" href="https://slurm.schedmd.com/"  target="_blank" rel="noopener"
+    >SLURM</a> 과 같은 리소스 매니저 활용이 필요하다.</p>
+</li>
+<li>
+<p>휴대성/이식성을 위해서는 <a class="link" href="https://www.docker.com/"  target="_blank" rel="noopener"
+    >Docker</a> 를 통해 가볍게 모든 디펜던시 스택을 패키징할 수 있다. 자원 클러스터에서 다수의 Docker 컨테이너를 운영하기 위해서는 <a class="link" href="https://kubernetes.io/"  target="_blank" rel="noopener"
+    >Kubernetes</a> 와 같은 툴이 필요하며, <a class="link" href="https://www.kubeflow.org/"  target="_blank" rel="noopener"
+    >Kubeflow</a> 는 Kubernetes 에 기반한 ML 프로젝트 운영을 돕는다.</p>
+</li>
+<li>
+<p>자원 클러스터 구축을 위한 옵션은 다음과 같다</p>
+<ul>
+<li>AWS 를 활용한다면 <a class="link" href="https://aws.amazon.com/pm/sagemaker/?trk=83e980bd-feef-4dc8-827c-21089d3b5592&amp;sc_channel=ps&amp;s_kwcid=AL!4422!3!532438441650!e!!g!!sagemaker&amp;ef_id=Cj0KCQiA7bucBhCeARIsAIOwr-8hHn1JQyePYZvkT7YpagXav6_7hAP7L8afpmbCQJ-oRYxKnSnwpooaArmfEALw_wcB:G:s&amp;s_kwcid=AL!4422!3!532438441650!e!!g!!sagemaker"  target="_blank" rel="noopener"
+    >Sagemaker</a> 를 통해 데이터 레이블링 부터 모델 배포 까지의 과정을 모두 마칠 수 있다. Sagemaker 는 AWS 에만 존재하는 많은 설정값을 가진다는 단점이 있지만, 학습을 위한 수많은 학습 알고리즘을 제공하고 있다. 약간의 추가 비용이 발생하지만, PyTorch 또한 점차 지원하고 있는 추세이다.</li>
+<li>Anyscale 의 <a class="link" href="https://docs.ray.io/en/latest/train/train.html"  target="_blank" rel="noopener"
+    >Ray Train</a> 은 Sagemaker 와 유사한 형태의 자원 클러스터 구축 도구이다. 하지만 비용이 다소 비싸다는 단점이 있다.</li>
+<li><a class="link" href="https://www.determined.ai/"  target="_blank" rel="noopener"
+    >Determined.AI</a> 는 온프레미스와 클라우드 클러스터를 관리하는 툴이다. 분산 학습 등의 기능을 지원하며, 계속 개발이 진행되고 있는 서비스이다.</li>
+</ul>
+</li>
+<li>
+<p>다양한 클라우드 자원을 관리하는 작업은 난이도가 있고, 아직 개선의 여지가 존재하는 영역이다.</p>
+</li>
+</ul>
+<h4 id="experiment-and-model-management">Experiment and Model Management</h4>
+<p><img src="/mlops/images/fsdl_2_13.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>
+<p>연산 자원 관리와는 달리, 학습 모니터링은 체계확립이 거의 완료된 영역이다. 학습 모니터링이란 모델 개발과정에서 변동하는 코드, 모델 파라미터, 데이터 셋에 대한 관리를 뜻하며, 다음과 같은 옵션이 존재한다.</p>
+<ul>
+<li><a class="link" href="https://www.tensorflow.org/tensorboard"  target="_blank" rel="noopener"
+    >TensorBoard</a> : 구글이 개발한 단발적인 학습 모니터링 툴이며, 다수의 학습을 체계적으로 관리하기 어려운 측면이 존재.</li>
+<li><a class="link" href="https://mlflow.org/"  target="_blank" rel="noopener"
+    >MLFlow</a> : Databricks 에서 개발한 모델 패키징, 학습 모니터링 툴이며, self-hosting 이 필수적이다.</li>
+<li><a class="link" href="https://wandb.ai/site?utm_source=google&amp;utm_medium=cpc&amp;utm_campaign=Performance-Max&amp;utm_content=site&amp;utm_source=google&amp;utm_medium=cpc&amp;utm_campaign=%7bcampaign%7d&amp;utm_term=&amp;utm_content=%7bcontent%7d&amp;gclid=Cj0KCQiA7bucBhCeARIsAIOwr-9FBRDAmcSqE8zwkd1LTzevHny63DrOR_97Q19FVD_PdFLTC07m5SAaAiXHEALw_wcB"  target="_blank" rel="noopener"
+    >Weights and Biases</a> : 개인적, 학업적 사용은 무료이며, &ldquo;experiemnt config&rdquo; 커맨드를 통해 학습 내용을 로그에 기록할 수 있다.</li>
+<li><a class="link" href="https://neptune.ai/?utm_source=googleads&amp;utm_medium=googleads&amp;utm_campaign=[SG][HI][brand][rsa][all]&amp;utm_term=neptune%20ai&amp;gclid=Cj0KCQiA7bucBhCeARIsAIOwr--0uGPxuUEQLd9BHDlEAYPhIiF0-C-HvyadckWhW_3GCfg3ZCyeC0oaAsJxEALw_wcB"  target="_blank" rel="noopener"
+    >Neptune AI</a>, <a class="link" href="https://www.comet.com/site/"  target="_blank" rel="noopener"
+    >Comet ML</a>, <a class="link" href="https://www.determined.ai/"  target="_blank" rel="noopener"
+    >Determined AI</a> 또한 연관 기능을 제공.</li>
+</ul>
+</li>
+<li>
+<p>상단에 언급된 다수의 툴은 Hyperparameter Optimization 기능을 제공한다. 모델 튜닝을 효율적으로 수행하는데 도움을 주는데, 예를 들어 Weights and Biases 의 <a class="link" href="https://wandb.ai/site/sweeps"  target="_blank" rel="noopener"
+    >Sweeps</a> 같은 기능이 이 역할을 수행한다.</p>
+</li>
+</ul>
+<h4 id="all-in-one">&ldquo;All-In-One&rdquo;</h4>
+<p><img src="/mlops/images/fsdl_2_14.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>
+<p>학습 모니터링, 분산 처리, 배포, 스케일링 등 언급된 모든 기능을 수행하는 인프라 솔루션 또한 존재하는데, 그 가격이 상당한 편이다.</p>
+</li>
+<li>
+<p><a class="link" href="https://www.paperspace.com/gradient"  target="_blank" rel="noopener"
+    >Gradient by Paperspace</a>, <a class="link" href="https://www.dominodatalab.com/"  target="_blank" rel="noopener"
+    >Domino Data Lab</a>, <a class="link" href="https://aws.amazon.com/sagemaker/"  target="_blank" rel="noopener"
+    >AWS Sagemaker</a> 와 같은 옵션이 있다.</p>
+</li>
+</ul>
+<h3 id="lecture-3---troubleshooting--testing">Lecture 3 - Troubleshooting &amp; Testing</h3>
+<ul>
+<li><a class="link" href="https://www.youtube.com/watch?v=RLemHNAO5Lw&amp;list=PL1T8fO7ArWleMMI8KPJ_5D5XSlovTW_Ur"  target="_blank" rel="noopener"
+    >YouTube</a>, <a class="link" href="https://fullstackdeeplearning.com/course/2022/lecture-3-troubleshooting-and-testing/"  target="_blank" rel="noopener"
+    >Lecture Notes</a>, <a class="link" href="https://drive.google.com/file/d/13UAHw1A7hM-O0jYGdGStN5gFCUb5XzLv/view"  target="_blank" rel="noopener"
+    >Slides</a></li>
+</ul>
+<h4 id="testing-software">Testing Software</h4>
+<h4 id="testing-ml-systems">Testing ML Systems</h4>
+<h4 id="troubleshooting-models">Troubleshooting Models</h4>
+<h3 id="lecture-4---data-management">Lecture 4 - Data Management</h3>
+<h4 id="introduction-1">Introduction</h4>
+<h4 id="data-sources">Data Sources</h4>
+<h4 id="data-exploration">Data Exploration</h4>
+<h4 id="data-processing">Data Processing</h4>
+<h4 id="feature-store">Feature Store</h4>
+<h4 id="datasets">Datasets</h4>
+<h4 id="data-labeling">Data Labeling</h4>
+<h4 id="data-versioning">Data Versioning</h4>
+<h3 id="lecture-5---deployment">Lecture 5 - Deployment</h3>
+<h4 id="build-a-prototype-to-interact-with">Build a Prototype to Interact With</h4>
+<h4 id="separate-your-model-from-your-ui">Separate Your Model from Your UI</h4>
+<h4 id="move-to-the-edge">Move to the Edge?</h4>
+<h3 id="lecture-6---continual-learning">Lecture 6 - Continual Learning</h3>
+<h3 id="lecture-7---foundation-models">Lecture 7 - Foundation Models</h3>
+<h3 id="lecture-8---ml-teams-and-project-management">Lecture 8 - ML Teams and Project Management</h3>
+<h3 id="lecture-9---ethics">Lecture 9 - Ethics</h3>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/fsdl/">FSDL</a>
+        
+            <a href="/tags/full-stack-deep-learning/">Full Stack Deep Learning</a>
+        
+            <a href="/tags/mlops/">MLOps</a>
+        
+            <a href="/tags/%EB%B6%80%ED%8A%B8%EC%BA%A0%ED%94%84/">부트캠프</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/mlops/rundeck/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/mlops/images/rundeck-wordmark.svg" loading="lazy" data-key="rundeck" data-hash="/mlops/images/rundeck-wordmark.svg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">배치 관리 소프트웨어 런데크 (Rundeck)</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "meme2515" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2022 Soon Hyung Kwon
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.11.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#부트캠프-소개-및-전반적인-느낌">부트캠프 소개 및 전반적인 느낌</a></li>
+    <li><a href="#lecture-내용-요약">Lecture 내용 요약</a>
+      <ol>
+        <li><a href="#lecture-1---when-to-use-ml-and-course-vision">Lecture 1 - When to Use ML and Course Vision</a>
+          <ol>
+            <li><a href="#course-vision">Course Vision</a></li>
+            <li><a href="#when-to-use-machine-learning">When To Use Machine Learning</a></li>
+            <li><a href="#lifecycle">Lifecycle</a></li>
+          </ol>
+        </li>
+        <li><a href="#lecture-2---development-infrastructure--tooling">Lecture 2 - Development Infrastructure &amp; Tooling</a>
+          <ol>
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#software-engineering">Software Engineering</a></li>
+            <li><a href="#deep-learning-frameworks">Deep Learning Frameworks</a></li>
+            <li><a href="#distributed-training">Distributed Training</a></li>
+            <li><a href="#compute">Compute</a></li>
+            <li><a href="#resource-management">Resource Management</a></li>
+            <li><a href="#experiment-and-model-management">Experiment and Model Management</a></li>
+            <li><a href="#all-in-one">&ldquo;All-In-One&rdquo;</a></li>
+          </ol>
+        </li>
+        <li><a href="#lecture-3---troubleshooting--testing">Lecture 3 - Troubleshooting &amp; Testing</a>
+          <ol>
+            <li><a href="#testing-software">Testing Software</a></li>
+            <li><a href="#testing-ml-systems">Testing ML Systems</a></li>
+            <li><a href="#troubleshooting-models">Troubleshooting Models</a></li>
+          </ol>
+        </li>
+        <li><a href="#lecture-4---data-management">Lecture 4 - Data Management</a>
+          <ol>
+            <li><a href="#introduction-1">Introduction</a></li>
+            <li><a href="#data-sources">Data Sources</a></li>
+            <li><a href="#data-exploration">Data Exploration</a></li>
+            <li><a href="#data-processing">Data Processing</a></li>
+            <li><a href="#feature-store">Feature Store</a></li>
+            <li><a href="#datasets">Datasets</a></li>
+            <li><a href="#data-labeling">Data Labeling</a></li>
+            <li><a href="#data-versioning">Data Versioning</a></li>
+          </ol>
+        </li>
+        <li><a href="#lecture-5---deployment">Lecture 5 - Deployment</a>
+          <ol>
+            <li><a href="#build-a-prototype-to-interact-with">Build a Prototype to Interact With</a></li>
+            <li><a href="#separate-your-model-from-your-ui">Separate Your Model from Your UI</a></li>
+            <li><a href="#move-to-the-edge">Move to the Edge?</a></li>
+          </ol>
+        </li>
+        <li><a href="#lecture-6---continual-learning">Lecture 6 - Continual Learning</a></li>
+        <li><a href="#lecture-7---foundation-models">Lecture 7 - Foundation Models</a></li>
+        <li><a href="#lecture-8---ml-teams-and-project-management">Lecture 8 - ML Teams and Project Management</a></li>
+        <li><a href="#lecture-9---ethics">Lecture 9 - Ethics</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -6,7 +6,39 @@
         <description>Recent content in Tags on Soon Hyung Kwon</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Sat, 26 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 27 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>FSDL</title>
+        <link>https://meme2515.github.io/tags/fsdl/</link>
+        <pubDate>Sun, 27 Nov 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/fsdl/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Full Stack Deep Learning</title>
+        <link>https://meme2515.github.io/tags/full-stack-deep-learning/</link>
+        <pubDate>Sun, 27 Nov 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/full-stack-deep-learning/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>MLOps</title>
+        <link>https://meme2515.github.io/tags/mlops/</link>
+        <pubDate>Sun, 27 Nov 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/mlops/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>부트캠프</title>
+        <link>https://meme2515.github.io/tags/%EB%B6%80%ED%8A%B8%EC%BA%A0%ED%94%84/</link>
+        <pubDate>Sun, 27 Nov 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/%EB%B6%80%ED%8A%B8%EC%BA%A0%ED%94%84/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>CRNN</title>
         <link>https://meme2515.github.io/tags/crnn/</link>
         <pubDate>Sat, 26 Nov 2022 00:00:00 +0000</pubDate>
@@ -476,14 +508,6 @@
         <pubDate>Mon, 13 Jun 2022 00:00:00 +0000</pubDate>
         
         <guid>https://meme2515.github.io/tags/devops/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>MLOps</title>
-        <link>https://meme2515.github.io/tags/mlops/</link>
-        <pubDate>Mon, 13 Jun 2022 00:00:00 +0000</pubDate>
-        
-        <guid>https://meme2515.github.io/tags/mlops/</guid>
         <description></description>
         </item>
         <item>
