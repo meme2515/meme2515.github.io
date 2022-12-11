@@ -2,15 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://meme2515.github.io/mlops/</loc>
-    <lastmod>2022-12-03T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/</loc>
-    <lastmod>2022-12-03T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/mlops/mscs/</loc>
-    <lastmod>2022-12-03T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://meme2515.github.io/categories/</loc>
     <lastmod>2022-11-27T00:00:00+00:00</lastmod>
   </url><url>
@@ -20,16 +11,34 @@
     <loc>https://meme2515.github.io/categories/fsdl/</loc>
     <lastmod>2022-11-27T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://meme2515.github.io/tags/fsdl-2022/</loc>
+    <lastmod>2022-11-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/fsdl-2022-%ED%9B%84%EA%B8%B0/</loc>
+    <lastmod>2022-11-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/fsdl-%ED%9B%84%EA%B8%B0/</loc>
+    <lastmod>2022-11-27T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://meme2515.github.io/tags/full-stack-deep-learning/</loc>
     <lastmod>2022-11-27T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://meme2515.github.io/tags/full-stack-deep-learning-2022/</loc>
+    <lastmod>2022-11-27T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://meme2515.github.io/mlops/fsdl/</loc>
+    <lastmod>2022-11-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/mlops/</loc>
     <lastmod>2022-11-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/tags/mlops/</loc>
     <lastmod>2022-11-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/categories/mlops/</loc>
+    <lastmod>2022-11-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/</loc>
     <lastmod>2022-11-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/tags/</loc>
@@ -39,6 +48,9 @@
     <lastmod>2022-11-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/categories/%EB%B6%80%ED%8A%B8%EC%BA%A0%ED%94%84/</loc>
+    <lastmod>2022-11-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/%ED%92%80%EC%8A%A4%ED%83%9D%EB%94%A5%EB%9F%AC%EB%8B%9D/</loc>
     <lastmod>2022-11-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/neural_network/crnn/</loc>
