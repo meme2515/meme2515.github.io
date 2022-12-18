@@ -1287,12 +1287,475 @@
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Dependency Management&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Performance Optimization&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Horizontal Scaling&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Model Rollouts&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;ML 제품의 &lt;strong&gt;Rest API&lt;/strong&gt; 란 약속된 형태의 HTTP 요청에 따라 예측값을 반환하는 형태를 칭한다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;인프라에 호스팅된 대안적인 프로토콜은 &lt;a class=&#34;link&#34; href=&#34;https://grpc.io/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;gRPC&lt;/a&gt;, &lt;a class=&#34;link&#34; href=&#34;https://graphql.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;GraphQL&lt;/a&gt; &lt;em&gt;(모델 서비스에 적합하지 않을 수 있음)&lt;/em&gt; 이 존재.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;아직 모델 서비스 분야에선 Rest API 문법이 통일되지 않은 상태.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Google Cloud 는 key, value 페어를 가진 리스트를 인풋으로 정의&lt;/li&gt;
+&lt;li&gt;Azure 는 모델 구조에 따라 변동하는 데이터 오브젝트를 다룸&lt;/li&gt;
+&lt;li&gt;AWS Sagemaker 는 Google Cloud 와 유사한 형태의 인풋을 기대하지만, 세부적인 형태의 차이 존재.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Dependency Management (디펜던시 관리)&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;예측값은 코드, 모델 가중치, 그리고 디펜던시에 따라 결정된다.&lt;/strong&gt; 따라서 기대하는 예측값을 얻기 위해서는 웹서버에 개발 환경과 동일한 디펜던시가 세팅되어야 하지만, 이를 항상 보장하는 것은 어려운 작업이다 &lt;em&gt;(개발 환경에서 혹여나 패키지 업데이트가 이루어진다면 서버에서 동일한 업데이트를 매번 진행해야 함, 개발자가 많아지면 관리가 어려워진다)&lt;/em&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;이러한 디펜던시를 관리하는 방법은 크게 두가지가 있다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;디펜던시에 무관하게 실행 가능한, &lt;strong&gt;표준화된 모델 개발&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;컨테이너 활용&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/mlops/images/fsdl_5_8.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1. 모델 표준화&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;모델 표준화는 ONNX (Open Neural Network Exchange) 라이브러리를 활용해 이루어진다. 라이브러리는 &lt;strong&gt;환경에 무관하게 실행 가능한 ML 모델&lt;/strong&gt;을 개발할 수 있도록 돕는데, 언어, 패키지 버전 등과 무관하게 동일한 기능을 제공하는 것을 목표로 한다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;하지만 실사용 환경에선 많은 라이브러리들이 지나치게 빠른 속도로 업데이트되기 때문에 변환 과정에서 버그가 자주 발생하고, 이를 해결하기 위해 오히려 ONNX 를 사용하지 않는 것 보다 더 많은 작업이 발생하는 경우가 있다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;또 torchvision 과 같은 주변 라이브러리는 아예 지원이 안되는 경우가 많다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/mlops/images/fsdl_5_9.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2. 컨테이너&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;컨테이너를 설명하기 전, 우선 도커와 가상머신의 개념을 구분해 정리할 필요가 있다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;가상머신 (VM)&lt;/strong&gt; : &lt;strong&gt;라이브러리, 어플리케이션은 물론 운영체계 (OS) 까지를 하나의 패키지로 묶는 방식&lt;/strong&gt;이다. 용량은 물론 실행에 필요한 자원 소모가 큰 편.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;도커&lt;/strong&gt; : &lt;strong&gt;OS 를 적은 용량/자원으로 가상화하여, 필요한 라이브러리와 어플리케이션 만을 구동&lt;/strong&gt;하는 방식.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;이렇듯 실행이 가벼운 도커는 일반적으로 구분 가능한 작업 마다 개별적으로 생성된다. 예시로 웹앱은 (1) 웹서버, (2) 데이터베이스, (3) Job 관리, (4) Worker 총 4개의 컨테이너가 함께 동작하는 방식으로 운영.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Job 관리 (Job Queue)&lt;/strong&gt; : Airflow, Rundeck 등의 Job Scheduler 에서 유지하는, 앞으로 실행할 Job 에 대한 데이터 구조.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Worker&lt;/strong&gt; : 요청한 태스크를 수행하는 자원 &lt;em&gt;(예. 주문 내역을 파싱 및 데이터베이스로 이동)&lt;/em&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/mlops/images/fsdl_5_10.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;도커 컨테이너는 &lt;strong&gt;도커 파일&lt;/strong&gt;을 통해 생성된다. 각 컨테이너는 서로 다른 도커 파일을 통해 환경을 생성하며, 클라우드나 별도 서버에 저장된 도커 허브를 통해 컨테이너를 공유하는 것 또한 가능하다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;도커는 다음과 같은 3가지 요소로 구성되어 있다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;클라이언트&lt;/strong&gt; : 도커 이미지 구성. 로컬 환경에서 여러 커맨드를 통해 조작이 가능하다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;도커 호스트&lt;/strong&gt; : 클라이언트에서 입력된 커맨드 실행 및 이미지/컨테이너 생성. 서버 혹은 로컬 환경 모두 구성이 가능함.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;레지스트리&lt;/strong&gt; : 여러 개의 컨테이너 저장. 도커 호스트와 직접 소통.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/mlops/images/fsdl_5_11.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;이와 같은 태스크 분리를 통해 노트북 등의 로컬 자원, 도커 호스트에 저장된 이미지에 등에 의해 도커 활용에 제약이 가해지지 않는다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;공개된 여러 퍼블릭 도커 허브엔 다양한 이미지가 호스팅 되어 있으며, 프라이빗 이미지를 저장할 수 있는 기능 또한 제공하고 있다. 최근엔 그 인기가 급상승해 이렇나 도커 허브 활용을 기본 전제로 하는 경우가 잦은 편이다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;도커는 입문 난이도가 다소 높은 편이다. &lt;a class=&#34;link&#34; href=&#34;https://github.com/replicate/cog&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Cog&lt;/a&gt;, &lt;a class=&#34;link&#34; href=&#34;https://github.com/bentoml/BentoML&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;BentoML&lt;/a&gt;, &lt;a class=&#34;link&#34; href=&#34;https://github.com/trussworks&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Truss&lt;/a&gt; 와 같은 서비스는 이러한 과정을 간소화 해주며 지정된 모델 호스트 활용, 모델 패키징 등 다양한 기능을 제공한다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/mlops/images/fsdl_5_12.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Performance Optimization (성능 최적화)&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;예측 연산을 효율화하기 위해선 &lt;strong&gt;GPU, concurrency (여러 모델 활용), model distillation (모델 간소화), quantization (파라미터 용량 제한), caching (캐싱), batching (배치 관리), GPU sharing, 관련 라이브러리들&lt;/strong&gt;을 논할 필요가 있다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;1. GPU&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;호스트 서버에 GPU 자원을 포함시키는 것에서 얻는 장점은 다음과 같다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;학습이 이루어진 것과 같은 환경에서 예측이 이루어진다면 &lt;strong&gt;환경 관련 이슈가 발생할 염려가 없다&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;많은 트래픽을 더욱 빨리 처리할 수 있다&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;하지만 &lt;strong&gt;GPU 자원은 세팅이 보다 어렵고, 트래픽에 의한 비용폭이 크기 때문에 CPU 만을 활용한 초기 모델 서비스 또한 고려해봄직 하다&lt;/strong&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;하기 테크닉을 통해 보다 적은 비용으로 CPU 자원에서 연산 속도를 개선하는 것 또한 가능함.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;2. Concurrency&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;여러개의 CPU, 또는 CPU 코어에서 복수의 모델을 실행하는 방식.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Thread Tuning&lt;/strong&gt; 과정이 필요하며, 이와 같은 테크닉을 통해 &lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=Nw77sEAn_Js&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;로블록스&lt;/a&gt;는 일일 10억 리퀘스트에 대한 BERT 서비스를 CPU 자원만으로 해결.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;3. Model Distillation&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;학습된 모델의 행동을 모방하는 작은 규모의 모델을 생성하는 방식.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://heartbeat.comet.ml/research-guide-model-distillation-techniques-for-deep-learning-4a100801c0eb&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;이 글&lt;/a&gt; 에서 관련된 테크닉을 소개하고 있으며, 직접 구현시 성능이 다소 떨어질 수 있다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;서비스 환경에서 자주 활용되지는 않지만, &lt;a class=&#34;link&#34; href=&#34;https://huggingface.co/docs/transformers/model_doc/distilbert&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;DistilBERT&lt;/a&gt; 와 같은 예외 경우 또한 존재.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;4. Quantization&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;모델 전체, 또는 일부분을 보다 작은 용량의 number representation 을 활용해 실행하는 방식이다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;대게 활용되는 representation 으로는 16-bit floating point, 8-bit integer 가 있으며, 모델 정확도에 부정적인 영향을 끼치게 된다. 속도 개선이 정확도 보다 중요하다고 판단되면 고려할 수 있음.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/mlops/images/fsdl_5_13.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;PyTorch, Tensorflow 등의 패키지는 자체 quantization 라이브러리를 포함하고 있으며, Huggingface 의 사전학습 모델 활용 시 &lt;a class=&#34;link&#34; href=&#34;https://huggingface.co/docs/optimum/index&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Huggingface Optimum&lt;/a&gt; 또한 활용이 가능하다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;학습 시 quantization 과정을 감안한 &lt;strong&gt;quantization-aware training&lt;/strong&gt; 이라는 테크닉이 존재하고, 적은 용량으로 representation 변경 시 보다 개선된 정확도를 보인다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;5. Caching&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;자주 처리되는 인풋을 캐시에 미리 저장해둠으로 처리 속도를 개선시키는 방식. 자원 활용이 큰 연산을 수행하기 전에 인풋이 캐시에 존재하는지 먼저 확인한다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;캐싱에는 다양한 방식이 존재하지만, &lt;a class=&#34;link&#34; href=&#34;https://docs.python.org/3/library/functools.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Python functools 라이브러리&lt;/a&gt;를 활용하는 것을 추천.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/mlops/images/fsdl_5_14.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;6. Batching&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;배치 처리 시 연산 속도가 개선된다는 점을 활용해 (특히 GPU 활용 시) 일정 수만큼의 인풋을 저장 후 처리하는 방식.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;인풋을 모으는 기간 동안 유저가 레이턴시를 경험할 수 있기 때문에 배치 사이즈 조절이 필요하다. 레이턴시가 너무 길어진다면 이를 별도로 처리해야하며, 구현이 복잡하기 때문에 라이브러리 등을 활용.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;7. GPU Sharing&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;단일 GPU 에 여러개의 모델을 구동시키는 것 또한 가능하다. GPU sharing 기능을 지원하는 패키지 활용.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;8. 라이브러리&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;PyTorch, Tensorflow, NVIDIA, Ray Serve 등의 옵션이 있다. NVIDIA 쪽이 가장 좋은 성능을 보여주지만 입문장벽이 있는 편이고, &lt;a class=&#34;link&#34; href=&#34;https://docs.ray.io/en/latest/serve/index.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Ray Serve&lt;/a&gt; 의 경우 비교적 난이도가 쉬운 편.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/mlops/images/fsdl_5_15.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Horizontal Scaling (수평 스케일링)&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;트래픽이 증가할 수록 단일 서버보다는 여러대의 서버에서 복제된 모델을 운영할 필요가 생긴다. 이를 &lt;strong&gt;수평 스케일링&lt;/strong&gt;이라 부르며, 한대의 서버에서 처리했을 트래픽을 여러개의 서버로 분산하는 작업을 필요로한다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;각 서버엔 서비스되는 모델의 복제본이 저장 되어있으며, &lt;a class=&#34;link&#34; href=&#34;https://www.nginx.com/resources/glossary/nginx/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;nginx&lt;/a&gt; 와 같은 load balancer 라는 툴을 이용해 분산된 트래픽을 처리한다. 모델 서비스의 경우 이를 구현하는 방식으로는 크게 &lt;strong&gt;container orchestration 와 serverless&lt;/strong&gt; 가 존재한다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;1. Container Orchestration&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/mlops/images/fsdl_5_16.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://kubernetes.io/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Kubernetes&lt;/a&gt; 를 활용해 다수의 도커 컨테이너를 여러대의 서버에서 분산처리 할 수 있도록 돕는 방식.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;단순히 모델 배포가 목적이라면 굳이 Kubernetes 를 활용할 필요는 없다. &lt;a class=&#34;link&#34; href=&#34;https://www.kubeflow.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Kubeflow&lt;/a&gt;, &lt;a class=&#34;link&#34; href=&#34;https://www.seldon.io/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Seldon&lt;/a&gt; 등 관련 작업을 간소화 하는 옵션이 존재.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;2. Serverless&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/mlops/images/fsdl_5_17.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;어플리케이션을 구성하는 코드와 환경을 zip 파일, 또는 도커 컨테이너로 압축한 후 하나의 함수 (model.predict() 등) 를 통해 예측치를 연산하도록 구성.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;이와 같이 패키징 된 모델은 &lt;a class=&#34;link&#34; href=&#34;https://aws.amazon.com/lambda/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;AWS Lambda&lt;/a&gt; 와 같은 서비스를 통해 배포되며, 인프라와 관련된 모든 작업은 클라우드에서 자동적으로 처리된다 &lt;em&gt;(증가한 트래픽에 따른 스케일링 등)&lt;/em&gt;. 유저 입장에서는 제때 비용만 정산하면 됨.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;구체적인 이유로 Kubernetes 를 활용하는 것이 아니라면, Serverless 로 배포를 시작하는 편이 좋다. 단점은 다음과 같이 정리할 수 있다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;배포 패키지의 사이즈 제한이 존재한다.&lt;/strong&gt; 용량이 큰 모델은 이와 같은 방식으로 배포가 어려운 편.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;트래픽 미발생으로 서버가 닫혀있는 상태에서 다시 예측치를 내기 까지의 시간 소요가 길다.&lt;/strong&gt; 이를 cold start 문제라 부르며, 초단위에서 분단위 까지의 시간을 필요로 한다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;파이프라인 등 복잡한 소프트웨어 기능 구현이 어렵다.&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;서버 상태 모니터링과 별도 배포 툴 적용이 어렵다.&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Serverless 환경은 대체로 GPU 를 포함하지 않으며, 실행 시간에 제한을 둔다.&lt;/strong&gt; 보다 작은 규모의 &lt;a class=&#34;link&#34; href=&#34;https://www.banana.dev/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Banana&lt;/a&gt;, &lt;a class=&#34;link&#34; href=&#34;https://www.pipeline.ai/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Piepeline&lt;/a&gt; 과 같은 스타트업들은 GPU 를 활용한 서버리스를 제공.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Model Rollouts (롤아웃)&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;이미 배포된 상태의 모델을 업데이트하고, 관리하는 과정을 의미한다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;새로운 모델을 효율적으로 배포 하기 위해서는 다음과 같은 배포 방식이 모두 가능해야 한다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;점진적 배포&lt;/strong&gt; : 기존 배포 버전에서 새로운 배포 버전으로 트래픽 양을 점진적으로 증가.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;즉각적 배포&lt;/strong&gt; : 문제가 발생한 배포 버전에서 새로운 배포 버전으로 즉각적인 변경.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;배포 버전 관리&lt;/strong&gt; : 두 개의 배포 버전을 두고 트래픽 배분.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;파이프라인 배포&lt;/strong&gt; : 개발된 파이프라인 플로우를 모델과 함께 배포.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;이러한 기능들은 직접 구현이 어려우며, 일반적으로 managed service 를 통해 모델 배포에 적용하게 된다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;Managed Options&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/mlops/images/fsdl_5_18.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;클라우드 3사 모두 배포 과정을 간소화하는 managed service option 기능을 제공하며, BentoML, Banana 등의 스타트업 또한 관련 기능을 제공.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;가장 인지도 있는 서비스는 &lt;a class=&#34;link&#34; href=&#34;https://aws.amazon.com/sagemaker/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;AWS Sagemaker&lt;/a&gt; 이다. Huggingface class, SciKit-Learn model 등 일반적인 형태의 모델의 경우 적용이 쉬운 편이다. 하지만 일반적인 EC2 인스턴스에 비해 50~100% 가량 비용이 비쌈.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h4 id=&#34;move-to-the-edge&#34;&gt;Move To The Edge?&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/mlops/images/fsdl_5_19.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;웹에서 벗어나 클라이언트 기기 (엣지 디바이스) 내에서 모델 예측을 구현하는 방식 또한 고려해 볼 수 있다. 인터넷 액세스가 불안정한 환경이거나, 민감한 개인정보를 다룰 경우 엣지 디바이스 활용은 필수적.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;엣지 디바이스 활용을 필수적으로 요구하는 환경이 아니라면, 모델의 정확도와 레이턴시 간 유저 경험에 더 중요한 요소를 선택해야한다. &lt;strong&gt;레이턴시를 줄일 수 있는 모든 옵션이 이미 적용되었다면, 엣지 디바이스 활용을 고려할 것&lt;/strong&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;엣지 디바이스 inference 는 구현이 복잡하기 때문에 반드시 필요한 경우에만 적용해야 한다. 서버에서 학습된 모델 가중치를 엣지 기기에 불러온 후, 이후 모든 예측 과정을 엣지 기기에서 수행하는 방식으로 진행.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;대표적인 장점은 레이턴시 감소이다. 네트워크를 사용할 필요가 없으며, 트래픽에 의한 비용이 발생하지 않는다. 이에 반한 단점은 하드웨어와 소프트웨어의 제약이다. 모델 업데이트 또한 과정이 보다 복잡해지는 문제가 있다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Frameworks&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;엣지 배포에 필요한 적절한 프레임워크는 학습 과정과 엣지 기기에 따라 달라질 수 있다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://developer.nvidia.com/tensorrt&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;TensorRT&lt;/a&gt;&lt;/strong&gt; : 엣지 기기가 NVIDIA 하드웨어라면 가장 적절&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://developers.google.com/ml-kit&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;MLKit&lt;/a&gt;&lt;/strong&gt;, &lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://developer.apple.com/documentation/coreml&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;CoreML&lt;/a&gt;&lt;/strong&gt; : Android, 혹은 iPhone 을 대상으로 한다면 공식 프레임워크 검토&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://pytorch.org/mobile/home/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;PyTorch Mobile&lt;/a&gt;&lt;/strong&gt; : iOS 와 Android 환경을 모두 지원&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.tensorflow.org/lite&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;TFLite&lt;/a&gt;&lt;/strong&gt; : 핸드폰과 같은 일반적인 기기가 아닌 경우 또한 TF 사용 환경을 지원&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.tensorflow.org/js&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;TensorFlow JS&lt;/a&gt;&lt;/strong&gt; : 브라우저 배포 전용 프레임워크&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://tvm.apache.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Apache TVM&lt;/a&gt;&lt;/strong&gt; : 라이브러리, 타깃 기기와 무관하게 활용 가능. 가능한 많은 환경을 지원하고자 한다면 적절함&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;이외에도 &lt;a class=&#34;link&#34; href=&#34;https://mlir.llvm.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;MLIR&lt;/a&gt;, &lt;a class=&#34;link&#34; href=&#34;https://octoml.ai/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;OctoML&lt;/a&gt;, &lt;a class=&#34;link&#34; href=&#34;https://www.tinyml.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;TinyML&lt;/a&gt;, &lt;a class=&#34;link&#34; href=&#34;https://www.modular.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Modular&lt;/a&gt; 과 같은 제품군이 존재함.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Efficiency&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/mlops/images/fsdl_5_20.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;엣지 기기의 하드웨어 제약을 뛰어넘는 용량을 가진 모델의 경우, 프레임워크와 무관하게 배포는 불가능하다고 보아야한다. 때문에 가능한 적은 용량과 연산 자원을 사용하면서 최대의 성능을 이끌어내는 모델 구조가 중요.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Quantization, Distillation 등의 기법 또한 활용 가능하나, &lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://medium.com/@yu4u/why-mobilenet-and-its-variants-e-g-shufflenet-are-fast-1c7048b9618d&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;MobileNets&lt;/a&gt;&lt;/strong&gt; 와 같이 엣지 기기를 사전에 염두한 모델 구조 또한 존재한다. 모델 성능이 감소하나 많은 경우 실사용에 지장이 없다. 이와 결이 유사한 모델로는 &lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://medium.com/huggingface/distilbert-8cf3380435b5&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;DistilBERT&lt;/a&gt;&lt;/strong&gt; 가 있다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/mlops/images/fsdl_5_21.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Mindsets&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;엣지 배포를 검토할 시 다음과 같은 사항을 고려하는 편이 좋다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;모델 구조가 아닌 엣지 기기의 환경에 집중할 것.&lt;/strong&gt; 성능이 좋은 모델 구조를 학습 후, 엣지 기기에서 구동이 어렵다면 모델링 과정을 처음부터 다시 시작해야 할 수 있다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;실행 가능한 모델이 구현되었다면, 계속적으로 엣지 기기를 활용할 것이 아니라 로컬 환경에서 모델을 고도화 할 것.&lt;/strong&gt; 이 경우 모델 용량 등을 Experiment Tracking Metric 으로 추가하는 것이 좋다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;모델 튜닝 과정을 추가적인 리스크로 다룰 것.&lt;/strong&gt; 관련 프레임워크는 아직 성숙하지 못했기 때문에, 작은 하이퍼파라미터 변동으로도 모델이 작동하지 않을 리스크가 존재한다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;버저닝을 통한 회귀점을 구비할 것.&lt;/strong&gt; 엣지 배포의 경우 특히 모델을 작동하던 마지막 상태로 복구할 수 있는 시스템이 필요하다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h3 id=&#34;lecture-6---continual-learning&#34;&gt;Lecture 6 - Continual Learning&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?list=PL1T8fO7ArWleMMI8KPJ_5D5XSlovTW_Ur&amp;amp;v=nra0Tt3a-Oc&amp;amp;feature=emb_title&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
