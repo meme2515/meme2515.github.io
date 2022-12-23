@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>미켈란젤로 on Soon Hyung Kwon</title>
+        <link>https://meme2515.github.io/tags/%EB%AF%B8%EC%BC%88%EB%9E%80%EC%A0%A4%EB%A1%9C/</link>
+        <description>Recent content in 미켈란젤로 on Soon Hyung Kwon</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Fri, 23 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/tags/%EB%AF%B8%EC%BC%88%EB%9E%80%EC%A0%A4%EB%A1%9C/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>(번역) Michelangelo : Uber 의 머신러닝 플랫폼</title>
+        <link>https://meme2515.github.io/daily/fsdl/</link>
+        <pubDate>Fri, 23 Dec 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/daily/fsdl/</guid>
+        <description>&lt;img src="https://meme2515.github.io/temp/images/michelangelo_2.jpg" alt="Featured image of post (번역) Michelangelo : Uber 의 머신러닝 플랫폼" /&gt;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;본 글은 2017 년 Uber Blog 에 개제된 &lt;a class=&#34;link&#34; href=&#34;https://www.uber.com/en-KR/blog/michelangelo-machine-learning-platform/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Meet Michelangelo: Uber&amp;rsquo;s Machine Learning Platform&lt;/a&gt; 의 내용을 번역한 것이다. 문단 형태의 글을 bullet-point 로 축약하였고, 약간의 의역이 있다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/temp/images/michelangelo_3.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Michelangelo (미켈란젤로) 는 Uber 사내 활용을 위한 ML-as-a-Service 플랫폼이며, ML 모델 구축 및 배포 과정을 전직원이 보다 쉽게 접근할 수 있도록 돕는것을 그 목적으로 한다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;데이터 관리, 학습, 평가, 배포, 예측, 모니터링 까지 모든 end-to-end 기능을 제공하며, 전통적인 ML 모델은 물론 시계열 예측과 딥러닝 기능까지 제공하고 있다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;글이 써진 2017년을 기준으로 시스템은 약 1년간 활용되었고, Uber 의 여러 데이터 센터에 설치되고, 실제 모델 배포에 활용되는 등 이미 머신러닝을 수행하기 위한 기본 시스템으로 자리매김했다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;본 글은 이러한 미켈란젤로 시스템을 소개하고, 유즈케이스 및 기본적인 작업 과정을 순차적으로 설명한다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;motivation-behind-michelangelo&#34;&gt;Motivation behind Michelangelo&lt;/h2&gt;
+&lt;h2 id=&#34;use-case--ubereats&#34;&gt;Use Case : UberEATS&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/temp/images/michelangelo_4.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;system-architecture&#34;&gt;System Architecture&lt;/h2&gt;
+&lt;h2 id=&#34;machine-learning-workflow&#34;&gt;Machine Learning Workflow&lt;/h2&gt;
+&lt;h2 id=&#34;manage-data&#34;&gt;Manage Data&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/temp/images/michelangelo_5.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;offline&#34;&gt;Offline&lt;/h3&gt;
+&lt;h3 id=&#34;online&#34;&gt;Online&lt;/h3&gt;
+&lt;h3 id=&#34;shared-feature-store&#34;&gt;Shared Feature Store&lt;/h3&gt;
+&lt;h2 id=&#34;train-models&#34;&gt;Train Models&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/temp/images/michelangelo_6.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;evaluate-models&#34;&gt;Evaluate Models&lt;/h2&gt;
+&lt;h2 id=&#34;model-accuracy-report&#34;&gt;Model Accuracy Report&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/temp/images/michelangelo_7.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;
+&lt;img src=&#34;https://meme2515.github.io/temp/images/michelangelo_8.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;decision-tree-visualization&#34;&gt;Decision Tree Visualization&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/temp/images/michelangelo_9.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;feature-report&#34;&gt;Feature Report&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/temp/images/michelangelo_10.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;deploy-models&#34;&gt;Deploy Models&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/temp/images/michelangelo_11.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;make-predictions&#34;&gt;Make Predictions&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/temp/images/michelangelo_12.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;referencing-models&#34;&gt;Referencing Models&lt;/h2&gt;
+&lt;h2 id=&#34;scale-and-latency&#34;&gt;Scale and Latency&lt;/h2&gt;
+&lt;h2 id=&#34;monitor-predictions&#34;&gt;Monitor Predictions&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://meme2515.github.io/temp/images/michelangelo_13.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;management-plane-api-and-web-ui&#34;&gt;Management Plane, API, and Web UI&lt;/h2&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

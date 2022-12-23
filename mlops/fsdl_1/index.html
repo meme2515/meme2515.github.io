@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='When to Use ML and Course Vision'><title>Full Stack Deep Learning 2022 부트캠프 - Week 1</title>
+
+<link rel='canonical' href='https://meme2515.github.io/mlops/fsdl_1/'>
+
+<link rel="stylesheet" href="/scss/style.min.0d6801e40f97865d11b796a59ab5cccec41427c09bbb58dec945c9cf7412db70.css"><meta property='og:title' content='Full Stack Deep Learning 2022 부트캠프 - Week 1'>
+<meta property='og:description' content='When to Use ML and Course Vision'>
+<meta property='og:url' content='https://meme2515.github.io/mlops/fsdl_1/'>
+<meta property='og:site_name' content='Soon Hyung Kwon'>
+<meta property='og:type' content='article'><meta property='article:section' content='Mlops' /><meta property='article:tag' content='FSDL' /><meta property='article:tag' content='Full Stack Deep Learning' /><meta property='article:tag' content='MLOps' /><meta property='article:tag' content='부트캠프' /><meta property='article:tag' content='fsdl 2022' /><meta property='article:tag' content='fsdl 2022 후기' /><meta property='article:tag' content='fsdl 후기' /><meta property='article:tag' content='full stack deep learning 2022' /><meta property='article:tag' content='풀스택딥러닝' /><meta property='article:published_time' content='2022-12-01T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-12-01T00:00:00&#43;00:00'/><meta property='og:image' content='https://meme2515.github.io/mlops/images/fsdl_4.png' />
+<meta name="twitter:title" content="Full Stack Deep Learning 2022 부트캠프 - Week 1">
+<meta name="twitter:description" content="When to Use ML and Course Vision"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://meme2515.github.io/mlops/images/fsdl_4.png' />
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-135204357-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hud342b0d5be633fdc127bd0653c60e8c3_234674_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Soon Hyung Kwon</a></h1>
+            <h2 class="site-description">데이터 블로그입니다 :)</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/meme2515'
+                        target="_blank"
+                        title="GitHub"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M200,513c0-20.3,0-40.7,0-61c3.1,0.6,1.9,3.1,1.9,4.8c0.1,16.3,0.2,32.6,0,48.9c-0.1,4.1,1,5.4,5.2,5.4   c36.6-0.2,73.2-0.2,109.8,0c4.4,0,5.1-1.6,5.1-5.5c-0.2-25-0.1-49.9-0.1-74.9c0-9.3,0.2-18.6,0.2-27.9c2.8,1.2,1.6,3.8,1.6,5.7   c0.1,34.8,0.1,69.6,0.1,104.4C282.7,513,241.3,513,200,513z" fill="#D1D1D1"/><path d="M322.2,402.8c-0.1,9.3-0.2,18.6-0.2,27.9c0,25-0.1,49.9,0.1,74.9c0,3.9-0.7,5.5-5.1,5.5   c-36.6-0.2-73.2-0.2-109.8,0c-4.2,0-5.3-1.3-5.2-5.4c0.2-16.3,0.1-32.6,0-48.9c0-1.7,1.2-4.2-1.9-4.8c-9.7,0.9-19.3,3.2-29.2,2.8   c-33.5-1.3-59.5-15.4-74.7-45.8c-8.2-16.4-17.8-31.7-29.1-46c-3.1-3.9-7.9-5.5-11.5-8.7c-1.1-1-2.4-1.8-3.3-3   c-2.3-3.3-1.2-5.8,2.8-6.2c18.5-1.9,33.8,4.2,46.2,18.1c6.3,7.1,10.2,15.8,16.3,23.1c12.3,14.7,28,22.7,47,24.9   c11.5,1.3,22.4-0.9,33.3-4.2c2.2-0.6,3.1-2,3.3-4.3c0.7-10.3,2.8-20.3,6.8-29.9c1.8-4.3,4.7-7.9,6.9-12.3   c-10.3-2.6-20.7-3.4-30.5-6.4c-27.1-8.2-50.9-21.6-68.2-44.7c-8.3-11-14.1-23.3-17.4-36.5c-1.8-7.2-3.9-14.4-3.8-22   c0.1-13.3-0.5-26.7,0.3-40c0.9-16.8,3.1-33.5,9.2-49.2c3.8-9.7,9.3-18.6,17.1-25.9c2.4-2.3,3.3-4.1,1.8-7.9   c-7.4-19.7-8.1-39.8-1.8-60c0.2-0.6,0.3-1.3,0.4-2c2.2-10.3,4.5-11.3,14.3-7.4c19.2,7.5,33.3,21,45.3,37.3c3.4,4.6,2.7,6.6,10,1.9   c9.7-6.2,21-8.1,32.2-9.3c20.1-2.1,40.3-1.5,60.4-1.1c14.3,0.3,28.5,2.2,42,7.2c3.1,1.1,6,2.8,8.7,4.8c2.1,1.6,3.6,1.6,5.6-1.1   c9.1-12.8,19.5-24.4,33-32.6c6.6-4,13.4-7.7,21.4-8.6c3.3-0.4,4.7,0.7,5.6,3.3c8.3,22.9,9.5,45.7-0.2,68.5   c-1.2,2.8-0.8,4.6,1.3,6.5c16,15,21.8,34.5,24.8,55.5c2.5,17.7,3.2,35.5,2.7,53.3c-0.8,31.2-11.4,58.4-34.4,80.1   c-13.5,12.7-29.7,21.1-47.1,27.5c-12.4,4.6-25.5,5.8-38.5,9c1.3,3.1,3.7,5.4,4.3,8.5c-0.3,1.3,0.4,2,1.6,2.3   c0.1,0.6,0.3,1.1,0.4,1.7c0.3,2.1,0.1,4.3,2.5,5.4c0.5,2.2,1,4.5,1.4,6.7c-0.1,1.7-0.7,3.5,1.6,4.3c0,0.6,0.1,1.2,0.1,1.9   c-1.5,2.3-0.1,4.1,1.1,6C322.1,398.9,322.2,400.9,322.2,402.8z" fill="#A7A7A7"/><path d="M322,397c-1.1-1.9-2.6-3.7-1.1-6C322.1,392.9,323,394.8,322,397z" fill="#D1D1D1"/><path d="M317.7,378.2c-2.4-1.1-2.2-3.3-2.5-5.4C317.4,374,317.7,376,317.7,378.2z" fill="#D1D1D1"/><path d="M320.8,389.1c-2.3-0.8-1.7-2.6-1.6-4.3C321.5,385.6,321,387.5,320.8,389.1z" fill="#D1D1D1"/><path d="M314.8,371.1c-1.2-0.3-1.9-1-1.6-2.3C314.5,369.1,315.1,369.8,314.8,371.1z" fill="#D1D1D1"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.linkedin.com/in/soon-hyung-kwon-73a3221ab/'
+                        target="_blank"
+                        title="LinkedIn"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M1,53c2.5,0,1.7-2,1.9-3.3C5.9,29,16.6,13.9,36.6,7.4c16.1-5.2,32.9-4.6,47.9,4c9.4,5.5,16.6,14,20.4,24.5   c2.8,7.8,4.9,15.9,4,24.2c-2.1,20.9-11.5,38.3-34.5,46.4c-17.4,6-34.3,3.8-50.2-5.7c-1-3.6-3.5-5.4-7.1-6c0,0,0,0,0,0   c-0.1-1.4-0.3-2.8-2.2-2.8C7.7,84,4.3,74.3,2.9,63.8C2.7,62.6,3.2,60.9,1,61C1,58.3,1,55.7,1,53z" fill="#A7A7A7"/><path d="M276.2,216.1c4.3-2.6,6-6.4,8.2-9.5c10.9-15,24.4-26.6,41.2-34.9c23-11.3,47.4-12.5,72-10.2   c18.9,1.7,36.8,8.1,53.1,18.5c19.4,12.4,33.3,29.6,42.8,50.2c5.8,12.5,9.6,25.8,11.9,39.6c2.1,12.9,3.7,25.6,3.7,38.7   c-0.1,65-0.1,130,0.1,195c0,4.6-1.3,5.8-5.8,5.7c-30.7-0.2-61.3-0.2-92,0c-4.5,0-5.5-1.3-5.5-5.6c0.1-61.3,0.4-122.7-0.1-184   c-0.1-13.9-2-27.7-9.2-40.4c-6.4-11.2-15.3-19.2-27-23.8c-15.7-6.2-31.9-7.4-48.3-2.8c-16.6,4.6-28.1,15.5-36.3,30.3   c-4.6,8.3-6.2,17-7.5,26.3c-1.3,10-1.1,19.8-1.1,29.7c-0.2,54.7-0.2,109.3,0,164c0,5-1.2,6.4-6.3,6.3c-30.3-0.3-60.7-0.2-91,0   c-4.2,0-5.7-1.3-5.6-5.2c0.1-2.8,0.3-5.6,0.3-8.4c0-105.5,0.1-211-0.1-316.5c0-4.4,0.9-6,5.7-6c30.5,0.2,61,0.2,91.5,0   c4.1,0,5.5,1,5.4,5.3C276,190.6,276.2,202.9,276.2,216.1z" fill="#A7A7A7"/><path d="M109,176.1c0,3.5,0.1,7,0.1,10.5c0,105.3,0,210.6,0,316c0,6.4,0,6.4-6.5,6.4c-31.8,0-63.7,0-95.5,0   c-0.1-2.5-0.2-5-0.2-7.5c0-78.8,0-157.5,0-236.3c0-28.1,0.1-56.3-0.1-84.4c0-3.6,0.9-4.9,4.7-4.9C44,176.1,76.5,176,109,176.1z" fill="#A7A7A7"/><path d="M109,176.1c-32.5,0-64.9,0-97.4-0.2c-3.8,0-4.7,1.2-4.7,4.9C7,208.9,6.9,237,6.9,265.2   c0,78.8,0,157.5,0,236.3c0,2.5,0.1,5,0.2,7.5c-1.7,0.1-3-0.3-3-2.3c0-1.3,0-2.7,0-4c0-106.8,0-213.5,0-320.3c0-7.6,0.7-8.3,8.2-8.3   c30.5,0,61,0,91.4,0.1C105.5,174.1,108.2,172.7,109,176.1z" fill="#E0E0E0"/><path d="M17.1,94.9c3.6,0.6,6.1,2.4,7.1,6C21.1,99.7,18.8,97.7,17.1,94.9z" fill="#E0E0E0"/><path d="M14.9,92.1c1.9,0,2,1.4,2.2,2.8C15,95,15,93.6,14.9,92.1z" fill="#E0E0E0"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/about' >
+                
+                
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/machine_learning' >
+                
+                
+                
+                <span>Machine Learning</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/neural_network' >
+                
+                
+                
+                <span>Neural Network</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/mlops' >
+                
+                
+                
+                <span>MLOps</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/statistics' >
+                
+                
+                
+                <span>Statistics</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/computer_science' >
+                
+                
+                
+                <span>Computer Science</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/cloud_network' >
+                
+                
+                
+                <span>Cloud &amp; Network</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/daily' >
+                
+                
+                
+                <span>Daily</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/mlops/fsdl_1/">
+                
+                    <img src="/mlops/images/fsdl_4.png" loading="lazy" alt="Featured image of post Full Stack Deep Learning 2022 부트캠프 - Week 1" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/fsdl/" >
+                FSDL
+            </a>
+        
+            <a href="/categories/mlops/" >
+                MLOps
+            </a>
+        
+            <a href="/categories/%EB%B6%80%ED%8A%B8%EC%BA%A0%ED%94%84/" >
+                부트캠프
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/mlops/fsdl_1/">Full Stack Deep Learning 2022 부트캠프 - Week 1</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            When to Use ML and Course Vision
+        </h3>
+        
+    </div>
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Dec 01, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    6 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <ul>
+<li><a class="link" href="https://www.youtube.com/watch?v=-Iob-FW5jVM"  target="_blank" rel="noopener"
+    >YouTube</a>, <a class="link" href="https://fullstackdeeplearning.com/course/2022/lecture-1-course-vision-and-when-to-use-ml/"  target="_blank" rel="noopener"
+    >Lecture Notes</a>, <a class="link" href="https://drive.google.com/file/d/18EVuJpnJ9z5Pz7oRYcgax_IzRVhbuAMC/view"  target="_blank" rel="noopener"
+    >Slides</a></li>
+</ul>
+<h2 id="lecture-내용-요약">Lecture 내용 요약</h2>
+<ul>
+<li><a class="link" href="http://meme2515.github.io/mlops/fsdl_1/"  target="_blank" rel="noopener"
+    >Lecture 1 - When to Use ML and Course Vision</a></li>
+<li><a class="link" href="http://meme2515.github.io/mlops/fsdl_2/"  target="_blank" rel="noopener"
+    >Lecture 2 - Development Infrastureture &amp; Tooling</a></li>
+<li><a class="link" href="http://meme2515.github.io/mlops/fsdl_3/"  target="_blank" rel="noopener"
+    >Lecture 3 - Troubleshooting &amp; Testing</a></li>
+<li><a class="link" href="http://meme2515.github.io/mlops/fsdl_4/"  target="_blank" rel="noopener"
+    >Lecture 4 - Data Management</a></li>
+<li><a class="link" href="http://meme2515.github.io/mlops/fsdl_5/"  target="_blank" rel="noopener"
+    >Lecture 5 - Deployment</a></li>
+<li><a class="link" href="http://meme2515.github.io/mlops/fsdl_6/"  target="_blank" rel="noopener"
+    >Lecture 6 - Continual Learning</a></li>
+<li><a class="link" href="http://meme2515.github.io/mlops/fsdl_7/"  target="_blank" rel="noopener"
+    >Lecture 7 - Foundation Models</a></li>
+<li><a class="link" href="http://meme2515.github.io/mlops/fsdl_8/"  target="_blank" rel="noopener"
+    >Lecture 8 - ML Teams and Project Management</a></li>
+<li><a class="link" href="http://meme2515.github.io/mlops/fsdl_9/"  target="_blank" rel="noopener"
+    >Lecture 9 - Ethics</a></li>
+</ul>
+<h2 id="course-vision">Course Vision</h2>
+<ul>
+<li>FSDL 과정이 처음 시작한 2018년에는 규모가 큰 기업들만 ML 제품을 내놓고 있는 상태였으며, 이들 이외의 기업들은 ML로 부터 부가가치를 창출하기 어렵다는 생각이 업계 전반에 있었다.</li>
+<li>2022년 현재에는 트랜스포머의 등장으로 인해 NLP 분야가 더 많은 적용 사례들을 찾아내고 있고, 이외에도 많은 ML 제품들의 등장으로 MLOps 라는 단어가 사용되기 시작했다.</li>
+<li>물론 업계 전반이 더 성숙해졌고, 주요한 연구 실적 또한 있었지만, ML 제품 개발이 더욱 활성화된 주요한 이유는 <strong>선행학습이 완료된 모델이 점차 상품화되고 있다는 점</strong>이다.
+<ul>
+<li>이제 HuggingFace 와 같은 툴을 이용하면 최신 NLP, 비전 모델을 코드 한두줄로 사용할 수 있다.</li>
+<li>회사들은 학습된 모델을 네트워크를 통해 제공하기 시작했다.</li>
+<li>Keras, PyTorch Lightning 을 중심으로 유관한 프레임워크들이 표준화되기 시작했다.</li>
+</ul>
+</li>
+</ul>
+<p><img src="/mlops/images/fsdl_2.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>AI 분야는 항상 대중의 관심 속에 있어왔지만, 기대에 부흥하지 못한 실용성으로 지난 수십년간 굴곡을 겪어왔다. 분야가 다시 성장하고 있는 지금, 또다른 혹한기를 피하기 위해 관련 연구를 real-world 제품으로 승화시켜야 한다.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_3.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>학계에서 다루는 ML 은 단차원적이다. 문제를 정의하고, 데이터를 수집하고, 정제한 다음 모델 개발 과정을 거쳐 잘 작동하는 ML 모델을 평가/보고함으로 과정이 끝난다.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_4.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>이에 반해 ML 제품은 배포 후 관리를 필요로한다. 실제 사용자들이 제품을 어떻게 경험하는지 관찰/측정한 후, 사용자들의 데이터에 기반한 data flywheel 을 만들어 모델을 고도화하게 된다.</li>
+<li>본 과정은 모델 학습을 넘어 <strong>좋은 ML 제품을 만들기 위해 필요한 지식과 노하우를 전달한다</strong>. 이러한 제품에 어떤 부분들이 있어야 하는지, 제품 개발에서 발생하는 문제 해결을 위한 접근법은 어떠한 것들이 있는지 등을 가르친다.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_5.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li><strong>MLOps</strong>
+<ul>
+<li>MLOps 란 지난 몇년간 새로 등장한 분야이며, ML 시스템에 대한 배포, 유지, 운영에 관한 개념을 다룬다. 통제/반복 가능한 환경에서 모델을 구축하는 법, high scale 세팅에서 시스템을 운영하는 법, 시스템 유지를 위해 팀이 협업하는 법 등을 다룬다.</li>
+</ul>
+</li>
+<li><strong>ML 기반 제품</strong>
+<ul>
+<li>ML 기반 제품이란 이와 유사성을 가진 개념이나, 완전히 같다고 볼 수 없다. 좋은 제품 개발은 운영 이외의 분야에 대한 깊은 생각을 필요로하고, 최종 제품에서 ML 이 어떠한 역할을 하는지에 집중하게 된다. 유저가 제품을 사용하면서 어떠한 경험을 가지는지, 조직과 효율적으로 협업하는 방법은 무엇인지, ML 분야의 프로덕트 매니징은 어떻게 이루어지는지 등의 개념을 다룬다.</li>
+</ul>
+</li>
+<li>본 과정은 좋은 ML 기반 제품을 만들기 위한 end-to-end 과정을 가르치며, 이에 필요한 기본적인 MLOps 개념만을 전달한다.</li>
+</ul>
+<h2 id="when-to-use-machine-learning">When To Use Machine Learning</h2>
+<ul>
+<li>
+<p><strong>ML 프로젝트는 일반적인 소프트웨어 개발보다 높은 실패율을 보인다.</strong> 많은 적용 분야에서 ML 이란 아직 연구 단계에 있기 때문이며, 때문에 100% 성공을 목표로 할 수는 없다.</p>
+</li>
+<li>
+<p>이외에도 ML 프로젝트가 실패하는 이유 중 대표적인 예시는 다음과 같다.</p>
+<ol>
+<li>기술적으로 불가능하거나 스코프 설정이 잘못되었기 때문</li>
+<li>제품화로의 도약을 이루지 못하기 때문</li>
+<li>조직적으로 ML 프로젝트 성공의 기준을 정하지 못했기 때문</li>
+<li>문제 해결을 이루어냈으나, 복잡성에 비례한 정당성을 가지지 못했기 때문</li>
+</ol>
+</li>
+<li>
+<p>따라서 ML 프로젝트를 시작하기 전, 다음과 같은 질문을 할 필요가 있다.</p>
+<ol>
+<li><strong>ML을 활용할 준비가 되었는가?</strong> 구체적으로는 적용할 제품이 있는가? 이미 데이터를 활용 가능한 방식으로 수집하고 있는가? 적절한 인력을 보유하고 있는가?</li>
+<li><strong>문제를 해결하기 위해 정말 ML이 필요한가?</strong> 문제는 애초에 해결되어야 하는 것인가? 룰베이스 혹은 간단한 통계학을 통한 문제 해결이 가능하진 않은가?</li>
+<li><strong>ML의 활용이 윤리적으로 올바른가?</strong></li>
+</ol>
+</li>
+<li>
+<p>모든 분야의 프로젝트와 같이, 적절한 ML 프로젝트 선정을 위해선 <strong>큰 임팩트</strong>와 <strong>적은 비용</strong>을 가진 유즈케이스 선정이 필요하다.</p>
+<ol>
+<li>큰 임팩트란 ML 이 서비스 파이프라인의 복잡한 구조를 해결하거나, 간단한 예측이 큰 의미를 가지는 경우를 뜻한다. 업계에서 ML 을 어떻게 활용하고 있는지 또한 좋은 지표가 될 수 있다.</li>
+<li>적은 비용이란 데이터의 이미 존재하거나, 잘못된 예측이 어느정도 허용되는 경우를 말한다.</li>
+</ol>
+</li>
+</ul>
+<p><img src="/mlops/images/fsdl_6.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li><strong>큰 임팩트를 가진 프로젝트</strong>
+<ol>
+<li><strong>ML 활용이 상대적 경제성을 가지는 경우.</strong></li>
+<li><strong>제품이 필요로 하는 것이 무엇인지를 고민해야 한다.</strong> <a class="link" href="https://spotify.design/article/three-principles-for-designing-ml-powered-products"  target="_blank" rel="noopener"
+    >Spotify - Discover Weekly 를 구현하면서 세운 3가지 원칙</a> 참조.</li>
+<li><strong>ML 이 특히 잘하는 것이 무엇인가를 생각.</strong> 시스템에 복잡하고 수동적으로 정의된 부분이 있다면 ML 적용이 큰 도움이 될 수 있다.</li>
+<li><strong>업계에서 ML 이 어떤 문제를 해결하고 있는지를 참고.</strong></li>
+</ol>
+</li>
+</ul>
+<p><img src="/mlops/images/fsdl_7.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li><strong>적은 비용을 가진 프로젝트</strong>
+<ol>
+<li><strong>데이터 유무를 파악.</strong> 새로운 데이터를 확보하는 것은 얼마나 어려운지, 데이터 레이블링은 어느정도의 비용이 드는지, 얼마나 많은 데이터가 필요할 것인지, 데이터는 얼마나 정적인지, 어떠한 보안 규제가 존재하는지 등.</li>
+<li><strong>모델 정확도의 중요성을 고려.</strong> 잘못된 예측으로 인한 비용은 어느정도인지, 실용성을 위해 모델의 정확도는 어느 정도여야 하는지를 파악해야 한다.</li>
+<li><strong>문제의 난이도에 대한 고민.</strong> ML 활용으로 해결될 문제는 얼마나 잘 정의되었는지, 관련 주제에 대한 논의가 충분히 존재하는지, 연산 자원은 얼마나 필요한지 등.</li>
+</ol>
+</li>
+</ul>
+<p><img src="/mlops/images/fsdl_8.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>
+<p><strong>ML이 어려워하는 대표적 문제들</strong></p>
+<ol>
+<li><strong>결과값이 복잡한 경우.</strong> 예측치의 정의가 불확실하거나, 고차원의 형상을 다루는 경우.</li>
+<li><strong>높은 정확도를 요구하는 경우.</strong> ML 모델은 예상치 못한 부분에서 실패하기 때문에, 일정 수준 이상의 정확도를 요구하는 경우 ML 적용이 적절하지 않을 수 있음.</li>
+<li><strong>일반화가 필요한 경우.</strong> 통계치에서 벗어난 데이터에 대한 예측을 요구하거나, 논리/계획을 세우거나 인과관계를 판단하는 작업을 요구하는 경우.</li>
+</ol>
+</li>
+<li>
+<p>같은 ML 프로젝트라 할지라도 프로젝트의 성격에 따라 계획 과정은 판이하게 달라진다. 관련한 방법론을 수립하기 위해 강사진은 다음과 같은 3가지 카테고리로 ML 제품을 구분한다.</p>
+<ul>
+<li><strong>Software 2.0</strong> : 전통적인 소프트웨어에 머신러닝을 적용하는 경우이다. 코드 작성 AI 인 Github Copilot 을 예시로 들 수 있다.</li>
+<li><strong>Human-in-the-loop</strong> : ML 시스템이 사람의 의사결정 체계를 돕거나, 효율성을 향상시키는 경우를 말한다. 단순한 스케치를 기반으로 PPT 슬라이드를 생성하는 등의 예시를 들 수 있으며, 이 경우 모델 아웃풋의 품질을 사람이 확인하는 과정이 수반된다.</li>
+<li><strong>Autonomous Systems</strong> : ML 을 활용해 사람이 개입할 필요가 없는 완전한 자동화 시스템을 구축하는 경우이다. 자율주행 등을 예시로 들 수 있다.</li>
+</ul>
+</li>
+</ul>
+<p><img src="/mlops/images/fsdl_9.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>Software 2.0 의 경우, <strong>ML 적용이 실제 성능 개선에 도움이 되는지</strong>를 꼼꼼하게 점검해 볼 필요가 있다. 또한 서비스 배포 후 data flywheel, 즉 신규 데이터를 기반으로 모델을 개선시킬 수 있는 사이클이 구축될 수 있는지 또한 검토가 필요하다.</li>
+<li>Human-in-the-loop 시스템의 경우 <strong>사용자가 어떠한 배경, 환경을 가지고 모델을 활용하는지</strong>를 염두해야 하며, <strong>그들의 니즈 또한 파악</strong>할 필요가 있다. 유저에게 실질적인 도움을 제공하려면 어느 정도 수준의 성능을 보여야 하는지 등을 고려해야 한다.</li>
+<li>Autonomous 시스템은 <strong>실패율과 그에 따른 결과</strong>에 집중할 필요가 있다. 사람이 개입할 여지가 없다면 실패 케이스들을 면밀하게 주시해야 하며, 자율주행이 이에 대한 좋은 예시라고 할 수 있다.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_10.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>언급했듯 Software 2.0 프로젝트 내에선 data flywheel 개념을 곱씹을 필요가 있다. 경우에 따라 차이가 존재할 수 있지만, 대체로 유저의 데이터를 수집하여 모델 개선에 활용한다면 성능이 서비스 기간이 지남에 따라 개선될 가능성이 높다.</li>
+<li>data flywheel 을 구축하기 전, 다음과 같은 3가지 질문에 대한 답이 필요하다.
+<ul>
+<li><strong>데이터 loop 이 존재하는가?</strong> Data flywheel 을 구축하기 위해서는 정제된 데이터를 스케일링이 가능한 방식으로 유저로 부터 수집할 수 있어야 한다.</li>
+<li><strong>더 많은 데이터가 더 나은 모델과 상응하는가?</strong> 모델러의 역량과는 별개로 문제 특성상 더 많은 데이터가 더 나은 모델을 의미하지 않는 경우가 발생할 수 있다. data flywheel 시스템 구축 전 더 많은 데이터가 가치를 전달하는지를 확실히 해 둘 필요가 있다.</li>
+<li><strong>모델의 성능이 제품 활용성에 기여하는가?</strong> 보다 근본적인 질문인데, 모델의 성능 개선이 유저의 경험에 긍정적으로 기여할 수 있는지 또한 짚고 넘어가야 할 부분이다.</li>
+</ul>
+</li>
+</ul>
+<p><img src="/mlops/images/fsdl_11.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>
+<p>상단 이미지는 <strong>영향성 vs. 실현 가능성</strong> 그래프에서 정의된 3가지 타입의 과제가 상대적으로 어디에 위치해 있는지를 보여준다. 대체로 <strong>모델을 구축하기 힘들수록 더 큰 영향을 끼친다</strong>라는 규칙이 통용된다.</p>
+<ul>
+<li>Software 2.0 는 data flywheel 구축을 통해 더 큰 영향력을 가질 수 있다. 모델의 성능이 증가하며, 이로 인한 사용자의 경험이 계속 개선되기 때문.</li>
+<li>Human-in-the-loop 시스템의 경우 충분한 고민이 반영된 설계 과정, 혹은 적절한 단계에서 배포 후 점차 성능을 개선시킨다는 &ldquo;good enough&rdquo; 마인드 셋이 제품에 대한 기대치와 목표 성능을 낮추는데 도움을 줄 수 있다.</li>
+<li>Autonomous 시스템은 사람의 개입을 유도해 모델의 실패에 대비하는 체계가 도움을 줄 수 있다.</li>
+</ul>
+</li>
+<li>
+<p>하지만 결국 엔지니어링의 가장 중요한 측면은 <strong>무언가를 만드는 일</strong>이다. 우리는 Google, Uber 와 항상 같은 환경을 구축할 필요가 없으며, 최신 툴과 완벽한 체계를 추구하기 전 먼저 문제에 대한 해결책을 찾는 것이 핵심이라는 점을 상기해야 한다.</p>
+</li>
+</ul>
+<h2 id="lifecycle">Lifecycle</h2>
+<p><img src="/mlops/images/fsdl_13.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>ML 프로젝트가 계획적/단계적으로 진행되기엔 현실적으로 어려운 부분이 많으며, 중간 과정에서 발견된 인사이트로 인해 이전 단계의 작업을 번복하거나, 성능 요건을 재정의 하는 등 단계 별 작업이 병렬적으로 진행되는 경향이 있다.</li>
+<li>본 부트캠프는 이러한 프로젝트 lifecycle 의 각 단계를 가급적 성공적으로 수행하는 방법을 전달하고, 채용, 인프라 등 프로젝트 외 요소들 또한 어떻게 다루어야 하는지 공유한다.</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/fsdl/">FSDL</a>
+        
+            <a href="/tags/full-stack-deep-learning/">Full Stack Deep Learning</a>
+        
+            <a href="/tags/mlops/">MLOps</a>
+        
+            <a href="/tags/%EB%B6%80%ED%8A%B8%EC%BA%A0%ED%94%84/">부트캠프</a>
+        
+            <a href="/tags/fsdl-2022/">fsdl 2022</a>
+        
+            <a href="/tags/fsdl-2022-%ED%9B%84%EA%B8%B0/">fsdl 2022 후기</a>
+        
+            <a href="/tags/fsdl-%ED%9B%84%EA%B8%B0/">fsdl 후기</a>
+        
+            <a href="/tags/full-stack-deep-learning-2022/">full stack deep learning 2022</a>
+        
+            <a href="/tags/%ED%92%80%EC%8A%A4%ED%83%9D%EB%94%A5%EB%9F%AC%EB%8B%9D/">풀스택딥러닝</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/mlops/fsdl_8/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/mlops/images/fsdl_8_title.png" loading="lazy" data-key="fsdl_8" data-hash="/mlops/images/fsdl_8_title.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Full Stack Deep Learning 2022 부트캠프 - Week 8</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/mlops/fsdl_5/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/mlops/images/fsdl_5_9.png" loading="lazy" data-key="fsdl_5" data-hash="/mlops/images/fsdl_5_9.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Full Stack Deep Learning 2022 부트캠프 - Week 5</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/mlops/fsdl_4/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/mlops/images/fsdl_4_3.png" loading="lazy" data-key="fsdl_4" data-hash="/mlops/images/fsdl_4_3.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Full Stack Deep Learning 2022 부트캠프 - Week 4</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/mlops/fsdl_2/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/mlops/images/fsdl_2_7.png" loading="lazy" data-key="fsdl_2" data-hash="/mlops/images/fsdl_2_7.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Full Stack Deep Learning 2022 부트캠프 - Week 2</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/mlops/fsdl/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/mlops/images/fsdl_title.jpg" loading="lazy" data-key="fsdl" data-hash="/mlops/images/fsdl_title.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Full Stack Deep Learning 2022 부트캠프 - Overview</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "meme2515" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2022 Soon Hyung Kwon
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.11.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#lecture-내용-요약">Lecture 내용 요약</a></li>
+    <li><a href="#course-vision">Course Vision</a></li>
+    <li><a href="#when-to-use-machine-learning">When To Use Machine Learning</a></li>
+    <li><a href="#lifecycle">Lifecycle</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

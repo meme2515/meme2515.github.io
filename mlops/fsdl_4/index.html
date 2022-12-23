@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Data Management'><title>Full Stack Deep Learning 2022 부트캠프 - Week 4</title>
+
+<link rel='canonical' href='https://meme2515.github.io/mlops/fsdl_4/'>
+
+<link rel="stylesheet" href="/scss/style.min.0d6801e40f97865d11b796a59ab5cccec41427c09bbb58dec945c9cf7412db70.css"><meta property='og:title' content='Full Stack Deep Learning 2022 부트캠프 - Week 4'>
+<meta property='og:description' content='Data Management'>
+<meta property='og:url' content='https://meme2515.github.io/mlops/fsdl_4/'>
+<meta property='og:site_name' content='Soon Hyung Kwon'>
+<meta property='og:type' content='article'><meta property='article:section' content='Mlops' /><meta property='article:tag' content='FSDL' /><meta property='article:tag' content='Full Stack Deep Learning' /><meta property='article:tag' content='MLOps' /><meta property='article:tag' content='부트캠프' /><meta property='article:tag' content='fsdl 2022' /><meta property='article:tag' content='fsdl 2022 후기' /><meta property='article:tag' content='fsdl 후기' /><meta property='article:tag' content='full stack deep learning 2022' /><meta property='article:tag' content='풀스택딥러닝' /><meta property='article:published_time' content='2022-12-04T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-12-04T00:00:00&#43;00:00'/><meta property='og:image' content='https://meme2515.github.io/mlops/images/fsdl_4_3.png' />
+<meta name="twitter:title" content="Full Stack Deep Learning 2022 부트캠프 - Week 4">
+<meta name="twitter:description" content="Data Management"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://meme2515.github.io/mlops/images/fsdl_4_3.png' />
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-135204357-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hud342b0d5be633fdc127bd0653c60e8c3_234674_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Soon Hyung Kwon</a></h1>
+            <h2 class="site-description">데이터 블로그입니다 :)</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/meme2515'
+                        target="_blank"
+                        title="GitHub"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M200,513c0-20.3,0-40.7,0-61c3.1,0.6,1.9,3.1,1.9,4.8c0.1,16.3,0.2,32.6,0,48.9c-0.1,4.1,1,5.4,5.2,5.4   c36.6-0.2,73.2-0.2,109.8,0c4.4,0,5.1-1.6,5.1-5.5c-0.2-25-0.1-49.9-0.1-74.9c0-9.3,0.2-18.6,0.2-27.9c2.8,1.2,1.6,3.8,1.6,5.7   c0.1,34.8,0.1,69.6,0.1,104.4C282.7,513,241.3,513,200,513z" fill="#D1D1D1"/><path d="M322.2,402.8c-0.1,9.3-0.2,18.6-0.2,27.9c0,25-0.1,49.9,0.1,74.9c0,3.9-0.7,5.5-5.1,5.5   c-36.6-0.2-73.2-0.2-109.8,0c-4.2,0-5.3-1.3-5.2-5.4c0.2-16.3,0.1-32.6,0-48.9c0-1.7,1.2-4.2-1.9-4.8c-9.7,0.9-19.3,3.2-29.2,2.8   c-33.5-1.3-59.5-15.4-74.7-45.8c-8.2-16.4-17.8-31.7-29.1-46c-3.1-3.9-7.9-5.5-11.5-8.7c-1.1-1-2.4-1.8-3.3-3   c-2.3-3.3-1.2-5.8,2.8-6.2c18.5-1.9,33.8,4.2,46.2,18.1c6.3,7.1,10.2,15.8,16.3,23.1c12.3,14.7,28,22.7,47,24.9   c11.5,1.3,22.4-0.9,33.3-4.2c2.2-0.6,3.1-2,3.3-4.3c0.7-10.3,2.8-20.3,6.8-29.9c1.8-4.3,4.7-7.9,6.9-12.3   c-10.3-2.6-20.7-3.4-30.5-6.4c-27.1-8.2-50.9-21.6-68.2-44.7c-8.3-11-14.1-23.3-17.4-36.5c-1.8-7.2-3.9-14.4-3.8-22   c0.1-13.3-0.5-26.7,0.3-40c0.9-16.8,3.1-33.5,9.2-49.2c3.8-9.7,9.3-18.6,17.1-25.9c2.4-2.3,3.3-4.1,1.8-7.9   c-7.4-19.7-8.1-39.8-1.8-60c0.2-0.6,0.3-1.3,0.4-2c2.2-10.3,4.5-11.3,14.3-7.4c19.2,7.5,33.3,21,45.3,37.3c3.4,4.6,2.7,6.6,10,1.9   c9.7-6.2,21-8.1,32.2-9.3c20.1-2.1,40.3-1.5,60.4-1.1c14.3,0.3,28.5,2.2,42,7.2c3.1,1.1,6,2.8,8.7,4.8c2.1,1.6,3.6,1.6,5.6-1.1   c9.1-12.8,19.5-24.4,33-32.6c6.6-4,13.4-7.7,21.4-8.6c3.3-0.4,4.7,0.7,5.6,3.3c8.3,22.9,9.5,45.7-0.2,68.5   c-1.2,2.8-0.8,4.6,1.3,6.5c16,15,21.8,34.5,24.8,55.5c2.5,17.7,3.2,35.5,2.7,53.3c-0.8,31.2-11.4,58.4-34.4,80.1   c-13.5,12.7-29.7,21.1-47.1,27.5c-12.4,4.6-25.5,5.8-38.5,9c1.3,3.1,3.7,5.4,4.3,8.5c-0.3,1.3,0.4,2,1.6,2.3   c0.1,0.6,0.3,1.1,0.4,1.7c0.3,2.1,0.1,4.3,2.5,5.4c0.5,2.2,1,4.5,1.4,6.7c-0.1,1.7-0.7,3.5,1.6,4.3c0,0.6,0.1,1.2,0.1,1.9   c-1.5,2.3-0.1,4.1,1.1,6C322.1,398.9,322.2,400.9,322.2,402.8z" fill="#A7A7A7"/><path d="M322,397c-1.1-1.9-2.6-3.7-1.1-6C322.1,392.9,323,394.8,322,397z" fill="#D1D1D1"/><path d="M317.7,378.2c-2.4-1.1-2.2-3.3-2.5-5.4C317.4,374,317.7,376,317.7,378.2z" fill="#D1D1D1"/><path d="M320.8,389.1c-2.3-0.8-1.7-2.6-1.6-4.3C321.5,385.6,321,387.5,320.8,389.1z" fill="#D1D1D1"/><path d="M314.8,371.1c-1.2-0.3-1.9-1-1.6-2.3C314.5,369.1,315.1,369.8,314.8,371.1z" fill="#D1D1D1"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.linkedin.com/in/soon-hyung-kwon-73a3221ab/'
+                        target="_blank"
+                        title="LinkedIn"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M1,53c2.5,0,1.7-2,1.9-3.3C5.9,29,16.6,13.9,36.6,7.4c16.1-5.2,32.9-4.6,47.9,4c9.4,5.5,16.6,14,20.4,24.5   c2.8,7.8,4.9,15.9,4,24.2c-2.1,20.9-11.5,38.3-34.5,46.4c-17.4,6-34.3,3.8-50.2-5.7c-1-3.6-3.5-5.4-7.1-6c0,0,0,0,0,0   c-0.1-1.4-0.3-2.8-2.2-2.8C7.7,84,4.3,74.3,2.9,63.8C2.7,62.6,3.2,60.9,1,61C1,58.3,1,55.7,1,53z" fill="#A7A7A7"/><path d="M276.2,216.1c4.3-2.6,6-6.4,8.2-9.5c10.9-15,24.4-26.6,41.2-34.9c23-11.3,47.4-12.5,72-10.2   c18.9,1.7,36.8,8.1,53.1,18.5c19.4,12.4,33.3,29.6,42.8,50.2c5.8,12.5,9.6,25.8,11.9,39.6c2.1,12.9,3.7,25.6,3.7,38.7   c-0.1,65-0.1,130,0.1,195c0,4.6-1.3,5.8-5.8,5.7c-30.7-0.2-61.3-0.2-92,0c-4.5,0-5.5-1.3-5.5-5.6c0.1-61.3,0.4-122.7-0.1-184   c-0.1-13.9-2-27.7-9.2-40.4c-6.4-11.2-15.3-19.2-27-23.8c-15.7-6.2-31.9-7.4-48.3-2.8c-16.6,4.6-28.1,15.5-36.3,30.3   c-4.6,8.3-6.2,17-7.5,26.3c-1.3,10-1.1,19.8-1.1,29.7c-0.2,54.7-0.2,109.3,0,164c0,5-1.2,6.4-6.3,6.3c-30.3-0.3-60.7-0.2-91,0   c-4.2,0-5.7-1.3-5.6-5.2c0.1-2.8,0.3-5.6,0.3-8.4c0-105.5,0.1-211-0.1-316.5c0-4.4,0.9-6,5.7-6c30.5,0.2,61,0.2,91.5,0   c4.1,0,5.5,1,5.4,5.3C276,190.6,276.2,202.9,276.2,216.1z" fill="#A7A7A7"/><path d="M109,176.1c0,3.5,0.1,7,0.1,10.5c0,105.3,0,210.6,0,316c0,6.4,0,6.4-6.5,6.4c-31.8,0-63.7,0-95.5,0   c-0.1-2.5-0.2-5-0.2-7.5c0-78.8,0-157.5,0-236.3c0-28.1,0.1-56.3-0.1-84.4c0-3.6,0.9-4.9,4.7-4.9C44,176.1,76.5,176,109,176.1z" fill="#A7A7A7"/><path d="M109,176.1c-32.5,0-64.9,0-97.4-0.2c-3.8,0-4.7,1.2-4.7,4.9C7,208.9,6.9,237,6.9,265.2   c0,78.8,0,157.5,0,236.3c0,2.5,0.1,5,0.2,7.5c-1.7,0.1-3-0.3-3-2.3c0-1.3,0-2.7,0-4c0-106.8,0-213.5,0-320.3c0-7.6,0.7-8.3,8.2-8.3   c30.5,0,61,0,91.4,0.1C105.5,174.1,108.2,172.7,109,176.1z" fill="#E0E0E0"/><path d="M17.1,94.9c3.6,0.6,6.1,2.4,7.1,6C21.1,99.7,18.8,97.7,17.1,94.9z" fill="#E0E0E0"/><path d="M14.9,92.1c1.9,0,2,1.4,2.2,2.8C15,95,15,93.6,14.9,92.1z" fill="#E0E0E0"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/about' >
+                
+                
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/machine_learning' >
+                
+                
+                
+                <span>Machine Learning</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/neural_network' >
+                
+                
+                
+                <span>Neural Network</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/mlops' >
+                
+                
+                
+                <span>MLOps</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/statistics' >
+                
+                
+                
+                <span>Statistics</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/computer_science' >
+                
+                
+                
+                <span>Computer Science</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/cloud_network' >
+                
+                
+                
+                <span>Cloud &amp; Network</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/daily' >
+                
+                
+                
+                <span>Daily</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/mlops/fsdl_4/">
+                
+                    <img src="/mlops/images/fsdl_4_3.png" loading="lazy" alt="Featured image of post Full Stack Deep Learning 2022 부트캠프 - Week 4" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/fsdl/" >
+                FSDL
+            </a>
+        
+            <a href="/categories/mlops/" >
+                MLOps
+            </a>
+        
+            <a href="/categories/%EB%B6%80%ED%8A%B8%EC%BA%A0%ED%94%84/" >
+                부트캠프
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/mlops/fsdl_4/">Full Stack Deep Learning 2022 부트캠프 - Week 4</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            Data Management
+        </h3>
+        
+    </div>
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Dec 04, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    7 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <ul>
+<li><a class="link" href="https://www.youtube.com/watch?list=PL1T8fO7ArWleMMI8KPJ_5D5XSlovTW_Ur&amp;v=Jlm4oqW41vY&amp;feature=emb_title"  target="_blank" rel="noopener"
+    >YouTube</a>, <a class="link" href="https://fullstackdeeplearning.com/course/2022/lecture-4-data-management/"  target="_blank" rel="noopener"
+    >Lecture Notes</a>, <a class="link" href="https://drive.google.com/file/d/17Ak9mxNBIAv_FHUZsneqSWSud9Dh7F3i/view"  target="_blank" rel="noopener"
+    >Slides</a></li>
+</ul>
+<h2 id="lecture-내용-요약">Lecture 내용 요약</h2>
+<ul>
+<li><a class="link" href="http://meme2515.github.io/mlops/fsdl_1/"  target="_blank" rel="noopener"
+    >Lecture 1 - When to Use ML and Course Vision</a></li>
+<li><a class="link" href="http://meme2515.github.io/mlops/fsdl_2/"  target="_blank" rel="noopener"
+    >Lecture 2 - Development Infrastureture &amp; Tooling</a></li>
+<li><a class="link" href="http://meme2515.github.io/mlops/fsdl_3/"  target="_blank" rel="noopener"
+    >Lecture 3 - Troubleshooting &amp; Testing</a></li>
+<li><a class="link" href="http://meme2515.github.io/mlops/fsdl_4/"  target="_blank" rel="noopener"
+    >Lecture 4 - Data Management</a></li>
+<li><a class="link" href="http://meme2515.github.io/mlops/fsdl_5/"  target="_blank" rel="noopener"
+    >Lecture 5 - Deployment</a></li>
+<li><a class="link" href="http://meme2515.github.io/mlops/fsdl_6/"  target="_blank" rel="noopener"
+    >Lecture 6 - Continual Learning</a></li>
+<li><a class="link" href="http://meme2515.github.io/mlops/fsdl_7/"  target="_blank" rel="noopener"
+    >Lecture 7 - Foundation Models</a></li>
+<li><a class="link" href="http://meme2515.github.io/mlops/fsdl_8/"  target="_blank" rel="noopener"
+    >Lecture 8 - ML Teams and Project Management</a></li>
+<li><a class="link" href="http://meme2515.github.io/mlops/fsdl_9/"  target="_blank" rel="noopener"
+    >Lecture 9 - Ethics</a></li>
+</ul>
+<h2 id="introduction">Introduction</h2>
+<ul>
+<li>
+<p>ML 분야가 발전되기 시작한 초기 단계에 업계가 잘 이해하지 못했던 부분은 데이터와의 접점이다. 데이터셋을 만들고, 분석하고, 전처리하는 등의 과정은 ML 프로젝트 전반에 걸쳐 필수적이다.</p>
+</li>
+<li>
+<p>4주차 강의의 핵심 내용은 다음과 같다.</p>
+<ul>
+<li>초도 분석에 원하는 것보다 10배 많은 시간을 할애해야 한다.</li>
+<li>데이터를 고치고, 추가하고, 증강하는 것이 대체로 성능 향상에 가장 크게 기여한다.</li>
+<li>데이터를 다루는 과정을 가능한 간단하게 유지할 것.</li>
+</ul>
+</li>
+</ul>
+<h2 id="data-sources">Data Sources</h2>
+<p><img src="/mlops/images/fsdl_4_1.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+>
+<img src="/mlops/images/fsdl_4_2.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li><strong>이미지, 텍스트, 로그, 데이터베이스</strong> 등 데이터 원천의 종류는 다양하다. 딥러닝을 위해서는 GPU 자원이 있는 로컬 파일 시스템에 데이터를 옮겨와야하며, 이렇게 학습 데이터를 옮기는 방식은 다루는 데이터 마다 차이가 생긴다.
+<ul>
+<li>이미지의 경우 S3 등의 <strong>오브젝트 스토리지</strong>에서 직접 다운로드 받을 수 있다.</li>
+<li>텍스트의 경우 분산 처리를 통해 데이터를 분석하고, 일부분을 발췌해 로컬 환경으로 옮겨주는 등의 과정이 필요하다 <em>(원문 전달 내용이 조금 불확실함)</em>.</li>
+<li>로그와 데이터베이스의 경우 <strong>데이터 레이크</strong>를 활용해 데이터를 모으고, 처리할 수 있다.</li>
+</ul>
+</li>
+</ul>
+<p><img src="/mlops/images/fsdl_4_3.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>
+<p><strong>파일시스템</strong></p>
+<ul>
+<li>파일시스템이란 <strong>“파일” 이라는 기초 단위에 기반한 추상화 개념</strong>이다. 파일이란 흔히 생각하듯 텍스트, 바이너리 등 다양한 형태를 취할 수 있으며, 버전의 개념을 가지지 않는다.</li>
+<li>파일시스템은 보통 사용하는 기기에 연결된 디스크에 저장되며, 연결의 개념은 물리적일 수도, 온프레미스, 클라우드, 혹은 분산시스템에 기반한 원격 연결을 의미할 수도 있다.</li>
+<li><strong>디스크 성능을 평가하는데 가장 중요한 요소는 속도와 대역폭</strong>이다. 저장장치 포맷은 주로 HDD 와 SSD 로 나뉘어지며, 동일한 SSD 이더라도 SATA 와 NVMe 연결방식 간 약 100배의 속도차이가 발생한다.</li>
+</ul>
+</li>
+<li>
+<p><strong>오브젝트 스토리지</strong></p>
+<ul>
+<li>오브젝트 스토리지란 <strong>파일시스템 활용을 위한 API</strong> 를 뜻하며, 가장 기본이 되는 단위는 이미지, 오디오, 텍스트 등의 바이너리 형태 “오브젝트” 이다.</li>
+<li>버저닝, 중복 저장 개념이 존재하며, 로컬 파일시스템에 비해서는 속도가 느리지만 클라우드 활용을 위해서는 충분.</li>
+</ul>
+</li>
+</ul>
+<p><img src="/mlops/images/fsdl_4_4.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>
+<p><strong>데이터베이스</strong></p>
+<ul>
+<li>지속적이고, 빠르고, 스케일링이 가능한 정형데이터 저장소이다.</li>
+<li>이미지와 같은 바이너리 데이터를 저장하기 보다는 오브젝트 스토리지에 상응하는 URL 을 저장.</li>
+<li><a class="link" href="https://www.postgresql.org/"  target="_blank" rel="noopener"
+    >Postgres</a>, <a class="link" href="https://www.sqlite.org/index.html"  target="_blank" rel="noopener"
+    >SQLite</a> 등의 오픈소스가 널리 활용된다.</li>
+<li>프로젝트가 상호 reference 를 같는 객체를 다룬다면 데이터베이스의 도입이 불가피하기 때문에 처음부터 사용하는 편이 개발 시간을 단축시킬 가능성이 높다.</li>
+<li>W&amp;B, HuggingFace Hub, Label Studio 등의 MLOps 툴을 사실 이러한 데이터베이스의 역할을 수행.</li>
+</ul>
+</li>
+<li>
+<p><strong>데이터 웨어하우스</strong></p>
+<ul>
+<li>데이터베이스가 <strong>온라인 트랜잭션 처리 (OLTP)</strong> 를 위해 설계되었다면, 데이터 웨어하우스를 <strong>온라인 분석 처리 (OLAP)</strong> 을 위해 설계된 데이터 처장 체계이다.
+<ul>
+<li><strong>OLTP</strong> : <em>네트워크 상의 여러 이용자가 실시간으로 DB 의 데이터를 갱신하거나 조회하는 등의 단위작업 처리 방식. Row-oriented, 즉 개별적인 정보에 중점을 둠.</em></li>
+<li><strong>OLAP</strong> : <em>데이터를 분석하고 유의미한 정보로 치환하거나, 복잡한 모델링을 가능하게끔 하는 분석 방법. Column-oriented, 즉 통계적인 정보에 중점을 둠.</em></li>
+</ul>
+</li>
+<li>데이터 웨어하우스로 여러 데이터를 끌어오는 작업을 <strong>ETL (Extract-Transform-Load)</strong> 이라 칭하며, 비즈니스 관점의 의사결정을 위한 정보를 웨어하우스에서 끌어오게 된다.</li>
+</ul>
+</li>
+</ul>
+<p><img src="/mlops/images/fsdl_4_5.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>
+<p><strong>데이터 레이크</strong></p>
+<ul>
+<li>데이터 웨어하우스와 유사하나, 데이터를 사전에 가공하는 ETL 방식과 달리 일단 데이터를 모으고, 사용시 가공하는 <strong>ELT (Extract-Load-Transform)</strong> 방식을 사용한다.</li>
+</ul>
+</li>
+<li>
+<p>최근 트렌드는 데이터 웨어하우스와 데이터 레이크를 통합하는 솔루션들이다. 정형 데이터와 비정형 데이터가 같은 저장소에서 다뤄질 수 있으며, <a class="link" href="https://www.snowflake.com/?lang=ko&amp;utm_source=google&amp;utm_medium=paidsearch&amp;utm_campaign=ap-kr-ko-brand-core-exact&amp;utm_content=go-eta-evg-ss-free-trial&amp;utm_term=c-g-snowflake-e&amp;_bt=579103397662&amp;_bk=snowflake&amp;_bm=e&amp;_bn=g&amp;_bg=128328467463&amp;gclsrc=aw.ds&amp;gclid=Cj0KCQiA1sucBhDgARIsAFoytUubkoz7BoatiURcPHbxVDF3FAWwLuPcV1hSkAOItZfeqaTMTbDpzxQaAnZXEALw_wcB"  target="_blank" rel="noopener"
+    >Snowflake</a> 와 <a class="link" href="https://www.databricks.com/p/ebook/the-data-lakehouse-platform-for-dummies?utm_medium=paid&#43;search&amp;utm_source=google&amp;utm_campaign=15849074529&amp;utm_adgroup=130486333845&amp;utm_content=ebook&amp;utm_offer=the-data-lakehouse-platform-for-dummies&amp;utm_ad=587394793834&amp;utm_term=databricks&amp;gclid=Cj0KCQiA1sucBhDgARIsAFoytUsOVwmdjpvZBvMSSWc1Z-5P83Uc0Y8k7hBQYQjbHZIEF_5Vb0p_3fMaArshEALw_wcB"  target="_blank" rel="noopener"
+    >Databricks</a> 등의 업체가 분야를 선도하고 있다.</p>
+</li>
+<li>
+<p>분야에 관심이 있다면 <a class="link" href="https://dataintensive.net/"  target="_blank" rel="noopener"
+    >Designing Data-Intensive Applications</a> 라는 책을 추천.</p>
+</li>
+</ul>
+<h2 id="data-exploration">Data Exploration</h2>
+<p><img src="/mlops/images/fsdl_4_6.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>
+<p>데이터 탐색은 주로 <strong>SQL</strong> 과 <strong>DataFrame</strong> 을 활용해 수행한다.</p>
+</li>
+<li>
+<p><strong>SQL</strong> 은 정형 데이터를 다루는 기본적인 인터페이스이며, 수십년간 사용되고 발전되어왔다. RDBMS 등의 트랜잭션 기반 데이터베이스에서 주로 활용.</p>
+</li>
+<li>
+<p><strong>Pandas</strong> 는 Python 생태계에서 사용되는 주된 DataFrame 이며 SQL 과 유사한 작업을 수행할 수 있다. OLAP 등의 분석 기반 환경에서 주로 활용.</p>
+</li>
+<li>
+<p><a class="link" href="https://examples.dask.org/dataframe.html"  target="_blank" rel="noopener"
+    >DASK DataFrame</a> 은 Pandas 작업을 여러개의 CPU 코어에서 분산 처리 할 수 있도록 돕는다. <a class="link" href="https://rapids.ai/"  target="_blank" rel="noopener"
+    >RAPIDS</a> 는 동일한 분산 처리 작업을 GPU 에서 수행.</p>
+</li>
+</ul>
+<h2 id="data-processing">Data Processing</h2>
+<p><img src="/mlops/images/fsdl_4_7.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>
+<p>데이터 처리는 예시와 함께 설명하는 편이 좋다.</p>
+</li>
+<li>
+<p>SNS 플랫폼에 업로드되는 사진을 기반으로, 사진의 인기도를 예측하는 모델을 매일 학습하는 상황이라고 가정하자. 모델러는 다음과 같은 데이터를 활용하게 된다.</p>
+<ul>
+<li>데이터베이스 내 메타데이터 (업로드 시간, 제목, 장소 등)</li>
+<li>로그 데이터 기반 유저 정보 (로그인 횟수 등)</li>
+<li>별도 분류 모델 기반 사진 정보 (컨텐츠, 스타일 등)</li>
+</ul>
+</li>
+<li>
+<p>따라서 최종적인 모델 학습이 진행되기 전, 데이터베이스 쿼리 작업, 로그 처리 작업, 모델 예측 작업 등 많은 데이터 처리 작업이 수행되어야 하며, 이러한 <strong>사전 작업을 정해진 순서대로 처리</strong>해야 할 필요가 생긴다.</p>
+</li>
+</ul>
+<p><img src="/mlops/images/fsdl_4_8.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>
+<p><a class="link" href="https://airflow.apache.org/"  target="_blank" rel="noopener"
+    >Airflow</a> 는 언급된 기능을 수행하는 Python 생태계의 기본 스케줄러 툴이다. <strong>DAG (Directed Acyclic Graph)</strong> 라는 개념을 활용해 순차적인 작업 설정이 가능하며, 이러한 작업이란 SQL 쿼리, Python 함수 등 다양한 종류가 있다.</p>
+</li>
+<li>
+<p><a class="link" href="https://www.prefect.io/"  target="_blank" rel="noopener"
+    >Prefect</a>, <a class="link" href="https://dagster.io/"  target="_blank" rel="noopener"
+    >Dagster</a> 또한 유사한 기능을 수행하는 경쟁 제품이다.</p>
+</li>
+</ul>
+<h2 id="feature-store">Feature Store</h2>
+<p><img src="/mlops/images/fsdl_4_9.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>
+<p>데이터 처리 과정이 모델 학습과 병렬로 진행될 떄, 모델은 이후 학습에서 어떤 데이터가 신규로 생성되었는지, 어떤 데이터가 이미 학습에 활용되었는지 등을 파악할 필요가 발생할 수 있다 (필수적인 요소는 아님).</p>
+</li>
+<li>
+<p>이러한 경우 <strong>Feature Store</strong> 기능을 활용한 데이터 관리가 필요해지게 된다.</p>
+</li>
+<li>
+<p>Feature Store 라는 개념은 Uber 의 ML 플랫폼 <strong>Michalengelo</strong> 를 소개하는 <a class="link" href="https://www.uber.com/en-KR/blog/michelangelo-machine-learning-platform/"  target="_blank" rel="noopener"
+    >이 글</a>에서 처음 등장했다. Uber 의 시스템 특성상 학습은 오프라인, 예측은 온라인으로 진행되기에 두 과정의 싱크를 맞춰줄 필요가 생겼고, 이를 해결하기 위한 수단으로 Feature Store 개념을 사용.</p>
+</li>
+<li>
+<p><a class="link" href="tecton.ai" >Tecton</a> 은 해당 분야에서 가장 널리 사용되는 SaaS 솔루션이며, 이외에도 <a class="link" href="https://feast.dev/"  target="_blank" rel="noopener"
+    >Feast</a>, <a class="link" href="https://www.featureform.com/"  target="_blank" rel="noopener"
+    >Featureform</a> 등의 옵션이 존재.</p>
+</li>
+</ul>
+<h2 id="datasets">Datasets</h2>
+<p><img src="/mlops/images/fsdl_4_10.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>
+<p><a class="link" href="https://huggingface.co/docs/datasets/index"  target="_blank" rel="noopener"
+    >HuggingFace Datasets</a> 는 ML 학습에 특화된 8000+ 데이터셋을 제공하며, 비전, NLP 등 분야가 다양한 편이다. 호스트된 <a class="link" href="https://huggingface.co/datasets/codeparrot/github-code"  target="_blank" rel="noopener"
+    >Github-Code</a> 데이터를 예시로 들자면 데이터 핸들링을 돕기 위해 Aparche Parquet 형태로 스트림 할 수 있기 떄문에 1TB+ 용량의 전체 데이터를 다운로드 할 필요가 없다.</p>
+</li>
+<li>
+<p>또다른 훌륭한 데이터셋의 예시로는 RedCaps 를 들 수 있다. Reddit 에서 수집된 12M 의 이미지-텍스트 페어를 제공.</p>
+</li>
+</ul>
+<p><img src="/mlops/images/fsdl_4_11.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>HuggingFace Datasets 와 유사한 서비스로는 <a class="link" href="https://www.activeloop.ai/"  target="_blank" rel="noopener"
+    >Activeloop</a> 이 있는데, 데이터 다운로드 없이 분석과 기타 데이터 활용이 가능하도록 돕는다.</li>
+</ul>
+<h2 id="data-labeling">Data Labeling</h2>
+<p><img src="/mlops/images/fsdl_4_12.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>
+<p>데이터 레이블링 작업을 시작하기 전, 정말 레이블링이 필요한지를 스스로에게 물어볼 필요가 있다.</p>
+</li>
+<li>
+<p><strong>자기지도학습 (self-supervised learning)</strong> 이란 직접적인 레이블링 작업 없이 데이터의 일부분을 레이블로 활용하는 학습 방식을 뜻하며, NLP 과제에서 중요한 요소로 자리매김하고 있다. 마스킹 등의 기법을 통해 데이터의 한 부분을 예측하는 과제이며, <a class="link" href="https://openai.com/blog/clip/"  target="_blank" rel="noopener"
+    >OpenAI CLIP</a> 과 같이 cross-modality 과제에서 (이미지-텍스트 등) 또한 활용이 가능하다.</p>
+</li>
+</ul>
+<p><img src="/mlops/images/fsdl_4_13.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>
+<p><strong>이미지 데이터 증강</strong>은 비전 모델에서 사실상 필수적인 요소이다. <a class="link" href="https://github.com/pytorch/vision"  target="_blank" rel="noopener"
+    >torchvision</a> 과 같은 라이브러리를 활용하여 간단하게 구현할 수 있으며, <strong>이미지의 &ldquo;의미&quot;를 변질시키지 않는 선에서 데이터에 변형을 주는 것</strong>을 목표로 삼는다.</p>
+</li>
+<li>
+<p>이외 데이터 형태에 대한 증강 방식은 다음과 같이 정리할 수 있다.</p>
+<ul>
+<li>정형 데이터의 경우 랜덤하게 선택된 셀 정보를 삭제함으로 미입수 데이터를 모방할 수 있다.</li>
+<li>텍스트의 경우 증강 기법이 상대적으로 부족한 편. 단어의 순서를 변경하거나, 부분적으로 삭제하는 방식이 존재한다.</li>
+<li>오디오 데이터는 속도를 조절하거나, 빈 오디오를 중간에 삽입하는 방식 등이 있다.</li>
+</ul>
+</li>
+<li>
+<p><strong>Synthetic Data (합성 데이터)</strong> 또한 고려해볼 필요가 있다. 레이블에 대한 사전 지식을 통해 기존에 존재하지 않는 데이터를 생성할 수 있으며, 적용 예시로는 영수증, 손글씨 이미지 등이 있다. 많은 공수가 필요하기 때문에 다른 방법은 없는지 충분히 검토 후 도입.</p>
+</li>
+</ul>
+<p><img src="/mlops/images/fsdl_4_14.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>
+<p>보다 창의성을 발휘해 유저에게 레이블링 작업을 맞기는 것 또한 가능하다. 위 이미지와 같이 Google Photos 는 유저에게 이미지 레이블링 작업을 요구.</p>
+</li>
+<li>
+<p>유저의 직접적인 레이블링은 언급된 data flywheel 개념의 적용 예시이다. 유저는 모델 성능 향상에 기여하고, 이로 인해 유저의 제품 경험 또한 개선된다.</p>
+</li>
+<li>
+<p>이렇듯 데이터 레이블링을 우회하는 다양한 방법이 존재하지만, 결국 <strong>모델링 작업을 시작하기 위해서는 어느정도의 레이블링 작업은 불가피</strong>하다.</p>
+</li>
+<li>
+<p>레이블링이란 bounding box 와 같이 <strong>표준적인 형태의 주석을 기록하는 작업</strong>이다. 주석의 형태보다는 레이블러가 올바른 교육을 받는 것이 가장 중요하며, <strong>이들이 레이블링 표준을 준수하도록 하는 것은 어렵지만 가장 핵심적인 요소</strong>이다.</p>
+</li>
+<li>
+<p>레이블러 고용 시 다음과 같은 옵션이 존재한다.</p>
+<ul>
+<li><strong>데이터 레이블링을 전문적으로 수행하는 업체.</strong></li>
+<li>레이블러의 <strong>직접적인 고용</strong>.</li>
+<li><a class="link" href="https://www.mturk.com/"  target="_blank" rel="noopener"
+    >Mechanical Turk</a> 와 같은 <strong>크라우드 소싱</strong>. 레이블링 품질을 위해 가능한 피하는 편이 좋다.</li>
+</ul>
+</li>
+<li>
+<p>레이블링 전문 업체들은 소프트웨어 개발, 인력 관리, 품질 관리 까지의 다양한 작업을 수행한다. 업체 활용이 필요하다면 데잍러를 충분히 이해한 후, 샘플 레이블 등을 통해 여러 경쟁 업체를 비교한 후 의사결정을 내리는 편이 좋다.</p>
+<ul>
+<li><a class="link" href="https://scale.com/"  target="_blank" rel="noopener"
+    >Scale AI</a> 는 업계에서 가장 규모가 큰 데이터 레이블링 솔루션이다. 경쟁자로는 <a class="link" href="https://labelbox.com/"  target="_blank" rel="noopener"
+    >Labelbox</a> 와 <a class="link" href="https://supervise.ly/"  target="_blank" rel="noopener"
+    >Supervisely</a> 가 있다.</li>
+<li><a class="link" href="https://labelstud.io/"  target="_blank" rel="noopener"
+    >LabelStudio</a> 는 가장 널리 알려진 오픈소스 솔루션이며, 직접 레이블링을 수행할 때 활용하게 된다. 경쟁자로는 <a class="link" href="https://diffgram.com/main/"  target="_blank" rel="noopener"
+    >Diffgram</a> 이 있다.</li>
+<li><a class="link" href="https://snorkel.ai/"  target="_blank" rel="noopener"
+    >Snorkel</a> 은 weak supervision 기반 레이블링 툴이며, &ldquo;amazing&rdquo; 이라는 단어가 들어간 모든 문장을 &ldquo;긍정&rdquo; 카테고리로 구분하는 등의 빠른 레이블링 작업을 돕는다.</li>
+</ul>
+</li>
+</ul>
+<h2 id="data-versioning">Data Versioning</h2>
+<p><img src="/mlops/images/fsdl_4_15.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>데이터 버전 관리는 단계적으로 구분이 가능하다.
+<ul>
+<li>Level 0 : <strong>단순한 파일시스템 관리로, 버전 관리가 이루어 지지 않는다.</strong> 모델이란 코드와 데이터가 합쳐져 만들어진 결과물이기 때문에, 데이터가 바뀌면 동일한 모델을 구현하지 못하게 된다.</li>
+<li>Level 1 : <strong>학습시 데이터에 대한 스냅샷을 저장</strong>하는 방식. 모델에 활용된 데이터가 특정 가능하지만, 이상적인 방식이라고 보기엔 어렵다.</li>
+<li>Level 2 : <strong>코드 버전 관리와 같은 개념을 도입</strong>. <a class="link" href="https://git-lfs.github.com/"  target="_blank" rel="noopener"
+    >Git-LFS</a> 와 같은 툴을 사용하게되며, 적극적으로 권장되는 방식이다.</li>
+<li>Level 3 : 대용량 데이터 관리를 위한 <strong>특별한 솔루션</strong>을 도입. 합리적인 이유 (데이터 용량이 지나치게 크거나, 데이터에 많은 규제가 붙는 경우 등) 가 없다면 불필요하다.</li>
+</ul>
+</li>
+</ul>
+<p><img src="/mlops/images/fsdl_4_16.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>이러한 작업을 위한 툴로는 <a class="link" href="https://dvc.org/"  target="_blank" rel="noopener"
+    >DVC</a> 가 있다. 데이터를 원격 저장소에 저장하고, 필요시 이전 버전으로 회귀하는 기능을 제공.</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/fsdl/">FSDL</a>
+        
+            <a href="/tags/full-stack-deep-learning/">Full Stack Deep Learning</a>
+        
+            <a href="/tags/mlops/">MLOps</a>
+        
+            <a href="/tags/%EB%B6%80%ED%8A%B8%EC%BA%A0%ED%94%84/">부트캠프</a>
+        
+            <a href="/tags/fsdl-2022/">fsdl 2022</a>
+        
+            <a href="/tags/fsdl-2022-%ED%9B%84%EA%B8%B0/">fsdl 2022 후기</a>
+        
+            <a href="/tags/fsdl-%ED%9B%84%EA%B8%B0/">fsdl 후기</a>
+        
+            <a href="/tags/full-stack-deep-learning-2022/">full stack deep learning 2022</a>
+        
+            <a href="/tags/%ED%92%80%EC%8A%A4%ED%83%9D%EB%94%A5%EB%9F%AC%EB%8B%9D/">풀스택딥러닝</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/mlops/fsdl_8/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/mlops/images/fsdl_8_title.png" loading="lazy" data-key="fsdl_8" data-hash="/mlops/images/fsdl_8_title.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Full Stack Deep Learning 2022 부트캠프 - Week 8</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/mlops/fsdl_5/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/mlops/images/fsdl_5_9.png" loading="lazy" data-key="fsdl_5" data-hash="/mlops/images/fsdl_5_9.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Full Stack Deep Learning 2022 부트캠프 - Week 5</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/mlops/fsdl_2/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/mlops/images/fsdl_2_7.png" loading="lazy" data-key="fsdl_2" data-hash="/mlops/images/fsdl_2_7.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Full Stack Deep Learning 2022 부트캠프 - Week 2</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/mlops/fsdl_1/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/mlops/images/fsdl_4.png" loading="lazy" data-key="fsdl_1" data-hash="/mlops/images/fsdl_4.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Full Stack Deep Learning 2022 부트캠프 - Week 1</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/mlops/fsdl/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/mlops/images/fsdl_title.jpg" loading="lazy" data-key="fsdl" data-hash="/mlops/images/fsdl_title.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Full Stack Deep Learning 2022 부트캠프 - Overview</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "meme2515" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2022 Soon Hyung Kwon
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.11.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#lecture-내용-요약">Lecture 내용 요약</a></li>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#data-sources">Data Sources</a></li>
+    <li><a href="#data-exploration">Data Exploration</a></li>
+    <li><a href="#data-processing">Data Processing</a></li>
+    <li><a href="#feature-store">Feature Store</a></li>
+    <li><a href="#datasets">Datasets</a></li>
+    <li><a href="#data-labeling">Data Labeling</a></li>
+    <li><a href="#data-versioning">Data Versioning</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
