@@ -299,7 +299,7 @@ if (!doNotTrack) {
 
 
                 <time class="article-time--reading">
-                    6 minute read
+                    13 minute read
                 </time>
             </div>
         
@@ -321,6 +321,8 @@ if (!doNotTrack) {
 </ul>
 <h2 id="lecture-내용-요약">Lecture 내용 요약</h2>
 <ul>
+<li><a class="link" href="https://meme2515.github.io/mlops/fsdl/"  target="_blank" rel="noopener"
+    >FSDL 2022 Course Overview</a></li>
 <li><a class="link" href="http://meme2515.github.io/mlops/fsdl_1/"  target="_blank" rel="noopener"
     >Lecture 1 - When to Use ML and Course Vision</a></li>
 <li><a class="link" href="http://meme2515.github.io/mlops/fsdl_2/"  target="_blank" rel="noopener"
@@ -528,11 +530,335 @@ if (!doNotTrack) {
 <li>ML 프로젝트에 대한 지원이 적으며, 좋은 인력을 채용하고 유지하는 것에 상당한 어려움이 있다.</li>
 </ul>
 <p><strong>타입 2 - ML R&amp;D</strong></p>
+<ul>
+<li>조직 내 대부분의 ML 관련 업무가 R&amp;D 에 치중되어 있는 경우. 대부분의 채용이 논문 작성 경험이 있는 ML Researcher, 박사 학위자를 대상으로 한다.</li>
+<li>에너지, 제조, 통신 등의 분야에서 규모가 큰 회사일 가능성이 높다.</li>
+<li>경험이 많은 연구 인력 채용을 통해 long-term 비즈니스 문제를 해결할 역량을 가지고 있다.</li>
+<li>하지만 질좋은 데이터 확보가 어려우며, 연구에서 실제 비즈니스 가치를 가진 제품 개발까지의 과정이 잘 이루어지지 않는다. 따라서 투자 규모 또한 작은 편.</li>
+</ul>
 <p><strong>타입 3 - 비즈니스 &amp; 제품 팀 내 적극적인 활용</strong></p>
+<ul>
+<li>특정한 제품이나, 사업 영역에 속한 소프트웨어, 분석 인력이 이미 ML 전문성을 확보하고 있는 경우이다. 이러한 ML 인력은 소속된 팀의 엔지니어링/기술 담당자에게 보고하는 구조를 가진다.</li>
+<li>IT 회사이거나, 금융 회사일 가능성이 높다.</li>
+<li>이러한 경우 ML 제품 개선은 직접적인 비즈니스 가치를 준다. 또한 아이디어 제시와 제품 개선 간 밀접한 피드백 사이클 또한 존재.</li>
+<li>하지만 높은 수준의 인력을 채용하는 것은 여전히 어렵고, 연산 자원이나 데이터 등을 확보하는 것에 많이 시간이 소요될 수 있다.</li>
+</ul>
 <p><strong>타입 4 - 독립적인 ML 기능</strong></p>
+<ul>
+<li>ML 부서가 별도 조직으로 구성되어, senior management 에게 직접 보고하는 경우. ML Product Manager 가 연구자, 엔지니어와 협업해 클라이언트가 사용하는 제품을 개발하며, 장기적인 연구 또한 진행한다.</li>
+<li>규모가 큰 금융 회사일 가능성이 높음.</li>
+<li>수준높은 인력을 보유하고 있기 때문에 추가적인 인력 소싱이 쉬운 편이다. 데이터와 연산 자원이 수월하게 배분되며, ML 개발과 관련된 여러 문화와 규율을 형성할 조건이 마련된다.</li>
+<li>하지만 사업 영역에 따라 ML 활용에 대한 이점을 설득하거나, 모델에 대한 기초적인 내용을 교육하는 것에 많은 노력이 들 수 있다. 또 피드백 사이클 또한 빠르게 전개되지 못할 것.</li>
+</ul>
 <p><strong>타입 5 - ML 우선주의</strong></p>
+<ul>
+<li>CEO 의 직접적인 투자가 이루어지며, 비즈니스 전반에서 관련 전문 인력이 빠른 성과를 내기위해 노력한다. 별도의 ML 조직은 난이도가 높고, 호흡이 긴 프로젝트를 주로 전담.</li>
+<li>규모가 큰 IT 회사, 또는 ML 분야 스타트업이 이에 해당한다.</li>
+<li>데이터 접근이 쉽고, ML 전문가가 선호할만한 문화/환경을 가지고 있다. 개발직군 또한 ML 에 대한 이해가 높기 때문에 개발 과정이 수월한 편.</li>
+<li>하지만 ML 관점의 생각을 비즈니스 전반에서 가지기는 어려우며, 현실적으로 구성되기 어려운 조직 환경.</li>
+</ul>
+<p><strong>조직 구성 전략</strong></p>
+<ul>
+<li>
+<p>자신의 조직의 상단의 5개 타입 중 어느 타입에 가장 가까운지에 따라 적절한 조직 구성 전략을 선택하는 과정이 필요하다. 강사진이 정리한 조직 구성 전략은 크게 다음과 같은 영역에서 정의된다.</p>
+<ul>
+<li><strong>Software Engineer vs. Research</strong> : 소프트웨어와의 연동성을 위해 ML 팀이 어느 정도까지 관여하는가? 팀 내 소프트웨어 엔지니어링 역량은 어느 정도의 중요성을 가지는가?</li>
+<li><strong>Data Ownership</strong> : 데이터 수집, 웨어하우징, 레이블링, 파이프라이닝 과정에서 ML 팀은 어느 정도의 권한을 가지는가?</li>
+<li><strong>Model Ownership</strong> : ML 팀은 개발된 모델의 배포까지를 담당하는가? 이렇게 배포된 모델은 누가 관리하는가?</li>
+</ul>
+</li>
+<li>
+<p>다음 섹션은 조직 특성에 따른 구성 전략을 간단히 설명한다.</p>
+</li>
+<li>
+<p>조직이 <strong>ML R&amp;D</strong> 에 집중하는 경우.</p>
+<ul>
+<li>개발 보다는 연구 역량이 더욱 중요시되기 때문에, 두 담당 영역간 협업 능력이 다소 저하될 수 있다.</li>
+<li>ML 팀은 데이터에 대한 권한을 가지지 않으며 데이터 엔지니어의 지원을 받지 않는다.</li>
+<li>사실상의 ML 제품화는 발생하지 않는다.</li>
+</ul>
+</li>
+<li>
+<p>이미 <strong>제품 내 ML 활용</strong>이 이루어지는 경우.</p>
+<ul>
+<li>연구 보다는 개발 역량이 중요시되며, 연구직 또한 적절한 엔지니어링 역량을 보유해 연구 단계 이후 제품화를 감안해야 한다.</li>
+<li>데이터 관리와 생성에 대한 권한을 가지지 않는다. 데이터 엔지니어의 지원을 통해 데이터 파이프라인 구축.</li>
+<li>ML Engineer 들은 배포되는 모델에 대한 모든 권한을 가지게 된다.</li>
+</ul>
+</li>
+<li>
+<p><strong>별도의 ML 조직</strong>이 구성된 경우.</p>
+<ul>
+<li>모든 팀은 연구 &amp; 개발 인력을 보유할 수 있으며, 팀 내 협업이 긴밀하게 이루어진다.</li>
+<li>데이터 거버넌스, 엔지니어링 관련 논의에서 보다 힘이 실린 의견표출이 가능하다.</li>
+<li>모델은 유저에게 배포되지만, 이를 관리하는 책임은 유지된다.</li>
+</ul>
+</li>
+<li>
+<p><strong>ML 우선주의</strong>가 존재하는 경우.</p>
+<ul>
+<li>연구 분야에 중점이 있지만, 연구자들 또한 개발 인력과 긴밀히 협업한다.</li>
+<li>전사 데이터 인프라에 대한 권한을 소유하게 된다.</li>
+<li>배포된 모델에 대한 관리/운영 책임은 유저에게 있다.</li>
+</ul>
+</li>
+</ul>
+<p><img src="/mlops/images/fsdl_8_5.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
 <h2 id="managing">Managing</h2>
+<p><strong>Managing ML teams is challenging</strong></p>
+<p><img src="/mlops/images/fsdl_8_6.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>ML 팀 운영이 어려운 이유로는 다음과 같은 4가지를 들 수 있다.
+<ul>
+<li>
+<p><strong>공수 예측</strong> : ML 프로젝트란 착수 전 난이도를 측정하기 애매한 측면이 존재한다. 데이터를 조회하고, 여러 모델을 적용해보며 새로 습득해야 하는 정보가 무궁무진하며, 이는 프로젝트 타임라인 설정에 차질을 줄 여지가 많다. 또한 어떠한 모델이 잘 작동할지 사전에 파악하는 것은 불가능하다.</p>
+</li>
+<li>
+<p><strong>비선형적인 업무 진전도</strong> : Weights and Biases 의 CEO 인 Lukas Biewald 가 쓴 <a class="link" href="https://medium.com/@l2k/why-are-machine-learning-projects-so-hard-to-manage-8e9b9cf49641"  target="_blank" rel="noopener"
+    >이 블로그 포스트</a>에 의하면, ML 프로젝트의 진전 상황과 무관하게 앞으로의 상황을 예측하기 어려운 경우가 많다 <em>(상단 그래프 참조)</em>.</p>
+</li>
+<li>
+<p><strong>문화 차이</strong> : 엔지니어링과 연구 분야는 서로 크게 다른 문화를 형성하고 있다. 연구 분야는 새롭고, 독창적인 생각을 선호하는 반면, 엔지니어링 분야는 검증된 방법을 선호하기 때문. 이로 인해 ML 조직은 빈번하게 문화 충돌로 인한 갈등을 경험하며, 이와 같은 갈등은 제대로 다뤄지지 않을 시 조직 운영에 치명적인 결과를 초래할 수 있다. 따라서 ML 조직 운영의 주요 과제 중 하나는 ML, 소프트웨어 엔지니어링 분야 간 협업을 이끌어 내는 부분이다.</p>
+</li>
+<li>
+<p><strong>리더십의 도메인 이해 결여</strong> : 조직의 리더십이 ML 기술을 구체적으로 이해하고 있는 경우는 흔치않다. 따라서 기술을 한계를 명확하게 전달하고, 올바른 기대치를 심어주는 과정에 어려움이 따를 수 있다.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>How to manage ML teams better</strong></p>
+<ul>
+<li>
+<p>ML 조직의 관리는 아직 체계가 확립되지 않은 분야지만, 다음과 같은 노력을 통해 개선이 가능하다.</p>
+</li>
+<li>
+<p><strong>확률적 계획 수립</strong></p>
+<ul>
+<li>대부분의 ML 프로젝트는 단계적인 태스크를 명확하게 정의한 후 시작한다. 하지만 이와 같은 엔지니어링적 접근 보다는, 각 태스크에 대한 성공 확률을 부여해 ML 프로젝트는 근본적인 실험성을 동반한다는 점을 사전에 인지하는 편이 좋다.</li>
+</ul>
+</li>
+</ul>
+<p><img src="/mlops/images/fsdl_8_8.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>
+<p><strong>다양한 접근 방법 구비</strong></p>
+<ul>
+<li>제품 개발 계획을 세우는 단계에서 한 개 방법의 성공에 의존하는 것은 위험하기 때문에, 가능한 많은 아이디어와 접근 방법을 포용해야 한다.</li>
+</ul>
+</li>
+<li>
+<p><strong>아웃풋 보다는 인풋을 기반으로한 업무 평가</strong></p>
+<ul>
+<li>여러 방법을 수행하면서, 성공 여부를 기반으로 팀원의 기여도를 측정하는 것은 적절치 않다. 이와 같은 방법의 평가는 안전하고, 검증된 접근법만을 독려해 전반적인 팀의 상상력, 독창성을 저해할 수 있기 때문. ML 제품의 성공을 위해서는 새로운 아이디어를 높은 수준으로 검증하는 과정이 필요하다.</li>
+</ul>
+</li>
+<li>
+<p><strong>연구자, 엔지니어 간 협업</strong></p>
+<ul>
+<li>엔지니어링과 연구 부서 간 협업은 수준있는 ML 제품 개발을 위해 필수적이다. 따라서 이들 그룹 간 협업을 독려하고, 이끌 필요가 있다.</li>
+</ul>
+</li>
+<li>
+<p><strong>빠른 성과 추구</strong></p>
+<ul>
+<li>이와 같은 방법은 리더십에게 프로젝트의 진전도를 보다 효과적이고, 명료하게 전달할 수 있도록 하며, 장기적으로 ML 프로젝트가 성공하는데 도움을 준다.</li>
+</ul>
+</li>
+<li>
+<p><strong>불확실성에 대한 리더십의 충분한 이해</strong></p>
+<ul>
+<li>
+<p>조직의 리더는 타임라인 상 위험요소에 대해 명확하게 이해하고 (understanding timeline risk), 불확실성을 해소할 책임이 있기 때문에 (addressing blind spots) ML 개발의 본질적인 불확실성을 전달하는 과정에서 어려움이 따를 수 있다. 하지만 다음과 같은 접근을 통해 리더십의 ML 이해도를 높이는 것이 가능하다.</p>
+</li>
+<li>
+<p>ML 영역에 한정된 KPI 를 지나치게 강조하는 것은 좋지 않은 방법이다 (예. F1 스코어를 0.2 개선해 모델 성능이 상당 부분 개선되었다 등의 코멘트).</p>
+</li>
+<li>
+<p>대신, 조직 구성원 대부분이 이해할 수 있는 리스크/임팩트 설명을 곁들이는 편이 좋다 (예. 모델 개선으로 인해 약 10% 전환율 상승이 예상되나, 추가적인 demographic 요소를 참조해 지속적으로 성능을 평가하는 과정이 필요).</p>
+</li>
+<li>
+<p><strong><a class="link" href="https://a16z.com/2016/06/10/ai-deep-learning-machines/"  target="_blank" rel="noopener"
+    >this a16z primer</a></strong>, <strong><a class="link" href="https://executive.berkeley.edu/programs/artificial-intelligence"  target="_blank" rel="noopener"
+    >this class from Prof. Pieter Abbeel</a></strong>, and <strong><a class="link" href="https://pair.withgoogle.com/guidebook"  target="_blank" rel="noopener"
+    >this Google&rsquo;s People + AI guidebook</a></strong> 등의 리소스 공유를 통해 리더십의 ML 관련 이해도 제고.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>ML PMs are well-positioned to educate the organization</strong></p>
+<ul>
+<li>
+<p>ML Product Manager 직군은 크게 두 개 타입으로 구분 가능하다.</p>
+<ul>
+<li>
+<p><strong>Task PM :</strong> 보다 일반적인 ML PM 모습에 가깝다. 특정 분야에 전문성을 가지고 있고 (예. 안전 정책) 관련해 세부적인 유즈케이스에 많은 경험을 가지고 있다.</p>
+</li>
+<li>
+<p><strong>Platform PM :</strong> 최근 등장한 PM 직군 형태. Task PM 보다 넓은 영역에서 (우선순위 설정, 워크플로우 관리 등) ML 팀을 지원할 책임을 가지고 있다. ML 에 대한 보다 넓은 이해를 가지고 있고, 조직 전반에 걸쳐 ML 이해도를 높이고, 모델의 아웃풋을 신뢰할 수 있도록 돕는다.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>ML 제품의 성공을 위해서는 두 개 타입의 PM 모두 중요한 역할을 수행하며, 특히 Platform PM 은 조직 전반에서 ML 제품 영향력을 키우는 역할을 수행한다.</p>
+</li>
+</ul>
+<p><strong>What is &ldquo;Agile&rdquo; for ML?</strong></p>
+<ul>
+<li>Agile, 소프트웨어 간 관계는 다음 두가지 옵션과 ML 간 관계와 유사하다.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_8_7.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>
+<p>CRISP-DM, TDSP 모두 구조적이고, 데이터 사이언스 분야에 특화된 프로젝트 관리 방법론이다. 이들 모델을 활용해 프로젝트의 단계, 역할, 산출물 등을 통용/약속된 방식으로 정의할 수 있다.</p>
+<ul>
+<li>
+<p><strong>TDSP</strong> 는 보다 구조적이며, Agile 방법론에 대한 직접적인 대체제이다.</p>
+</li>
+<li>
+<p><strong>CRISP-DM</strong> 은 보다 상위 레벨의 개념들을 다루며, 프로젝트 관리 체계의 정의가 약한 편이다.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>스케일이 큰 프로젝트 진행 시 이러한 프레임워크 적용을 고려해 볼 수 있지만, 그렇지 않은 경우 이를 강제할 필요는 없다. 이들 프레임워크가 머신러닝 보다는 전통적인 데이터 사이언스 문제를 기반으로 하기 때문.</p>
+</li>
+</ul>
 <h2 id="design">Design</h2>
+<ul>
+<li>
+<p>대부분의 경우, ML 제품 기획에서 가장 어려운 부분은 제품 구현이 아닌 <strong>유저의 기대치와 실현 가능한 제품의 수준 간 격차를 좁히는 일</strong>이다.</p>
+</li>
+<li>
+<p>ML 시스템을 접한 유저는 대게 고도로 개발된, 실제 가능한 것보다 더 많은 문제를 풀 수 있는 시스템을 기대하기 마련이다.</p>
+</li>
+</ul>
+<p><img src="/mlops/images/fsdl_8_9.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>하지만 현실 세계의 ML 시스템이란 특정 작업을 위해 훈련된 강아지와 같다. 집중력에 한계가 존재하고, 학습 받지 않은 작업을 수행하기 어려워 하는 경우가 대부분이기 때문.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_8_title.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<p><strong>The Keys to Good ML Product Design</strong></p>
+<ul>
+<li>
+<p>유저는 제품 사용으로 얻을 수 있는 장점과 한계를 명확히 이해했을때 더 높은 만족도를 보인다.</p>
+<ul>
+<li>&ldquo;AI-powered&rdquo; 라는 캐치 프레이스를 사용하기 보다는, 실제 모델이 해결하는 문제에 집중할 것.</li>
+<li>시스템 설계를 사람과 같이 느껴지도록 구성하였다면, 유저가 이를 실제 사람과 같이 다룰 것으로 기대할 것.</li>
+<li>Amazon Alexa 와 같이 특정 상황에 ML 이 어떻게 대처할 것인지를 사전에 정의하는 것 또한 검토.</li>
+</ul>
+</li>
+<li>
+<p>모델이 실행에 실패했을때를 대비한 백업 플랜을 준비할 것.</p>
+</li>
+<li>
+<p>지나친 자동화는 오히려 유저 경험의 질을 떨어트릴 수 있다.</p>
+</li>
+<li>
+<p>피드백 룹 구축을 통한 지속적인 모델 개선으로 유저 경험을 개선할 것.</p>
+</li>
+</ul>
+<p><img src="/mlops/images/fsdl_8_10.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>실패 관리는 ML 시스템 유저의 만족도 제고를 위한 핵심적인 요소이다. 유저가 직접 잘못된 아웃풋을 수정하는 기능을 추가하거나, 특정 임계점을 넘은 경우에만 결과값을 보여주는 등의 Quality Assurance 체계가 필요하다 <em>(예. 페이스북이 사진에 포함된 얼굴을 기반으로 친구 태깅을 추천하지만, 직접적으로 수행하지는 않는 것과 같은 경우)</em>.</li>
+</ul>
+<p><strong>Types of User Feedback</strong></p>
+<ul>
+<li>이러한 문제 해결을 위해 <strong>유저의 피드백을 깊게 살필 필요</strong>가 있으며, 피드백은 다음과 같이 구분 가능하다 <em>(x축이 모델 개선 과제 내 유용성, y축이 유저 난이도)</em>.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_8_11.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ol>
+<li><strong>간접적, 암시적 피드백 (indirect implicit feedback)</strong> : 유저가 제품 구매 과정에서 이탈했는지 등의 정보.</li>
+<li><strong>직접적, 암시적 피드백 (direct implicit feedback)</strong> : 유저가 제품 구매 과정의 다음 단계로 이동했는지 등의 정보.</li>
+<li><strong>이항적, 명시적 피드백 (binary explicit feedback)</strong> : 좋아요/싫어요 등 제품 만족도를 두 개 옵션 중 하나로 특정하는 경우.</li>
+<li><strong>범주적, 명시적 피드백 (categorical explicit feedback)</strong> : 별점 등 제품 만족도를 여러개의 옵션 중 하나로 특정하는 경우.</li>
+<li><strong>자유적 피드백 (free text feedback)</strong> : 유저의 자유로운 텍스트 피드백.</li>
+<li><strong>모델 보정 (model corrections)</strong> : 유저의 직접적인 데이터 레이블링.</li>
+</ol>
+<ul>
+<li>이러한 피드백 체계를 구축할 때에는 유저의 이타심에 기대는 것 보다는, 피드백을 제공하는 것이 유저에게 어떤 가치를 제공하는지 적극적으로 설명하는 편이 낫다. 또한, 유저 피드백에 따른 모델 개선이 실제로 빠르고 직접적으로 작동할 수 있도록 구성되어야 한다.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_8_12.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
 
 </section>
 
