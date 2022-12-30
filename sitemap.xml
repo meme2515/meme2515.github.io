@@ -2,50 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://meme2515.github.io/daily/fsdl/</loc>
-    <lastmod>2022-12-23T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://meme2515.github.io/categories/</loc>
-    <lastmod>2022-12-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/daily/</loc>
-    <lastmod>2022-12-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/tags/michelangelo/</loc>
-    <lastmod>2022-12-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/</loc>
-    <lastmod>2022-12-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/tags/</loc>
-    <lastmod>2022-12-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/categories/tech-blog/</loc>
-    <lastmod>2022-12-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/tags/uber/</loc>
-    <lastmod>2022-12-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/categories/uber/</loc>
-    <lastmod>2022-12-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/tags/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D-%ED%94%8C%EB%9E%AB%ED%8F%BC-%EC%98%88%EC%8B%9C/</loc>
-    <lastmod>2022-12-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/tags/%EB%AF%B8%EC%BC%88%EB%9E%80%EC%A0%A4%EB%A1%9C/</loc>
-    <lastmod>2022-12-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/categories/%EB%B2%88%EC%97%AD/</loc>
-    <lastmod>2022-12-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/tags/%EC%9A%B0%EB%B2%84/</loc>
-    <lastmod>2022-12-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/tags/%EC%9A%B0%EB%B2%84-%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/</loc>
-    <lastmod>2022-12-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/tags/%EC%9A%B0%EB%B2%84-%ED%85%8C%ED%81%AC-%EB%B8%94%EB%A1%9C%EA%B7%B8/</loc>
-    <lastmod>2022-12-23T00:00:00+00:00</lastmod>
+    <lastmod>2022-12-08T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/tags/fsdl/</loc>
     <lastmod>2022-12-08T00:00:00+00:00</lastmod>
@@ -78,6 +36,12 @@
     <lastmod>2022-12-08T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/categories/mlops/</loc>
+    <lastmod>2022-12-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/</loc>
+    <lastmod>2022-12-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/</loc>
     <lastmod>2022-12-08T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/tags/%EB%B6%80%ED%8A%B8%EC%BA%A0%ED%94%84/</loc>
