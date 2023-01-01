@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='특이값 분해 (SVD) 의 개념 및 PCA 와의 접점에 대한 짧은 소개'><title>Singular Value Decomposition 의 개념 소개</title>
+
+<link rel='canonical' href='https://meme2515.github.io/machine_learning/svd/'>
+
+<link rel="stylesheet" href="/scss/style.min.0d6801e40f97865d11b796a59ab5cccec41427c09bbb58dec945c9cf7412db70.css"><meta property='og:title' content='Singular Value Decomposition 의 개념 소개'>
+<meta property='og:description' content='특이값 분해 (SVD) 의 개념 및 PCA 와의 접점에 대한 짧은 소개'>
+<meta property='og:url' content='https://meme2515.github.io/machine_learning/svd/'>
+<meta property='og:site_name' content='Soon Hyung Kwon'>
+<meta property='og:type' content='article'><meta property='article:section' content='Machine_learning' /><meta property='article:tag' content='선형대수' /><meta property='article:tag' content='특이값분해' /><meta property='article:tag' content='SVD' /><meta property='article:tag' content='SVD 개념' /><meta property='article:published_time' content='2022-12-30T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-12-30T00:00:00&#43;00:00'/><meta property='og:image' content='https://meme2515.github.io/machine_learning/images/svd_1.jpg' />
+<meta name="twitter:title" content="Singular Value Decomposition 의 개념 소개">
+<meta name="twitter:description" content="특이값 분해 (SVD) 의 개념 및 PCA 와의 접점에 대한 짧은 소개"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://meme2515.github.io/machine_learning/images/svd_1.jpg' />
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-135204357-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hud342b0d5be633fdc127bd0653c60e8c3_234674_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Soon Hyung Kwon</a></h1>
+            <h2 class="site-description">데이터 블로그입니다 :)</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/meme2515'
+                        target="_blank"
+                        title="GitHub"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M200,513c0-20.3,0-40.7,0-61c3.1,0.6,1.9,3.1,1.9,4.8c0.1,16.3,0.2,32.6,0,48.9c-0.1,4.1,1,5.4,5.2,5.4   c36.6-0.2,73.2-0.2,109.8,0c4.4,0,5.1-1.6,5.1-5.5c-0.2-25-0.1-49.9-0.1-74.9c0-9.3,0.2-18.6,0.2-27.9c2.8,1.2,1.6,3.8,1.6,5.7   c0.1,34.8,0.1,69.6,0.1,104.4C282.7,513,241.3,513,200,513z" fill="#D1D1D1"/><path d="M322.2,402.8c-0.1,9.3-0.2,18.6-0.2,27.9c0,25-0.1,49.9,0.1,74.9c0,3.9-0.7,5.5-5.1,5.5   c-36.6-0.2-73.2-0.2-109.8,0c-4.2,0-5.3-1.3-5.2-5.4c0.2-16.3,0.1-32.6,0-48.9c0-1.7,1.2-4.2-1.9-4.8c-9.7,0.9-19.3,3.2-29.2,2.8   c-33.5-1.3-59.5-15.4-74.7-45.8c-8.2-16.4-17.8-31.7-29.1-46c-3.1-3.9-7.9-5.5-11.5-8.7c-1.1-1-2.4-1.8-3.3-3   c-2.3-3.3-1.2-5.8,2.8-6.2c18.5-1.9,33.8,4.2,46.2,18.1c6.3,7.1,10.2,15.8,16.3,23.1c12.3,14.7,28,22.7,47,24.9   c11.5,1.3,22.4-0.9,33.3-4.2c2.2-0.6,3.1-2,3.3-4.3c0.7-10.3,2.8-20.3,6.8-29.9c1.8-4.3,4.7-7.9,6.9-12.3   c-10.3-2.6-20.7-3.4-30.5-6.4c-27.1-8.2-50.9-21.6-68.2-44.7c-8.3-11-14.1-23.3-17.4-36.5c-1.8-7.2-3.9-14.4-3.8-22   c0.1-13.3-0.5-26.7,0.3-40c0.9-16.8,3.1-33.5,9.2-49.2c3.8-9.7,9.3-18.6,17.1-25.9c2.4-2.3,3.3-4.1,1.8-7.9   c-7.4-19.7-8.1-39.8-1.8-60c0.2-0.6,0.3-1.3,0.4-2c2.2-10.3,4.5-11.3,14.3-7.4c19.2,7.5,33.3,21,45.3,37.3c3.4,4.6,2.7,6.6,10,1.9   c9.7-6.2,21-8.1,32.2-9.3c20.1-2.1,40.3-1.5,60.4-1.1c14.3,0.3,28.5,2.2,42,7.2c3.1,1.1,6,2.8,8.7,4.8c2.1,1.6,3.6,1.6,5.6-1.1   c9.1-12.8,19.5-24.4,33-32.6c6.6-4,13.4-7.7,21.4-8.6c3.3-0.4,4.7,0.7,5.6,3.3c8.3,22.9,9.5,45.7-0.2,68.5   c-1.2,2.8-0.8,4.6,1.3,6.5c16,15,21.8,34.5,24.8,55.5c2.5,17.7,3.2,35.5,2.7,53.3c-0.8,31.2-11.4,58.4-34.4,80.1   c-13.5,12.7-29.7,21.1-47.1,27.5c-12.4,4.6-25.5,5.8-38.5,9c1.3,3.1,3.7,5.4,4.3,8.5c-0.3,1.3,0.4,2,1.6,2.3   c0.1,0.6,0.3,1.1,0.4,1.7c0.3,2.1,0.1,4.3,2.5,5.4c0.5,2.2,1,4.5,1.4,6.7c-0.1,1.7-0.7,3.5,1.6,4.3c0,0.6,0.1,1.2,0.1,1.9   c-1.5,2.3-0.1,4.1,1.1,6C322.1,398.9,322.2,400.9,322.2,402.8z" fill="#A7A7A7"/><path d="M322,397c-1.1-1.9-2.6-3.7-1.1-6C322.1,392.9,323,394.8,322,397z" fill="#D1D1D1"/><path d="M317.7,378.2c-2.4-1.1-2.2-3.3-2.5-5.4C317.4,374,317.7,376,317.7,378.2z" fill="#D1D1D1"/><path d="M320.8,389.1c-2.3-0.8-1.7-2.6-1.6-4.3C321.5,385.6,321,387.5,320.8,389.1z" fill="#D1D1D1"/><path d="M314.8,371.1c-1.2-0.3-1.9-1-1.6-2.3C314.5,369.1,315.1,369.8,314.8,371.1z" fill="#D1D1D1"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.linkedin.com/in/soon-hyung-kwon-73a3221ab/'
+                        target="_blank"
+                        title="LinkedIn"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M1,53c2.5,0,1.7-2,1.9-3.3C5.9,29,16.6,13.9,36.6,7.4c16.1-5.2,32.9-4.6,47.9,4c9.4,5.5,16.6,14,20.4,24.5   c2.8,7.8,4.9,15.9,4,24.2c-2.1,20.9-11.5,38.3-34.5,46.4c-17.4,6-34.3,3.8-50.2-5.7c-1-3.6-3.5-5.4-7.1-6c0,0,0,0,0,0   c-0.1-1.4-0.3-2.8-2.2-2.8C7.7,84,4.3,74.3,2.9,63.8C2.7,62.6,3.2,60.9,1,61C1,58.3,1,55.7,1,53z" fill="#A7A7A7"/><path d="M276.2,216.1c4.3-2.6,6-6.4,8.2-9.5c10.9-15,24.4-26.6,41.2-34.9c23-11.3,47.4-12.5,72-10.2   c18.9,1.7,36.8,8.1,53.1,18.5c19.4,12.4,33.3,29.6,42.8,50.2c5.8,12.5,9.6,25.8,11.9,39.6c2.1,12.9,3.7,25.6,3.7,38.7   c-0.1,65-0.1,130,0.1,195c0,4.6-1.3,5.8-5.8,5.7c-30.7-0.2-61.3-0.2-92,0c-4.5,0-5.5-1.3-5.5-5.6c0.1-61.3,0.4-122.7-0.1-184   c-0.1-13.9-2-27.7-9.2-40.4c-6.4-11.2-15.3-19.2-27-23.8c-15.7-6.2-31.9-7.4-48.3-2.8c-16.6,4.6-28.1,15.5-36.3,30.3   c-4.6,8.3-6.2,17-7.5,26.3c-1.3,10-1.1,19.8-1.1,29.7c-0.2,54.7-0.2,109.3,0,164c0,5-1.2,6.4-6.3,6.3c-30.3-0.3-60.7-0.2-91,0   c-4.2,0-5.7-1.3-5.6-5.2c0.1-2.8,0.3-5.6,0.3-8.4c0-105.5,0.1-211-0.1-316.5c0-4.4,0.9-6,5.7-6c30.5,0.2,61,0.2,91.5,0   c4.1,0,5.5,1,5.4,5.3C276,190.6,276.2,202.9,276.2,216.1z" fill="#A7A7A7"/><path d="M109,176.1c0,3.5,0.1,7,0.1,10.5c0,105.3,0,210.6,0,316c0,6.4,0,6.4-6.5,6.4c-31.8,0-63.7,0-95.5,0   c-0.1-2.5-0.2-5-0.2-7.5c0-78.8,0-157.5,0-236.3c0-28.1,0.1-56.3-0.1-84.4c0-3.6,0.9-4.9,4.7-4.9C44,176.1,76.5,176,109,176.1z" fill="#A7A7A7"/><path d="M109,176.1c-32.5,0-64.9,0-97.4-0.2c-3.8,0-4.7,1.2-4.7,4.9C7,208.9,6.9,237,6.9,265.2   c0,78.8,0,157.5,0,236.3c0,2.5,0.1,5,0.2,7.5c-1.7,0.1-3-0.3-3-2.3c0-1.3,0-2.7,0-4c0-106.8,0-213.5,0-320.3c0-7.6,0.7-8.3,8.2-8.3   c30.5,0,61,0,91.4,0.1C105.5,174.1,108.2,172.7,109,176.1z" fill="#E0E0E0"/><path d="M17.1,94.9c3.6,0.6,6.1,2.4,7.1,6C21.1,99.7,18.8,97.7,17.1,94.9z" fill="#E0E0E0"/><path d="M14.9,92.1c1.9,0,2,1.4,2.2,2.8C15,95,15,93.6,14.9,92.1z" fill="#E0E0E0"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/about' >
+                
+                
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/machine_learning' >
+                
+                
+                
+                <span>Machine Learning</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/neural_network' >
+                
+                
+                
+                <span>Neural Network</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/mlops' >
+                
+                
+                
+                <span>MLOps</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/statistics' >
+                
+                
+                
+                <span>Statistics</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/computer_science' >
+                
+                
+                
+                <span>Computer Science</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/cloud_network' >
+                
+                
+                
+                <span>Cloud &amp; Network</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/daily' >
+                
+                
+                
+                <span>Daily</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/machine_learning/svd/">
+                
+                    <img src="/machine_learning/images/svd_1.jpg" loading="lazy" alt="Featured image of post Singular Value Decomposition 의 개념 소개" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" >
+                선형대수
+            </a>
+        
+            <a href="/categories/machine-learning/" >
+                machine learning
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/machine_learning/svd/">Singular Value Decomposition 의 개념 소개</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            특이값 분해 (SVD) 의 개념 및 PCA 와의 접점에 대한 짧은 소개
+        </h3>
+        
+    </div>
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Dec 30, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    4 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="introduction">Introduction</h2>
+<ul>
+<li>
+<p><a class="link" href="https://angeloyeo.github.io/2019/08/01/SVD.html"  target="_blank" rel="noopener"
+    ><strong>공돌이의 수학정리노트</strong></a> 블로그를 인용하자면, 특이값 분해가 설명하고자 하는 바는 <strong>&ldquo;직교하는 벡터 집합에 대하여, 선형 변환 후에 그 크기는 변하지만 여전히 직교할 수 있게 되는 그 직교 집합은 무엇인가? 그리고 선형 변환 후의 결과는 무엇인가?&rdquo;</strong> 로 정리할 수 있다.</p>
+</li>
+<li>
+<p>시각적인 설명은 덧붙이자면, 왼편의 직교하는 벡터 집합 $V$ 에 대한 $A$ 매트릭스 선형 변환 결과를 오른편의 벡터 집합 $U\Sigma$ 라고 가정.</p>
+</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/machine_learning/images/svd_3.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 1. 직교성 조건을 만족하지 못하는 경우</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>시각화를 돕기 위해 오른편의 벡터 크기를 의미하는 $\Sigma$ 매트릭스를 제외한 후, 다음과 같은 결과를 만족하는 크기 1 의 벡터 집합 $U$ 을 찾는 과정이다.</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/machine_learning/images/svd_4.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 2. 직교성 조건을 만족하는 경우</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>즉, 각자 직교하는 벡터 집합 $U, V$ 는 다음과 같은 관계를 가진다.</li>
+</ul>
+<p>$$
+AV = U\Sigma
+$$</p>
+<h2 id="특이값-분해의-정의">특이값 분해의 정의</h2>
+<ul>
+<li>임의의 $m \times n$ 차원 행렬 $A$ 를 다음과 같이 분해하는 행렬 분해 방법 중 하나이다.</li>
+</ul>
+<p>$$
+A = U\Sigma V^T
+$$</p>
+<ul>
+<li>네 행렬 ($A, U, \Sigma, V$) 의 크기와 성질은 다음과 같이 정리할 수 있다.</li>
+</ul>
+<p>$$
+A: m \times n \text{ regular matrix} \newline
+U: m \times m \text{ orthogonal matrix} \newline
+\Sigma: m \times n \text{ diagonal matrix} \newline
+V: n \times n \text{ orthogonal matrix}
+$$</p>
+<ul>
+<li>
+<p>Orthogonality 란 <strong>컬럼 별 벡터가 모두 서로 직교하는 성질</strong>을 칭하는데, 소개 섹션에서 언급했듯 이는 매트릭스 $A$ 에 의해 변환되는 두 개 벡터 집합 $U$ 와 $V$ 의 기본 전제이다.</p>
+</li>
+<li>
+<p>이러한 Orthogonal 매트릭스는 또한 다음과 같은 성질을 가진다.</p>
+</li>
+</ul>
+<p>$$
+UU^T = U^T U = I
+$$</p>
+<p>$$
+U^{-1} = U^T
+$$</p>
+<ul>
+<li>따라서 다음과 같은 유도가 가능한 것.</li>
+</ul>
+<p>$$
+AV = U\Sigma \newline
+= AVV^T = U\Sigma V^T \newline
+= A = U\Sigma V^T
+$$</p>
+<ul>
+<li>
+<p>Diagonality 란 <strong>행렬의 대각성분을 제외한 나머지 원소의 값이 모두 $0$ 인 경우</strong>를 뜻한다.</p>
+</li>
+<li>
+<p>Diagonal Matrix 를 $m \times n$ 모양으로 가정했을 때 행렬 크기가 맞지 않는 애매한 경우가 발생할 수 있다. 이럴때 $m &gt; n$ 인 경우 $n \times n$ 행렬 하단에 모든 원소가 $0$ 인 $m - n \times n$ 행렬이 붙어있게 되거나, $m &lt; n$ 인 경우 $m \times m$ 행렬 오른쪽에 모든 원소가 $0$ 인 $n \times n - m$ 행렬이 붙어있는 식.</p>
+</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/machine_learning/images/svd_5.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 3. 특이값 분해 방정식 내 행렬 도식화</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="u-와-v-를-어떻게-찾을까">U 와 V 를 어떻게 찾을까?</h2>
+<ul>
+<li>우선 다음과 같이 행렬 $A$ 와 $A^T$ 를 정의하자.</li>
+</ul>
+<p>$$
+A = U\Sigma V^T \newline
+$$</p>
+<p>$$
+A^T = (U\Sigma V^T)^T = V\Sigma^T U^T
+$$</p>
+<ul>
+<li>이를 활용해 다음과 같은 수식 관계를 찾을 수 있다.</li>
+</ul>
+<p>$$
+AA^T = U\Sigma V^TV\Sigma^T U^T = U\Sigma^2 U^T
+$$</p>
+<p>$$
+A^T A = V \Sigma^T U^T U\Sigma V^T = V \Sigma^2 V^T
+$$</p>
+<ul>
+<li>즉, 벡터 집합 $U$ 와 $V$ 는 각각 $AA^T, A^TA$ 행렬에 대한 eigenvector 이며, 이는 eigendecomposition 테크닉을 활용해 풀이가 가능하다. 관련한 컨텐츠는 <a class="link" href="https://www.youtube.com/watch?v=PFDu9oVAE-g"  target="_blank" rel="noopener"
+    >3blue1brown</a> 과 <a class="link" href="https://www.youtube.com/watch?v=KTKAp9Q3yWg"  target="_blank" rel="noopener"
+    >ritvikmath</a> 비디오 참고.</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/machine_learning/images/svd_6.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 4. 고유값 분해 (Eigen-decomposition) 방정식</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="특이값-분해의-목적과-활용">특이값 분해의 목적과 활용</h2>
+<ul>
+<li>특이값 분해의 공식은 다음과 같이 풀어쓰는 것이 가능하다.</li>
+</ul>
+<p>$$
+A = U\Sigma V^T
+$$</p>
+<p>$$
+= {
+\begin{pmatrix}
+| &amp; | &amp; &amp; |  \newline
+u_1 &amp; u_2 &amp; \cdots &amp; u_m  \newline
+| &amp; | &amp; &amp; |
+\end{pmatrix}
+\begin{pmatrix}
+\sigma_1 &amp; &amp; &amp; &amp; 0  \newline
+&amp; \sigma_2 &amp; &amp; &amp; 0  \newline
+&amp; &amp; \ddots &amp; &amp; 0  \newline
+&amp; &amp; &amp; \sigma_m &amp; 0  \newline
+\end{pmatrix}
+\begin{pmatrix}
+- &amp; v_1^T &amp; -  \newline
+- &amp; v_2^T &amp; -  \newline
+&amp; \vdots &amp;   \newline
+- &amp; v_n^T &amp; -  \newline
+\end{pmatrix}
+}
+$$</p>
+<p>$$
+= \sigma_1 u_1 v_1^T + \sigma_2 u_2 v_2^T + &hellip; + \sigma_m u_m v_m^T
+$$</p>
+<ul>
+<li>
+<p>$u_1 v_1^T$ 등의 결과값은 $m \times n$ 행렬이며, <strong>합산을 통해 최종 행렬인 $A$ 에 다다르기 위한 하나의 레이어</strong> 정도로 생각할 수 있다. $u$ 와 $v$ 는 정규화된 벡터이기 때문에 $u_1 v_1^T$ 의 값은 1 과 -1 사이에 위치한다.</p>
+</li>
+<li>
+<p>따라서 $u_1 v_1^T$ 에 의해 특정된 레이어의 정보량은 $\sigma_1$ 에 의해 정해지며, 이를 특이값이라 부른다.</p>
+</li>
+<li>
+<p>레이어 별 정보량은 특이값의 크기에 의해 결정되기 때문에, 특이값 $p$ 개 만을 이용해 행렬 $A$ 를 부분 복원하는 작업이 가능해진다.</p>
+</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/machine_learning/images/svd_7.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 5. 행렬 $A$ 의 부분 복원 과정 도식화</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>이를 가장 직관적으로 설명하는 방법은 이미지의 SVD 복원 과정을 시각화하는 것이다. 하단의 예시는 이미지를 다수의 레이어로 분할 후, 레이어의 누적 합을 단계적으로 시각화 한 것이다. <strong>초반 몇개의 레이어에 주요 정보들이 집중되어 있고, 후반 레이어로 갈수록 마이너한 정보를 담고 있다.</strong> 이는 $\Sigma$ 행렬에서 특이값 $\sigma_x$ 이 계속해 작아지며, 이에 상응하는 $u_x v_x^T$ 레이어가 가진 정보량이 감소하는 것과 같은 원리.</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/machine_learning/images/svd_8.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 6. 공돌이의 수학정리노트 블로그에 소개된 SVD 복원 예시</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="차원축소-기법과의-연계점">차원축소 기법과의 연계점</h2>
+<ul>
+<li>$A$ 행렬에서 분해된 $U, \Sigma, V$ 행렬 중, <strong>$V$ 행렬의 각 row vector 는 projection axis, 즉 차원 축소를 수행할 축을 특정하며, 이에 상응하는 $\Sigma$ 행렬의 원소는 해당 projection axis 의 정보량을 특정한다</strong>. 하단 예시에서 파란색으로 표기된 $v_1$ axis 의 정보량은 $\sigma_1 = 12.4$ 와 같은 식.</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/machine_learning/images/svd_9.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 7. $v_1$ 벡터는 $\sigma_1$ 만큼의 정보량을 가지는 projection axis 를 특정한다</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Projection axis 가 특정 되었다면, 해당 <strong>projection axis 에 데이터를 투영했을때 각 데이터가 가지는 값은 행렬곱 $U\Sigma$ 에 의해 결정</strong>되게 된다.</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/machine_learning/images/svd_10.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 8. 차원 축소 후 데이터의 위치는 $U\Sigma$ 에 의해 결정</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>본격적인 차원 축소를 수행하기 위해서는 먼저 축소 차원 수 $n$ 을 결정한 후, $\Sigma$ 행렬에서 가장 큰 특이값 $n$ 개를 제외한 나머지 값을 $0$ 으로 바꿔주어야 한다.</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/machine_learning/images/svd_11.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 9. 차원 축소 수행을 위해서는 가장 작은 특이값 n 개를 0 으로 설정</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="references">References</h2>
+<ol>
+<li><a class="link" href="https://angeloyeo.github.io/2019/08/01/SVD.html"  target="_blank" rel="noopener"
+    >https://angeloyeo.github.io/2019/08/01/SVD.html</a></li>
+<li><a class="link" href="https://www.youtube.com/watch?v=UyAfmAZU_WI"  target="_blank" rel="noopener"
+    >https://www.youtube.com/watch?v=UyAfmAZU_WI</a></li>
+<li><a class="link" href="https://www.youtube.com/watch?v=PFDu9oVAE-g"  target="_blank" rel="noopener"
+    >https://www.youtube.com/watch?v=PFDu9oVAE-g</a></li>
+<li><a class="link" href="https://www.youtube.com/watch?v=CpD9XlTu3ys"  target="_blank" rel="noopener"
+    >https://www.youtube.com/watch?v=CpD9XlTu3ys</a></li>
+</ol>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/">선형대수</a>
+        
+            <a href="/tags/%ED%8A%B9%EC%9D%B4%EA%B0%92%EB%B6%84%ED%95%B4/">특이값분해</a>
+        
+            <a href="/tags/svd/">SVD</a>
+        
+            <a href="/tags/svd-%EA%B0%9C%EB%85%90/">SVD 개념</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "meme2515" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 Soon Hyung Kwon
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.11.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#특이값-분해의-정의">특이값 분해의 정의</a></li>
+    <li><a href="#u-와-v-를-어떻게-찾을까">U 와 V 를 어떻게 찾을까?</a></li>
+    <li><a href="#특이값-분해의-목적과-활용">특이값 분해의 목적과 활용</a></li>
+    <li><a href="#차원축소-기법과의-연계점">차원축소 기법과의 연계점</a></li>
+    <li><a href="#references">References</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
