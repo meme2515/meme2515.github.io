@@ -387,7 +387,7 @@ $$&lt;/p&gt;
 &lt;p&gt;(여기서 $x$는 input을, $f$는 output을 뜻하고 있다)&lt;/p&gt;
 &lt;p&gt;$$
 \begin{equation*}
-J_{f} = 
+J_{f} =
 \begin{bmatrix}
 \frac{\delta f_1}{\delta x_1 } &amp;amp; \frac{\delta f_2}{\delta x_1 } &amp;amp; \cdots &amp;amp; \frac{\delta f_m}{\delta x_1 } \newline
 \frac{\delta f_1}{\delta x_2 } &amp;amp; \frac{\delta f_2}{\delta x_2 } &amp;amp; \cdots &amp;amp; \frac{\delta f_m}{\delta x_2 } \newline
@@ -399,7 +399,7 @@ $$&lt;/p&gt;
 &lt;p&gt;야코비 행렬은 모든 input과 output의 조합에 대한 편미분 값을 가지고 있으며, 각 열에는 output $f_i$, 행에는 input $x_j$에 속하는 값이 정렬되어있다. 특정 output 값 $f_i$에 대한 모든 input $x$의 편미분 벡터를 구하기 위해서는 다음과 같이 적합한 벡터 $r$을 곱해주어야 한다.&lt;/p&gt;
 &lt;p&gt;$$
 \begin{equation*}
-\frac{\delta f_i}{\delta x} = 
+\frac{\delta f_i}{\delta x} =
 J_f r =
 \begin{bmatrix}
 \frac{\delta f_1}{\delta x_1 } &amp;amp; \frac{\delta f_2}{\delta x_1 } &amp;amp; \cdots &amp;amp; \frac{\delta f_m}{\delta x_1 } \newline
