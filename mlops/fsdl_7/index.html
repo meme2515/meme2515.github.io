@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Foundation Models'>
+<title>Full Stack Deep Learning 2022 부트캠프 - Week 7</title>
+
+<link rel='canonical' href='https://meme2515.github.io/mlops/fsdl_7/'>
+
+<link rel="stylesheet" href="/scss/style.min.8191399262444ab68b72a18c97392f5349be20a1615d77445be51e974c144cff.css"><meta property='og:title' content='Full Stack Deep Learning 2022 부트캠프 - Week 7'>
+<meta property='og:description' content='Foundation Models'>
+<meta property='og:url' content='https://meme2515.github.io/mlops/fsdl_7/'>
+<meta property='og:site_name' content='Soon Hyung Kwon'>
+<meta property='og:type' content='article'><meta property='article:section' content='Mlops' /><meta property='article:tag' content='FSDL' /><meta property='article:tag' content='Full Stack Deep Learning' /><meta property='article:tag' content='MLOps' /><meta property='article:tag' content='부트캠프' /><meta property='article:tag' content='fsdl 2022' /><meta property='article:tag' content='fsdl 2022 후기' /><meta property='article:tag' content='fsdl 후기' /><meta property='article:tag' content='full stack deep learning 2022' /><meta property='article:tag' content='풀스택딥러닝' /><meta property='article:published_time' content='2022-12-07T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-12-07T00:00:00&#43;00:00'/><meta property='og:image' content='https://meme2515.github.io/mlops/images/fsdl_7_title.png' />
+<meta name="twitter:title" content="Full Stack Deep Learning 2022 부트캠프 - Week 7">
+<meta name="twitter:description" content="Foundation Models"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://meme2515.github.io/mlops/images/fsdl_7_title.png' />
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-135204357-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hud342b0d5be633fdc127bd0653c60e8c3_234674_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Soon Hyung Kwon</a></h1>
+            <h2 class="site-description">데이터 블로그입니다 :)</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/meme2515'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M200,513c0-20.3,0-40.7,0-61c3.1,0.6,1.9,3.1,1.9,4.8c0.1,16.3,0.2,32.6,0,48.9c-0.1,4.1,1,5.4,5.2,5.4   c36.6-0.2,73.2-0.2,109.8,0c4.4,0,5.1-1.6,5.1-5.5c-0.2-25-0.1-49.9-0.1-74.9c0-9.3,0.2-18.6,0.2-27.9c2.8,1.2,1.6,3.8,1.6,5.7   c0.1,34.8,0.1,69.6,0.1,104.4C282.7,513,241.3,513,200,513z" fill="#D1D1D1"/><path d="M322.2,402.8c-0.1,9.3-0.2,18.6-0.2,27.9c0,25-0.1,49.9,0.1,74.9c0,3.9-0.7,5.5-5.1,5.5   c-36.6-0.2-73.2-0.2-109.8,0c-4.2,0-5.3-1.3-5.2-5.4c0.2-16.3,0.1-32.6,0-48.9c0-1.7,1.2-4.2-1.9-4.8c-9.7,0.9-19.3,3.2-29.2,2.8   c-33.5-1.3-59.5-15.4-74.7-45.8c-8.2-16.4-17.8-31.7-29.1-46c-3.1-3.9-7.9-5.5-11.5-8.7c-1.1-1-2.4-1.8-3.3-3   c-2.3-3.3-1.2-5.8,2.8-6.2c18.5-1.9,33.8,4.2,46.2,18.1c6.3,7.1,10.2,15.8,16.3,23.1c12.3,14.7,28,22.7,47,24.9   c11.5,1.3,22.4-0.9,33.3-4.2c2.2-0.6,3.1-2,3.3-4.3c0.7-10.3,2.8-20.3,6.8-29.9c1.8-4.3,4.7-7.9,6.9-12.3   c-10.3-2.6-20.7-3.4-30.5-6.4c-27.1-8.2-50.9-21.6-68.2-44.7c-8.3-11-14.1-23.3-17.4-36.5c-1.8-7.2-3.9-14.4-3.8-22   c0.1-13.3-0.5-26.7,0.3-40c0.9-16.8,3.1-33.5,9.2-49.2c3.8-9.7,9.3-18.6,17.1-25.9c2.4-2.3,3.3-4.1,1.8-7.9   c-7.4-19.7-8.1-39.8-1.8-60c0.2-0.6,0.3-1.3,0.4-2c2.2-10.3,4.5-11.3,14.3-7.4c19.2,7.5,33.3,21,45.3,37.3c3.4,4.6,2.7,6.6,10,1.9   c9.7-6.2,21-8.1,32.2-9.3c20.1-2.1,40.3-1.5,60.4-1.1c14.3,0.3,28.5,2.2,42,7.2c3.1,1.1,6,2.8,8.7,4.8c2.1,1.6,3.6,1.6,5.6-1.1   c9.1-12.8,19.5-24.4,33-32.6c6.6-4,13.4-7.7,21.4-8.6c3.3-0.4,4.7,0.7,5.6,3.3c8.3,22.9,9.5,45.7-0.2,68.5   c-1.2,2.8-0.8,4.6,1.3,6.5c16,15,21.8,34.5,24.8,55.5c2.5,17.7,3.2,35.5,2.7,53.3c-0.8,31.2-11.4,58.4-34.4,80.1   c-13.5,12.7-29.7,21.1-47.1,27.5c-12.4,4.6-25.5,5.8-38.5,9c1.3,3.1,3.7,5.4,4.3,8.5c-0.3,1.3,0.4,2,1.6,2.3   c0.1,0.6,0.3,1.1,0.4,1.7c0.3,2.1,0.1,4.3,2.5,5.4c0.5,2.2,1,4.5,1.4,6.7c-0.1,1.7-0.7,3.5,1.6,4.3c0,0.6,0.1,1.2,0.1,1.9   c-1.5,2.3-0.1,4.1,1.1,6C322.1,398.9,322.2,400.9,322.2,402.8z" fill="#A7A7A7"/><path d="M322,397c-1.1-1.9-2.6-3.7-1.1-6C322.1,392.9,323,394.8,322,397z" fill="#D1D1D1"/><path d="M317.7,378.2c-2.4-1.1-2.2-3.3-2.5-5.4C317.4,374,317.7,376,317.7,378.2z" fill="#D1D1D1"/><path d="M320.8,389.1c-2.3-0.8-1.7-2.6-1.6-4.3C321.5,385.6,321,387.5,320.8,389.1z" fill="#D1D1D1"/><path d="M314.8,371.1c-1.2-0.3-1.9-1-1.6-2.3C314.5,369.1,315.1,369.8,314.8,371.1z" fill="#D1D1D1"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.linkedin.com/in/soon-hyung-kwon-73a3221ab/'
+                        target="_blank"
+                        title="LinkedIn"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M1,53c2.5,0,1.7-2,1.9-3.3C5.9,29,16.6,13.9,36.6,7.4c16.1-5.2,32.9-4.6,47.9,4c9.4,5.5,16.6,14,20.4,24.5   c2.8,7.8,4.9,15.9,4,24.2c-2.1,20.9-11.5,38.3-34.5,46.4c-17.4,6-34.3,3.8-50.2-5.7c-1-3.6-3.5-5.4-7.1-6c0,0,0,0,0,0   c-0.1-1.4-0.3-2.8-2.2-2.8C7.7,84,4.3,74.3,2.9,63.8C2.7,62.6,3.2,60.9,1,61C1,58.3,1,55.7,1,53z" fill="#A7A7A7"/><path d="M276.2,216.1c4.3-2.6,6-6.4,8.2-9.5c10.9-15,24.4-26.6,41.2-34.9c23-11.3,47.4-12.5,72-10.2   c18.9,1.7,36.8,8.1,53.1,18.5c19.4,12.4,33.3,29.6,42.8,50.2c5.8,12.5,9.6,25.8,11.9,39.6c2.1,12.9,3.7,25.6,3.7,38.7   c-0.1,65-0.1,130,0.1,195c0,4.6-1.3,5.8-5.8,5.7c-30.7-0.2-61.3-0.2-92,0c-4.5,0-5.5-1.3-5.5-5.6c0.1-61.3,0.4-122.7-0.1-184   c-0.1-13.9-2-27.7-9.2-40.4c-6.4-11.2-15.3-19.2-27-23.8c-15.7-6.2-31.9-7.4-48.3-2.8c-16.6,4.6-28.1,15.5-36.3,30.3   c-4.6,8.3-6.2,17-7.5,26.3c-1.3,10-1.1,19.8-1.1,29.7c-0.2,54.7-0.2,109.3,0,164c0,5-1.2,6.4-6.3,6.3c-30.3-0.3-60.7-0.2-91,0   c-4.2,0-5.7-1.3-5.6-5.2c0.1-2.8,0.3-5.6,0.3-8.4c0-105.5,0.1-211-0.1-316.5c0-4.4,0.9-6,5.7-6c30.5,0.2,61,0.2,91.5,0   c4.1,0,5.5,1,5.4,5.3C276,190.6,276.2,202.9,276.2,216.1z" fill="#A7A7A7"/><path d="M109,176.1c0,3.5,0.1,7,0.1,10.5c0,105.3,0,210.6,0,316c0,6.4,0,6.4-6.5,6.4c-31.8,0-63.7,0-95.5,0   c-0.1-2.5-0.2-5-0.2-7.5c0-78.8,0-157.5,0-236.3c0-28.1,0.1-56.3-0.1-84.4c0-3.6,0.9-4.9,4.7-4.9C44,176.1,76.5,176,109,176.1z" fill="#A7A7A7"/><path d="M109,176.1c-32.5,0-64.9,0-97.4-0.2c-3.8,0-4.7,1.2-4.7,4.9C7,208.9,6.9,237,6.9,265.2   c0,78.8,0,157.5,0,236.3c0,2.5,0.1,5,0.2,7.5c-1.7,0.1-3-0.3-3-2.3c0-1.3,0-2.7,0-4c0-106.8,0-213.5,0-320.3c0-7.6,0.7-8.3,8.2-8.3   c30.5,0,61,0,91.4,0.1C105.5,174.1,108.2,172.7,109,176.1z" fill="#E0E0E0"/><path d="M17.1,94.9c3.6,0.6,6.1,2.4,7.1,6C21.1,99.7,18.8,97.7,17.1,94.9z" fill="#E0E0E0"/><path d="M14.9,92.1c1.9,0,2,1.4,2.2,2.8C15,95,15,93.6,14.9,92.1z" fill="#E0E0E0"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/about' >
+                
+                
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/machine_learning' >
+                
+                
+                
+                <span>Machine Learning</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/neural_network' >
+                
+                
+                
+                <span>Neural Network</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/mlops' >
+                
+                
+                
+                <span>MLOps</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/statistics' >
+                
+                
+                
+                <span>Statistics</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/computer_science' >
+                
+                
+                
+                <span>Computer Science</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/projects' >
+                
+                
+                
+                <span>Projects</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/daily' >
+                
+                
+                
+                <span>Daily</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#lecture-내용-요약">Lecture 내용 요약</a></li>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#fine-tuning">Fine-Tuning</a></li>
+    <li><a href="#transformers">Transformers</a></li>
+    <li><a href="#large-language-models">Large Language Models</a>
+      <ol>
+        <li><a href="#models">Models</a></li>
+        <li><a href="#vendors">Vendors</a></li>
+      </ol>
+    </li>
+    <li><a href="#prompt-engineering">Prompt Engineering</a></li>
+    <li><a href="#other-applications">Other Applications</a>
+      <ol>
+        <li><a href="#code">Code</a></li>
+        <li><a href="#semantic-search">Semantic Search</a></li>
+        <li><a href="#going-cross-modal">Going Cross-Modal</a></li>
+      </ol>
+    </li>
+    <li><a href="#clip-and-image-generation">CLIP and Image Generation</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/mlops/fsdl_7/">
+                
+                    <img src="/mlops/images/fsdl_7_title.png" loading="lazy" alt="Featured image of post Full Stack Deep Learning 2022 부트캠프 - Week 7" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/fsdl/" >
+                FSDL
+            </a>
+        
+            <a href="/categories/mlops/" >
+                MLOps
+            </a>
+        
+            <a href="/categories/%EB%B6%80%ED%8A%B8%EC%BA%A0%ED%94%84/" >
+                부트캠프
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/mlops/fsdl_7/">Full Stack Deep Learning 2022 부트캠프 - Week 7</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            Foundation Models
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Dec 07, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    8 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <ul>
+<li><a class="link" href="https://www.youtube.com/watch?v=Rm11UeGwGgk&amp;list=PL1T8fO7ArWleMMI8KPJ_5D5XSlovTW_Ur"  target="_blank" rel="noopener"
+    >YouTube</a>, <a class="link" href="https://fullstackdeeplearning.com/course/2022/lecture-7-foundation-models/"  target="_blank" rel="noopener"
+    >Lecture Notes</a>, <a class="link" href="https://drive.google.com/file/d/17ZAj6izyYhV-SXA_UKNWjYo0adbL2E8n/view"  target="_blank" rel="noopener"
+    >Slides</a></li>
+</ul>
+<h2 id="lecture-내용-요약">Lecture 내용 요약</h2>
+<ul>
+<li><a class="link" href="https://meme2515.github.io/mlops/fsdl/"  target="_blank" rel="noopener"
+    >FSDL 2022 Course Overview</a></li>
+<li><a class="link" href="http://meme2515.github.io/mlops/fsdl_1/"  target="_blank" rel="noopener"
+    >Lecture 1 - When to Use ML and Course Vision</a></li>
+<li><a class="link" href="http://meme2515.github.io/mlops/fsdl_2/"  target="_blank" rel="noopener"
+    >Lecture 2 - Development Infrastureture &amp; Tooling</a></li>
+<li><a class="link" href="http://meme2515.github.io/mlops/fsdl_3/"  target="_blank" rel="noopener"
+    >Lecture 3 - Troubleshooting &amp; Testing</a></li>
+<li><a class="link" href="http://meme2515.github.io/mlops/fsdl_4/"  target="_blank" rel="noopener"
+    >Lecture 4 - Data Management</a></li>
+<li><a class="link" href="http://meme2515.github.io/mlops/fsdl_5/"  target="_blank" rel="noopener"
+    >Lecture 5 - Deployment</a></li>
+<li><a class="link" href="http://meme2515.github.io/mlops/fsdl_6/"  target="_blank" rel="noopener"
+    >Lecture 6 - Continual Learning</a></li>
+<li><a class="link" href="http://meme2515.github.io/mlops/fsdl_7/"  target="_blank" rel="noopener"
+    >Lecture 7 - Foundation Models</a></li>
+<li><a class="link" href="http://meme2515.github.io/mlops/fsdl_8/"  target="_blank" rel="noopener"
+    >Lecture 8 - ML Teams and Project Management</a></li>
+<li><a class="link" href="http://meme2515.github.io/mlops/fsdl_9/"  target="_blank" rel="noopener"
+    >Lecture 9 - Ethics</a></li>
+</ul>
+<h2 id="overview">Overview</h2>
+<ul>
+<li>기초 모델 (foundation model) 이란 방대한 양의 데이터를 학습한 큰 규모의 모델을 뜻하며, 다양한 task 에 응용될 수 있다.</li>
+<li>본 주차에서는 Fine-Tuning, Transformers, LLM, Prompt Engineering, CLIP 등의 주제를 다룰 예정.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_7_1.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<h2 id="fine-tuning">Fine-Tuning</h2>
+<ul>
+<li>전통적인 ML 은 규모가 큰 모델에 방대한 양의 데이터를 학습하지만, 보유한 데이터가 제한적일 때에는 <strong>전이 학습</strong>을 통해 성능을 향상 시킬 수 있다.</li>
+<li>전이 학습 (transfer training) 의 기본적인 방법론은 pre-train 된 동일한 모델에 레이어를 덧붙인 후, 일부 가중치를 학습하는 것.</li>
+<li>비전 분야에서는 2014년 부터 적용되어왔던 방식이며, Model Zoo 상에서 사전 학습이 이루어진 AlexNet, ResNet 과 같은 모델을 쉽게 찾을 수 있다.</li>
+<li>NLP 분야의 경우, 사전 학습은 word embedding 영역에 한정되어왔다.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_7_2.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li><strong><a class="link" href="https://jalammar.github.io/illustrated-word2vec/"  target="_blank" rel="noopener"
+    >Word2Vec</a></strong> 은 2013년도 자주 함께 등장하는 단어 간 cosine similarity 를 최소화하는 모델을 학습 시켰다. 결과적으로 얻은 벡터를 활용해 연산 작업을 하는 등 다양한 적용 예시를 보임.</li>
+<li>단순한 단어의 의미 뿐 아니라 맥락에 대한 이해 또한 embedding 작업에 중요한 역할을 수행한다. 2018 년도 등장한 <strong>ELMO, ULMFit</strong> 등이 이에 속하며, 이들 모델은 사전 학습이 완료된 LSTM 모델을 공개했다.</li>
+<li>하지만 최근 Model Zoo 를 살피면 LSTM 모델은 자취를 감춘 모양새이다. 최근 더욱 활발히 연구되고 있는 모델 구조는 트랜스포머 이기 때문.</li>
+</ul>
+<h2 id="transformers">Transformers</h2>
+<ul>
+<li>트랜스포머는 2017년 유명한 논문 “Attention Is All You Need” 에서 처음 등장했으며, 기존 NLP 와는 확연히 다른 구조로 번역 등의 분야에서 독보적인 성능을 보였다.</li>
+<li>블로그 주인이 별도로 작성한 트랜스포머 소개글이 이미 있으니 대신 참고하면 좋을 듯 하다 - <a class="link" href="https://meme2515.github.io/neural_network/transformer/"  target="_blank" rel="noopener"
+    >Transformer 네트워크 개념 소개</a></li>
+</ul>
+<h2 id="large-language-models">Large Language Models</h2>
+<h3 id="models">Models</h3>
+<ul>
+<li>GPT 와 GPT-2 는 각각 2018 년과 2019 년에 공개되었다. 기존 트랜스포머 구조에서 Decoder 만을 활용해 구축된 모델이며, Masked Self-Attention 을 차용했다.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_7_3.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>이러한 모델들은 약 800 만 개의 웹페이지로 학습되었으며, 가장 큰 모델은 약 15억 개의 파라미터를 가지고 있다.</li>
+<li>GPT-2 가 학습된 방식은 웹 데이터를 기반으로 다음 단어를 예측하는 작업이다. 이러한 작업은 파라미터 수가 증가할 수록 더욱 자연스러워 진다는 특징을 가지고 있다.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_7_4.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>BERT 는 유사한 시점에 공개되었다. 트랜스포머 구조의 인코더만을 활용해 만들어졌으며, Attention Masking 을 적용하지 않았다.</li>
+<li>약 1억 천만 개의 파라미터를 가지고 있으며, 학습 과정에서 BERT 는 random 한 단어를 마스킹 처리한 후, 해당 단어가 어떤 단어인지 예측하는 task 를 수행한다.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_7_5.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li><strong><a class="link" href="https://ai.googleblog.com/2020/02/exploring-transfer-learning-with-t5.html"  target="_blank" rel="noopener"
+    >T5</a></strong> (Text-to-Text Transformer) 은 2020 년 공개된 모델이다. 인풋과 아웃풋 모두 텍스트이기 떄문에 모델이 어떤 작업을 수행해야 하는지 특정하는 것이 가능.</li>
+<li>T5 는 Encoder-Decoder 구조를 가지고 있고, 위키피디아 보다 약 100배 큰 C4 데이터를 기반으로 학습되었다.</li>
+<li><strong><a class="link" href="https://openai.com/blog/gpt-3-apps/"  target="_blank" rel="noopener"
+    >GPT-3</a></strong> 는 2020년에 공개된 모델이며 기존 GPT/GPT-2 보다 약 100배의 크기를 가지고 있다. 엄청난 규모로 인해 few-shot learning, zero-shot learning 등의 작업에 이전에 달성하지 못한 정확도를 기록했다.</li>
+<li>하단 그래프에서 보이듯, 데이터 수가 증가할수록 모델의 성능이 linear 하게 증가하는 것을 확인할 수 있다. 또한, 파라미터가 많을 수록 모델 성능이 증가한다.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_7_6.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>OpenAI 는 또한 2022 년 초 <strong><a class="link" href="https://openai.com/blog/instruction-following/"  target="_blank" rel="noopener"
+    >Instruct-GPT</a></strong> 를 공개했다. GPT-3 의 아웃풋에 대해 사람이 순위를 매기도록 하여, 파인튜닝을 진행하는 방식.</li>
+<li>Instruct-GPT 는 특정한 지시를 따르는데 개선된 성능을 보이며 (하기 이미지 참고), API 상 ‘text-davinci-002’ 라는 이름으로 공개되어 있는 상태이다.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_7_7.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>DeepMind 는 2021년 <strong><a class="link" href="https://arxiv.org/pdf/2112.04426.pdf"  target="_blank" rel="noopener"
+    >RETRO (Retrieval-Enhanced Transformers)</a></strong> 라는 모델을 공개했다. 단순히 파라미터에 정보를 담는 것이 아니라, 별도 데이터베이스에 이에 대한 정보를 저장하는 방식.</li>
+<li>BERT 를 활용해 여러 문장을 인코딩 후, 약 1조 개의 토큰을 가진 데이터베이스에 저장하게 된다. 예측 시 매칭되는 문장을 조회해 정보를 추출하게 되며, 항상 최신 정보를 조회할 수 있다는 장점을 가진다.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_7_8.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>DeepMind 는 또한 2022 년 <strong><a class="link" href="https://gpt3demo.com/apps/chinchilla-deepmind"  target="_blank" rel="noopener"
+    >Chinchilla</a></strong> 라는 모델을 공개했으며, 언어 모델의 크기와 성능에 대한 상관 관계를 관찰했다는 점에 의의가 있다.</li>
+<li>DeepMind 팀은 약 7천만 ~ 160억 개의 파라미터를 가진 <a class="link" href="https://arxiv.org/pdf/2203.15556.pdf"  target="_blank" rel="noopener"
+    >400 개의 언어 모델</a>을, 50억 에서 5000억 개 까지의 토큰을 활용해 학습했으며, 최적의 파라미터와 데이터 셋 사이즈를 유추하는 수식을 통해 대부분의 언어 모델이 undertrain 되었다는 결론을 내렸다 (더 큰 데이터 셋이 필요).</li>
+</ul>
+<p><img src="/mlops/images/fsdl_7_9.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>이를 증명하기 위해 DeepMind 팀은 약 2800 억 개의 파라미터를 가진 <strong><a class="link" href="https://gpt3demo.com/apps/deepmind-gopher"  target="_blank" rel="noopener"
+    >Gopher</a></strong> 라는 모델을 3000 개의 토큰으로 학습하였으며, Gopher 의 학습 결과를 Chinchilla (약 700 억 개의 파라미터, 1조 4천 개의) 의 것과 비교해 Chinchilla 의 성능이 더욱 우수하다는 점을 도출.</li>
+<li>즉 파라미터 수가 적더라도 데이터가 많다면 모델은 더 우수한 성능을 내는 것이 가능하다는 결론을 내렸다.</li>
+</ul>
+<h3 id="vendors">Vendors</h3>
+<ul>
+<li>OpenAI 는 다음과 같은 모델 사이즈 옵션을 제공 : Ada3 (3억 5천만 파라미터), Babbage (13억 파라미터), Curie (67억 파라미터), Davinci (1750억 파라미터). <a class="link" href="https://openai.com/api/pricing/"  target="_blank" rel="noopener"
+    >각 옵션은 서로 다른 가격 정책과 기능을 제공한다</a>.</li>
+<li>GPT-3 의 눈에 띄는 결과들은 대부분 Davinci 를 기반으로 하며, 추가 비용을 들인다면 모델의 fine-tuning 또한 진행할 수 있다.</li>
+<li>OpenAI 의 대안은 다음과 같다:
+<ul>
+<li><a class="link" href="https://cohere.ai/"  target="_blank" rel="noopener"
+    >Cohere AI</a> 는 유사한 모델을 유사한 가격으로 제공</li>
+<li><a class="link" href="https://www.ai21.com/"  target="_blank" rel="noopener"
+    >AI21</a> 는 보다 큰 규모의 모델을 제공</li>
+<li>오픈소스 언어 모델 또한 존재하며 대표적으로 Eleuther GPT-NeoX (200억 파라미터), Facebook OPT-175B (1750억 파라미터), BLOOM from BigScience (1760억 파라미터) 가 있다.</li>
+</ul>
+</li>
+</ul>
+<h2 id="prompt-engineering">Prompt Engineering</h2>
+<ul>
+<li>GPT-3 와 유사한 언어 모델들은 외계 기술에 가깝다 - 정확히 어떻게 작동되는지가 명확하지 않으며, 이에 대한 인사이트를 위해서는 모델과 상호작용을 해보는 수 밖에는 없다.</li>
+<li>tokenization 으로 인해 GPT-3 는 단어의 순서를 뒤집는 작업, 길이가 긴 문장을 다루는 작업 등에 다소 아쉬운 성능을 보인다.</li>
+<li>GPT-3 가 잘 수행하지 못하는 다른 예시는 캐릭터를 조합하는 작업인데, 이를 수행하기 위해서는 GPT-3 에게 <a class="link" href="https://twitter.com/npew/status/1525900849888866307"  target="_blank" rel="noopener"
+    >단계적 수행을 위한 알고리즘</a>을 학습시켜야 한다.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_7_10.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>또 다른 prompt engineering 의 예시는 “Let’s Think Step by Step”. <strong><a class="link" href="https://arxiv.org/pdf/2205.11916.pdf"  target="_blank" rel="noopener"
+    >Large Language Models are Zero-Shot Reasoners</a></strong> 라는 논문에서 처음 등장했으며, GPT-3 모델에 “Let’s Think Step by Step” 이라는 내용을 추가하는 것 만으로 수학 문제에 대한 정답율을 17% 에서 78% 로 향상하는 것을 관찰한 내용을 담고있다.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_7_11.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>GPT 는 또한 긴 문맥을 파악하는 작업을 잘 수행할 수 있으며, csv 파일을 생성하거나 Python 코드 등을 작성하는 <a class="link" href="https://twitter.com/goodside/status/1557381916109701120"  target="_blank" rel="noopener"
+    >예시</a>를 쉽게 찾을 수 있다.</li>
+<li>GPT 는 문맥에 따라 원하는 작업을 수행하지 않을 수 있기 때문에 주의가 필요하다. GPT-3 를 기반으로 제작된 어플리케이션에서 또한 발생하는 문제이니 사전 조치가 필요할 수 있는 영역 (<strong><a class="link" href="https://simonwillison.net/2022/Sep/12/prompt-injection/"  target="_blank" rel="noopener"
+    >prompt injection attacks</a>, <a class="link" href="https://twitter.com/goodside/status/1564112369806151680"  target="_blank" rel="noopener"
+    >possess your AI</a></strong>).</li>
+</ul>
+<p><img src="/mlops/images/fsdl_7_12.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>PromptSource, OpenPrompt 등의 prompt engineering 툴이 존재하지만, 실제 배포 모델 개발을 위해서는 커뮤니티 내 더욱 개선된 툴셋이 필요한 상황.</li>
+</ul>
+<h2 id="other-applications">Other Applications</h2>
+<h3 id="code">Code</h3>
+<p><img src="/mlops/images/fsdl_7_13.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>대규모 모델의 주요 활용 예시 중 하나는 <strong>코드 생성</strong> 영역. DeepMind 팀은 약 400 억 개의 파라미터를 가진 트랜스포머 모델 <strong><a class="link" href="https://www.deepmind.com/blog/competitive-programming-with-alphacode"  target="_blank" rel="noopener"
+    >Alphacode</a></strong> 를 통해 Codeforce 대회에서 평균 이상의 성적을 기록한 적이 있으며, 이를 위해 코드를 생성하는 모델과 생성된 코드를 검증하는 모델을 개발.</li>
+<li>모델의 아웃풋을 필터링 하는 작업을 실제 성능 향상에 상당한 도움을 줄 수 있다. OpenAI 또한 수학 문제를 풀기 위해 유사한 프로세스를 적용한 적이 있으니 <a class="link" href="https://openai.com/blog/grade-school-math/"  target="_blank" rel="noopener"
+    >관련 자료</a>를 참고하면 좋을 것.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_7_14.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>코드 생성 모델은 <strong><a class="link" href="https://github.blog/2022-06-21-github-copilot-is-generally-available-to-all-developers/"  target="_blank" rel="noopener"
+    >Github Copilot</a></strong> 과 같은 실제 제품으로도 개발 되었으며, 유사한 제품으로는 <a class="link" href="https://blog.replit.com/ai"  target="_blank" rel="noopener"
+    >replit</a> 이 존재한다.</li>
+<li>프로그래밍 환경에 ML 모델을 적용하는 것은 이제 시작 단계에 있는 상태이며, <strong><a class="link" href="https://arxiv.org/pdf/2207.14502.pdf"  target="_blank" rel="noopener"
+    >A recent paper</a></strong> 에서는 자체적으로 생성한 문제를 기반으로 코딩 능력을 향상시키는 모델 또한 공개한 바가 있다.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_7_15.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<h3 id="semantic-search">Semantic Search</h3>
+<ul>
+<li><strong>Semantic Search (의미 기반 검색)</strong> 는 또 다른 유망한 적용 영역이다. 하나의 문서를 기반으로 생성한 embedding vector 를 활용해 유사성을 탐색하는 기능인데, cosine similarity 를 기반으로 해당 vector 간 의미가 얼마나 유사한지를 명확하게 판별할 수 있다.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_7_16.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>정보가 많은, float type 의 벡터 연산에는 많은 자원이 필요한데, Google 과 Facebook 같은 회사는 이러한 문제를 해결하기 위해 <a class="link" href="https://towardsdatascience.com/using-faiss-to-search-in-multidimensional-spaces-ccc80fcbf949"  target="_blank" rel="noopener"
+    >FAISS</a>, <a class="link" href="https://cloud.google.com/blog/topics/developers-practitioners/find-anything-blazingly-fast-googles-vector-search-technology"  target="_blank" rel="noopener"
+    >ScaNN</a> 과 같은 라이브러리를 개발.</li>
+<li>오픈소스로는 <a class="link" href="https://www.deepset.ai/haystack"  target="_blank" rel="noopener"
+    >Haystack from DeepSet</a>, <a class="link" href="http://Jina.AI"  target="_blank" rel="noopener"
+    >Jina.AI</a> 등을 참고할 것. Pinecone, Weaviate, Milvus, Qdrant, Qdrant, Google Vector AI Matching Engine 또한 관련 서비스를 제공한다.</li>
+</ul>
+<h3 id="going-cross-modal">Going Cross-Modal</h3>
+<ul>
+<li>새로운 모델들은 비전, 텍스트 간 서로 다른 형태의 데이터를 취합하는 기능을 제공한다. 예시로 <strong><a class="link" href="https://storage.googleapis.com/deepmind-media/DeepMind.com/Blog/tackling-multiple-tasks-with-a-single-visual-language-model/flamingo.pdf"  target="_blank" rel="noopener"
+    >Flamingo model</a></strong> 을 들 수 있는데, perceiver resampler 라는 구조를 활용해 이미지를 규격화된 토큰으로 전환할 수 있다.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_7_17.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>최근 공개된 <strong><a class="link" href="https://socraticmodels.github.io/"  target="_blank" rel="noopener"
+    >Socratic Model</a></strong> 은 각자 별도의 학습 과정을 거친 비전, 언어, 오디오 모델이 하나의 인터페이스로 통합되어, 자연어 prompt 를 통해 새로운 task 를 수행하는 구조를 가지고 있다.</li>
+<li>Foundation 모델이란 Stanford 에서 공개한 <strong><a class="link" href="https://arxiv.org/abs/2108.07258"  target="_blank" rel="noopener"
+    >On the Opportunities and Risks of Foundation Models</a></strong> 에서 처음 알려진 개념이다. 강사진은 Large Language Model, 또는 Large Neural Network 가 더욱 적합한 단어라고 생각.</li>
+</ul>
+<h2 id="clip-and-image-generation">CLIP and Image Generation</h2>
+<ul>
+<li>해당 섹션에서는 비전 분야를 주제로 다룸.</li>
+<li>2021 년 OpenAI 은 <strong><a class="link" href="https://arxiv.org/abs/2103.00020"  target="_blank" rel="noopener"
+    >CLIP (Contrastive Language-Image Pre-Training)</a></strong> 을 공개했다. 트랜스포머를 활용해 인코딩 된 텍스트, ResNet 과 Visual Transformer 를 활용해 인코딩 된 이미지를 기반으로 대조 학습 (cosine similarity 기반 이미지, 텍스트 페어 매칭) 을 진행하는 구조.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_7_18.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>OpenAI 팀은 이러한 간단한 구조를 활용해 학습되지 않은 경우에 대해서도 이미지와 텍스트 임베딩을 매칭할 수 있는 모델을 구축한다.</li>
+<li>새로운 데이터를 예측하는 방법은 크게 linear probe (로지스틱 회귀), zero-shot learning 으로 나뉘어지며, 주로 zero-shot learning 방법론이 더 나은 성능을 보임.</li>
+<li>모델의 주요한 점은 이미지와 텍스트가 직접 연계되는 것이 아니라, 임베딩 공간에서 매칭 된다는 점. 다른 포맷의 데이터를 페어링 할 때 유용하게 쓰이는 테크닉이다.</li>
+<li>예시적으로 image-to-text 과제의 경우, CLIP 모델을 활용해 추출된 이미지 임베딩을 기반으로 GPT 모델이 텍스트를 생성하는 방식.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_7_19.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>이미지 생성 영역에서 가장 널리 알려진 모델은 <strong><a class="link" href="https://cdn.openai.com/papers/dall-e-2.pdf"  target="_blank" rel="noopener"
+    >DALL-E (unCLIP)</a></strong> 이다.</li>
+<li>구조적으로 기존 CLIP 시스템 대비 (1) 텍스트 임베딩을 이미지 임베딩과 맵핑하는 Prior 영역 (2) 이미지 임베딩을 실제 이미지로 전환하는 Decoder 영역을 추가적으로 가지고 있다.</li>
+<li>Prior 영역은 수많은 텍스트 임베딩이 모두 한개의 이미지에 적합할 수 있다는 문제를 해결한다.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_7_20.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>DALL-E 2 의 경우 이러한 Prior 구조로 <strong><a class="link" href="https://towardsdatascience.com/diffusion-models-made-easy-8414298ce4da"  target="_blank" rel="noopener"
+    >Diffusion Model</a></strong> 을 차용. Diffusion Model 이란 Noisy 한 데이터에 단계적으로 학습함으로서 효과적인 Data Denoising 을 가능하게 한다.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_7_21.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>Diffusion 시스템은 인코딩된 텍스트, CLIP 텍스트 임베딩, Diffusion Timestamp, Noised CLIP Embedding 에 순차적으로 Denoising 을 적용, 노이즈가 제거된 CLIP 이미지 예측을 가능하게 한다.</li>
+<li>이러한 방법을 통해 실제 텍스트와 모델, CLIP 이미지 임베딩 공간 간 간극을 좁히는 효과를 가짐.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_7_22.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>Decoder 는 Prior 의 아웃풋인 이미지 임베딩을 실제 이미지로 변환하는 역할을 수행한다. U-Net 구조를 차용해 인풋 이미지 임베딩에서 점차 노이즈를 제거하는 방식.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_7_23.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>결과적으로 CLIP 임베딩만을 활용해 이미지를 생성하거나, 복수의 CLIP 임베딩을 활용해 이미지를 합치는 것 또한 가능하다.</li>
+</ul>
+<p><img src="/mlops/images/fsdl_7_24.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>유사한 모델로는 Parti 와 StableDiffusion 이 있다.
+<ul>
+<li><strong><a class="link" href="https://parti.research.google/"  target="_blank" rel="noopener"
+    >Parti</a></strong> : DALL-E 2 공개 이후 구글이 공개한 모델이며, Diffusion 모델이 아닌 VQGAN 구조를 활용, 이미지를 고차원의 토큰으로 변환하는 과정을 거친다.</li>
+<li><strong><a class="link" href="https://stability.ai/blog/stable-diffusion-public-release"  target="_blank" rel="noopener"
+    >StableDiffusion</a></strong> : 비교적 최근 <a class="link" href="https://github.com/CompVis/latent-diffusion"  target="_blank" rel="noopener"
+    >공개</a>된 모델이며, latent diffusion 모델을 활용해 이미지를 저차원의 latent 공간으로 치환 후, 이미지를 픽셀 공간에 재생성하는 구조를 가진다.</li>
+</ul>
+</li>
+</ul>
+<p><img src="/mlops/images/fsdl_7_25.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></p>
+<ul>
+<li>image-to-image, video generation, photoshop plugin 등 다양한 분야에서 활용.</li>
+<li>이러한 모델을 구동하는 것은 꽤 많은 작업을 필요로 할 수 있으며, 툴셋이나 코드베이스로 바뀔 가능성 또한 있다.</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/fsdl/">FSDL</a>
+        
+            <a href="/tags/full-stack-deep-learning/">Full Stack Deep Learning</a>
+        
+            <a href="/tags/mlops/">MLOps</a>
+        
+            <a href="/tags/%EB%B6%80%ED%8A%B8%EC%BA%A0%ED%94%84/">부트캠프</a>
+        
+            <a href="/tags/fsdl-2022/">fsdl 2022</a>
+        
+            <a href="/tags/fsdl-2022-%ED%9B%84%EA%B8%B0/">fsdl 2022 후기</a>
+        
+            <a href="/tags/fsdl-%ED%9B%84%EA%B8%B0/">fsdl 후기</a>
+        
+            <a href="/tags/full-stack-deep-learning-2022/">full stack deep learning 2022</a>
+        
+            <a href="/tags/%ED%92%80%EC%8A%A4%ED%83%9D%EB%94%A5%EB%9F%AC%EB%8B%9D/">풀스택딥러닝</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/mlops/fsdl_8/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/mlops/images/fsdl_8_title.png" loading="lazy" data-key="fsdl_8" data-hash="/mlops/images/fsdl_8_title.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Full Stack Deep Learning 2022 부트캠프 - Week 8</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/mlops/fsdl_5/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/mlops/images/fsdl_5_9.png" loading="lazy" data-key="fsdl_5" data-hash="/mlops/images/fsdl_5_9.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Full Stack Deep Learning 2022 부트캠프 - Week 5</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/mlops/fsdl_4/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/mlops/images/fsdl_4_3.png" loading="lazy" data-key="fsdl_4" data-hash="/mlops/images/fsdl_4_3.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Full Stack Deep Learning 2022 부트캠프 - Week 4</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/mlops/fsdl_3/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/mlops/images/fsdl_3_title.png" loading="lazy" data-key="fsdl_3" data-hash="/mlops/images/fsdl_3_title.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Full Stack Deep Learning 2022 부트캠프 - Week 3</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/mlops/fsdl_2/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/mlops/images/fsdl_2_7.png" loading="lazy" data-key="fsdl_2" data-hash="/mlops/images/fsdl_2_7.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Full Stack Deep Learning 2022 부트캠프 - Week 2</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "meme2515" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 Soon Hyung Kwon
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
