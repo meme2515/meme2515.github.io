@@ -2,14 +2,47 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://meme2515.github.io/neural_network/roberta/</loc>
+    <lastmod>2023-02-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/bert/</loc>
+    <lastmod>2023-02-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/categories/bert/</loc>
+    <lastmod>2023-02-13T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://meme2515.github.io/categories/</loc>
-    <lastmod>2023-02-12T00:00:00+00:00</lastmod>
+    <lastmod>2023-02-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/neural_network/</loc>
-    <lastmod>2023-02-12T00:00:00+00:00</lastmod>
+    <lastmod>2023-02-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/roberta/</loc>
+    <lastmod>2023-02-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/categories/roberta/</loc>
+    <lastmod>2023-02-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/</loc>
-    <lastmod>2023-02-12T00:00:00+00:00</lastmod>
+    <lastmod>2023-02-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/</loc>
+    <lastmod>2023-02-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/%EB%85%BC%EB%AC%B8%EB%A6%AC%EB%B7%B0/</loc>
+    <lastmod>2023-02-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/%EB%89%B4%EB%9F%B4%EB%84%B7/</loc>
+    <lastmod>2023-02-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/categories/%EB%89%B4%EB%9F%B4%EB%84%B7/</loc>
+    <lastmod>2023-02-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/%EB%A1%9C%EB%B2%84%ED%83%80/</loc>
+    <lastmod>2023-02-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/%EB%B2%84%ED%8A%B8/</loc>
+    <lastmod>2023-02-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/tags/t5/</loc>
     <lastmod>2023-02-12T00:00:00+00:00</lastmod>
@@ -18,18 +51,6 @@
     <lastmod>2023-02-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/neural_network/t5/</loc>
-    <lastmod>2023-02-12T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/tags/</loc>
-    <lastmod>2023-02-12T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/tags/%EB%85%BC%EB%AC%B8%EB%A6%AC%EB%B7%B0/</loc>
-    <lastmod>2023-02-12T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/tags/%EB%89%B4%EB%9F%B4%EB%84%B7/</loc>
-    <lastmod>2023-02-12T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/categories/%EB%89%B4%EB%9F%B4%EB%84%B7/</loc>
     <lastmod>2023-02-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/categories/machine-learning/</loc>

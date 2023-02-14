@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Abstract 언어 모델 간의 직접적인 비교는 (1) 연산 자원 (2) 서로 다른 데이터 (3) 하이퍼파라미터 민감도 문제로 많은 어려움이 있다. 본 논문에서는 BERT 논문의 선행 학습 과정을 재현하며, 특히 하이퍼파라미터와 데이터 규모에 따른 성능 차이를 탐구. 처음 공개된 버전의 BERT 는 매우 undertrain 되어 있었으며, 적합한 학습 과정을 통해 이후 등장한 모든 언어 모델을 상회하는 성능을 기록 (GLUE, RACE, SQuAD). Introduction 자기지도 학습 방법인 ELMo, GPT, BERT, XLM, XLNet 등은 많은 성능 발전을 이루어냈지만, 이러한 모델들의 어떠한 요소가 성능에 직접적인 영향을 끼쳤는지 판별하기 어려운 측면이 존재.'>
+<title>(논문 리뷰) RoBERTa: A Robustly Optimized BERT Pretraining Approach</title>
+
+<link rel='canonical' href='https://meme2515.github.io/neural_network/roberta/'>
+
+<link rel="stylesheet" href="/scss/style.min.8191399262444ab68b72a18c97392f5349be20a1615d77445be51e974c144cff.css"><meta property='og:title' content='(논문 리뷰) RoBERTa: A Robustly Optimized BERT Pretraining Approach'>
+<meta property='og:description' content='Abstract 언어 모델 간의 직접적인 비교는 (1) 연산 자원 (2) 서로 다른 데이터 (3) 하이퍼파라미터 민감도 문제로 많은 어려움이 있다. 본 논문에서는 BERT 논문의 선행 학습 과정을 재현하며, 특히 하이퍼파라미터와 데이터 규모에 따른 성능 차이를 탐구. 처음 공개된 버전의 BERT 는 매우 undertrain 되어 있었으며, 적합한 학습 과정을 통해 이후 등장한 모든 언어 모델을 상회하는 성능을 기록 (GLUE, RACE, SQuAD). Introduction 자기지도 학습 방법인 ELMo, GPT, BERT, XLM, XLNet 등은 많은 성능 발전을 이루어냈지만, 이러한 모델들의 어떠한 요소가 성능에 직접적인 영향을 끼쳤는지 판별하기 어려운 측면이 존재.'>
+<meta property='og:url' content='https://meme2515.github.io/neural_network/roberta/'>
+<meta property='og:site_name' content='Soon&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Neural_network' /><meta property='article:tag' content='RoBERTa' /><meta property='article:tag' content='로버타' /><meta property='article:tag' content='버트' /><meta property='article:tag' content='BERT' /><meta property='article:tag' content='뉴럴넷' /><meta property='article:tag' content='논문리뷰' /><meta property='article:published_time' content='2023-02-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-02-13T00:00:00&#43;00:00'/><meta property='og:image' content='https://meme2515.github.io/neural_network/images/roberta_1.gif' />
+<meta name="twitter:title" content="(논문 리뷰) RoBERTa: A Robustly Optimized BERT Pretraining Approach">
+<meta name="twitter:description" content="Abstract 언어 모델 간의 직접적인 비교는 (1) 연산 자원 (2) 서로 다른 데이터 (3) 하이퍼파라미터 민감도 문제로 많은 어려움이 있다. 본 논문에서는 BERT 논문의 선행 학습 과정을 재현하며, 특히 하이퍼파라미터와 데이터 규모에 따른 성능 차이를 탐구. 처음 공개된 버전의 BERT 는 매우 undertrain 되어 있었으며, 적합한 학습 과정을 통해 이후 등장한 모든 언어 모델을 상회하는 성능을 기록 (GLUE, RACE, SQuAD). Introduction 자기지도 학습 방법인 ELMo, GPT, BERT, XLM, XLNet 등은 많은 성능 발전을 이루어냈지만, 이러한 모델들의 어떠한 요소가 성능에 직접적인 영향을 끼쳤는지 판별하기 어려운 측면이 존재."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://meme2515.github.io/neural_network/images/roberta_1.gif' />
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-135204357-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/dalle_hue8ec4a583e6bdc009645942c9f1a7733_1562101_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Soon&#39;s Blog</a></h1>
+            <h2 class="site-description">데이터 블로그입니다 :)</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/meme2515'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M200,513c0-20.3,0-40.7,0-61c3.1,0.6,1.9,3.1,1.9,4.8c0.1,16.3,0.2,32.6,0,48.9c-0.1,4.1,1,5.4,5.2,5.4   c36.6-0.2,73.2-0.2,109.8,0c4.4,0,5.1-1.6,5.1-5.5c-0.2-25-0.1-49.9-0.1-74.9c0-9.3,0.2-18.6,0.2-27.9c2.8,1.2,1.6,3.8,1.6,5.7   c0.1,34.8,0.1,69.6,0.1,104.4C282.7,513,241.3,513,200,513z" fill="#D1D1D1"/><path d="M322.2,402.8c-0.1,9.3-0.2,18.6-0.2,27.9c0,25-0.1,49.9,0.1,74.9c0,3.9-0.7,5.5-5.1,5.5   c-36.6-0.2-73.2-0.2-109.8,0c-4.2,0-5.3-1.3-5.2-5.4c0.2-16.3,0.1-32.6,0-48.9c0-1.7,1.2-4.2-1.9-4.8c-9.7,0.9-19.3,3.2-29.2,2.8   c-33.5-1.3-59.5-15.4-74.7-45.8c-8.2-16.4-17.8-31.7-29.1-46c-3.1-3.9-7.9-5.5-11.5-8.7c-1.1-1-2.4-1.8-3.3-3   c-2.3-3.3-1.2-5.8,2.8-6.2c18.5-1.9,33.8,4.2,46.2,18.1c6.3,7.1,10.2,15.8,16.3,23.1c12.3,14.7,28,22.7,47,24.9   c11.5,1.3,22.4-0.9,33.3-4.2c2.2-0.6,3.1-2,3.3-4.3c0.7-10.3,2.8-20.3,6.8-29.9c1.8-4.3,4.7-7.9,6.9-12.3   c-10.3-2.6-20.7-3.4-30.5-6.4c-27.1-8.2-50.9-21.6-68.2-44.7c-8.3-11-14.1-23.3-17.4-36.5c-1.8-7.2-3.9-14.4-3.8-22   c0.1-13.3-0.5-26.7,0.3-40c0.9-16.8,3.1-33.5,9.2-49.2c3.8-9.7,9.3-18.6,17.1-25.9c2.4-2.3,3.3-4.1,1.8-7.9   c-7.4-19.7-8.1-39.8-1.8-60c0.2-0.6,0.3-1.3,0.4-2c2.2-10.3,4.5-11.3,14.3-7.4c19.2,7.5,33.3,21,45.3,37.3c3.4,4.6,2.7,6.6,10,1.9   c9.7-6.2,21-8.1,32.2-9.3c20.1-2.1,40.3-1.5,60.4-1.1c14.3,0.3,28.5,2.2,42,7.2c3.1,1.1,6,2.8,8.7,4.8c2.1,1.6,3.6,1.6,5.6-1.1   c9.1-12.8,19.5-24.4,33-32.6c6.6-4,13.4-7.7,21.4-8.6c3.3-0.4,4.7,0.7,5.6,3.3c8.3,22.9,9.5,45.7-0.2,68.5   c-1.2,2.8-0.8,4.6,1.3,6.5c16,15,21.8,34.5,24.8,55.5c2.5,17.7,3.2,35.5,2.7,53.3c-0.8,31.2-11.4,58.4-34.4,80.1   c-13.5,12.7-29.7,21.1-47.1,27.5c-12.4,4.6-25.5,5.8-38.5,9c1.3,3.1,3.7,5.4,4.3,8.5c-0.3,1.3,0.4,2,1.6,2.3   c0.1,0.6,0.3,1.1,0.4,1.7c0.3,2.1,0.1,4.3,2.5,5.4c0.5,2.2,1,4.5,1.4,6.7c-0.1,1.7-0.7,3.5,1.6,4.3c0,0.6,0.1,1.2,0.1,1.9   c-1.5,2.3-0.1,4.1,1.1,6C322.1,398.9,322.2,400.9,322.2,402.8z" fill="#A7A7A7"/><path d="M322,397c-1.1-1.9-2.6-3.7-1.1-6C322.1,392.9,323,394.8,322,397z" fill="#D1D1D1"/><path d="M317.7,378.2c-2.4-1.1-2.2-3.3-2.5-5.4C317.4,374,317.7,376,317.7,378.2z" fill="#D1D1D1"/><path d="M320.8,389.1c-2.3-0.8-1.7-2.6-1.6-4.3C321.5,385.6,321,387.5,320.8,389.1z" fill="#D1D1D1"/><path d="M314.8,371.1c-1.2-0.3-1.9-1-1.6-2.3C314.5,369.1,315.1,369.8,314.8,371.1z" fill="#D1D1D1"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.linkedin.com/in/soon-hyung-kwon-73a3221ab/'
+                        target="_blank"
+                        title="LinkedIn"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M1,53c2.5,0,1.7-2,1.9-3.3C5.9,29,16.6,13.9,36.6,7.4c16.1-5.2,32.9-4.6,47.9,4c9.4,5.5,16.6,14,20.4,24.5   c2.8,7.8,4.9,15.9,4,24.2c-2.1,20.9-11.5,38.3-34.5,46.4c-17.4,6-34.3,3.8-50.2-5.7c-1-3.6-3.5-5.4-7.1-6c0,0,0,0,0,0   c-0.1-1.4-0.3-2.8-2.2-2.8C7.7,84,4.3,74.3,2.9,63.8C2.7,62.6,3.2,60.9,1,61C1,58.3,1,55.7,1,53z" fill="#A7A7A7"/><path d="M276.2,216.1c4.3-2.6,6-6.4,8.2-9.5c10.9-15,24.4-26.6,41.2-34.9c23-11.3,47.4-12.5,72-10.2   c18.9,1.7,36.8,8.1,53.1,18.5c19.4,12.4,33.3,29.6,42.8,50.2c5.8,12.5,9.6,25.8,11.9,39.6c2.1,12.9,3.7,25.6,3.7,38.7   c-0.1,65-0.1,130,0.1,195c0,4.6-1.3,5.8-5.8,5.7c-30.7-0.2-61.3-0.2-92,0c-4.5,0-5.5-1.3-5.5-5.6c0.1-61.3,0.4-122.7-0.1-184   c-0.1-13.9-2-27.7-9.2-40.4c-6.4-11.2-15.3-19.2-27-23.8c-15.7-6.2-31.9-7.4-48.3-2.8c-16.6,4.6-28.1,15.5-36.3,30.3   c-4.6,8.3-6.2,17-7.5,26.3c-1.3,10-1.1,19.8-1.1,29.7c-0.2,54.7-0.2,109.3,0,164c0,5-1.2,6.4-6.3,6.3c-30.3-0.3-60.7-0.2-91,0   c-4.2,0-5.7-1.3-5.6-5.2c0.1-2.8,0.3-5.6,0.3-8.4c0-105.5,0.1-211-0.1-316.5c0-4.4,0.9-6,5.7-6c30.5,0.2,61,0.2,91.5,0   c4.1,0,5.5,1,5.4,5.3C276,190.6,276.2,202.9,276.2,216.1z" fill="#A7A7A7"/><path d="M109,176.1c0,3.5,0.1,7,0.1,10.5c0,105.3,0,210.6,0,316c0,6.4,0,6.4-6.5,6.4c-31.8,0-63.7,0-95.5,0   c-0.1-2.5-0.2-5-0.2-7.5c0-78.8,0-157.5,0-236.3c0-28.1,0.1-56.3-0.1-84.4c0-3.6,0.9-4.9,4.7-4.9C44,176.1,76.5,176,109,176.1z" fill="#A7A7A7"/><path d="M109,176.1c-32.5,0-64.9,0-97.4-0.2c-3.8,0-4.7,1.2-4.7,4.9C7,208.9,6.9,237,6.9,265.2   c0,78.8,0,157.5,0,236.3c0,2.5,0.1,5,0.2,7.5c-1.7,0.1-3-0.3-3-2.3c0-1.3,0-2.7,0-4c0-106.8,0-213.5,0-320.3c0-7.6,0.7-8.3,8.2-8.3   c30.5,0,61,0,91.4,0.1C105.5,174.1,108.2,172.7,109,176.1z" fill="#E0E0E0"/><path d="M17.1,94.9c3.6,0.6,6.1,2.4,7.1,6C21.1,99.7,18.8,97.7,17.1,94.9z" fill="#E0E0E0"/><path d="M14.9,92.1c1.9,0,2,1.4,2.2,2.8C15,95,15,93.6,14.9,92.1z" fill="#E0E0E0"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/about' >
+                
+                
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/machine_learning' >
+                
+                
+                
+                <span>Machine Learning</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/neural_network' >
+                
+                
+                
+                <span>Neural Network</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/mlops' >
+                
+                
+                
+                <span>MLOps</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/statistics' >
+                
+                
+                
+                <span>Statistics</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/computer_science' >
+                
+                
+                
+                <span>Computer Science</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/projects' >
+                
+                
+                
+                <span>Projects</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/daily' >
+                
+                
+                
+                <span>Daily</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#abstract">Abstract</a></li>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#experimental-setup">Experimental Setup</a></li>
+    <li><a href="#training-procedure-analysis">Training Procedure Analysis</a>
+      <ol>
+        <li><a href="#static-vs-dynamic-masking">Static vs. Dynamic Masking</a></li>
+        <li><a href="#model-input-format-and-next-sentence-prediction">Model Input Format and Next Sentence Prediction</a></li>
+        <li><a href="#training-with-large-batches">Training with Large Batches</a></li>
+        <li><a href="#text-encoding">Text Encoding</a></li>
+      </ol>
+    </li>
+    <li><a href="#roberta">RoBERTa</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/neural_network/roberta/">
+                
+                    <img src="/neural_network/images/roberta_1.gif" loading="lazy" alt="Featured image of post (논문 리뷰) RoBERTa: A Robustly Optimized BERT Pretraining Approach" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/roberta/" >
+                RoBERTa
+            </a>
+        
+            <a href="/categories/bert/" >
+                BERT
+            </a>
+        
+            <a href="/categories/%EB%89%B4%EB%9F%B4%EB%84%B7/" >
+                뉴럴넷
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/neural_network/roberta/">(논문 리뷰) RoBERTa: A Robustly Optimized BERT Pretraining Approach</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Feb 13, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    6 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="abstract">Abstract</h2>
+<ul>
+<li>언어 모델 간의 직접적인 비교는 (1) 연산 자원 (2) 서로 다른 데이터 (3) 하이퍼파라미터 민감도 문제로 많은 어려움이 있다.</li>
+<li>본 논문에서는 BERT 논문의 선행 학습 과정을 재현하며, 특히 하이퍼파라미터와 데이터 규모에 따른 성능 차이를 탐구.</li>
+<li>처음 공개된 버전의 BERT 는 매우 undertrain 되어 있었으며, 적합한 학습 과정을 통해 이후 등장한 모든 언어 모델을 상회하는 성능을 기록 (GLUE, RACE, SQuAD).</li>
+</ul>
+<h2 id="introduction">Introduction</h2>
+<ul>
+<li>자기지도 학습 방법인 <strong>ELMo, GPT, BERT, XLM, XLNet</strong> 등은 많은 성능 발전을 이루어냈지만, 이러한 모델들의 어떠한 요소가 성능에 직접적인 영향을 끼쳤는지 판별하기 어려운 측면이 존재.</li>
+<li>상기된 문제들로 인해 이러한 모델 간 직접적인 비교는 난이도가 높은 편.</li>
+<li>본 논문에서는 하이퍼파리미터와 데이터 규모에 의한 BERT 성능의 변화를 면밀히 관찰하여 개선된 학습 방법을 제시. 구체적인 방법은 다음과 같다.
+<ul>
+<li><em>더 많은 데이터로, 더 큰 배치를 구성하여, 더 긴 기간 동안 학습을 진행</em></li>
+<li><em>NSP (Next Sentence Prediction) 과제 제거</em></li>
+<li><em>학습 시 더욱 긴 문장 활용</em></li>
+<li><em>정적인 (static) 마스킹 패턴을 동적으로 (dynamic) 변경</em></li>
+</ul>
+</li>
+<li>연구진은 또한 <strong>CC-News</strong> 라는 새로운 데이터셋을 활용해 여타 모델의 데이터셋과 유사한 규모를 구축함.</li>
+</ul>
+<h2 id="experimental-setup">Experimental Setup</h2>
+<ul>
+<li>기존 BERT 와 동일한 하이퍼파라미터 세팅을 가져가나, peak lr 과 warmup steps 는 별도 튜닝을 거침. Adam Optimizer 의 epsilon, beta 2 값 또한 일부 변경하였다.</li>
+<li>특히 학습 성능은 Adam epsilon 값에 크게 민감하게 반응.</li>
+<li>기존 방식과 다르게 학습 과정에서 최대 sequence length 를 변경시키지 않았으며, 512 로 고정.</li>
+<li><strong>BookCorpus + Wikipedia 데이터셋 (약 16 GB) 에 CC-News (76 GB), OpenWebText (38 GB), Stories (31 GB) 등의 데이터셋을 추가하였다.</strong></li>
+</ul>
+<h2 id="training-procedure-analysis">Training Procedure Analysis</h2>
+<ul>
+<li>고정된 BERT 모델을 기반으로, 연구진은 다음과 같은 실험을 진행.</li>
+</ul>
+<h3 id="static-vs-dynamic-masking">Static vs. Dynamic Masking</h3>
+<ul>
+<li>BERT 는 최초 데이터 전처리 과정에서 마스킹 위치를 선정한 후, 적용된 마스크를 학습 과정에서 정적으로 활용한다.</li>
+<li>기존 방식에서는 epoch 간 동일한 마스크 활용을 방지하기 위해, 각 문장에 대한 마스킹을 10 번씩 개별적으로 진행. 40 epoch 간 학습을 진행했기 때문에 모델이 완벽히 동일한 마스킹에 노출된 횟수는 총 4회 이다.</li>
+<li>연구진은 이러한 방식을 sequence 가 모델에 학습될 때마다 마스킹을 진행하는 동적 방식과 비교하였으며, 이는 데이터셋이 커질수록 성능을 결정하는 핵심 요소가 될 수 있다.</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Masking</th>
+<th>SQuAD 2.0</th>
+<th>MNLI-m</th>
+<th>SST-2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>reference</td>
+<td>76.3</td>
+<td>84.3</td>
+<td>92.8</td>
+</tr>
+<tr>
+<td>RoBERTa Implementation:</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>static</td>
+<td>78.3</td>
+<td>84.3</td>
+<td>92.5</td>
+</tr>
+<tr>
+<td>dynamic</td>
+<td>78.7</td>
+<td>84.0</td>
+<td>92.9</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>테이블에 따르면, 동적 마스킹은 정적 마스킹 방식에 비해 아주 약간의 성능 개선을 제공.</li>
+<li>(개인적인 생각이나, 알려진 바에 의해 그렇게 유효한 차이인지는 잘 모르겠다. 마치 AlexNet 의 Local Response Normalization 을 보는 것 같음)</li>
+</ul>
+<h3 id="model-input-format-and-next-sentence-prediction">Model Input Format and Next Sentence Prediction</h3>
+<ul>
+<li>기존 BERT 의 인풋은 두 개의 문장으로 구성되어 있으며, 50% 의 확률로 실제 연속적으로 등장하는 문장이거나, 나머지 50% 의 확률로 서로 다른 문서에서 추출된 문장.</li>
+<li>모델은 이러한 두 문장이 실제로 연속적으로 등장하는 문장인지 여부를 학습하게 되며, 이를 NSP 과제라 지칭함 (NSP 손실 함수 활용).</li>
+<li>기존 연구에서는 이러한 NSP 학습 과제를 배제할 경우, 성능이 대폭 하락하는 결과를 확인하였지만, 최근 연구들은 NSP 학습의 필요성에 의문을 제기함.
+<ul>
+<li><em><strong>Segment Pair + NSP :</strong> 기존 BERT 의 인풋 포맷과 동일한 형태. 인풋 토큰은 두 개의 Segment Pair 를 기반으로 하며, 하나의 Segment 는 다수의 Sentence 를 포함할 수 있다. 여기서 Segment 의 최대 길이는 512 로 한정 되어 있음.</em></li>
+<li><em><strong>Sentence Pair + NSP :</strong> 인풋은 두 개의 Sentence 를 기반으로 함. 두 문장의 합이 최대 길이인 512 에 한참 못 미치기 때문에 연구진은 배치 사이즈를 키우는 방식을 선택.</em></li>
+<li><em><strong>Full Sentences :</strong> NSP Loss 가 배제되며, 512 사이즈에 맞게 한 개, 또는 복수의 문서에서 텍스트를 추출한다. 하나의 문서에 끝에 도달한 경우 (SEP) 토큰을 삽입한 후, 이후 문서로 넘어가게 됨.</em></li>
+<li><em><strong>Doc Sentences :</strong> Full Setences 방식과 동일하나, 하나의 문서에서만 텍스트를 추출한다. 512 사이즈에 미치지 못하는 경우 동적으로 배치 사이즈를 조정함.</em></li>
+</ul>
+</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Model</th>
+<th>SQuAD 1.1/2.0</th>
+<th>MNLI-m</th>
+<th>SST-2</th>
+<th>RACE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reimplementation with NSP loss</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Segment Pair</td>
+<td>90.4/78.7</td>
+<td>84.0</td>
+<td>92.9</td>
+<td>64.2</td>
+</tr>
+<tr>
+<td>Sentence Pair</td>
+<td>88.7/76.2</td>
+<td>82.9</td>
+<td>92.1</td>
+<td>63.0</td>
+</tr>
+<tr>
+<td>Reimplementation without NSP loss</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Full Sentences</td>
+<td>90.4/79.1</td>
+<td>84.7</td>
+<td>92.5</td>
+<td>64.8</td>
+</tr>
+<tr>
+<td>Doc Sentences</td>
+<td>90.6/79.7</td>
+<td>84.7</td>
+<td>92.7</td>
+<td>65.6</td>
+</tr>
+<tr>
+<td>Reference</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Bert Base</td>
+<td>88.5/76.3</td>
+<td>84.3</td>
+<td>92.8</td>
+<td>64.3</td>
+</tr>
+<tr>
+<td>XLNet Base (K = 7)</td>
+<td>_/81.3</td>
+<td>85.8</td>
+<td>92.7</td>
+<td>66.1</td>
+</tr>
+<tr>
+<td>XLNet Base (K = 6)</td>
+<td>_/81.0</td>
+<td>85.6</td>
+<td>93.4</td>
+<td>66.7</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Sentence Pair 는 Segment Pair 에 비해 Downstream Task (전이 학습 영역) 에서 낮은 성능을 보였으며, 이는 모델이 거리가 먼 단어 간 dependency 를 학습하지 못해서 일 것이라 추측.</li>
+<li>NSP loss 를 제거한 후 성능이 소폭 상승하였으며, 이는 기존 방법이 Segment Pair 방식을 그대로 유지했기 때문이라 추측할 수 있다.</li>
+<li>Doc Sentences 가 Full Sentences 에 비해 나은 성능을 보였지만, 변동적인 배치 사이즈로 인해 RoBERTa 모델은 Full Sentences 방식을 사용 (다른 모델과 비교 조건을 통일하기 위함).</li>
+</ul>
+<h3 id="training-with-large-batches">Training with Large Batches</h3>
+<ul>
+<li>Learning Rate 만 적합하게 조정된다면, mini-batch 사이즈를 키우는 것은 학습 속도와 최종 과제 수행 능력에 긍정적인 영향을 끼친다.</li>
+<li>기존 BERT 모델은 256 Batch Size/1M Steps 세팅 값으로 학습을 진행. 이는 연산 비용 차원에서 (1) 2K Batch Size/125K Steps, (2) 8K Batch Size/31K Steps 와 동일하다.</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>batch size</th>
+<th>steps</th>
+<th>learning rate</th>
+<th>perplexity</th>
+<th>MNLI-m</th>
+<th>SST-2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>256</td>
+<td>1M</td>
+<td>1e-4</td>
+<td>3.99</td>
+<td>84.7</td>
+<td>92.7</td>
+</tr>
+<tr>
+<td>2K</td>
+<td>125K</td>
+<td>7e-4</td>
+<td>3.68</td>
+<td>85.2</td>
+<td>92.9</td>
+</tr>
+<tr>
+<td>8K</td>
+<td>31K</td>
+<td>1e-3</td>
+<td>3.77</td>
+<td>84.6</td>
+<td>92.8</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>연구진은 배치 사이즈를 키울 경우, 모델의 perplexity (cross-entropy 기반 loss metric) 가 감소한다는 점을 발견. 또한 end-task 의 정확도 또한 향상된다는 점을 발견한다.</li>
+<li>배치 사이즈가 큰 경우 병렬 처리가 쉬워진다는 장점 또한 있다. 이후 연구진은 RoBERTa 학습에 8K Batch Size 를 적용함.</li>
+</ul>
+<h3 id="text-encoding">Text Encoding</h3>
+<ul>
+<li><strong>Byte-Pair Encoding (BPE)</strong> 란 캐릭터와 단어 레벨 representation 의 중간에 있는 인코딩 방식. 실제 단어가 아닌 단어의 부분들을 기반으로 인코딩을 수행한다.</li>
+<li>보통의 BPE 단어 사전은 10K~100K 정도의 규모를 가지는데, 이 중 대부분은 유니코드 캐릭터에 의한 것이며, 이를 바이트 기반으로 변경하여 unknown token 을 필요로 하지 않는 50K 규모의 단어 사전을 구축할 수 있다.</li>
+<li>기존 BERT 논문은 캐릭터 레벨의 30K 규모 BPE 사전을 활용하였으나, 연구진은 이를 바이트 기반의 50K BPE 사전으로 변경. 때문에 기존 방식에 적용된 데이터 전처리를 필요로 하지 않는다.</li>
+<li>이로 인해 BERT Base 는 파라미터 수가 약 15M, BERT Large 는 약 20M 개 상승.</li>
+<li>성능 평가 면에서는 바이트 기반 BPE 가 약간 낮은 성능을 보이나, 연구진은 바이트 기반 BPE 의 장점이 단점을 상쇄한다고 판단, 이를 RoBERTa 에 적용한다.</li>
+</ul>
+<h2 id="roberta">RoBERTa</h2>
+<ul>
+<li>동적 마스킹, Full Setences w/o NSP loss, 증가한 mini-batch 사이즈, 바이트 레벨 BPE 등을 적용한 BERT 모델을 연구진은 Robustly optimized BERT approach (RoBERTa) 라 명명.</li>
+<li>또한 RoBERTa 는 (1) 데이터 크기와 성질 (2) 학습의 정도가 모델 성능에 끼치는 영향을 탐구한다.</li>
+<li>XLNet 의 경우 기존 BERT 모델에 비해 10배 많은 데이터를 활용해 학습되었으며, 배치 사이즈의 경우 8배가 컸던 반면 학습 step 은 1/2 정도의 규모였음으로 BERT 에 비해 약 4배 정도의 시퀀스에 노출된 것.</li>
+<li>보다 직접적인 비교를 위해 연구진은 규모가 유사한 데이터를 활용해 다음 세개의 모델을 테스트했다.</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Model</th>
+<th>data</th>
+<th>batch size</th>
+<th>steps</th>
+<th>SQuAD</th>
+<th>MNLI-m</th>
+<th>SST-2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RoBERTa</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>with BOOKS + WIKI</td>
+<td>16GB</td>
+<td>8K</td>
+<td>100K</td>
+<td>93.6/87.3</td>
+<td>89.0</td>
+<td>95.3</td>
+</tr>
+<tr>
+<td>+ additional data</td>
+<td>160GB</td>
+<td>8K</td>
+<td>100K</td>
+<td>94.0/87.7</td>
+<td>89.3</td>
+<td>95.6</td>
+</tr>
+<tr>
+<td>+ pretrain longer</td>
+<td>160GB</td>
+<td>8K</td>
+<td>300K</td>
+<td>94.4/88.7</td>
+<td>90.0</td>
+<td>96.1</td>
+</tr>
+<tr>
+<td>+ pretrain even longer</td>
+<td>160GB</td>
+<td>8K</td>
+<td>500K</td>
+<td>94.6/89.4</td>
+<td>90.2</td>
+<td>96.4</td>
+</tr>
+<tr>
+<td>BERT Large</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>with BOOKS + WIKI</td>
+<td>13GB</td>
+<td>256</td>
+<td>1M</td>
+<td>90.9/81.8</td>
+<td>86.6</td>
+<td>93.7</td>
+</tr>
+<tr>
+<td>XLNet Large</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>with BOOKS + WIKI</td>
+<td>13GB</td>
+<td>256</td>
+<td>1M</td>
+<td>94.0/87.8</td>
+<td>88.4</td>
+<td>94.4</td>
+</tr>
+<tr>
+<td>+ additional data</td>
+<td>126GB</td>
+<td>2K</td>
+<td>500K</td>
+<td>94.5/88.8</td>
+<td>89.8</td>
+<td>95.6</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>이외에도 RoBERTa 모델은 GLUE, SQuAD, RACE 등의 벤치마크 과제에서 state-of-the-art 성능을 기록. 주로 XLNet 과 비교되었는데, 성능 차이가 아주 큰 편은 아님.</li>
+<li>특히 GLUE 벤치마크의 경우, train set 을 활용한 환경에서 9개 과제 모두 가장 높은 성능을 기록했지만 test set 기반의 리더보드에서는 4개 과제에서만 가장 높은 성능을 기록했다. 하지만 리더보드의 대부분 모델과 다르게 RoBERTa 는 복수과제를 활용한 fine-tuning 을 진행하지 않음.</li>
+<li>SQuAD 또한 비슷한 양상을 보이는데, 리더보드에서 XLNet + SG-Net Verifier 에 비해 약간 낮은 성능을 기록했다 (외부 데이터를 활용하지 않았기 때문이라고 하는데, 뭔가 자꾸 사족이 붙는 느낌).</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/roberta/">RoBERTa</a>
+        
+            <a href="/tags/%EB%A1%9C%EB%B2%84%ED%83%80/">로버타</a>
+        
+            <a href="/tags/%EB%B2%84%ED%8A%B8/">버트</a>
+        
+            <a href="/tags/bert/">BERT</a>
+        
+            <a href="/tags/%EB%89%B4%EB%9F%B4%EB%84%B7/">뉴럴넷</a>
+        
+            <a href="/tags/%EB%85%BC%EB%AC%B8%EB%A6%AC%EB%B7%B0/">논문리뷰</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/neural_network/t5/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/neural_network/images/t5_1.gif" loading="lazy" data-key="t5" data-hash="/neural_network/images/t5_1.gif"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">T5 (Text-To-Text Transfer Tranformer) 구조 소개</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/neural_network/crnn/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/neural_network/images/crnn_2.png" loading="lazy" data-key="crnn" data-hash="/neural_network/images/crnn_2.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">(논문 리뷰) Scene Text Recognition 을 위한 CRNN 구조</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/neural_network/vggnet/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/neural_network/images/vggnet_1.jpg" loading="lazy" data-key="vggnet" data-hash="/neural_network/images/vggnet_1.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">(논문 리뷰) 핵심만 추려낸 VGGNet 논문 요약</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/neural_network/alexnet/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/neural_network/images/alexnet_1.png" loading="lazy" data-key="alexnet" data-hash="/neural_network/images/alexnet_1.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">(논문 리뷰) 쉽게 이해하는 AlexNet 과 PyTorch 코드 예시</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "meme2515" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 Soon&#39;s Blog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
