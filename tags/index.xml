@@ -6,7 +6,63 @@
         <description>Recent content in Tags on Soon&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Mon, 13 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 21 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>ELMo</title>
+        <link>https://meme2515.github.io/tags/elmo/</link>
+        <pubDate>Tue, 21 Feb 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/elmo/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>ELMo 예시</title>
+        <link>https://meme2515.github.io/tags/elmo-%EC%98%88%EC%8B%9C/</link>
+        <pubDate>Tue, 21 Feb 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/elmo-%EC%98%88%EC%8B%9C/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>NLP</title>
+        <link>https://meme2515.github.io/tags/nlp/</link>
+        <pubDate>Tue, 21 Feb 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/nlp/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>뉴럴넷</title>
+        <link>https://meme2515.github.io/tags/%EB%89%B4%EB%9F%B4%EB%84%B7/</link>
+        <pubDate>Tue, 21 Feb 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/%EB%89%B4%EB%9F%B4%EB%84%B7/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>엘모</title>
+        <link>https://meme2515.github.io/tags/%EC%97%98%EB%AA%A8/</link>
+        <pubDate>Tue, 21 Feb 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/%EC%97%98%EB%AA%A8/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>엘모 예시</title>
+        <link>https://meme2515.github.io/tags/%EC%97%98%EB%AA%A8-%EC%98%88%EC%8B%9C/</link>
+        <pubDate>Tue, 21 Feb 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/%EC%97%98%EB%AA%A8-%EC%98%88%EC%8B%9C/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>임베딩</title>
+        <link>https://meme2515.github.io/tags/%EC%9E%84%EB%B2%A0%EB%94%A9/</link>
+        <pubDate>Tue, 21 Feb 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/%EC%9E%84%EB%B2%A0%EB%94%A9/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>BERT</title>
         <link>https://meme2515.github.io/tags/bert/</link>
         <pubDate>Mon, 13 Feb 2023 00:00:00 +0000</pubDate>
@@ -28,14 +84,6 @@
         <pubDate>Mon, 13 Feb 2023 00:00:00 +0000</pubDate>
         
         <guid>https://meme2515.github.io/tags/%EB%85%BC%EB%AC%B8%EB%A6%AC%EB%B7%B0/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>뉴럴넷</title>
-        <link>https://meme2515.github.io/tags/%EB%89%B4%EB%9F%B4%EB%84%B7/</link>
-        <pubDate>Mon, 13 Feb 2023 00:00:00 +0000</pubDate>
-        
-        <guid>https://meme2515.github.io/tags/%EB%89%B4%EB%9F%B4%EB%84%B7/</guid>
         <description></description>
         </item>
         <item>
