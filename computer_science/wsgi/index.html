@@ -265,6 +265,7 @@ if (!doNotTrack) {
     <li><a href="#nginx">NGINX</a>
       <ol>
         <li><a href="#reverse-proxy">Reverse Proxy</a></li>
+        <li><a href="#web-server-가-반드시-구분되어야-할까">Web Server 가 반드시 구분되어야 할까?</a></li>
       </ol>
     </li>
     <li><a href="#reference">Reference</a></li>
@@ -435,8 +436,8 @@ if (!doNotTrack) {
 </tr>
 </tbody>
 </table></div>
-<p>WSGI (Web Server Gateway Interface) 란 유저로 부터 전송받은 HTTP Request 를 Django 와 같은 백엔드 프레임워크가 이해할 수 있는 Python 오브젝트로 변환하는 역할을 수행한다 <em>(앞서 언급한 벨저크 서버 또한 사실 이러한 기능을 수행하고 있다)</em>. 하지만 개발 환경에 맞는 WSGI 서버란 다수의 워커를 구성해 분산 처리가 가능하고, 개발 서버의 취약점을 보완한 버전이라고 생각할 수 있다.</p>
-<p>프레임워크와 WSGI 서버를 구분하는 또 다른 장점은 백엔드 프레임워크가 클라이언트 연결을 유지하는 작업을 수행할 필요 없이, 주어진 Request 에 대한 Response 값을 반환하는 작업에만 집중할 수 있다는 점이다. 사실 Django 와 같은 백엔드 프레임워크는 애초에 이러한 목적으로 설계된 패키지이기 때문에, 가능한 모든 상황에서 WSGI 래퍼를 활용해야 한다.</p>
+<p>WSGI (Web Server Gateway Interface) 란 유저로 부터 전송받은 HTTP Request 를 Django 와 같은 백엔드 프레임워크가 이해할 수 있는 Python 오브젝트로 변환하는 역할을 수행한다. 앞서 언급한 벨저크 서버 또한 사실 이러한 기능을 수행하고 있지만, 개발 환경에 맞는 WSGI 서버란 다수의 워커를 구성해 분산 처리가 가능하고, 개발 서버의 취약점을 보완한 버전이라고 생각할 수 있다.</p>
+<p>프레임워크와 WSGI 서버를 구분하는 또 다른 장점은 백엔드 프레임워크가 클라이언트 연결을 유지하는 작업을 수행할 필요 없이, 주어진 Request 에 대한 Response 값을 반환하는 작업에만 집중할 수 있다는 점이다. Django 와 같은 백엔드 프레임워크는 애초에 이러한 목적으로 설계된 패키지이기 때문에, 가능한 모든 상황에서 WSGI 래퍼를 활용해야 한다.</p>
 <h3 id="wsgi-standard">WSGI Standard</h3>
 <div class="table-wrapper"><table>
 <thead>
@@ -461,7 +462,11 @@ if (!doNotTrack) {
 </table></div>
 <p>WSGI 스탠다드란 모든 WSGI 서버와 프레임워크가 서로 호환할 수 있도록 약속된 통신 프로토콜이다. 대표적인 WSGI 서버인 Gunicorn, uWSGI 등은 이러한 스탠다드를 따르기 때문에 WSGI 프레임워크인 Django, Flask, Pyramid, Falcon 등과 모두 호환이 가능하다.</p>
 <h2 id="nginx">NGINX</h2>
-<p>그렇다면 웹 어플리케이션을 배포할 때 Django, WSGI 서버만 있으면 된다는걸까? 결론만 놓고 보면 그렇다. 언급했듯 NGINX 는 웹서버의 한 종류로서 정적인 요소를 서빙하고, 동적인 리퀘스트를 WSGI 서버에 요청하는 역할을 수행하게 되는데, 현대적인 WSGI 서버는 정적인 요소까지 모두 서빙하는 기능을 제공하기 때문이다.</p>
+<p>언급했듯 NGINX 는 웹사이트의 정적인 요소를 담당하는 Web Server 이다. 클라이언트가 웹서버에 html, css 등의 파일을 요청하면, 이를 빠르게 서빙하여 WAS 가 동작할 필요가 없게끔 만들어준다.</p>
+<h3 id="reverse-proxy">Reverse Proxy</h3>
+<p>NGINX 와 WSGI 서버는 Reverse Proxy 방식을 통해 연결된다. 여기서 Reverse Proxy 란 사용자가 흔히 활용하는 Proxy 서버와 반대되는 개념인데, 클라이언트가 서버로 보내는 HTTP 정보가 우회될때 이를 <strong>Forward Proxy</strong>, 서버가 클라이언트에게 보내는 HTTP 정보가 우회될때 이를 <strong>Reverse Proxy</strong> 라고 구분지어 부르는 것.</p>
+<h3 id="web-server-가-반드시-구분되어야-할까">Web Server 가 반드시 구분되어야 할까?</h3>
+<p>결론만 놓고 보면 Django, WSGI 서버만 있어도 웹사이트는 정상적으로 작동한다. 현대적인 WSGI 서버는 정적인 요소까지 모두 서빙하는 기능을 제공하기 때문이다.</p>
 <p>하지만 대부분의 경우 별도 웹서버를 구축하는 것이 권장되는 가장 큰 이유는 다음과 같다.</p>
 <ul>
 <li>서버 부하 방지
@@ -496,9 +501,7 @@ if (!doNotTrack) {
 </tr>
 </tbody>
 </table></div>
-<p>결론적으로 Django, Flask 등의 백엔드 서버 배포 시 동적인 요소와 정적인 요소를 구분하기 위해 NGINX 서버를 구축하고, NGINX 서버와 백엔드의 소통을 위해 WSGI 서버가 구축된다고 정리할 수 있다.</p>
-<h3 id="reverse-proxy">Reverse Proxy</h3>
-<p>NGINX 와 Gunicorn 과 같은 WSGI 서버는 Reverse Proxy 방식을 통해 연결된다. 여기서 Reverse Proxy 란 사용자가 흔히 활용하는 Proxy 서버와 반대되는 개념인데, 클라이언트가 서버로 보내는 HTTP 정보가 한번 우회될때 이를 Forward Proxy, 서버가 클라이언트에게 보내는 HTTP 정보가 한번 우회될때 이를 Reverse Proxy 라고 구분지어 부르는 것.</p>
+<p>정리하자면 Django, Flask 등의 백엔드 서버 배포 시 동적인 요소와 정적인 요소를 구분하기 위해 NGINX 서버를 구축하고, NGINX 서버와 Django 에서 개발된 백엔드와의 소통을 위해 WSGI 서버가 구축된다.</p>
 <h2 id="reference">Reference</h2>
 <ul>
 <li><a class="link" href="https://wayhome25.github.io/django/2018/03/03/django-deploy-02-nginx-wsgi/"  target="_blank" rel="noopener"
