@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>웹앱 on Soon&#39;s Blog</title>
+        <link>https://meme2515.github.io/categories/%EC%9B%B9%EC%95%B1/</link>
+        <description>Recent content in 웹앱 on Soon&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Mon, 27 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/categories/%EC%9B%B9%EC%95%B1/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>개인 프로젝트 - 모기 활동 지수 예측기</title>
+        <link>https://meme2515.github.io/projects/mosquito/</link>
+        <pubDate>Mon, 27 Mar 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/projects/mosquito/</guid>
+        <description>&lt;img src="https://meme2515.github.io/projects/images/mosquito_3.png" alt="Featured image of post 개인 프로젝트 - 모기 활동 지수 예측기" /&gt;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/projects/images/mosquito_1.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 1. 어플리케이션 화면 예시&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/meme2515/mosquito_app&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;GitHub 링크&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;위 화면과 같이 관심 지역을 읍면동 단위까지 선택하면 조회 당일의 모기 활동 지수를 예측하는 웹 어플리케이션 입니다.&lt;/p&gt;
+&lt;p&gt;구축된 ML 모델을 노트북 환경이 아닌 실제 어플리케이션에 적용하려면 어떤 작업이 필요할까에 대한 궁금증으로 개인적으로 진행한 프로젝트이며, 프로젝트 진행 내용은 대략적으로 다음과 같습니다.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;오픈 데이터셋을 활용한 사이킷런 회귀 모델 구축&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Flask 어플리케이션과 모델 연동 및 기본적인 html 페이지 구축&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;기상청 단기 예보 API 를 활용한 날씨 데이터 조회 기능 구현&lt;/li&gt;
+&lt;li&gt;지역 별 경위도와 기상청 API 좌표 체계 간 변환 함수 구현&lt;/li&gt;
+&lt;li&gt;기본적인 JavaScript 를 활용해 지역 선택 기능 구현&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;WSGI, NGINX 를 활용한 배포 서버 구축&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;도커를 활용한 프로젝트 컨테이너 생성&lt;/li&gt;
+&lt;li&gt;Digital Ocean 클라우드 서버 배포&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;모기-활동-지수&#34;&gt;모기 활동 지수?&lt;/h2&gt;
+&lt;p&gt;모기 활동 지수라는 개념이 생소하실텐데요, 기상청에서 운영 중인 모기 활동 예측 기술을 먼저 소개 드립니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://news.seoul.go.kr/welfare/archives/511985&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;홍보 자료&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://koreascience.kr/article/JAKO201867551547852.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;방재저널&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://patentimages.storage.googleapis.com/c0/15/61/0ea5a1509636d0/KR20180060730A.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;특허청 자료&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/projects/images/mosquito_4.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 1. 데이터 수집 경로&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;일반적인 인식과는 다르게 우리나라 또한 모기와 관련된 질병으로 부터 안전지역이라 할 수 없는데, 90년대 이후 북한 접경 지역에선 말라리아 환자가 지속적으로 발생하고 있고 인천국제공항 주변 지역 또한 해외여행객의 영향으로 지키바이러스, 뎅기열 등 매개감염병을 유발하는 많은 외래종 모기가 유입된 상황입니다.&lt;/p&gt;
+&lt;p&gt;이에 대해 수도권 기상청은 국민 건강 보호를 목적으로 2018년 모기 예측 기술 개발 사업을 추진했습니다. 수도권, 특히 인천광역시에 많이 분포한 수백 개 모기 관측망의 데이터를 기온, 토지이용 상황 등과 함께 분석해 랜덤 포레스트 모델을 구축했는데요. 주요 인사이트는 다음과 같습니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;개채 수 증가는 7월 초, 9월 중순 2번의 정점을 이루는데, 이는 여름철 집중호우의 영향으로 추정.&lt;/li&gt;
+&lt;li&gt;일최저기온이 10도를 넘으면 모기개채수는 증가하기 시작함.&lt;/li&gt;
+&lt;li&gt;10월 최저기온이 급격히 낮아지면 모기개채수도 급감함.&lt;/li&gt;
+&lt;li&gt;도심과 농촌, 해안 간 우세하게 나타나는 모기의 종류에서 많은 차이를 보임.&lt;/li&gt;
+&lt;li&gt;서울시의 경우 기온이 1도 상승하면 모기 발생 위험이 약 10.8% 씩 증가.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/projects/images/mosquito_5.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 2. 빨간집모기 개체 수와 기온의 시계열 분포&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;회귀-모델&#34;&gt;회귀 모델&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://news.seoul.go.kr/welfare/mosquito&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;데이터 소스 - 서울시&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;프로젝트의 중점이 모델을 브라우저 환경에서 활용할 수 있도록 하는 것이었기 때문에, 특별한 feature engineering 이나 model selection 과정 없이 간단한 회귀 모델로 모기 출현 지수를 예측하는 모델을 구축했습니다 &lt;em&gt;(사실 활용한 데이터셋 자체가 서울시가 제공한 예측치의 시계열 자료이기에, 적당히만 세팅한다면 100% 에 가까운 정확도가 나올 것으로 생각됩니다)&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;우선 데이터셋은 (1) 모기 지수, (2) 강수량, (3) 최저 기온, (4) 최대 기온으로 구성되어 있습니다.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;mosquito_Indicator&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;rain(mm)&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;min_T(℃)&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;max_T(℃)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;count&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;1342.000000&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;1342.000000&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;1342.000000&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;1342.000000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;mean&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;251.991803&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;3.539866&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;10.005663&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;19.096870&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;std&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;295.871336&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;13.868106&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;11.109489&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;11.063394&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;min&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0.000000&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0.000000&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;-17.800000&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;-10.700000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;25%&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;5.500000&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0.000000&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0.300000&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;9.300000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;50%&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.900000&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0.000000&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;11.500000&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;21.900000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;75%&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;480.400000&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0.400000&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;19.500000&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;28.175000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;max&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;1000.000000&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;144.500000&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;30.300000&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;39.600000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;활용한 모델은 사이킷런 패키지의 linear_model.LinearRegression() 이고, 나머지 세개의 feature 에 대해 mosquito_indicator 컬럼의 값을 가장 기본적인 세팅으로 예측했을때 validation set 에 대해 약 85% 의 성능을 기록했습니다 &lt;em&gt;(Mean Absolute Deviation 기준)&lt;/em&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;flask-어플리케이션&#34;&gt;Flask 어플리케이션&lt;/h2&gt;
+&lt;p&gt;학습이 완료된 모델은 별도 pkl 파일로 저장하여, flask 앱에서 바로 활용할 수 있도록 구성했습니다. 생각보다 모델과 연계짓는 과정이 간단했는데, 막상 유저의 위치 정보를 기상 정보로 변환하려고 보니 API 활용과 별도의 데이터 처리 과정이 필요했어요.&lt;/p&gt;
+&lt;p&gt;우선 위치 정보는 국내 모든 행정구역에 대한 경위도 데이터를 &lt;a class=&#34;link&#34; href=&#34;https://skyseven73.tistory.com/23&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;해당 블로그&lt;/a&gt; 에서 다운받아 사용했습니다. 또한 기상청 API Request 에서 필요로 하는 위치 정보는 경위도가 아닌 별도의 &lt;a class=&#34;link&#34; href=&#34;https://fronteer.kr/service/kmaxy&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;격자 체계&lt;/a&gt;이기 때문에 변환 로직 또한 웹서치를 통해 구현했습니다.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/projects/images/mosquito_7.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 3. 기상청 격자정보 - 위경도 변환 예시&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;이렇게 추출된 XY 격자 위치와 예측일 등의 파라미터를 기반으로 공공데이터 포털에서 제공하는 &lt;a class=&#34;link&#34; href=&#34;https://www.data.go.kr/data/15043494/fileData.do&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;기상청 단기예보 API&lt;/a&gt; 에서 inference input 인 일일 강수량, 최저기온, 최대기온 등의 데이터를 추출했습니다.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/projects/images/mosquito_6.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 4. 기상청 단기 예보 API 출력값 예시&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;이 단계에서 유저의 지역 정보를 기상 데이터로 변환하고, 이를 회귀 모델의 인풋으로 활용해 모기 활동 지수의 예측값을 출력하는 것이 가능했어요.&lt;/p&gt;
+&lt;p&gt;프론트엔드 구성 단계에선 브라우저 내에서 읍면동 단위 까지의 위치 정보를 기입할 수 있도록 구성하는 작업이 필요했는데, html 페이지 내에서 선택된 &amp;ldquo;시도&amp;rdquo; 값에 따라 &amp;ldquo;시군구&amp;rdquo; 의 선택값 등을 변동하는 과정에서 약간의 jQuery를 활용했습니다.&lt;/p&gt;
+&lt;h2 id=&#34;wsgi--nginx--도커&#34;&gt;WSGI + NGINX + 도커&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://meme2515.github.io/computer_science/wsgi/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;글쓴이의 웹서버와 WAS 관련 글&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;가능한 배포 환경에 가까운 경험을 위해서 flask 앱을 gunicorn 으로 래핑 후, gunicorn 을 구동하는 3개의 도커 컨테이너를 대상으로 로드 밸런싱을 수행하는 nginx 서버를 구축했습니다.&lt;/p&gt;
+&lt;p&gt;실제 클라우드 배포는 &lt;a class=&#34;link&#34; href=&#34;https://www.digitalocean.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;DigitalOcean&lt;/a&gt; 을 통해 진행했습니다. 클라우드 3사에 비해 국내 인지도는 약간 떨어지지만 해외 커뮤니티에서 많이 언급이 되고있고, 실제 사용 경험도 굉장히 편리해 좋은 인상을 받았어요.&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

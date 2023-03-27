@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='서울시 모기 활동 지수를 활용한 ML 모델 웹 어플리케이션'>
+<title>개인 프로젝트 - 모기 활동 지수 예측기</title>
+
+<link rel='canonical' href='https://meme2515.github.io/projects/mosquito/'>
+
+<link rel="stylesheet" href="/scss/style.min.8191399262444ab68b72a18c97392f5349be20a1615d77445be51e974c144cff.css"><meta property='og:title' content='개인 프로젝트 - 모기 활동 지수 예측기'>
+<meta property='og:description' content='서울시 모기 활동 지수를 활용한 ML 모델 웹 어플리케이션'>
+<meta property='og:url' content='https://meme2515.github.io/projects/mosquito/'>
+<meta property='og:site_name' content='Soon&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Projects' /><meta property='article:tag' content='MLOps' /><meta property='article:tag' content='Flask' /><meta property='article:tag' content='프로젝트' /><meta property='article:tag' content='gunicorn' /><meta property='article:tag' content='wsgi' /><meta property='article:tag' content='docker' /><meta property='article:tag' content='웹앱' /><meta property='article:published_time' content='2023-03-27T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-03-27T00:00:00&#43;00:00'/><meta property='og:image' content='https://meme2515.github.io/projects/images/mosquito_3.png' />
+<meta name="twitter:title" content="개인 프로젝트 - 모기 활동 지수 예측기">
+<meta name="twitter:description" content="서울시 모기 활동 지수를 활용한 ML 모델 웹 어플리케이션"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://meme2515.github.io/projects/images/mosquito_3.png' />
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-135204357-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hud342b0d5be633fdc127bd0653c60e8c3_234674_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Soon&#39;s Blog</a></h1>
+            <h2 class="site-description">데이터 블로그입니다 :)</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/meme2515'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M200,513c0-20.3,0-40.7,0-61c3.1,0.6,1.9,3.1,1.9,4.8c0.1,16.3,0.2,32.6,0,48.9c-0.1,4.1,1,5.4,5.2,5.4   c36.6-0.2,73.2-0.2,109.8,0c4.4,0,5.1-1.6,5.1-5.5c-0.2-25-0.1-49.9-0.1-74.9c0-9.3,0.2-18.6,0.2-27.9c2.8,1.2,1.6,3.8,1.6,5.7   c0.1,34.8,0.1,69.6,0.1,104.4C282.7,513,241.3,513,200,513z" fill="#D1D1D1"/><path d="M322.2,402.8c-0.1,9.3-0.2,18.6-0.2,27.9c0,25-0.1,49.9,0.1,74.9c0,3.9-0.7,5.5-5.1,5.5   c-36.6-0.2-73.2-0.2-109.8,0c-4.2,0-5.3-1.3-5.2-5.4c0.2-16.3,0.1-32.6,0-48.9c0-1.7,1.2-4.2-1.9-4.8c-9.7,0.9-19.3,3.2-29.2,2.8   c-33.5-1.3-59.5-15.4-74.7-45.8c-8.2-16.4-17.8-31.7-29.1-46c-3.1-3.9-7.9-5.5-11.5-8.7c-1.1-1-2.4-1.8-3.3-3   c-2.3-3.3-1.2-5.8,2.8-6.2c18.5-1.9,33.8,4.2,46.2,18.1c6.3,7.1,10.2,15.8,16.3,23.1c12.3,14.7,28,22.7,47,24.9   c11.5,1.3,22.4-0.9,33.3-4.2c2.2-0.6,3.1-2,3.3-4.3c0.7-10.3,2.8-20.3,6.8-29.9c1.8-4.3,4.7-7.9,6.9-12.3   c-10.3-2.6-20.7-3.4-30.5-6.4c-27.1-8.2-50.9-21.6-68.2-44.7c-8.3-11-14.1-23.3-17.4-36.5c-1.8-7.2-3.9-14.4-3.8-22   c0.1-13.3-0.5-26.7,0.3-40c0.9-16.8,3.1-33.5,9.2-49.2c3.8-9.7,9.3-18.6,17.1-25.9c2.4-2.3,3.3-4.1,1.8-7.9   c-7.4-19.7-8.1-39.8-1.8-60c0.2-0.6,0.3-1.3,0.4-2c2.2-10.3,4.5-11.3,14.3-7.4c19.2,7.5,33.3,21,45.3,37.3c3.4,4.6,2.7,6.6,10,1.9   c9.7-6.2,21-8.1,32.2-9.3c20.1-2.1,40.3-1.5,60.4-1.1c14.3,0.3,28.5,2.2,42,7.2c3.1,1.1,6,2.8,8.7,4.8c2.1,1.6,3.6,1.6,5.6-1.1   c9.1-12.8,19.5-24.4,33-32.6c6.6-4,13.4-7.7,21.4-8.6c3.3-0.4,4.7,0.7,5.6,3.3c8.3,22.9,9.5,45.7-0.2,68.5   c-1.2,2.8-0.8,4.6,1.3,6.5c16,15,21.8,34.5,24.8,55.5c2.5,17.7,3.2,35.5,2.7,53.3c-0.8,31.2-11.4,58.4-34.4,80.1   c-13.5,12.7-29.7,21.1-47.1,27.5c-12.4,4.6-25.5,5.8-38.5,9c1.3,3.1,3.7,5.4,4.3,8.5c-0.3,1.3,0.4,2,1.6,2.3   c0.1,0.6,0.3,1.1,0.4,1.7c0.3,2.1,0.1,4.3,2.5,5.4c0.5,2.2,1,4.5,1.4,6.7c-0.1,1.7-0.7,3.5,1.6,4.3c0,0.6,0.1,1.2,0.1,1.9   c-1.5,2.3-0.1,4.1,1.1,6C322.1,398.9,322.2,400.9,322.2,402.8z" fill="#A7A7A7"/><path d="M322,397c-1.1-1.9-2.6-3.7-1.1-6C322.1,392.9,323,394.8,322,397z" fill="#D1D1D1"/><path d="M317.7,378.2c-2.4-1.1-2.2-3.3-2.5-5.4C317.4,374,317.7,376,317.7,378.2z" fill="#D1D1D1"/><path d="M320.8,389.1c-2.3-0.8-1.7-2.6-1.6-4.3C321.5,385.6,321,387.5,320.8,389.1z" fill="#D1D1D1"/><path d="M314.8,371.1c-1.2-0.3-1.9-1-1.6-2.3C314.5,369.1,315.1,369.8,314.8,371.1z" fill="#D1D1D1"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.linkedin.com/in/soon-hyung-kwon-73a3221ab/'
+                        target="_blank"
+                        title="LinkedIn"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M1,53c2.5,0,1.7-2,1.9-3.3C5.9,29,16.6,13.9,36.6,7.4c16.1-5.2,32.9-4.6,47.9,4c9.4,5.5,16.6,14,20.4,24.5   c2.8,7.8,4.9,15.9,4,24.2c-2.1,20.9-11.5,38.3-34.5,46.4c-17.4,6-34.3,3.8-50.2-5.7c-1-3.6-3.5-5.4-7.1-6c0,0,0,0,0,0   c-0.1-1.4-0.3-2.8-2.2-2.8C7.7,84,4.3,74.3,2.9,63.8C2.7,62.6,3.2,60.9,1,61C1,58.3,1,55.7,1,53z" fill="#A7A7A7"/><path d="M276.2,216.1c4.3-2.6,6-6.4,8.2-9.5c10.9-15,24.4-26.6,41.2-34.9c23-11.3,47.4-12.5,72-10.2   c18.9,1.7,36.8,8.1,53.1,18.5c19.4,12.4,33.3,29.6,42.8,50.2c5.8,12.5,9.6,25.8,11.9,39.6c2.1,12.9,3.7,25.6,3.7,38.7   c-0.1,65-0.1,130,0.1,195c0,4.6-1.3,5.8-5.8,5.7c-30.7-0.2-61.3-0.2-92,0c-4.5,0-5.5-1.3-5.5-5.6c0.1-61.3,0.4-122.7-0.1-184   c-0.1-13.9-2-27.7-9.2-40.4c-6.4-11.2-15.3-19.2-27-23.8c-15.7-6.2-31.9-7.4-48.3-2.8c-16.6,4.6-28.1,15.5-36.3,30.3   c-4.6,8.3-6.2,17-7.5,26.3c-1.3,10-1.1,19.8-1.1,29.7c-0.2,54.7-0.2,109.3,0,164c0,5-1.2,6.4-6.3,6.3c-30.3-0.3-60.7-0.2-91,0   c-4.2,0-5.7-1.3-5.6-5.2c0.1-2.8,0.3-5.6,0.3-8.4c0-105.5,0.1-211-0.1-316.5c0-4.4,0.9-6,5.7-6c30.5,0.2,61,0.2,91.5,0   c4.1,0,5.5,1,5.4,5.3C276,190.6,276.2,202.9,276.2,216.1z" fill="#A7A7A7"/><path d="M109,176.1c0,3.5,0.1,7,0.1,10.5c0,105.3,0,210.6,0,316c0,6.4,0,6.4-6.5,6.4c-31.8,0-63.7,0-95.5,0   c-0.1-2.5-0.2-5-0.2-7.5c0-78.8,0-157.5,0-236.3c0-28.1,0.1-56.3-0.1-84.4c0-3.6,0.9-4.9,4.7-4.9C44,176.1,76.5,176,109,176.1z" fill="#A7A7A7"/><path d="M109,176.1c-32.5,0-64.9,0-97.4-0.2c-3.8,0-4.7,1.2-4.7,4.9C7,208.9,6.9,237,6.9,265.2   c0,78.8,0,157.5,0,236.3c0,2.5,0.1,5,0.2,7.5c-1.7,0.1-3-0.3-3-2.3c0-1.3,0-2.7,0-4c0-106.8,0-213.5,0-320.3c0-7.6,0.7-8.3,8.2-8.3   c30.5,0,61,0,91.4,0.1C105.5,174.1,108.2,172.7,109,176.1z" fill="#E0E0E0"/><path d="M17.1,94.9c3.6,0.6,6.1,2.4,7.1,6C21.1,99.7,18.8,97.7,17.1,94.9z" fill="#E0E0E0"/><path d="M14.9,92.1c1.9,0,2,1.4,2.2,2.8C15,95,15,93.6,14.9,92.1z" fill="#E0E0E0"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/about' >
+                
+                
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/machine_learning' >
+                
+                
+                
+                <span>Machine Learning</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/neural_network' >
+                
+                
+                
+                <span>Neural Network</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/mlops' >
+                
+                
+                
+                <span>MLOps</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/statistics' >
+                
+                
+                
+                <span>Statistics</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/computer_science' >
+                
+                
+                
+                <span>Computer Science</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/projects' >
+                
+                
+                
+                <span>Projects</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/daily' >
+                
+                
+                
+                <span>Daily</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#모기-활동-지수">모기 활동 지수?</a></li>
+    <li><a href="#회귀-모델">회귀 모델</a></li>
+    <li><a href="#flask-어플리케이션">Flask 어플리케이션</a></li>
+    <li><a href="#wsgi--nginx--도커">WSGI + NGINX + 도커</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/projects/mosquito/">
+                
+                    <img src="/projects/images/mosquito_3.png" loading="lazy" alt="Featured image of post 개인 프로젝트 - 모기 활동 지수 예측기" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%EA%B0%9C%EC%9D%B8%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/" >
+                개인프로젝트
+            </a>
+        
+            <a href="/categories/mlops/" >
+                MLOps
+            </a>
+        
+            <a href="/categories/%EC%9B%B9%EC%95%B1/" >
+                웹앱
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/projects/mosquito/">개인 프로젝트 - 모기 활동 지수 예측기</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            서울시 모기 활동 지수를 활용한 ML 모델 웹 어플리케이션
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Mar 27, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    4 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="introduction">Introduction</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/projects/images/mosquito_1.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 1. 어플리케이션 화면 예시</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><a class="link" href="https://github.com/meme2515/mosquito_app"  target="_blank" rel="noopener"
+    >GitHub 링크</a></li>
+</ul>
+<p>위 화면과 같이 관심 지역을 읍면동 단위까지 선택하면 조회 당일의 모기 활동 지수를 예측하는 웹 어플리케이션 입니다.</p>
+<p>구축된 ML 모델을 노트북 환경이 아닌 실제 어플리케이션에 적용하려면 어떤 작업이 필요할까에 대한 궁금증으로 개인적으로 진행한 프로젝트이며, 프로젝트 진행 내용은 대략적으로 다음과 같습니다.</p>
+<ol>
+<li>
+<p><strong>오픈 데이터셋을 활용한 사이킷런 회귀 모델 구축</strong></p>
+</li>
+<li>
+<p><strong>Flask 어플리케이션과 모델 연동 및 기본적인 html 페이지 구축</strong></p>
+<ul>
+<li>기상청 단기 예보 API 를 활용한 날씨 데이터 조회 기능 구현</li>
+<li>지역 별 경위도와 기상청 API 좌표 체계 간 변환 함수 구현</li>
+<li>기본적인 JavaScript 를 활용해 지역 선택 기능 구현</li>
+</ul>
+</li>
+<li>
+<p><strong>WSGI, NGINX 를 활용한 배포 서버 구축</strong></p>
+<ul>
+<li>도커를 활용한 프로젝트 컨테이너 생성</li>
+<li>Digital Ocean 클라우드 서버 배포</li>
+</ul>
+</li>
+</ol>
+<h2 id="모기-활동-지수">모기 활동 지수?</h2>
+<p>모기 활동 지수라는 개념이 생소하실텐데요, 기상청에서 운영 중인 모기 활동 예측 기술을 먼저 소개 드립니다.</p>
+<ul>
+<li><a class="link" href="https://news.seoul.go.kr/welfare/archives/511985"  target="_blank" rel="noopener"
+    >홍보 자료</a></li>
+<li><a class="link" href="https://koreascience.kr/article/JAKO201867551547852.pdf"  target="_blank" rel="noopener"
+    >방재저널</a></li>
+<li><a class="link" href="https://patentimages.storage.googleapis.com/c0/15/61/0ea5a1509636d0/KR20180060730A.pdf"  target="_blank" rel="noopener"
+    >특허청 자료</a></li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/projects/images/mosquito_4.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 1. 데이터 수집 경로</td>
+</tr>
+</tbody>
+</table></div>
+<p>일반적인 인식과는 다르게 우리나라 또한 모기와 관련된 질병으로 부터 안전지역이라 할 수 없는데, 90년대 이후 북한 접경 지역에선 말라리아 환자가 지속적으로 발생하고 있고 인천국제공항 주변 지역 또한 해외여행객의 영향으로 지키바이러스, 뎅기열 등 매개감염병을 유발하는 많은 외래종 모기가 유입된 상황입니다.</p>
+<p>이에 대해 수도권 기상청은 국민 건강 보호를 목적으로 2018년 모기 예측 기술 개발 사업을 추진했습니다. 수도권, 특히 인천광역시에 많이 분포한 수백 개 모기 관측망의 데이터를 기온, 토지이용 상황 등과 함께 분석해 랜덤 포레스트 모델을 구축했는데요. 주요 인사이트는 다음과 같습니다.</p>
+<ul>
+<li>개채 수 증가는 7월 초, 9월 중순 2번의 정점을 이루는데, 이는 여름철 집중호우의 영향으로 추정.</li>
+<li>일최저기온이 10도를 넘으면 모기개채수는 증가하기 시작함.</li>
+<li>10월 최저기온이 급격히 낮아지면 모기개채수도 급감함.</li>
+<li>도심과 농촌, 해안 간 우세하게 나타나는 모기의 종류에서 많은 차이를 보임.</li>
+<li>서울시의 경우 기온이 1도 상승하면 모기 발생 위험이 약 10.8% 씩 증가.</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/projects/images/mosquito_5.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 2. 빨간집모기 개체 수와 기온의 시계열 분포</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="회귀-모델">회귀 모델</h2>
+<ul>
+<li><a class="link" href="https://news.seoul.go.kr/welfare/mosquito"  target="_blank" rel="noopener"
+    >데이터 소스 - 서울시</a></li>
+</ul>
+<p>프로젝트의 중점이 모델을 브라우저 환경에서 활용할 수 있도록 하는 것이었기 때문에, 특별한 feature engineering 이나 model selection 과정 없이 간단한 회귀 모델로 모기 출현 지수를 예측하는 모델을 구축했습니다 <em>(사실 활용한 데이터셋 자체가 서울시가 제공한 예측치의 시계열 자료이기에, 적당히만 세팅한다면 100% 에 가까운 정확도가 나올 것으로 생각됩니다)</em>.</p>
+<p>우선 데이터셋은 (1) 모기 지수, (2) 강수량, (3) 최저 기온, (4) 최대 기온으로 구성되어 있습니다.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:right"></th>
+<th style="text-align:right">mosquito_Indicator</th>
+<th style="text-align:right">rain(mm)</th>
+<th style="text-align:right">min_T(℃)</th>
+<th style="text-align:right">max_T(℃)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">count</td>
+<td style="text-align:right">1342.000000</td>
+<td style="text-align:right">1342.000000</td>
+<td style="text-align:right">1342.000000</td>
+<td style="text-align:right">1342.000000</td>
+</tr>
+<tr>
+<td style="text-align:right">mean</td>
+<td style="text-align:right">251.991803</td>
+<td style="text-align:right">3.539866</td>
+<td style="text-align:right">10.005663</td>
+<td style="text-align:right">19.096870</td>
+</tr>
+<tr>
+<td style="text-align:right">std</td>
+<td style="text-align:right">295.871336</td>
+<td style="text-align:right">13.868106</td>
+<td style="text-align:right">11.109489</td>
+<td style="text-align:right">11.063394</td>
+</tr>
+<tr>
+<td style="text-align:right">min</td>
+<td style="text-align:right">0.000000</td>
+<td style="text-align:right">0.000000</td>
+<td style="text-align:right">-17.800000</td>
+<td style="text-align:right">-10.700000</td>
+</tr>
+<tr>
+<td style="text-align:right">25%</td>
+<td style="text-align:right">5.500000</td>
+<td style="text-align:right">0.000000</td>
+<td style="text-align:right">0.300000</td>
+<td style="text-align:right">9.300000</td>
+</tr>
+<tr>
+<td style="text-align:right">50%</td>
+<td style="text-align:right">91.900000</td>
+<td style="text-align:right">0.000000</td>
+<td style="text-align:right">11.500000</td>
+<td style="text-align:right">21.900000</td>
+</tr>
+<tr>
+<td style="text-align:right">75%</td>
+<td style="text-align:right">480.400000</td>
+<td style="text-align:right">0.400000</td>
+<td style="text-align:right">19.500000</td>
+<td style="text-align:right">28.175000</td>
+</tr>
+<tr>
+<td style="text-align:right">max</td>
+<td style="text-align:right">1000.000000</td>
+<td style="text-align:right">144.500000</td>
+<td style="text-align:right">30.300000</td>
+<td style="text-align:right">39.600000</td>
+</tr>
+</tbody>
+</table></div>
+<p>활용한 모델은 사이킷런 패키지의 linear_model.LinearRegression() 이고, 나머지 세개의 feature 에 대해 mosquito_indicator 컬럼의 값을 가장 기본적인 세팅으로 예측했을때 validation set 에 대해 약 85% 의 성능을 기록했습니다 <em>(Mean Absolute Deviation 기준)</em>.</p>
+<h2 id="flask-어플리케이션">Flask 어플리케이션</h2>
+<p>학습이 완료된 모델은 별도 pkl 파일로 저장하여, flask 앱에서 바로 활용할 수 있도록 구성했습니다. 생각보다 모델과 연계짓는 과정이 간단했는데, 막상 유저의 위치 정보를 기상 정보로 변환하려고 보니 API 활용과 별도의 데이터 처리 과정이 필요했어요.</p>
+<p>우선 위치 정보는 국내 모든 행정구역에 대한 경위도 데이터를 <a class="link" href="https://skyseven73.tistory.com/23"  target="_blank" rel="noopener"
+    >해당 블로그</a> 에서 다운받아 사용했습니다. 또한 기상청 API Request 에서 필요로 하는 위치 정보는 경위도가 아닌 별도의 <a class="link" href="https://fronteer.kr/service/kmaxy"  target="_blank" rel="noopener"
+    >격자 체계</a>이기 때문에 변환 로직 또한 웹서치를 통해 구현했습니다.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/projects/images/mosquito_7.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 3. 기상청 격자정보 - 위경도 변환 예시</td>
+</tr>
+</tbody>
+</table></div>
+<p>이렇게 추출된 XY 격자 위치와 예측일 등의 파라미터를 기반으로 공공데이터 포털에서 제공하는 <a class="link" href="https://www.data.go.kr/data/15043494/fileData.do"  target="_blank" rel="noopener"
+    >기상청 단기예보 API</a> 에서 inference input 인 일일 강수량, 최저기온, 최대기온 등의 데이터를 추출했습니다.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/projects/images/mosquito_6.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 4. 기상청 단기 예보 API 출력값 예시</td>
+</tr>
+</tbody>
+</table></div>
+<p>이 단계에서 유저의 지역 정보를 기상 데이터로 변환하고, 이를 회귀 모델의 인풋으로 활용해 모기 활동 지수의 예측값을 출력하는 것이 가능했어요.</p>
+<p>프론트엔드 구성 단계에선 브라우저 내에서 읍면동 단위 까지의 위치 정보를 기입할 수 있도록 구성하는 작업이 필요했는데, html 페이지 내에서 선택된 &ldquo;시도&rdquo; 값에 따라 &ldquo;시군구&rdquo; 의 선택값 등을 변동하는 과정에서 약간의 jQuery를 활용했습니다.</p>
+<h2 id="wsgi--nginx--도커">WSGI + NGINX + 도커</h2>
+<ul>
+<li><a class="link" href="http://meme2515.github.io/computer_science/wsgi/"  target="_blank" rel="noopener"
+    >글쓴이의 웹서버와 WAS 관련 글</a></li>
+</ul>
+<p>가능한 배포 환경에 가까운 경험을 위해서 flask 앱을 gunicorn 으로 래핑 후, gunicorn 을 구동하는 3개의 도커 컨테이너를 대상으로 로드 밸런싱을 수행하는 nginx 서버를 구축했습니다.</p>
+<p>실제 클라우드 배포는 <a class="link" href="https://www.digitalocean.com/"  target="_blank" rel="noopener"
+    >DigitalOcean</a> 을 통해 진행했습니다. 클라우드 3사에 비해 국내 인지도는 약간 떨어지지만 해외 커뮤니티에서 많이 언급이 되고있고, 실제 사용 경험도 굉장히 편리해 좋은 인상을 받았어요.</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/mlops/">MLOps</a>
+        
+            <a href="/tags/flask/">flask</a>
+        
+            <a href="/tags/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/">프로젝트</a>
+        
+            <a href="/tags/gunicorn/">gunicorn</a>
+        
+            <a href="/tags/wsgi/">WSGI</a>
+        
+            <a href="/tags/docker/">docker</a>
+        
+            <a href="/tags/%EC%9B%B9%EC%95%B1/">웹앱</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/mlops/fsdl_8/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/mlops/images/fsdl_8_title.png" loading="lazy" data-key="fsdl_8" data-hash="/mlops/images/fsdl_8_title.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Full Stack Deep Learning 2022 부트캠프 - Week 8</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/mlops/fsdl_7/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/mlops/images/fsdl_7_title.png" loading="lazy" data-key="fsdl_7" data-hash="/mlops/images/fsdl_7_title.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Full Stack Deep Learning 2022 부트캠프 - Week 7</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/mlops/fsdl_5/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/mlops/images/fsdl_5_9.png" loading="lazy" data-key="fsdl_5" data-hash="/mlops/images/fsdl_5_9.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Full Stack Deep Learning 2022 부트캠프 - Week 5</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/mlops/fsdl_4/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/mlops/images/fsdl_4_3.png" loading="lazy" data-key="fsdl_4" data-hash="/mlops/images/fsdl_4_3.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Full Stack Deep Learning 2022 부트캠프 - Week 4</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/mlops/fsdl_3/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/mlops/images/fsdl_3_title.png" loading="lazy" data-key="fsdl_3" data-hash="/mlops/images/fsdl_3_title.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Full Stack Deep Learning 2022 부트캠프 - Week 3</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "meme2515" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 Soon&#39;s Blog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -6,7 +6,31 @@
         <description>Recent content in Categories on Soon&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Sun, 26 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 27 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>MLOps</title>
+        <link>https://meme2515.github.io/categories/mlops/</link>
+        <pubDate>Mon, 27 Mar 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/categories/mlops/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>개인프로젝트</title>
+        <link>https://meme2515.github.io/categories/%EA%B0%9C%EC%9D%B8%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/</link>
+        <pubDate>Mon, 27 Mar 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/categories/%EA%B0%9C%EC%9D%B8%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>웹앱</title>
+        <link>https://meme2515.github.io/categories/%EC%9B%B9%EC%95%B1/</link>
+        <pubDate>Mon, 27 Mar 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/categories/%EC%9B%B9%EC%95%B1/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Flask</title>
         <link>https://meme2515.github.io/categories/flask/</link>
         <pubDate>Sun, 26 Mar 2023 00:00:00 +0000</pubDate>
@@ -92,14 +116,6 @@
         <pubDate>Thu, 08 Dec 2022 00:00:00 +0000</pubDate>
         
         <guid>https://meme2515.github.io/categories/fsdl/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>MLOps</title>
-        <link>https://meme2515.github.io/categories/mlops/</link>
-        <pubDate>Thu, 08 Dec 2022 00:00:00 +0000</pubDate>
-        
-        <guid>https://meme2515.github.io/categories/mlops/</guid>
         <description></description>
         </item>
         <item>

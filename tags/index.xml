@@ -6,10 +6,18 @@
         <description>Recent content in Tags on Soon&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Sun, 26 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 27 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>docker</title>
+        <link>https://meme2515.github.io/tags/docker/</link>
+        <pubDate>Mon, 27 Mar 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/docker/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>flask</title>
         <link>https://meme2515.github.io/tags/flask/</link>
-        <pubDate>Sun, 26 Mar 2023 00:00:00 +0000</pubDate>
+        <pubDate>Mon, 27 Mar 2023 00:00:00 +0000</pubDate>
         
         <guid>https://meme2515.github.io/tags/flask/</guid>
         <description></description>
@@ -17,9 +25,41 @@
         <item>
         <title>gunicorn</title>
         <link>https://meme2515.github.io/tags/gunicorn/</link>
-        <pubDate>Sun, 26 Mar 2023 00:00:00 +0000</pubDate>
+        <pubDate>Mon, 27 Mar 2023 00:00:00 +0000</pubDate>
         
         <guid>https://meme2515.github.io/tags/gunicorn/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>MLOps</title>
+        <link>https://meme2515.github.io/tags/mlops/</link>
+        <pubDate>Mon, 27 Mar 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/mlops/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>WSGI</title>
+        <link>https://meme2515.github.io/tags/wsgi/</link>
+        <pubDate>Mon, 27 Mar 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/wsgi/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>웹앱</title>
+        <link>https://meme2515.github.io/tags/%EC%9B%B9%EC%95%B1/</link>
+        <pubDate>Mon, 27 Mar 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/%EC%9B%B9%EC%95%B1/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>프로젝트</title>
+        <link>https://meme2515.github.io/tags/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/</link>
+        <pubDate>Mon, 27 Mar 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/</guid>
         <description></description>
         </item>
         <item>
@@ -28,22 +68,6 @@
         <pubDate>Sun, 26 Mar 2023 00:00:00 +0000</pubDate>
         
         <guid>https://meme2515.github.io/tags/nginx/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>WSGI</title>
-        <link>https://meme2515.github.io/tags/wsgi/</link>
-        <pubDate>Sun, 26 Mar 2023 00:00:00 +0000</pubDate>
-        
-        <guid>https://meme2515.github.io/tags/wsgi/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>웹앱</title>
-        <link>https://meme2515.github.io/tags/%EC%9B%B9%EC%95%B1/</link>
-        <pubDate>Sun, 26 Mar 2023 00:00:00 +0000</pubDate>
-        
-        <guid>https://meme2515.github.io/tags/%EC%9B%B9%EC%95%B1/</guid>
         <description></description>
         </item>
         <item>
@@ -236,14 +260,6 @@
         <pubDate>Thu, 08 Dec 2022 00:00:00 +0000</pubDate>
         
         <guid>https://meme2515.github.io/tags/full-stack-deep-learning-2022/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>MLOps</title>
-        <link>https://meme2515.github.io/tags/mlops/</link>
-        <pubDate>Thu, 08 Dec 2022 00:00:00 +0000</pubDate>
-        
-        <guid>https://meme2515.github.io/tags/mlops/</guid>
         <description></description>
         </item>
         <item>
