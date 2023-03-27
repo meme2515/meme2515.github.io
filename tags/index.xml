@@ -6,7 +6,55 @@
         <description>Recent content in Tags on Soon&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Tue, 21 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 26 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>flask</title>
+        <link>https://meme2515.github.io/tags/flask/</link>
+        <pubDate>Sun, 26 Mar 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/flask/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>gunicorn</title>
+        <link>https://meme2515.github.io/tags/gunicorn/</link>
+        <pubDate>Sun, 26 Mar 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/gunicorn/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>NGINX</title>
+        <link>https://meme2515.github.io/tags/nginx/</link>
+        <pubDate>Sun, 26 Mar 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/nginx/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>WSGI</title>
+        <link>https://meme2515.github.io/tags/wsgi/</link>
+        <pubDate>Sun, 26 Mar 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/wsgi/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>웹앱</title>
+        <link>https://meme2515.github.io/tags/%EC%9B%B9%EC%95%B1/</link>
+        <pubDate>Sun, 26 Mar 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/%EC%9B%B9%EC%95%B1/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>웹앱 개발</title>
+        <link>https://meme2515.github.io/tags/%EC%9B%B9%EC%95%B1-%EA%B0%9C%EB%B0%9C/</link>
+        <pubDate>Sun, 26 Mar 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/%EC%9B%B9%EC%95%B1-%EA%B0%9C%EB%B0%9C/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>ELMo</title>
         <link>https://meme2515.github.io/tags/elmo/</link>
         <pubDate>Tue, 21 Feb 2023 00:00:00 +0000</pubDate>

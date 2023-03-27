@@ -3,7 +3,46 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://meme2515.github.io/categories/</loc>
-    <lastmod>2023-02-21T00:00:00+00:00</lastmod>
+    <lastmod>2023-03-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/computer_science/</loc>
+    <lastmod>2023-03-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/flask/</loc>
+    <lastmod>2023-03-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/categories/flask/</loc>
+    <lastmod>2023-03-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/gunicorn/</loc>
+    <lastmod>2023-03-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/nginx/</loc>
+    <lastmod>2023-03-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/categories/nginx/</loc>
+    <lastmod>2023-03-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/</loc>
+    <lastmod>2023-03-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/</loc>
+    <lastmod>2023-03-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/wsgi/</loc>
+    <lastmod>2023-03-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/categories/wsgi/</loc>
+    <lastmod>2023-03-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/computer_science/wsgi/</loc>
+    <lastmod>2023-03-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/%EC%9B%B9%EC%95%B1/</loc>
+    <lastmod>2023-03-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/%EC%9B%B9%EC%95%B1-%EA%B0%9C%EB%B0%9C/</loc>
+    <lastmod>2023-03-26T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/tags/elmo/</loc>
     <lastmod>2023-02-21T00:00:00+00:00</lastmod>
@@ -21,12 +60,6 @@
     <lastmod>2023-02-21T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/categories/nlp/</loc>
-    <lastmod>2023-02-21T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/</loc>
-    <lastmod>2023-02-21T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/tags/</loc>
     <lastmod>2023-02-21T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/tags/%EB%89%B4%EB%9F%B4%EB%84%B7/</loc>
@@ -232,9 +265,6 @@
   </url><url>
     <loc>https://meme2515.github.io/tags/%ED%8A%B8%EB%9E%9C%EC%8A%A4%ED%8F%AC%EB%A8%B8-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/</loc>
     <lastmod>2022-09-18T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/computer_science/</loc>
-    <lastmod>2022-09-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/tags/vim/</loc>
     <lastmod>2022-09-05T00:00:00+00:00</lastmod>
