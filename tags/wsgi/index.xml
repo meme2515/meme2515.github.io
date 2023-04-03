@@ -12,7 +12,7 @@
         <pubDate>Mon, 27 Mar 2023 00:00:00 +0000</pubDate>
         
         <guid>https://meme2515.github.io/projects/mosquito/</guid>
-        <description>&lt;img src="https://meme2515.github.io/projects/images/mosquito_3.png" alt="Featured image of post 개인 프로젝트 - 모기 활동 지수 예측기" /&gt;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+        <description>&lt;img src="https://meme2515.github.io/projects/images/mosquito_title.jpeg" alt="Featured image of post 개인 프로젝트 - 모기 활동 지수 예측기" /&gt;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -126,8 +126,9 @@
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://news.seoul.go.kr/welfare/mosquito&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;데이터 소스 - 서울시&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;프로젝트의 중점이 모델을 브라우저 환경에서 활용할 수 있도록 하는 것이었기 때문에, 특별한 feature engineering 이나 model selection 과정 없이 간단한 회귀 모델로 모기 출현 지수를 예측하는 모델을 구축했습니다 &lt;em&gt;(사실 활용한 데이터셋 자체가 서울시가 제공한 예측치의 시계열 자료이기에, 적당히만 세팅한다면 100% 에 가까운 정확도가 나올 것으로 생각됩니다)&lt;/em&gt;.&lt;/p&gt;
-&lt;p&gt;우선 데이터셋은 (1) 모기 지수, (2) 강수량, (3) 최저 기온, (4) 최대 기온으로 구성되어 있습니다.&lt;/p&gt;
+&lt;p&gt;프로젝트의 중점이 모델 서빙이기 때문에, 특별한 feature engineering 이나 model selection 과정 없이 간단한 회귀 모델로 모기 출현 지수를 예측하는 모델을 구축했습니다&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;(사실 활용한 데이터셋 자체가 서울시가 제공한 예측치의 시계열 자료이기에, 적당히만 세팅한다면 100% 에 가까운 정확도가 나올 것으로 생각됩니다)&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;우선 데이터셋은 1,342 건의 일 별 (1) 모기 지수, (2) 강수량, (3) 최저 기온, (4) 최대 기온으로 구성되어 있습니다.&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -168,27 +169,6 @@
 &lt;td style=&#34;text-align:right&#34;&gt;-10.700000&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;25%&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;5.500000&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;0.000000&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;0.300000&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;9.300000&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;50%&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;91.900000&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;0.000000&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;11.500000&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;21.900000&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;75%&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;480.400000&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;0.400000&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;19.500000&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;28.175000&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
 &lt;td style=&#34;text-align:right&#34;&gt;max&lt;/td&gt;
 &lt;td style=&#34;text-align:right&#34;&gt;1000.000000&lt;/td&gt;
 &lt;td style=&#34;text-align:right&#34;&gt;144.500000&lt;/td&gt;
@@ -197,12 +177,65 @@
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;활용한 모델은 사이킷런 패키지의 linear_model.LinearRegression() 이고, 나머지 세개의 feature 에 대해 mosquito_indicator 컬럼의 값을 가장 기본적인 세팅으로 예측했을때 validation set 에 대해 약 85% 의 성능을 기록했습니다 &lt;em&gt;(Mean Absolute Deviation 기준)&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;여기서 mosquito_indicator 로 표기된 모기 활동 지수는 특정한 범위 내에서 채집된 모기 개채수를 정규화시킨 지표라고 이해하시면 됩니다.&lt;/p&gt;
+&lt;p&gt;원본 데이터에는 이외에도 관측 날짜가 포함되어 있습니다. 이는 타깃 변수가 계절성을 가지기 때문에 핵심 feature 로 활용될 수 있지만, 모델링 과정을 최대한 간단하게 유지하기 위해 아래 내용에선 생략되었습니다.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/projects/images/mosquito_8.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 3. 변수 별 Pair Plot&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;변수 별 관계를 시각적으로 살펴봤을때, 최저/최고 기온이 모기 개채수와 전반적으로 큰 상관성을 나타내는 것을 확인할 수 있습니다. 강수량의 경우 이상치로 인해 관계성을 시각적으로 판단하기가 어려웠고, 따라서 아래와 같이 강수량의 로그 값과 모기 활동 지수 간의 관계를 월 별로 시각화 하였습니다.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/projects/images/mosquito_9.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 4. 월 별 로그 강수량과 모기 활동 지수&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;생각과 달리 10월을 제외하면 모기 개채수와 강수량 간에는 큰 상관성이 관찰되지는 않았습니다. 저널에 기재된 것과 같이 7월 초, 9월 말 집중 호우로 개채수가 급감된다는 가설과 다소 상반되는 결과였는데, 하지만 월 별 모기 활동 지수의 분포에 차이가 있다는 점을 확인할 수 있었어요.&lt;/p&gt;
+&lt;p&gt;모델링은 사이킷런의 회귀 모델을 기반으로 진행했으며, Validation Set 에 대해 약 155 의 Mean Absolute Error 를 기록했습니다.&lt;/p&gt;
 &lt;h2 id=&#34;flask-어플리케이션&#34;&gt;Flask 어플리케이션&lt;/h2&gt;
-&lt;p&gt;학습이 완료된 모델은 별도 pkl 파일로 저장하여, flask 앱에서 바로 활용할 수 있도록 구성했습니다. 생각보다 모델과 연계짓는 과정이 간단했는데, 막상 유저의 위치 정보를 기상 정보로 변환하려고 보니 API 활용과 별도의 데이터 처리 과정이 필요했어요.&lt;/p&gt;
-&lt;p&gt;우선 위치 정보는 국내 모든 행정구역에 대한 경위도 데이터를 &lt;a class=&#34;link&#34; href=&#34;https://skyseven73.tistory.com/23&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;해당 블로그&lt;/a&gt; 에서 다운받아 사용했습니다. 또한 기상청 API Request 에서 필요로 하는 위치 정보는 경위도가 아닌 별도의 &lt;a class=&#34;link&#34; href=&#34;https://fronteer.kr/service/kmaxy&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;격자 체계&lt;/a&gt;이기 때문에 변환 로직 또한 웹서치를 통해 구현했습니다.&lt;/p&gt;
+&lt;p&gt;학습이 완료된 모델은 별도 pkl 파일로 저장하여, flask 앱에서 바로 활용할 수 있도록 구성했습니다. 이후 유저의 위치 정보를 기상 정보로 변환하려고 보니 다음과 같은 데이터 변환 과정이 필요했습니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;읍면동 까지의 위치 정보를 경위도 좌표로 변환&lt;/li&gt;
+&lt;li&gt;변환된 경위도 좌표를 기상청 격자정보로 변환&lt;/li&gt;
+&lt;li&gt;격자정보를 통해 기상청 API 에서 강수량, 기온 정보 가져오기&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;읍면동 위치에 따른 경위도 정보는 국내 모든 행정구역에 대한 데이터를 &lt;a class=&#34;link&#34; href=&#34;https://skyseven73.tistory.com/23&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;해당 블로그&lt;/a&gt; 에서 다운받아 사용했습니다. csv 형태로 서버에 저장 후, 필요시 pandas 데이터프레임으로 불러와 해당되는 경위도를 변수에 저장하게 되는데 추후 성능 개선을 위해선 데이터베이스 활용 또한 고려가 가능합니다.&lt;/p&gt;
+&lt;p&gt;기상청 API 에서 필요로 하는 위치 정보는 경위도가 아닌 별도의 &lt;a class=&#34;link&#34; href=&#34;https://fronteer.kr/service/kmaxy&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;격자정보&lt;/a&gt;이기 때문에 별도의 변환 로직을 구현하는 과정 또한 필요했습니다. 로직은 &lt;a class=&#34;link&#34; href=&#34;https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&amp;amp;blogId=javaking75&amp;amp;logNo=220089575454&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;해당 블로그&lt;/a&gt; 를 참고했습니다.&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -220,12 +253,12 @@
 &lt;/thead&gt;
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;Fig 3. 기상청 격자정보 - 위경도 변환 예시&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 4. 기상청 격자정보 - 위경도 변환 예시&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;이렇게 추출된 XY 격자 위치와 예측일 등의 파라미터를 기반으로 공공데이터 포털에서 제공하는 &lt;a class=&#34;link&#34; href=&#34;https://www.data.go.kr/data/15043494/fileData.do&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;기상청 단기예보 API&lt;/a&gt; 에서 inference input 인 일일 강수량, 최저기온, 최대기온 등의 데이터를 추출했습니다.&lt;/p&gt;
+&lt;p&gt;이렇게 추출된 기상청 격자정보 등의 값을 기반으로 &lt;a class=&#34;link&#34; href=&#34;https://www.data.go.kr/data/15043494/fileData.do&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;기상청 단기예보 API&lt;/a&gt; 에서 최신 기상 정보를 가져오는 파이프라인을 구축했습니다. 예측하고자 하는 날짜의 바로 전날 오후 11시에 발표된 예보값을 가져오게 되며, API 코드는 위 링크에 첨부되어 있는 API 가이드를 참고했습니다.&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -243,20 +276,15 @@
 &lt;/thead&gt;
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;Fig 4. 기상청 단기 예보 API 출력값 예시&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 5. 기상청 단기 예보 API 출력값 예시&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;이 단계에서 유저의 지역 정보를 기상 데이터로 변환하고, 이를 회귀 모델의 인풋으로 활용해 모기 활동 지수의 예측값을 출력하는 것이 가능했어요.&lt;/p&gt;
-&lt;p&gt;프론트엔드 구성 단계에선 브라우저 내에서 읍면동 단위 까지의 위치 정보를 기입할 수 있도록 구성하는 작업이 필요했는데, html 페이지 내에서 선택된 &amp;ldquo;시도&amp;rdquo; 값에 따라 &amp;ldquo;시군구&amp;rdquo; 의 선택값 등을 변동하는 과정에서 약간의 jQuery를 활용했습니다.&lt;/p&gt;
+&lt;p&gt;프론트엔드 구성 단계에선 브라우저 내에서 읍면동 단위 까지의 위치 정보를 기입할 수 있도록 구성하는 작업이 필요했는데, html 페이지 내에서 선택된 &amp;ldquo;시도&amp;rdquo; 값에 따라 &amp;ldquo;시군구&amp;rdquo; 의 선택값 등을 변동하는 과정에서 약간의 jQuery를 활용했습니다 (&lt;a class=&#34;link&#34; href=&#34;https://chichi-story.tistory.com/18&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;참고 블로그&lt;/a&gt;).&lt;/p&gt;
 &lt;h2 id=&#34;wsgi--nginx--도커&#34;&gt;WSGI + NGINX + 도커&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://meme2515.github.io/computer_science/wsgi/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;글쓴이의 웹서버와 WAS 관련 글&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;가능한 배포 환경에 가까운 경험을 위해서 flask 앱을 gunicorn 으로 래핑 후, gunicorn 을 구동하는 3개의 도커 컨테이너를 대상으로 로드 밸런싱을 수행하는 nginx 서버를 구축했습니다.&lt;/p&gt;
-&lt;p&gt;실제 클라우드 배포는 &lt;a class=&#34;link&#34; href=&#34;https://www.digitalocean.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;DigitalOcean&lt;/a&gt; 을 통해 진행했습니다. 클라우드 3사에 비해 국내 인지도는 약간 떨어지지만 해외 커뮤니티에서 많이 언급이 되고있고, 실제 사용 경험도 굉장히 편리해 좋은 인상을 받았어요.&lt;/p&gt;
+&lt;p&gt;가능한 배포 환경에 가까운 경험을 위해서 flask 앱을 WSGI 서버인 gunicorn 으로 래핑 후, gunicorn 을 구동하는 3개의 도커 컨테이너를 대상으로 로드 밸런싱을 수행하는 nginx 서버를 구축했습니다. 관련해 공부한 내용은 &lt;a class=&#34;link&#34; href=&#34;http://meme2515.github.io/computer_science/wsgi/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;웹서버와 WAS&lt;/a&gt; 에 자세히 기록해 두었습니다.&lt;/p&gt;
 </description>
         </item>
         <item>
