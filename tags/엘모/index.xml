@@ -12,16 +12,7 @@
         <pubDate>Tue, 21 Feb 2023 00:00:00 +0000</pubDate>
         
         <guid>https://meme2515.github.io/neural_network/elmo/</guid>
-        <description>&lt;img src="https://meme2515.github.io/neural_network/images/elmo_title2.png" alt="Featured image of post ELMo (Embeddings from Language Model)" /&gt;&lt;div class=&#34;video-wrapper&#34;&gt;
-    &lt;iframe loading=&#34;lazy&#34; 
-            src=&#34;https://www.youtube.com/embed/YilcZp3WuoI&#34; 
-            allowfullscreen 
-            title=&#34;YouTube Video&#34;
-    &gt;
-    &lt;/iframe&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+        <description>&lt;img src="https://meme2515.github.io/neural_network/images/elmo_title2.png" alt="Featured image of post ELMo (Embeddings from Language Model)" /&gt;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;ELMo 는 2018년 공개된 워드 임베딩 방법론이며, GloVe, Word2Vec 등 기존 여러 임베딩 방식이 문맥을 파악하지 못하는 단점을 보완하고자 설계되었다.&lt;/li&gt;
 &lt;li&gt;예시로 River Bank (강둑) 와 Bank Account (은행 계좌) 라는 단어에서 Bank 는 전혀 다른 의미를 가지지만, 문맥을 파악하지 못하는 임베딩 기법은 Bank 에 동일한 벡터를 부여함으로 NLP 성능이 떨어질 수 밖에 없음.&lt;/li&gt;
