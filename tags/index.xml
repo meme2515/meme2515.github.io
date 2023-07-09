@@ -6,7 +6,31 @@
         <description>Recent content in Tags on Soon&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Mon, 27 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 09 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Feature Selection</title>
+        <link>https://meme2515.github.io/tags/feature-selection/</link>
+        <pubDate>Sun, 09 Jul 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/feature-selection/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>특성선별</title>
+        <link>https://meme2515.github.io/tags/%ED%8A%B9%EC%84%B1%EC%84%A0%EB%B3%84/</link>
+        <pubDate>Sun, 09 Jul 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/%ED%8A%B9%EC%84%B1%EC%84%A0%EB%B3%84/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>특성선택</title>
+        <link>https://meme2515.github.io/tags/%ED%8A%B9%EC%84%B1%EC%84%A0%ED%83%9D/</link>
+        <pubDate>Sun, 09 Jul 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/%ED%8A%B9%EC%84%B1%EC%84%A0%ED%83%9D/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>docker</title>
         <link>https://meme2515.github.io/tags/docker/</link>
         <pubDate>Mon, 27 Mar 2023 00:00:00 +0000</pubDate>
