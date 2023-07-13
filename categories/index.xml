@@ -6,7 +6,31 @@
         <description>Recent content in Categories on Soon&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Sun, 09 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 12 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Computer Science</title>
+        <link>https://meme2515.github.io/categories/computer-science/</link>
+        <pubDate>Wed, 12 Jul 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/categories/computer-science/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Database</title>
+        <link>https://meme2515.github.io/categories/database/</link>
+        <pubDate>Wed, 12 Jul 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/categories/database/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>분산처리</title>
+        <link>https://meme2515.github.io/categories/%EB%B6%84%EC%82%B0%EC%B2%98%EB%A6%AC/</link>
+        <pubDate>Wed, 12 Jul 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/categories/%EB%B6%84%EC%82%B0%EC%B2%98%EB%A6%AC/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>machine learning</title>
         <link>https://meme2515.github.io/categories/machine-learning/</link>
         <pubDate>Sun, 09 Jul 2023 00:00:00 +0000</pubDate>
