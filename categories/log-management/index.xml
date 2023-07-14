@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Log Management on Soon&#39;s Blog</title>
+        <link>https://meme2515.github.io/categories/log-management/</link>
+        <description>Recent content in Log Management on Soon&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Fri, 14 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/categories/log-management/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>로그 데이터의 개념과 활용 방식</title>
+        <link>https://meme2515.github.io/computer_science/log_analysis/</link>
+        <pubDate>Fri, 14 Jul 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/computer_science/log_analysis/</guid>
+        <description>&lt;img src="https://meme2515.github.io/computer_science/images/log_2.png" alt="Featured image of post 로그 데이터의 개념과 활용 방식" /&gt;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;h3 id=&#34;로그란&#34;&gt;로그란?&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;시스템 내에서 발생한 모든 이벤트를 시간순으로 기록한 데이터.&lt;/li&gt;
+&lt;li&gt;카카오톡 등 일상생활에서 쓰이는 앱 부터 IoT 장비 까지 다양한 접목 예시가 존재한다.&lt;/li&gt;
+&lt;li&gt;가장 대표적인 예시로 유저 행동 로그가 있으며, 추가 분석을 통해 사용자의 행동 패턴을 확인하거나, 머신러닝 기반의 유저 클러스터링을 수행하는 등 다양한 활용이 가능.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;체계적인-로그-관리가-필요한-이유&#34;&gt;체계적인 로그 관리가 필요한 이유&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;로그가 없으면 당연히 기록된 이벤트 데이터를 확인할 수 없고, 시스템 활용 현황에 대한 분석이 불가능하다.&lt;/li&gt;
+&lt;li&gt;부주의한 로깅은 추후 회사에서 성과 데이터를 분석하고자 할때 과거 데이터가 활용 불가능한 난감한 상황을 연출할 수 있다.&lt;/li&gt;
+&lt;li&gt;이러한 상황을 사전에 방지하기 위해는 &lt;strong&gt;잘 설계된 로그 및 주기적인 QA 가 필수적.&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;데이터-로그-설계-주체&#34;&gt;데이터 로그 설계 주체&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;회사에 따라 상황이 다를 수 있으나 일반적으로 (1) 해당 기능을 만든 기획자 또는 PM (2) 데이터 분석가 또는 엔지니어로 구분될 수 있음.&lt;/li&gt;
+&lt;li&gt;기획자는 보고 싶은 데이터와 추가된 기능에 대한 명확한 이해가 있고, 분석가는 분석에 용이한 형태에 대한 피드백을 줄 수 있음으로 협업해 진행하는 편이 좋음.&lt;/li&gt;
+&lt;li&gt;로그 설계 방법론은 변성윤 님의 &lt;a class=&#34;link&#34; href=&#34;https://zzsza.github.io/data/2021/06/13/data-event-log-definition/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;어쩐지 오늘은&lt;/a&gt; 블로그 참조 (존경&amp;hellip;).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;로그의-형태&#34;&gt;로그의 형태&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;크게 DB 와 파일 형태로 구분이 가능하다.&lt;/li&gt;
+&lt;li&gt;단순 파일로 로그 관리를 진행할 경우, 분석을 위해 DW 로 옮기는 파이프라인 필요.&lt;/li&gt;
+&lt;li&gt;일반적인 비즈니스 환경에선 크게 다음과 같은 용도로 구분하는 것이 가능 :
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;시스템 로그&lt;/strong&gt; : OS, RDBMS 와 같은 미들웨어에서 문제가 발생했을때 장애 원인 파악 용도&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;어플리케이션 로그&lt;/strong&gt; : 개발자가 어플리케이션의 장애 원인을 파악하기 위한 용도&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;비즈니스 로그&lt;/strong&gt; : 향후 분석을 위해 수집하는 사용자의 서비스 사용 형태, 거래 기록 등&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;로그-시스템&#34;&gt;로그 시스템&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/computer_science/images/log_2.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 1. 로그 시스템 다이어그램 - &lt;a class=&#34;link&#34; href=&#34;https://spidyweb.tistory.com/484&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Spidy Web 블로그&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Component&lt;/th&gt;
+&lt;th&gt;Function&lt;/th&gt;
+&lt;th&gt;Solution&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;API Server&lt;/td&gt;
+&lt;td&gt;로그를 클라이언트로 부터 수집하고 데이터를 정제&lt;/td&gt;
+&lt;td&gt;웹 서버&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Message Q&lt;/td&gt;
+&lt;td&gt;로그 저장소가 순간적으로 많은 트래픽을 감당할 수 없는 경우가 많기 때문에, 중간에 MQ 를 넣어서 들어오는 로그를 저장하며 완충&lt;/td&gt;
+&lt;td&gt;Kafka (대량 큐) AWS SQS or 구글Pub/Sub (클라우드 큐) Rabbit MQ (일반적인 큐)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Message Consumer&lt;/td&gt;
+&lt;td&gt;MQ 로 부터 로그를 Message Consumer 가 순차적으로 읽어서 Log Storage에 저장&lt;/td&gt;
+&lt;td&gt;Multi Thread(or Process) + Timer 를 조합하여 메시지를 폴링 방식으로 읽어오는 어플리케이션&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Log Storage&lt;/td&gt;
+&lt;td&gt;로그 저장소&lt;/td&gt;
+&lt;td&gt;Elastic Search, Hadoop(HDFS), HBase (하둡) Drill, Druid (SQL 기반 빅데이터 플랫폼)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Reporting&lt;/td&gt;
+&lt;td&gt;저장된 로그는 Reporting 툴을 이용하여 시각화&lt;/td&gt;
+&lt;td&gt;Kibana, Zeppelin, Jupyter&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;tracking-plan&#34;&gt;Tracking Plan&lt;/h2&gt;
+&lt;h3 id=&#34;tracking-plan-이란&#34;&gt;Tracking Plan 이란?&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;로그 설계/분석에서 높은 품질의 데이터 만큼 중요한 것은 잘 정돈된 로그 설계 문서 (Tracking Plan) 이다.&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;이러한 설계 과정이 잘 정리되어야 추후 분석 시 어떤 이벤트를 확인해야 하는지, 확인된 데이터가 정상적인지 등을 확인할 수 있다.&lt;/li&gt;
+&lt;li&gt;Tracking Plan 을 잘 활용하면 이벤트가 어떤 방식으로 기록되는지 한눈에 확인할 수 있다. 또한 중복 수집을 사전에 예방하고, 일관성을 유지할 수 있음.&lt;/li&gt;
+&lt;li&gt;Tracking Plan 내에 다음과 같은 정보를 포함 :
+&lt;ul&gt;
+&lt;li&gt;이벤트 이름&lt;/li&gt;
+&lt;li&gt;이벤트 설명&lt;/li&gt;
+&lt;li&gt;이벤트 카테고리 (추상화 또는 도메인)&lt;/li&gt;
+&lt;li&gt;어느 시점에 실행되는지&lt;/li&gt;
+&lt;li&gt;어떤 파라미터를 가지는지 (타입, 설명, 필수 여부)&lt;/li&gt;
+&lt;li&gt;어느 플랫폼에서 남기는지&lt;/li&gt;
+&lt;li&gt;언제부터 수집했는지&lt;/li&gt;
+&lt;li&gt;언제 수집을 중지했는지&lt;/li&gt;
+&lt;li&gt;설계, 개발 완료 여부&lt;/li&gt;
+&lt;li&gt;QA 개발 여부&lt;/li&gt;
+&lt;li&gt;배포 여부&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;참조-template&#34;&gt;참조 Template&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.google.com/spreadsheets/d/1oEbMAWQt7lFXVJtM8sMdTaqjoeVQvZok24o_lOtxCyI/edit?pli=1#gid=854230389&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Avo - Analytics Tracking Plan Template&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.google.com/spreadsheets/d/1-6rXRomzq05YDQ9A6QG9A2i-jez72amPw-Johhd-heQ/edit#gid=45524225&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Amplitude - Basic Event Tracking Plan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.google.com/spreadsheets/d/1b_uHvFbXAuKxFNFwNjRj4-_6sSrhlgHoizeJLSp1Grw/edit#gid=465273655&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Practico Analytics - Analytics Tracking Plan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://mixpanel.app.box.com/s/4qhbozhmsrzvzpakan6hqif0t3036qui&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Mixpanel - Retail &amp;amp; eCommerce Tracking Plan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.google.com/spreadsheets/d/10PV5mC_iT98mtIBbYMyVCxkYtTbCitHJ1DH2qAEQI-4/edit#gid=1162516317&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Data-led - Tracking Plan&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;분석-활용&#34;&gt;분석 활용&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;별도 파싱이 필요한 경우 ETL 파이프를 통해 데이터베이스에 적재.&lt;/li&gt;
+&lt;li&gt;바로 활용 가능한 경우 Storm/Spark 등 분산처리 기술을 이용하여 실시간 분석.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;우아한형제들-로그-매니지먼트-예시&#34;&gt;우아한형제들 로그 매니지먼트 예시&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://techblog.woowahan.com/2536/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;우아한기술블로그 - 로그 데이터로 유저 이해하기&lt;/a&gt; 에 관련 담당자님이 올려주신 로그 분석 사례이다.&lt;/p&gt;
+&lt;h3 id=&#34;서비스-이해&#34;&gt;서비스 이해&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;클라이언트 로그 설계를 위해 앱의 모든 화면과 이벤트 (클릭, 배너 노출 등) 를 상세히 파악.&lt;/li&gt;
+&lt;li&gt;실제 유저가 앱을 사용하듯 모든 기능과 화면에 대한 이해가 필수적.&lt;/li&gt;
+&lt;li&gt;모든 분석가가 로그 설계 과정을 거치는 것은 아니나, 분석 방향과 프레임 설정에 매우 큰 도움을 줄 수 있음.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;로그-수집&#34;&gt;로그 수집&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;엔지니어 및 개발자 협업을 통한 실제 로그 수집 진행.&lt;/li&gt;
+&lt;li&gt;저장소 내 JSON 파일로 적재되었으며, 실시간으로 데이터 추출/분석이 가능한 Spark, Zeppelin 환경 구성.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/computer_science/images/log_3.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 2. 수집 로그 예시 - &lt;a class=&#34;link&#34; href=&#34;https://techblog.woowahan.com/2536/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;우아한기술블로그 - 로그 데이터로 유저 이해하기&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;품질-확보&#34;&gt;품질 확보&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;로그 수집이 처음 진행된 경우 데이터 품질 확보가 특히 중요함.&lt;/li&gt;
+&lt;li&gt;의도한 바와 같이 각 필드에 적절한 데이터가 쌓이고 있는지, 누락 혹은 이상치는 존재하지 않는지 확인 진행.&lt;/li&gt;
+&lt;li&gt;품질 확보에 꽤나 많은 시간이 소요되며, 문제 발생 시 담당자와 협업을 통해 해결.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/computer_science/images/log_4.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 3. 수집 오류 예시 - &lt;a class=&#34;link&#34; href=&#34;https://techblog.woowahan.com/2536/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;우아한기술블로그 - 로그 데이터로 유저 이해하기&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;분석-프레임-설정&#34;&gt;분석 프레임 설정&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;로그 데이터는 특성상 단시간 내 몇 백만 건의 데이터가 순식간에 쌓이고, 정의 항목이 수백건에 달하기 때문에 무작정 분석을 시작하는 경우 허우적 거리는 경험을 하게 될 수 있음.&lt;/li&gt;
+&lt;li&gt;이를 방지하기 위해 목적을 명확히 설정하고 적절한 질문을 사전에 작성.&lt;/li&gt;
+&lt;li&gt;로그 설계 경험을 바탕으로 대략적인 프레임을 구축하여, 분석 및 인사이트 도출 과정에서 참조.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;프레임 예시 :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;목적 1&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;앱 내 시나리오 및 기능을 개선할 수 있는 방안을 찾자 (궁극적으로 사용성 및 UX 개선)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;질문&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;구간 별 Conversion Rate 는? 어떠한 기준으로 계산할 것인가? 세션의 기준?&lt;/li&gt;
+&lt;li&gt;퍼널 별 이탈율은 얼마나 되는지? 주요 bottleneck 구간은?&lt;/li&gt;
+&lt;li&gt;각 단계 별 주요 행동 패턴은? 주로 활용되는 기능은? 세부적인 개선점은?&lt;/li&gt;
+&lt;li&gt;재구매율 혹은 재방문율은 어떠한가?&lt;/li&gt;
+&lt;li&gt;지표 계산 방식은? 평균 재구매 시간? 시간이 오래 걸릴수록 패널티가 있는지?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;목적 2&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;전체 유저 세분화하여 행동 패턴의 차이 확인 &amp;raquo; 핵심 그룹 타겟팅&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;질문&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;지역별에 따른 유저 행동 패턴의 차이는?&lt;/li&gt;
+&lt;li&gt;주간 방문수 기준으로 구분하면?&lt;/li&gt;
+&lt;li&gt;주문 경험 유 vs 무 여부로 구분&lt;/li&gt;
+&lt;li&gt;신규 유저 vs 기존 가입 유저의 행동 패턴의 차이는?&lt;/li&gt;
+&lt;li&gt;타 플랫폼 이용 경험 유 vs 무 (디바이스 크로스)가 결제에 미치는 영향은?&lt;/li&gt;
+&lt;li&gt;주문한 카테고리 (예, 시킨 것만 시키는 그룹, 바꾸는 그룹)별로 구분하면?&lt;/li&gt;
+&lt;li&gt;결제시 주문 방식별 세분화? 주문 방식별로 특이한 패턴은?&lt;/li&gt;
+&lt;li&gt;클릭한 배너에 따른 결제율 차이는?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;디테일에-목숨걸지-말-것&#34;&gt;디테일에 목숨걸지 말 것&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;업데이트된 서비스를 로그 설계에 반영하지 못했거나, 기타 유사한 이유로 해석 불가능한 결과가 나오는 경우가 있다.&lt;/li&gt;
+&lt;li&gt;예시적으로 유저가 특정 화면을 3초 동안 5번 확인한 것으로 조회되는 경우, 다소 자의적으로 느껴지더라도 보다 인간의 행동을 효과적으로 설명하기 위해 5개 행을 하나의 행으로 축약.&lt;/li&gt;
+&lt;li&gt;유사한 데이터 발생할 경우 무엇을 기준으로 중복을 제거하는 것이 적절한가? 에 대한 자문.&lt;/li&gt;
+&lt;li&gt;결국, 분석의 초기 목적과 논리를 기반으로한 접근 방식이 필요하다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;분석-결과&#34;&gt;분석 결과&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;업무의 절반은 분석 결과를 유관자에게 전달하고, 설득을 통해 실질적인 변화와 성과를 이끌도록 지원하는 것.&lt;/li&gt;
+&lt;li&gt;따라서 &lt;strong&gt;분석 결과를 명확하고 간결하게 전달하는 것은 매우, 매우 중요하다&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;고급 방법론이 아닌 실질적인 변화를 이끌어 낼 수 있는 방식을 택할 것.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;sources&#34;&gt;Sources&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://spidyweb.tistory.com/484&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Spidy Web 블로그&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://zzsza.github.io/data/2021/06/13/data-event-log-definition/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;어쩐지 오늘은&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://techblog.woowahan.com/2536/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;우아한기술블로그 - 로그 데이터로 유저 이해하기&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
