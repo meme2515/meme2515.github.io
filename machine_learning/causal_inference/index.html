@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='개념과 주요 한계점, 방법론 예시'>
+<title>인과추론 (Causal Inference) 개요</title>
+
+<link rel='canonical' href='https://meme2515.github.io/machine_learning/causal_inference/'>
+
+<link rel="stylesheet" href="/scss/style.min.8191399262444ab68b72a18c97392f5349be20a1615d77445be51e974c144cff.css"><meta property='og:title' content='인과추론 (Causal Inference) 개요'>
+<meta property='og:description' content='개념과 주요 한계점, 방법론 예시'>
+<meta property='og:url' content='https://meme2515.github.io/machine_learning/causal_inference/'>
+<meta property='og:site_name' content='Soon&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Machine_learning' /><meta property='article:tag' content='Causal Inference' /><meta property='article:tag' content='인과추론' /><meta property='article:published_time' content='2023-07-17T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-07-17T00:00:00&#43;00:00'/><meta property='og:image' content='https://meme2515.github.io/machine_learning/images/causal_inference_4.webp' />
+<meta name="twitter:title" content="인과추론 (Causal Inference) 개요">
+<meta name="twitter:description" content="개념과 주요 한계점, 방법론 예시"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://meme2515.github.io/machine_learning/images/causal_inference_4.webp' />
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-135204357-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hud342b0d5be633fdc127bd0653c60e8c3_234674_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Soon&#39;s Blog</a></h1>
+            <h2 class="site-description">데이터 블로그입니다 :)</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/meme2515'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M200,513c0-20.3,0-40.7,0-61c3.1,0.6,1.9,3.1,1.9,4.8c0.1,16.3,0.2,32.6,0,48.9c-0.1,4.1,1,5.4,5.2,5.4   c36.6-0.2,73.2-0.2,109.8,0c4.4,0,5.1-1.6,5.1-5.5c-0.2-25-0.1-49.9-0.1-74.9c0-9.3,0.2-18.6,0.2-27.9c2.8,1.2,1.6,3.8,1.6,5.7   c0.1,34.8,0.1,69.6,0.1,104.4C282.7,513,241.3,513,200,513z" fill="#D1D1D1"/><path d="M322.2,402.8c-0.1,9.3-0.2,18.6-0.2,27.9c0,25-0.1,49.9,0.1,74.9c0,3.9-0.7,5.5-5.1,5.5   c-36.6-0.2-73.2-0.2-109.8,0c-4.2,0-5.3-1.3-5.2-5.4c0.2-16.3,0.1-32.6,0-48.9c0-1.7,1.2-4.2-1.9-4.8c-9.7,0.9-19.3,3.2-29.2,2.8   c-33.5-1.3-59.5-15.4-74.7-45.8c-8.2-16.4-17.8-31.7-29.1-46c-3.1-3.9-7.9-5.5-11.5-8.7c-1.1-1-2.4-1.8-3.3-3   c-2.3-3.3-1.2-5.8,2.8-6.2c18.5-1.9,33.8,4.2,46.2,18.1c6.3,7.1,10.2,15.8,16.3,23.1c12.3,14.7,28,22.7,47,24.9   c11.5,1.3,22.4-0.9,33.3-4.2c2.2-0.6,3.1-2,3.3-4.3c0.7-10.3,2.8-20.3,6.8-29.9c1.8-4.3,4.7-7.9,6.9-12.3   c-10.3-2.6-20.7-3.4-30.5-6.4c-27.1-8.2-50.9-21.6-68.2-44.7c-8.3-11-14.1-23.3-17.4-36.5c-1.8-7.2-3.9-14.4-3.8-22   c0.1-13.3-0.5-26.7,0.3-40c0.9-16.8,3.1-33.5,9.2-49.2c3.8-9.7,9.3-18.6,17.1-25.9c2.4-2.3,3.3-4.1,1.8-7.9   c-7.4-19.7-8.1-39.8-1.8-60c0.2-0.6,0.3-1.3,0.4-2c2.2-10.3,4.5-11.3,14.3-7.4c19.2,7.5,33.3,21,45.3,37.3c3.4,4.6,2.7,6.6,10,1.9   c9.7-6.2,21-8.1,32.2-9.3c20.1-2.1,40.3-1.5,60.4-1.1c14.3,0.3,28.5,2.2,42,7.2c3.1,1.1,6,2.8,8.7,4.8c2.1,1.6,3.6,1.6,5.6-1.1   c9.1-12.8,19.5-24.4,33-32.6c6.6-4,13.4-7.7,21.4-8.6c3.3-0.4,4.7,0.7,5.6,3.3c8.3,22.9,9.5,45.7-0.2,68.5   c-1.2,2.8-0.8,4.6,1.3,6.5c16,15,21.8,34.5,24.8,55.5c2.5,17.7,3.2,35.5,2.7,53.3c-0.8,31.2-11.4,58.4-34.4,80.1   c-13.5,12.7-29.7,21.1-47.1,27.5c-12.4,4.6-25.5,5.8-38.5,9c1.3,3.1,3.7,5.4,4.3,8.5c-0.3,1.3,0.4,2,1.6,2.3   c0.1,0.6,0.3,1.1,0.4,1.7c0.3,2.1,0.1,4.3,2.5,5.4c0.5,2.2,1,4.5,1.4,6.7c-0.1,1.7-0.7,3.5,1.6,4.3c0,0.6,0.1,1.2,0.1,1.9   c-1.5,2.3-0.1,4.1,1.1,6C322.1,398.9,322.2,400.9,322.2,402.8z" fill="#A7A7A7"/><path d="M322,397c-1.1-1.9-2.6-3.7-1.1-6C322.1,392.9,323,394.8,322,397z" fill="#D1D1D1"/><path d="M317.7,378.2c-2.4-1.1-2.2-3.3-2.5-5.4C317.4,374,317.7,376,317.7,378.2z" fill="#D1D1D1"/><path d="M320.8,389.1c-2.3-0.8-1.7-2.6-1.6-4.3C321.5,385.6,321,387.5,320.8,389.1z" fill="#D1D1D1"/><path d="M314.8,371.1c-1.2-0.3-1.9-1-1.6-2.3C314.5,369.1,315.1,369.8,314.8,371.1z" fill="#D1D1D1"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.linkedin.com/in/soon-hyung-kwon-73a3221ab/'
+                        target="_blank"
+                        title="LinkedIn"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M1,53c2.5,0,1.7-2,1.9-3.3C5.9,29,16.6,13.9,36.6,7.4c16.1-5.2,32.9-4.6,47.9,4c9.4,5.5,16.6,14,20.4,24.5   c2.8,7.8,4.9,15.9,4,24.2c-2.1,20.9-11.5,38.3-34.5,46.4c-17.4,6-34.3,3.8-50.2-5.7c-1-3.6-3.5-5.4-7.1-6c0,0,0,0,0,0   c-0.1-1.4-0.3-2.8-2.2-2.8C7.7,84,4.3,74.3,2.9,63.8C2.7,62.6,3.2,60.9,1,61C1,58.3,1,55.7,1,53z" fill="#A7A7A7"/><path d="M276.2,216.1c4.3-2.6,6-6.4,8.2-9.5c10.9-15,24.4-26.6,41.2-34.9c23-11.3,47.4-12.5,72-10.2   c18.9,1.7,36.8,8.1,53.1,18.5c19.4,12.4,33.3,29.6,42.8,50.2c5.8,12.5,9.6,25.8,11.9,39.6c2.1,12.9,3.7,25.6,3.7,38.7   c-0.1,65-0.1,130,0.1,195c0,4.6-1.3,5.8-5.8,5.7c-30.7-0.2-61.3-0.2-92,0c-4.5,0-5.5-1.3-5.5-5.6c0.1-61.3,0.4-122.7-0.1-184   c-0.1-13.9-2-27.7-9.2-40.4c-6.4-11.2-15.3-19.2-27-23.8c-15.7-6.2-31.9-7.4-48.3-2.8c-16.6,4.6-28.1,15.5-36.3,30.3   c-4.6,8.3-6.2,17-7.5,26.3c-1.3,10-1.1,19.8-1.1,29.7c-0.2,54.7-0.2,109.3,0,164c0,5-1.2,6.4-6.3,6.3c-30.3-0.3-60.7-0.2-91,0   c-4.2,0-5.7-1.3-5.6-5.2c0.1-2.8,0.3-5.6,0.3-8.4c0-105.5,0.1-211-0.1-316.5c0-4.4,0.9-6,5.7-6c30.5,0.2,61,0.2,91.5,0   c4.1,0,5.5,1,5.4,5.3C276,190.6,276.2,202.9,276.2,216.1z" fill="#A7A7A7"/><path d="M109,176.1c0,3.5,0.1,7,0.1,10.5c0,105.3,0,210.6,0,316c0,6.4,0,6.4-6.5,6.4c-31.8,0-63.7,0-95.5,0   c-0.1-2.5-0.2-5-0.2-7.5c0-78.8,0-157.5,0-236.3c0-28.1,0.1-56.3-0.1-84.4c0-3.6,0.9-4.9,4.7-4.9C44,176.1,76.5,176,109,176.1z" fill="#A7A7A7"/><path d="M109,176.1c-32.5,0-64.9,0-97.4-0.2c-3.8,0-4.7,1.2-4.7,4.9C7,208.9,6.9,237,6.9,265.2   c0,78.8,0,157.5,0,236.3c0,2.5,0.1,5,0.2,7.5c-1.7,0.1-3-0.3-3-2.3c0-1.3,0-2.7,0-4c0-106.8,0-213.5,0-320.3c0-7.6,0.7-8.3,8.2-8.3   c30.5,0,61,0,91.4,0.1C105.5,174.1,108.2,172.7,109,176.1z" fill="#E0E0E0"/><path d="M17.1,94.9c3.6,0.6,6.1,2.4,7.1,6C21.1,99.7,18.8,97.7,17.1,94.9z" fill="#E0E0E0"/><path d="M14.9,92.1c1.9,0,2,1.4,2.2,2.8C15,95,15,93.6,14.9,92.1z" fill="#E0E0E0"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/about' >
+                
+                
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/machine_learning' >
+                
+                
+                
+                <span>Machine Learning</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/neural_network' >
+                
+                
+                
+                <span>Neural Network</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/mlops' >
+                
+                
+                
+                <span>MLOps</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/statistics' >
+                
+                
+                
+                <span>Statistics</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/computer_science' >
+                
+                
+                
+                <span>Computer Science</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/projects' >
+                
+                
+                
+                <span>Projects</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/daily' >
+                
+                
+                
+                <span>Daily</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#endogeneity-내생성">Endogeneity (내생성)</a>
+      <ol>
+        <li><a href="#문제-정의">문제 정의</a></li>
+        <li><a href="#발생-원인">발생 원인</a></li>
+        <li><a href="#simpsons-paradox">Simpson&rsquo;s Paradox</a></li>
+        <li><a href="#해결-방법">해결 방법</a></li>
+      </ol>
+    </li>
+    <li><a href="#sources">Sources</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/machine_learning/causal_inference/">
+                
+                    <img src="/machine_learning/images/causal_inference_4.webp" loading="lazy" alt="Featured image of post 인과추론 (Causal Inference) 개요" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/causal-inference/" >
+                Causal Inference
+            </a>
+        
+            <a href="/categories/%EC%9D%B8%EA%B3%BC%EC%B6%94%EB%A1%A0/" >
+                인과추론
+            </a>
+        
+            <a href="/categories/statistics/" >
+                Statistics
+            </a>
+        
+            <a href="/categories/machine-learning/" >
+                machine learning
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/machine_learning/causal_inference/">인과추론 (Causal Inference) 개요</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            개념과 주요 한계점, 방법론 예시
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jul 17, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    5 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="introduction">Introduction</h2>
+<ul>
+<li>인과추론이란 <strong>최종적인 결과값에 영향을 주는 독립변수를 파악해, 이를 조절하는 것에 목적</strong>을 두며 예측과제와 상반된 목적을 가진다.</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/machine_learning/images/causal_inference_2.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 1. Prediction vs. Causal Inference, <a class="link" href="https://yeong-jin-data-blog.tistory.com/entry/%EC%9D%B8%EA%B3%BC%EC%B6%94%EB%A1%A0Causal-Inference-%EA%B0%9C%EC%9A%94"  target="_blank" rel="noopener"
+    >벌꿀오소리의 공부 일지</a></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>인과추론과 예측 과제는 다른 목적을 가지지만 경우에 따라 <em>(ex. 모델링을 위한 변수 선정 과정에서 인과추론 방법론 활용 등)</em> 상호 보완적인 관계를 가질 수 있다.
+<ul>
+<li>인과추론과 예측 과제는 인풋 -&gt; 모델 -&gt; 아웃풋 이라는 간단한 파이프라인 내에서 최종적인 관심사가 다를뿐, 서로 밀접한 관계를 맺는다.</li>
+</ul>
+</li>
+<li>인과추론 모델 또한 한계점을 가지기 때문에 결과를 절대적인 답으로 볼 수는 없다. 다만 <strong>합리적이고 구체적인 증거를 기반으로 주장할 수 있는 근거</strong>를 제시한다.</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/machine_learning/images/causal_inference_3.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 2. Prediction vs. Causal Inference Approaches, <a class="link" href="https://yeong-jin-data-blog.tistory.com/entry/%EC%9D%B8%EA%B3%BC%EC%B6%94%EB%A1%A0Causal-Inference-%EA%B0%9C%EC%9A%94"  target="_blank" rel="noopener"
+    >벌꿀오소리의 공부 일지</a></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>전통적으로 인과추론은 통계 방법론적 접근이 일반적이었으나, 최근 ML 을 활용한 다양한 방법론이 제시되고 있다.</li>
+<li>회사에서 보통 접하게 되는 A/B 테스팅이란 통계학 기반의 실험적 방법론이며, 이외에도 다양한 접근법이 존재.</li>
+</ul>
+<h2 id="endogeneity-내생성">Endogeneity (내생성)</h2>
+<h3 id="문제-정의">문제 정의</h3>
+<ul>
+<li>변수 간 명확한 인과성을 파악하는데 가장 큰 방해요소는 <strong>내생성 (endogeneity)</strong> 이다.</li>
+<li>내생성이란 독립 변수가 모델의 오차와 상관성을 가지는 경우를 의미한다.</li>
+</ul>
+<p>$$
+y_i = \alpha + \Beta x_i + \epsilon_i
+$$</p>
+<ul>
+<li>아래와 같은 회귀식에서 유의미한 $\alpha$ 와 $\Beta$ 값을 얻기 위해선 다음 조건이 충족되어야 한다.</li>
+</ul>
+<p>$$
+E[{\epsilon}_i | x_i] = 0
+$$</p>
+<ul>
+<li>즉, $\alpha$ 와 $\Beta$ 로 설명되는 변수 $y_i$ 와 $x_i$ 간의 관계에서 설명되지 않는 다른 요인이 작용할 경우, 명확한 관계를 판별하는 것이 불가능해지는 것.</li>
+<li>오차값에 의해 영향을 받는 변수 $x_i$ 는 <strong>내생변수 (endogenuous variable)</strong> 로 분류된다. 이와 다르게 모델 내 다른 어떤 값으로 부터도 영향을 받지 않는 변수는 <strong>외생변수 (exogenuous variable)</strong> 로 분류.</li>
+</ul>
+<h3 id="발생-원인">발생 원인</h3>
+<p>내생성의 주요 발생 원인은 다음과 같이 크게 세종류로 구분이 가능하다.</p>
+<p><strong>(1) Omitted Variables</strong></p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/machine_learning/images/causal_inference_5.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 3. <a class="link" href="https://towardsdatascience.com/causal-inference-with-linear-regression-endogeneity-9d9492663bac"  target="_blank" rel="noopener"
+    >Medium - Casual Inference with Linear Regression</a></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>모델 내 존재하지 않는 변수 $Z$가 독립변수, 종속변수와 상관성을 가지게 될 경우 이를 <strong>교란변수 (Confounding Variable)</strong> 라 칭한다.</li>
+<li>이러한 교란변수가 회귀식 내에 존재하지 않을 경우 (omitted), 이에 영향을 받는 독립변수는 오차값과 상관성을 가지기 때문에 내생변수가 되어버림.</li>
+<li>회귀식에 교란변수를 더하면, 내생성이 사라지고 기존 독립변수의 상관계수가 올바른 값으로 수정됨.</li>
+</ul>
+<p><strong>(2) Simultaneity</strong></p>
+<ul>
+<li>내생성의 또 다른 원인은 종속변수가 독립변수에 영향을 미치는 경우이다. 이 경우 X -&gt; Y 와 Y -&gt; X 의 인과성이 모두 합당하기 때문에 실제 상관계수 산출에 어려움을 겪을 수 있다.
+<ul>
+<li>예) 높은 교육 수준이 평균 소득을 높이는 것은 사실이나, 평균 소득이 높은 가구는 교육에 더욱 많은 지출을 하는 것 또한 사실이다.</li>
+</ul>
+</li>
+<li>이러한 관계는 <strong>Simultaneity Bias</strong> 를 발생시키며, 관계에서 정확한 인과성을 파악하는 것이 불가능.</li>
+</ul>
+<p><strong>(3) Measurement Error</strong></p>
+<ul>
+<li>회귀식의 기본 전제는 모든 데이터가 정확하게 측정되었다는 것이나, 실제 측정 환경에서 오류가 발생했을 가능성이 있다.</li>
+<li>이렇듯 오류가 발생한 측정값과 실제값 간의 차이를 <strong>측정 오차 (Measurement Error)</strong> 라고 칭한다.</li>
+<li>종속변수 $Y$ 내 측정 오차가 존재하는 경우, 내생성이 발생하지 않는다. 반면 독립변수 $X$ 내 측정 오차가 존재하는 경우 내생성 발생.</li>
+</ul>
+<h3 id="simpsons-paradox">Simpson&rsquo;s Paradox</h3>
+<ul>
+<li>인과추론 과정에서 발생 가능한 대표적인 내생성 문제의 예시가 <strong>심슨의 역설 (Simpson&rsquo;s Paradox)</strong> 이다.</li>
+<li>간단히 설명해, <strong>여러 그룹의 자료를 합했을 때의 결과가 각 그룹을 구분했을 때의 결과와 다른 때</strong>를 의미한다.</li>
+<li>예시로 백신 A와 B 중 특정 질병을 치료하는데 더 나은 효과를 보이는 백신을 선택해야 한다고 가정해보자.</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/machine_learning/images/causal_inference_7.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 4. <a class="link" href="https://medium.com/bondata/simpsons-paradox-and-confounding-190a26f9e039"  target="_blank" rel="noopener"
+    >Medium - Simpson&rsquo;s Paradox and Confounding</a></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>아래와 같이, 그룹을 단순하게 백신 A, B 를 맞았을 경우로 분리할 경우 다음과 같은 테이블을 얻을 수 있다.</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/machine_learning/images/causal_inference_8.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 5. <a class="link" href="https://medium.com/bondata/simpsons-paradox-and-confounding-190a26f9e039"  target="_blank" rel="noopener"
+    >Medium - Simpson&rsquo;s Paradox and Confounding</a></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>당연히 상단의 수치만으로 비교하였을 경우, 사망률이 16% 로 더 낮은 백신 A를 선택하는 것이 타당하다.</li>
+<li>하지만 데이터를 세분화해, 환자가 백신을 맞기 전 상태로 나누어 확인하게되면 다음과 같이 반대의 결과값이 도출된다.</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/machine_learning/images/causal_inference_9.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 6. <a class="link" href="https://medium.com/bondata/simpsons-paradox-and-confounding-190a26f9e039"  target="_blank" rel="noopener"
+    >Medium - Simpson&rsquo;s Paradox and Confounding</a></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>이와 같이 비직관적인 결과가 도출되는 이유는 Treatment A 를 처방받은 환자는 대부분 Mild 한 상태에 있었으며, Treatment B 를 처방받은 환자는 대부분 Severe 한 상태에 있었다는 점에 기인한다. 즉, 가중치에 차이가 존재.</li>
+<li>이러한 상황에서 백신을 선택하기 위한 의사결정을 수행하기 위해서는, 문제의 인과 모형 (Causal Structure) 을 감안해야 한다.</li>
+</ul>
+<p><strong>Case A : 환자의 상태가 백신을 결정하는 경우</strong></p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/machine_learning/images/causal_inference_10.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 7. <a class="link" href="https://medium.com/bondata/simpsons-paradox-and-confounding-190a26f9e039"  target="_blank" rel="noopener"
+    >Medium - Simpson&rsquo;s Paradox and Confounding</a></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>공급량의 차이로 인해 Treatment A 는 비교적 상태가 양호한 환자에게 투약하고, Treatment B 는 상태가 안좋은 환자에게 투약한 경우이다.</li>
+<li>선별 방식의 차이로 다음과 같은 샘플 불균형이 발생한다.
+<ul>
+<li>백신 A를 투약 받은 그룹은 불균형적으로 사망할 확률이 낮은 환자가 다수를 구성.</li>
+<li>백신 B를 투약 받은 그룹은 불균형적으로 사망할 확률이 높은 환자가 다수를 구성.</li>
+</ul>
+</li>
+<li>선별 방식이 구조적으로 불균형하기 때문에, 세분화된 분석결과를 참고하는 것이 타당하다 (백신 B 선정).</li>
+<li>이 경우 내생성의 발생 원인은 <strong>백신 배분 방식이라는 교란변수이다</strong>.</li>
+</ul>
+<p><strong>Case B : 백신이 환자의 상태를 결정하는 경우</strong></p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/machine_learning/images/causal_inference_11.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 8. <a class="link" href="https://medium.com/bondata/simpsons-paradox-and-confounding-190a26f9e039"  target="_blank" rel="noopener"
+    >Medium - Simpson&rsquo;s Paradox and Confounding</a></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>공급량의 차이로 인해 대기시간의 차이가 발생하였으며, 상대적으로 오래 기다린 Treatment B 환자의 상태가 더욱 악화된 경우이다.
+<ul>
+<li>백신 B를 투약 받은 그룹은 투약을 위해 대기하는 시간동안 사망할 확률이 높아지게 된다.</li>
+<li>백신 A를 투약 받은 그룹은 투약을 위해 대기하는 시간이 없어 사망할 확률이 높아지지 않게 된다.</li>
+</ul>
+</li>
+<li>이러한 경우 선별 방식의 불균형성이 없고, 대기 시간 또한 Treatment 의 특성으로 볼 수 있기 때문에 합산된 분석결과를 참고하는 것이 타당하다 (백신 A 선정).</li>
+<li>이 경우 <strong>인과관계의 복잡성은 증가했지만, 내생성이 발생했다고 볼 수 없다</strong>.</li>
+</ul>
+<h3 id="해결-방법">해결 방법</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/machine_learning/images/causal_inference_12.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 9. <a class="link" href="https://yeong-jin-data-blog.tistory.com/entry/%EC%9D%B8%EA%B3%BC%EC%B6%94%EB%A1%A0Causal-Inference-%EA%B0%9C%EC%9A%94"  target="_blank" rel="noopener"
+    >벌꿀오소리의 공부 일지</a></td>
+</tr>
+</tbody>
+</table></div>
+<p>인과추론 과정에서 발생 가능한 내생성을 통제하기 위해 일반적으로 다음과 같은 3가지 방법을 사용할 수 있다.</p>
+<ol>
+<li><strong>Research Design</strong>
+<ul>
+<li><strong>Randomized Controlled Trial</strong> : 샘플 수집 과정을 디자인해 내생성을 통제하는 방식. 가장 효과적이지만 현실적인 한계가 존재한다.</li>
+<li><strong>Quasi-Experiment</strong> : 실험과 관계 없이 발생한 데이터를 기반으로 실험 환경을 모방.</li>
+<li><strong><a class="link" href="https://medium.com/bondata/instrumental-variable-2-e4ff9ae9ca09"  target="_blank" rel="noopener"
+    >Local Average Treatment Effect (LATE)</a></strong></li>
+</ul>
+</li>
+<li><strong><a class="link" href="https://www.youtube.com/watch?v=dGLXUwGCu4A"  target="_blank" rel="noopener"
+    >Selection Model</a></strong></li>
+<li><strong><a class="link" href="https://towardsdatascience.com/use-causal-graphs-4e3af630cf64"  target="_blank" rel="noopener"
+    >Causal Graph</a></strong></li>
+</ol>
+<h2 id="sources">Sources</h2>
+<ol>
+<li><a class="link" href="https://www.youtube.com/watch?v=Od6oAz1Op2k"  target="_blank" rel="noopener"
+    >CodeEmporium - Causal Inference</a></li>
+<li><a class="link" href="https://www.youtube.com/watch?v=MFnOYNU5sbk"  target="_blank" rel="noopener"
+    >CodeEmporium - Causal Inference w/ ML</a></li>
+<li><a class="link" href="https://yeong-jin-data-blog.tistory.com/entry/%EC%9D%B8%EA%B3%BC%EC%B6%94%EB%A1%A0Causal-Inference-%EA%B0%9C%EC%9A%94"  target="_blank" rel="noopener"
+    >벌꿀오소리의 공부 일지</a></li>
+<li><a class="link" href="https://towardsdatascience.com/causal-inference-with-linear-regression-endogeneity-9d9492663bac"  target="_blank" rel="noopener"
+    >Medium - Casual Inference with Linear Regression</a></li>
+<li><a class="link" href="https://www.youtube.com/watch?v=lLI-0pK9MD8"  target="_blank" rel="noopener"
+    >Ben Lambert - Endogeneity and Instrumental Variables</a></li>
+<li><a class="link" href="https://medium.com/bondata/simpsons-paradox-and-confounding-190a26f9e039"  target="_blank" rel="noopener"
+    >Medium - Simpson&rsquo;s Paradox and Confounding</a></li>
+</ol>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/causal-inference/">Causal Inference</a>
+        
+            <a href="/tags/%EC%9D%B8%EA%B3%BC%EC%B6%94%EB%A1%A0/">인과추론</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/machine_learning/feature_selection/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/machine_learning/images/feature_1.webp" loading="lazy" data-key="feature_selection" data-hash="/machine_learning/images/feature_1.webp"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">모델링을 위한 특성 선별 방법 (Feature Selection)</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/machine_learning/svd/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/machine_learning/images/svd_1.jpg" loading="lazy" data-key="svd" data-hash="/machine_learning/images/svd_1.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Singular Value Decomposition 의 개념 소개</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "meme2515" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 Soon&#39;s Blog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
