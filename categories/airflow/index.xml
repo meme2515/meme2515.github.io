@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Airflow on Soon&#39;s Blog</title>
+        <link>https://meme2515.github.io/categories/airflow/</link>
+        <description>Recent content in Airflow on Soon&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Wed, 19 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/categories/airflow/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Apache Airflow 개요 및 DAG 작성 베스트 프렉티스</title>
+        <link>https://meme2515.github.io/computer_science/airflow_best_practices/</link>
+        <pubDate>Wed, 19 Jul 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/computer_science/airflow_best_practices/</guid>
+        <description>&lt;img src="https://meme2515.github.io/computer_science/images/airflow_best_1.png" alt="Featured image of post Apache Airflow 개요 및 DAG 작성 베스트 프렉티스" /&gt;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;본 글은 Managed Airflow Server 환경을 사업 모델로 삼은 &lt;a class=&#34;link&#34; href=&#34;https://www.astronomer.io/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Astronomer&lt;/a&gt; 유튜브 강좌에 기반.&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Apache_Airflow&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Apache Airflow&lt;/a&gt; 란 &lt;strong&gt;데이터 파이프라인 관리를 위한 오픈소스 툴&lt;/strong&gt;이다. &amp;lsquo;14년 Airbnb 에서 사내 프로젝트로 시작한 후, 오픈소싱을 통해 &amp;lsquo;19년 Apache Software Foundation 에서 탑레벨 프로젝트로 선정.&lt;/li&gt;
+&lt;li&gt;전세계적으로 백만명 이상의 데이터 엔지니어가 데이터 파이프라인 관리를 위해 활용하고 있음.&lt;/li&gt;
+&lt;li&gt;2020년 Airflow 2.0 가 공개됨.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;use-cases&#34;&gt;Use Cases&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;ETL/ELT Pipelines&lt;/strong&gt; : Snowflake 등 DW 에 데이터 적재 - &lt;a class=&#34;link&#34; href=&#34;https://docs.astronomer.io/learn/airflow-snowflake&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Orchestrating Snowflake Queries with Airflow&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;MLOps&lt;/strong&gt; : Tensorflow 와 MLFlow 를 활용해 MLOps 서비스 구축 - &lt;a class=&#34;link&#34; href=&#34;https://www.astronomer.io/events/webinars/using-airflow-with-tensorflow-mlflow/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Using Airflow with Tensorflow and MLFlow&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Operationalized Analytics&lt;/strong&gt; : 데이터 추출, 가공을 통해 대시보드 전달 - &lt;a class=&#34;link&#34; href=&#34;https://www.astronomer.io/events/webinars/using-airflow-as-a-data-analyst/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Using Airflow as a Data Analyst&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;core-concepts&#34;&gt;Core Concepts&lt;/h3&gt;
+&lt;p&gt;Airflow 의 작업 단위는 DAG, Task 로 구분 가능하다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;DAG&lt;/strong&gt; : Directed Acyclic Graph. 그래프 형태로 표현된 워크플로우이며, 노드 간 디펜던시는 방향성을 가지게 된다 - &lt;a class=&#34;link&#34; href=&#34;https://docs.astronomer.io/learn/dags&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Introduction to Airflow DAGs&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;DAG run&lt;/strong&gt; : 시간 특정이 가능한 DAG 실행 건. 스케줄링이나 매뉴얼 트리거가 가능하다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Task&lt;/strong&gt; : DAG 내 개별 작업 단위.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Task instance&lt;/strong&gt; : 시간 특정이 가능한 Task 실행 건.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;DAG 작성 시 특정 작업을 수행하는 Operator 를 활용하게 되며, Operator 는 파라미터를 받아 실행되는 함수의 형태를 취한다. DAG 내 각 Operator 는 Task 와 같은 단위 - &lt;a class=&#34;link&#34; href=&#34;https://docs.astronomer.io/learn/what-is-an-operator&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Operators 101&lt;/a&gt;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Action Operators&lt;/strong&gt; : 함수 실행. PythonOperator, BashOperator 등.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Transfer Operators&lt;/strong&gt; : 소스로 부터 타겟까지 데이터를 이동. S3ToRedshiftOperator 등.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Sensors&lt;/strong&gt; : 특정 이벤트가 발생할때까지 대기. ExternalTaskSensor, HttpSensorAsync 등.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Operator 간 데이터 전송이 필요한 경우 &lt;strong&gt;XComs&lt;/strong&gt; 를 활용.&lt;/p&gt;
+&lt;h3 id=&#34;components&#34;&gt;Components&lt;/h3&gt;
+&lt;p&gt;Airflow 의 효율적인 활용을 위해선 인프라 구성에 대한 이해가 필요하다. 이슈 대응 및 DAG 개발 시 구조에 대한 이해가 필요한 상황이 발생할 수 있음.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Webserver&lt;/strong&gt; : Airflow UI 서빙을 위해 Flask 서버가 Gunicorn 을 통해 구동.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Scheduler&lt;/strong&gt; : 잡스케줄링을 위한 Daemon.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Database&lt;/strong&gt; : Task Metadata 저장소. 보통 PostgreSQL 활용.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Executor&lt;/strong&gt; : Task 수행을 위한 연산 자원 배분. Scheduler 내에서 구동된다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;high-level-best-practices&#34;&gt;High-Level Best Practices&lt;/h2&gt;
+&lt;h3 id=&#34;멱등성-idempotency&#34;&gt;멱등성 (Idempotency)&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;멱등성 (Idempotency)&lt;/strong&gt; : 특정 Operation 을 여러번 실행하더라도 최종 결과는 변형되지 않는다.&lt;/li&gt;
+&lt;li&gt;예시로 횡단보도를 건너기 위해 누르는 버튼을 들 수 있다 (미국식). 버튼을 여러번 누르더라도, 일정 기간 동안 파란불이 켜지는 결과는 변동하지 않음.&lt;/li&gt;
+&lt;li&gt;Idempotent DAG 는 에러 발생 시 빠른 처리를 가능하게 하고, 데이터 유실을 예방하는 효과를 가진다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;airflow-as-an-orchestrator&#34;&gt;Airflow as an Orchestrator&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Airflow 는 본래의 취지에 충실하게 실행 관점이 아닌, &lt;strong&gt;자동화/관리 (orchestration) 관점에서 접근하는 것이 권장&lt;/strong&gt;된다.&lt;/li&gt;
+&lt;li&gt;실무적인 관점에서, 다음과 같은 시사점을 가짐 :
+&lt;ul&gt;
+&lt;li&gt;Airflow 를 활용해 여러 툴을 활용한 job 을 관리할 것&lt;/li&gt;
+&lt;li&gt;연산 자원이 많이 필요한 경우 Spark 와 같은 execution framework 로 작업 인계&lt;/li&gt;
+&lt;li&gt;가능한 경우 &lt;a class=&#34;link&#34; href=&#34;https://chartio.com/learn/data-warehouses/understanding-etl-and-elt/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;ELT 프레임워크&lt;/a&gt; 활용 (Snowflake 와 같이 DW 상의 연산 자원 활용)&lt;/li&gt;
+&lt;li&gt;데이터 처리 과정에서 중간 데이터 저장소를 최대한 활용할 것. XCom 등의 기능을 활용해 용량이 큰 데이터프레임을 가공하는 등의 방법은 비권장.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/computer_science/images/airflow_best_4.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 1. Airflow 를 활용한 Data Orchestration 예시&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;keep-tasks-atomic&#34;&gt;Keep Tasks Atomic&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;하나의 Task 는 하나의 작업만을 수행&lt;/strong&gt;해야 하며, 다른 Task 와 무관하게 재실행이 가능해야 한다.&lt;/li&gt;
+&lt;li&gt;Atomized Task 의 부분 성공은 즉 전체 Task 의 성공을 의미해야함.&lt;/li&gt;
+&lt;li&gt;예를 들어 ETL Pipeline 구축 시 각각 Extract, Transform, Load 에 해당하는 Task 3개를 정의. 각 Task 의 재실행이 가능하기 때문에, idempotence 가 보장된다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;incremental-record-filtering&#34;&gt;Incremental Record Filtering&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;가능한 경우 ETL, ELT 파이프라인 작성 시 &lt;strong&gt;항상 전체 데이터를 처리하는 것 보다는, 순차적으로 처리&lt;/strong&gt;하는 편이 좋다.
+&lt;ul&gt;
+&lt;li&gt;예) 시간 마다 배치가 실행되는 경우 전체 데이터셋을 처리하기 보다 마지막 시간에 발생한 데이터만 처리.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;데이터 유실을 방지하거나, 처리 속도를 향상하는데 많은 도움을 줄 수 있음.&lt;/li&gt;
+&lt;li&gt;원천 데이터가 항상 변동하는 경우 과거 결과값을 유지할 수 있으며, 이는 Idempotency 와 연계되는 부분.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Last Modified Date vs. Sequence IDs&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Incremental loading 을 위해 가장 권장되는 방법은 마지막 수정일자 (Last Modified Date) 필드 활용이다.&lt;/li&gt;
+&lt;li&gt;수정일자 필드 활용이 불가능한 경우, 순차적으로 증가하는 ID 필드를 활용하는 것 또한 가능하다. 이 경우 스케줄러가 기존 데이터셋을 업데이트 하지 않고, 새로운 데이터를 붙여넣는 경우가 가장 이상적.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/computer_science/images/airflow_best_3.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 2. Incremental Record Filtering&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;airflow-variables--macros&#34;&gt;Airflow Variables &amp;amp; Macros&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Airflow 는 기본적으로 &lt;a class=&#34;link&#34; href=&#34;https://realpython.com/primer-on-jinja-templating/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;jinja templating&lt;/a&gt; 을 활용한 &lt;a class=&#34;link&#34; href=&#34;https://airflow.apache.org/docs/apache-airflow/stable/templates-ref.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;자체 변수와 매크로&lt;/a&gt;를 제공하며, 작업 효율성을 위해 이를 최대한 이용하는 것이 좋다 - Readability, idempotency, maintainability 등에서 많은 장점 제공.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Airflow Variables 예시&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Variable&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;{{ data_interval_start }}&lt;/td&gt;
+&lt;td&gt;pendulum.DateTime&lt;/td&gt;
+&lt;td&gt;Start of the data interval. Added in version 2.2.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;{{ data_interval_end }}&lt;/td&gt;
+&lt;td&gt;pendulum.DateTime&lt;/td&gt;
+&lt;td&gt;End of the data interval. Added in version 2.2.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;{{ ds }}&lt;/td&gt;
+&lt;td&gt;str&lt;/td&gt;
+&lt;td&gt;The DAG run’s logical date as YYYY-MM-DD. Same as {{ dag_run.logical_date | ds }}.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;{{ ds_nodash }}&lt;/td&gt;
+&lt;td&gt;str&lt;/td&gt;
+&lt;td&gt;Same as {{ dag_run.logical_date | ds_nodash }}.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;{{ ts }}&lt;/td&gt;
+&lt;td&gt;str&lt;/td&gt;
+&lt;td&gt;Same as {{ dag_run.logical_date | ts }}. Example: 2018-01-01T00:00:00+00:00.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;Airflow Macros 예시&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Variable&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;macros.datetime&lt;/td&gt;
+&lt;td&gt;The standard lib’s datetime.datetime&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;macros.timedelta&lt;/td&gt;
+&lt;td&gt;The standard lib’s datetime.timedelta&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;macros.dateutil&lt;/td&gt;
+&lt;td&gt;A reference to the dateutil package&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;macros.time&lt;/td&gt;
+&lt;td&gt;The standard lib’s time&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;macros.uuid&lt;/td&gt;
+&lt;td&gt;The standard lib’s uuid&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;macros.random&lt;/td&gt;
+&lt;td&gt;The standard lib’s random.random&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;예시로 다음과 같이 datetime 패키지를 활용하는 경우, Airflow 변수로 기능을 대체할 수 있다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Bad example - Define today&amp;#39;s and yesterday&amp;#39;s date using datetime module&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;today&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;datetime&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;today&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;yesterday&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;datetime&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;today&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;timedelta&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Good example - Define yesterday&amp;#39;s date with an Airflow variable&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;yesterday&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;yesterday_ds_nodash&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;avoid-top-level-code-in-dag&#34;&gt;Avoid Top Level Code in DAG&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Top Level Code 란 &lt;strong&gt;DAG 혹은 Operator 정의 이외 용도의 코드를 의미&lt;/strong&gt;하며, 이러한 코드를 DAG 에 포함시키지 않도록 주의해야 한다 (특히 외부 시스템에 대한 request).&lt;/li&gt;
+&lt;li&gt;이러한 부분에 부주의할 시 연산 부담, 코드 가독성 등에서 많이 제약 사항이 발생할 수 있음.&lt;/li&gt;
+&lt;li&gt;다음 예시는 다른 DB 에서 수집한 정보를 기반으로 PostgresOperator 를 생성하는 DAG 작성의 Bad Practice 와 Good Practice 를 나열한다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Bad Practice 의 경우 &lt;strong&gt;Operator 정의 바깥 부분에서 DB 커넥션을 만들었고&lt;/strong&gt;, 이에 따라 실제 DAG 가 수행되지 않더라도 자원을 소모할 여지가 있다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Bad practice: top-level code in a DAG file&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;airflow.decorators&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dag&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;airflow.providers.postgres.operators.postgres&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PostgresOperator&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;airflow.providers.postgres.hooks.postgres&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PostgresHook&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;pendulum&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;datetime&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;hook&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PostgresHook&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;database_conn&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;results&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;hook&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;get_records&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;SELECT * FROM grocery_list;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;sql_queries&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;result&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;results&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;grocery&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;result&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;amount&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;result&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;sql_query&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;INSERT INTO purchase_order VALUES (&amp;#39;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;grocery&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#39;, &lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;amount&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;);&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;sql_queries&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sql_query&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@dag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;start_date&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;datetime&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2023&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;max_active_runs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;schedule&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;@daily&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;catchup&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;False&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;bad_practices_dag_1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;():&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;insert_into_purchase_order_postgres&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PostgresOperator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;partial&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;task_id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;insert_into_purchase_order_postgres&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;postgres_conn_id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;postgres_default&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;expand&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sql&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sql_queries&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;bad_practices_dag_1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;반면 Good Practice 예시에선 &lt;strong&gt;해당 DB 커넥션을 만드는 Task 를 별도 생성&lt;/strong&gt;하였고, 이에 따라 실제 DAG 가 실행되지 않는 이상 자원을 소모하지 않게됨.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Good practice: top-level code in a DAG file&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;airflow.decorators&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;task&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;airflow.providers.postgres.operators.postgres&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PostgresOperator&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;airflow.providers.postgres.hooks.postgres&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PostgresHook&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;pendulum&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;datetime&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@dag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;start_date&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;datetime&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2023&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;max_active_runs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;schedule&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;@daily&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;catchup&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;False&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;good_practices_dag_1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;():&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nd&#34;&gt;@task&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;get_list_of_results&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;():&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;c1&#34;&gt;# good practice: wrap database connections into a task&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;hook&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PostgresHook&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;database_conn&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;results&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;hook&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;get_records&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;SELECT * FROM grocery_list;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;results&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nd&#34;&gt;@task&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;create_sql_query&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;result&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;grocery&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;result&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;amount&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;result&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;sql&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;INSERT INTO purchase_order VALUES (&amp;#39;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;grocery&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#39;, &lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;amount&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;);&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sql&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;sql_queries&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;create_sql_query&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;expand&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;result&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;get_list_of_results&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;insert_into_purchase_order_postgres&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PostgresOperator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;partial&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;task_id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;insert_into_purchase_order_postgres&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;postgres_conn_id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;postgres_default&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;expand&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sql&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sql_queries&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;good_practices_dag_1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;이외에도 파이썬 함수, SQL 쿼리문을 외부 파일에 저장하는 등, DAG 파일을 일종의 Config 파일과 같이 깔끔하게 유지해 주어야한다 (향후 유지보수가 훨씬 원활).&lt;/p&gt;
+&lt;h3 id=&#34;consistent-method-for-task-dependencies&#34;&gt;Consistent Method for Task Dependencies&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Airflow 상에서 Task Dependencies 를 정의하는 방법은 크게 set_upstream(), set_downstream() 함수 활용과 &amp;laquo;, &amp;raquo; 오퍼레이터 활용 방식으로 구분할 수 있다.&lt;/li&gt;
+&lt;li&gt;특정 방식이 권장되는 것은 아니나, 정의 방법을 전반적으로 통일해주어야 코드 가독성을 높일 수 있음.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;leverage-airflow-features&#34;&gt;Leverage Airflow Features&lt;/h2&gt;
+&lt;h3 id=&#34;provider-packages&#34;&gt;Provider Packages&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Airflow 가 사실상 표준 프레임워크로 자리잡았기 때문에, 이외 툴과 연계 활용을 위한 써드파티 &lt;a class=&#34;link&#34; href=&#34;https://airflow.apache.org/docs/apache-airflow-providers/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Provider Packages&lt;/a&gt; 가 매우 다양하게 공개되어있다 (GCP, AWS, Databricks 등).&lt;/li&gt;
+&lt;li&gt;가능한 경우, 함수를 직접 정의하기 보다는 이러한 provider package 를 최대한 활용하는 편이 유지보수와 공수 최수화 관점에서 권장.&lt;/li&gt;
+&lt;li&gt;다양한 provider package 는 다음 링크에서 확인 가능 - &lt;a class=&#34;link&#34; href=&#34;https://registry.astronomer.io/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Astronomer Provider Packages Registry&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;where-to-run-jobs&#34;&gt;Where to Run Jobs&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Airflow 는 자체적으로 중소 규모의 data processing task 를 처리할 수 있지만, 연산 자원이 아주 많이 필요한 경우 &lt;a class=&#34;link&#34; href=&#34;https://spark.apache.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Apache Spark&lt;/a&gt; 와 같은 대규모 데이터 처리 프레임워크에 작업을 인계하여야 함 - &lt;a class=&#34;link&#34; href=&#34;https://airflow.apache.org/docs/apache-airflow-providers-apache-spark/stable/operators.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Apache Spark Operators&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;DAG 를 작성하는 과정에서 Airflow 가 자체적으로 데이터를 처리하는 경우, 이에 필요한 연산 자원이 구비되었는지 확인이 반드시 필요하다.&lt;/li&gt;
+&lt;li&gt;Task 레벨에서 연산 자원을 유동적으로 활용하기 위해서 Kubernetes Executor 활용이 가능.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;intermediary-data-storage&#34;&gt;Intermediary Data Storage&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;소스 -&amp;gt; 타겟으로 직접 데이터를 이동하는 것은 코드 작성이 적기 때문에 괜찮은 방법으로 보일 수 있다. 하지만 ETL 프로세스의 중간 과정을 모니터링 하는 것이 불가능하기 때문에, S3 나 SQL Staging 테이블과 같은 중간 저장소를 활용하는 것이 권장.&lt;/li&gt;
+&lt;li&gt;API Limit 이 발생하는 상황에서 유용하게 활용할 수 있음.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;other-best-practices&#34;&gt;Other Best Practices&lt;/h2&gt;
+&lt;h3 id=&#34;consistent-file-structure&#34;&gt;Consistent File Structure&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;일정한 파일 구조를 유지하는 것이 유지보수 측면에서 많은 도움이 됨.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── dags/ # Where your DAGs go
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   └── example-dag.py # An example dag that comes with the initialized project
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── Dockerfile # For Astronomer&amp;#39;s Docker image and runtime overrides
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── include/ # For any other files you&amp;#39;d like to include
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── plugins/ # For any custom or community Airflow plugins
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── packages.txt # For OS-level packages
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;└── requirements.txt # For any Python packages&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;dag-name--start-date&#34;&gt;DAG Name &amp;amp; Start Date&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;DAG 의 시작 날짜(start_date)는 static 하게 유지되어야 한다.&lt;/li&gt;
+&lt;li&gt;시작 날짜를 변경할 경우 새로운 DAG 이름을 부여해주어야 함. 시작 날짜 변경 시 Airflow database 는 이를 새로운 DAG 로 인식하는데, DAG 이름이 동일하다면 Scheduler 에러 발생 위험이 발생.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;retries&#34;&gt;Retries&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Airflow 가 분산처리 시스템과 연계된 경우, 예기치 못하게 task 가 멈추는 현상이 발생할 가능성이 높다 (유지되는 host 수가 많기 때문).&lt;/li&gt;
+&lt;li&gt;시스템 에러에 대비해 최소 2회 정도 retry 설정을 하는 것이 권장된다 (분산처리 과정에서 발생하는 대부분의 에러에 대응 가능한 숫자).&lt;/li&gt;
+&lt;li&gt;다음과 같은 레벨에서 retry 설정이 가능하다 :
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Tasks&lt;/strong&gt; : Operator 의 retries 파라미터 조정&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;DAGS&lt;/strong&gt; : DAG 의 default_args 오브젝트에 retries 포함&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Deployments&lt;/strong&gt; : AIRFLOW__CORE__DEFAULT_TASK_RETRIES 환경변수 지정&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;sources&#34;&gt;Sources&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=HvjnLCQygO4&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Astronomer - DAG Writing Best Practices in Apache Airflow&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=zVzBVpbgw1A&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Astronomer - DAG Writing Best Practices in Apache Airflow 2&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.astronomer.io/learn/intro-to-airflow&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Astronomer - An Introduction to Apache Airflow&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.astronomer.io/learn/dag-best-practices&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Astronomer - Official Site Documentation&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

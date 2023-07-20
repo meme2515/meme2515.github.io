@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Introduction 본 글은 Managed Airflow Server 환경을 사업 모델로 삼은 Astronomer 유튜브 강좌에 기반. Apache Airflow 란 데이터 파이프라인 관리를 위한 오픈소스 툴이다. &amp;lsquo;14년 Airbnb 에서 사내 프로젝트로 시작한 후, 오픈소싱을 통해 &amp;lsquo;19년 Apache Software Foundation 에서 탑레벨 프로젝트로 선정. 전세계적으로 백만명 이상의 데이터 엔지니어가 데이터 파이프라인 관리를 위해 활용하고 있음. 2020년 Airflow 2.0 가 공개됨. Use Cases ETL/ELT Pipelines : Snowflake 등 DW 에 데이터 적재 - Orchestrating Snowflake Queries with Airflow MLOps : Tensorflow 와 MLFlow 를 활용해 MLOps 서비스 구축 - Using Airflow with Tensorflow and MLFlow Operationalized Analytics : 데이터 추출, 가공을 통해 대시보드 전달 - Using Airflow as a Data Analyst Core Concepts Airflow 의 작업 단위는 DAG, Task 로 구분 가능하다.'>
+<title>Apache Airflow 개요 및 DAG 작성 베스트 프렉티스</title>
+
+<link rel='canonical' href='https://meme2515.github.io/computer_science/airflow_best_practices/'>
+
+<link rel="stylesheet" href="/scss/style.min.8191399262444ab68b72a18c97392f5349be20a1615d77445be51e974c144cff.css"><meta property='og:title' content='Apache Airflow 개요 및 DAG 작성 베스트 프렉티스'>
+<meta property='og:description' content='Introduction 본 글은 Managed Airflow Server 환경을 사업 모델로 삼은 Astronomer 유튜브 강좌에 기반. Apache Airflow 란 데이터 파이프라인 관리를 위한 오픈소스 툴이다. &amp;lsquo;14년 Airbnb 에서 사내 프로젝트로 시작한 후, 오픈소싱을 통해 &amp;lsquo;19년 Apache Software Foundation 에서 탑레벨 프로젝트로 선정. 전세계적으로 백만명 이상의 데이터 엔지니어가 데이터 파이프라인 관리를 위해 활용하고 있음. 2020년 Airflow 2.0 가 공개됨. Use Cases ETL/ELT Pipelines : Snowflake 등 DW 에 데이터 적재 - Orchestrating Snowflake Queries with Airflow MLOps : Tensorflow 와 MLFlow 를 활용해 MLOps 서비스 구축 - Using Airflow with Tensorflow and MLFlow Operationalized Analytics : 데이터 추출, 가공을 통해 대시보드 전달 - Using Airflow as a Data Analyst Core Concepts Airflow 의 작업 단위는 DAG, Task 로 구분 가능하다.'>
+<meta property='og:url' content='https://meme2515.github.io/computer_science/airflow_best_practices/'>
+<meta property='og:site_name' content='Soon&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Computer_science' /><meta property='article:tag' content='Airflow' /><meta property='article:tag' content='Data Engineering' /><meta property='article:published_time' content='2023-07-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-07-19T00:00:00&#43;00:00'/><meta property='og:image' content='https://meme2515.github.io/computer_science/images/airflow_best_1.png' />
+<meta name="twitter:title" content="Apache Airflow 개요 및 DAG 작성 베스트 프렉티스">
+<meta name="twitter:description" content="Introduction 본 글은 Managed Airflow Server 환경을 사업 모델로 삼은 Astronomer 유튜브 강좌에 기반. Apache Airflow 란 데이터 파이프라인 관리를 위한 오픈소스 툴이다. &amp;lsquo;14년 Airbnb 에서 사내 프로젝트로 시작한 후, 오픈소싱을 통해 &amp;lsquo;19년 Apache Software Foundation 에서 탑레벨 프로젝트로 선정. 전세계적으로 백만명 이상의 데이터 엔지니어가 데이터 파이프라인 관리를 위해 활용하고 있음. 2020년 Airflow 2.0 가 공개됨. Use Cases ETL/ELT Pipelines : Snowflake 등 DW 에 데이터 적재 - Orchestrating Snowflake Queries with Airflow MLOps : Tensorflow 와 MLFlow 를 활용해 MLOps 서비스 구축 - Using Airflow with Tensorflow and MLFlow Operationalized Analytics : 데이터 추출, 가공을 통해 대시보드 전달 - Using Airflow as a Data Analyst Core Concepts Airflow 의 작업 단위는 DAG, Task 로 구분 가능하다."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://meme2515.github.io/computer_science/images/airflow_best_1.png' />
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-135204357-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hud342b0d5be633fdc127bd0653c60e8c3_234674_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Soon&#39;s Blog</a></h1>
+            <h2 class="site-description">데이터 블로그입니다 :)</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/meme2515'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M200,513c0-20.3,0-40.7,0-61c3.1,0.6,1.9,3.1,1.9,4.8c0.1,16.3,0.2,32.6,0,48.9c-0.1,4.1,1,5.4,5.2,5.4   c36.6-0.2,73.2-0.2,109.8,0c4.4,0,5.1-1.6,5.1-5.5c-0.2-25-0.1-49.9-0.1-74.9c0-9.3,0.2-18.6,0.2-27.9c2.8,1.2,1.6,3.8,1.6,5.7   c0.1,34.8,0.1,69.6,0.1,104.4C282.7,513,241.3,513,200,513z" fill="#D1D1D1"/><path d="M322.2,402.8c-0.1,9.3-0.2,18.6-0.2,27.9c0,25-0.1,49.9,0.1,74.9c0,3.9-0.7,5.5-5.1,5.5   c-36.6-0.2-73.2-0.2-109.8,0c-4.2,0-5.3-1.3-5.2-5.4c0.2-16.3,0.1-32.6,0-48.9c0-1.7,1.2-4.2-1.9-4.8c-9.7,0.9-19.3,3.2-29.2,2.8   c-33.5-1.3-59.5-15.4-74.7-45.8c-8.2-16.4-17.8-31.7-29.1-46c-3.1-3.9-7.9-5.5-11.5-8.7c-1.1-1-2.4-1.8-3.3-3   c-2.3-3.3-1.2-5.8,2.8-6.2c18.5-1.9,33.8,4.2,46.2,18.1c6.3,7.1,10.2,15.8,16.3,23.1c12.3,14.7,28,22.7,47,24.9   c11.5,1.3,22.4-0.9,33.3-4.2c2.2-0.6,3.1-2,3.3-4.3c0.7-10.3,2.8-20.3,6.8-29.9c1.8-4.3,4.7-7.9,6.9-12.3   c-10.3-2.6-20.7-3.4-30.5-6.4c-27.1-8.2-50.9-21.6-68.2-44.7c-8.3-11-14.1-23.3-17.4-36.5c-1.8-7.2-3.9-14.4-3.8-22   c0.1-13.3-0.5-26.7,0.3-40c0.9-16.8,3.1-33.5,9.2-49.2c3.8-9.7,9.3-18.6,17.1-25.9c2.4-2.3,3.3-4.1,1.8-7.9   c-7.4-19.7-8.1-39.8-1.8-60c0.2-0.6,0.3-1.3,0.4-2c2.2-10.3,4.5-11.3,14.3-7.4c19.2,7.5,33.3,21,45.3,37.3c3.4,4.6,2.7,6.6,10,1.9   c9.7-6.2,21-8.1,32.2-9.3c20.1-2.1,40.3-1.5,60.4-1.1c14.3,0.3,28.5,2.2,42,7.2c3.1,1.1,6,2.8,8.7,4.8c2.1,1.6,3.6,1.6,5.6-1.1   c9.1-12.8,19.5-24.4,33-32.6c6.6-4,13.4-7.7,21.4-8.6c3.3-0.4,4.7,0.7,5.6,3.3c8.3,22.9,9.5,45.7-0.2,68.5   c-1.2,2.8-0.8,4.6,1.3,6.5c16,15,21.8,34.5,24.8,55.5c2.5,17.7,3.2,35.5,2.7,53.3c-0.8,31.2-11.4,58.4-34.4,80.1   c-13.5,12.7-29.7,21.1-47.1,27.5c-12.4,4.6-25.5,5.8-38.5,9c1.3,3.1,3.7,5.4,4.3,8.5c-0.3,1.3,0.4,2,1.6,2.3   c0.1,0.6,0.3,1.1,0.4,1.7c0.3,2.1,0.1,4.3,2.5,5.4c0.5,2.2,1,4.5,1.4,6.7c-0.1,1.7-0.7,3.5,1.6,4.3c0,0.6,0.1,1.2,0.1,1.9   c-1.5,2.3-0.1,4.1,1.1,6C322.1,398.9,322.2,400.9,322.2,402.8z" fill="#A7A7A7"/><path d="M322,397c-1.1-1.9-2.6-3.7-1.1-6C322.1,392.9,323,394.8,322,397z" fill="#D1D1D1"/><path d="M317.7,378.2c-2.4-1.1-2.2-3.3-2.5-5.4C317.4,374,317.7,376,317.7,378.2z" fill="#D1D1D1"/><path d="M320.8,389.1c-2.3-0.8-1.7-2.6-1.6-4.3C321.5,385.6,321,387.5,320.8,389.1z" fill="#D1D1D1"/><path d="M314.8,371.1c-1.2-0.3-1.9-1-1.6-2.3C314.5,369.1,315.1,369.8,314.8,371.1z" fill="#D1D1D1"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.linkedin.com/in/soon-hyung-kwon-73a3221ab/'
+                        target="_blank"
+                        title="LinkedIn"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M1,53c2.5,0,1.7-2,1.9-3.3C5.9,29,16.6,13.9,36.6,7.4c16.1-5.2,32.9-4.6,47.9,4c9.4,5.5,16.6,14,20.4,24.5   c2.8,7.8,4.9,15.9,4,24.2c-2.1,20.9-11.5,38.3-34.5,46.4c-17.4,6-34.3,3.8-50.2-5.7c-1-3.6-3.5-5.4-7.1-6c0,0,0,0,0,0   c-0.1-1.4-0.3-2.8-2.2-2.8C7.7,84,4.3,74.3,2.9,63.8C2.7,62.6,3.2,60.9,1,61C1,58.3,1,55.7,1,53z" fill="#A7A7A7"/><path d="M276.2,216.1c4.3-2.6,6-6.4,8.2-9.5c10.9-15,24.4-26.6,41.2-34.9c23-11.3,47.4-12.5,72-10.2   c18.9,1.7,36.8,8.1,53.1,18.5c19.4,12.4,33.3,29.6,42.8,50.2c5.8,12.5,9.6,25.8,11.9,39.6c2.1,12.9,3.7,25.6,3.7,38.7   c-0.1,65-0.1,130,0.1,195c0,4.6-1.3,5.8-5.8,5.7c-30.7-0.2-61.3-0.2-92,0c-4.5,0-5.5-1.3-5.5-5.6c0.1-61.3,0.4-122.7-0.1-184   c-0.1-13.9-2-27.7-9.2-40.4c-6.4-11.2-15.3-19.2-27-23.8c-15.7-6.2-31.9-7.4-48.3-2.8c-16.6,4.6-28.1,15.5-36.3,30.3   c-4.6,8.3-6.2,17-7.5,26.3c-1.3,10-1.1,19.8-1.1,29.7c-0.2,54.7-0.2,109.3,0,164c0,5-1.2,6.4-6.3,6.3c-30.3-0.3-60.7-0.2-91,0   c-4.2,0-5.7-1.3-5.6-5.2c0.1-2.8,0.3-5.6,0.3-8.4c0-105.5,0.1-211-0.1-316.5c0-4.4,0.9-6,5.7-6c30.5,0.2,61,0.2,91.5,0   c4.1,0,5.5,1,5.4,5.3C276,190.6,276.2,202.9,276.2,216.1z" fill="#A7A7A7"/><path d="M109,176.1c0,3.5,0.1,7,0.1,10.5c0,105.3,0,210.6,0,316c0,6.4,0,6.4-6.5,6.4c-31.8,0-63.7,0-95.5,0   c-0.1-2.5-0.2-5-0.2-7.5c0-78.8,0-157.5,0-236.3c0-28.1,0.1-56.3-0.1-84.4c0-3.6,0.9-4.9,4.7-4.9C44,176.1,76.5,176,109,176.1z" fill="#A7A7A7"/><path d="M109,176.1c-32.5,0-64.9,0-97.4-0.2c-3.8,0-4.7,1.2-4.7,4.9C7,208.9,6.9,237,6.9,265.2   c0,78.8,0,157.5,0,236.3c0,2.5,0.1,5,0.2,7.5c-1.7,0.1-3-0.3-3-2.3c0-1.3,0-2.7,0-4c0-106.8,0-213.5,0-320.3c0-7.6,0.7-8.3,8.2-8.3   c30.5,0,61,0,91.4,0.1C105.5,174.1,108.2,172.7,109,176.1z" fill="#E0E0E0"/><path d="M17.1,94.9c3.6,0.6,6.1,2.4,7.1,6C21.1,99.7,18.8,97.7,17.1,94.9z" fill="#E0E0E0"/><path d="M14.9,92.1c1.9,0,2,1.4,2.2,2.8C15,95,15,93.6,14.9,92.1z" fill="#E0E0E0"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/about' >
+                
+                
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/machine_learning' >
+                
+                
+                
+                <span>Machine Learning</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/neural_network' >
+                
+                
+                
+                <span>Neural Network</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/mlops' >
+                
+                
+                
+                <span>MLOps</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/statistics' >
+                
+                
+                
+                <span>Statistics</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/computer_science' >
+                
+                
+                
+                <span>Computer Science</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/projects' >
+                
+                
+                
+                <span>Projects</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/daily' >
+                
+                
+                
+                <span>Daily</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#introduction">Introduction</a>
+      <ol>
+        <li><a href="#use-cases">Use Cases</a></li>
+        <li><a href="#core-concepts">Core Concepts</a></li>
+        <li><a href="#components">Components</a></li>
+      </ol>
+    </li>
+    <li><a href="#high-level-best-practices">High-Level Best Practices</a>
+      <ol>
+        <li><a href="#멱등성-idempotency">멱등성 (Idempotency)</a></li>
+        <li><a href="#airflow-as-an-orchestrator">Airflow as an Orchestrator</a></li>
+        <li><a href="#keep-tasks-atomic">Keep Tasks Atomic</a></li>
+        <li><a href="#incremental-record-filtering">Incremental Record Filtering</a></li>
+        <li><a href="#airflow-variables--macros">Airflow Variables &amp; Macros</a></li>
+        <li><a href="#avoid-top-level-code-in-dag">Avoid Top Level Code in DAG</a></li>
+        <li><a href="#consistent-method-for-task-dependencies">Consistent Method for Task Dependencies</a></li>
+      </ol>
+    </li>
+    <li><a href="#leverage-airflow-features">Leverage Airflow Features</a>
+      <ol>
+        <li><a href="#provider-packages">Provider Packages</a></li>
+        <li><a href="#where-to-run-jobs">Where to Run Jobs</a></li>
+        <li><a href="#intermediary-data-storage">Intermediary Data Storage</a></li>
+      </ol>
+    </li>
+    <li><a href="#other-best-practices">Other Best Practices</a>
+      <ol>
+        <li><a href="#consistent-file-structure">Consistent File Structure</a></li>
+        <li><a href="#dag-name--start-date">DAG Name &amp; Start Date</a></li>
+        <li><a href="#retries">Retries</a></li>
+      </ol>
+    </li>
+    <li><a href="#sources">Sources</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/computer_science/airflow_best_practices/">
+                
+                    <img src="/computer_science/images/airflow_best_1.png" loading="lazy" alt="Featured image of post Apache Airflow 개요 및 DAG 작성 베스트 프렉티스" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/computer-science/" >
+                Computer Science
+            </a>
+        
+            <a href="/categories/data-engineering/" >
+                Data Engineering
+            </a>
+        
+            <a href="/categories/airflow/" >
+                Airflow
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/computer_science/airflow_best_practices/">Apache Airflow 개요 및 DAG 작성 베스트 프렉티스</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jul 19, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    8 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="introduction">Introduction</h2>
+<ul>
+<li>본 글은 Managed Airflow Server 환경을 사업 모델로 삼은 <a class="link" href="https://www.astronomer.io/"  target="_blank" rel="noopener"
+    >Astronomer</a> 유튜브 강좌에 기반.</li>
+<li><a class="link" href="https://en.wikipedia.org/wiki/Apache_Airflow"  target="_blank" rel="noopener"
+    >Apache Airflow</a> 란 <strong>데이터 파이프라인 관리를 위한 오픈소스 툴</strong>이다. &lsquo;14년 Airbnb 에서 사내 프로젝트로 시작한 후, 오픈소싱을 통해 &lsquo;19년 Apache Software Foundation 에서 탑레벨 프로젝트로 선정.</li>
+<li>전세계적으로 백만명 이상의 데이터 엔지니어가 데이터 파이프라인 관리를 위해 활용하고 있음.</li>
+<li>2020년 Airflow 2.0 가 공개됨.</li>
+</ul>
+<h3 id="use-cases">Use Cases</h3>
+<ul>
+<li><strong>ETL/ELT Pipelines</strong> : Snowflake 등 DW 에 데이터 적재 - <a class="link" href="https://docs.astronomer.io/learn/airflow-snowflake"  target="_blank" rel="noopener"
+    >Orchestrating Snowflake Queries with Airflow</a></li>
+<li><strong>MLOps</strong> : Tensorflow 와 MLFlow 를 활용해 MLOps 서비스 구축 - <a class="link" href="https://www.astronomer.io/events/webinars/using-airflow-with-tensorflow-mlflow/"  target="_blank" rel="noopener"
+    >Using Airflow with Tensorflow and MLFlow</a></li>
+<li><strong>Operationalized Analytics</strong> : 데이터 추출, 가공을 통해 대시보드 전달 - <a class="link" href="https://www.astronomer.io/events/webinars/using-airflow-as-a-data-analyst/"  target="_blank" rel="noopener"
+    >Using Airflow as a Data Analyst</a></li>
+</ul>
+<h3 id="core-concepts">Core Concepts</h3>
+<p>Airflow 의 작업 단위는 DAG, Task 로 구분 가능하다.</p>
+<ul>
+<li><strong>DAG</strong> : Directed Acyclic Graph. 그래프 형태로 표현된 워크플로우이며, 노드 간 디펜던시는 방향성을 가지게 된다 - <a class="link" href="https://docs.astronomer.io/learn/dags"  target="_blank" rel="noopener"
+    >Introduction to Airflow DAGs</a>.</li>
+<li><strong>DAG run</strong> : 시간 특정이 가능한 DAG 실행 건. 스케줄링이나 매뉴얼 트리거가 가능하다.</li>
+<li><strong>Task</strong> : DAG 내 개별 작업 단위.</li>
+<li><strong>Task instance</strong> : 시간 특정이 가능한 Task 실행 건.</li>
+</ul>
+<p>DAG 작성 시 특정 작업을 수행하는 Operator 를 활용하게 되며, Operator 는 파라미터를 받아 실행되는 함수의 형태를 취한다. DAG 내 각 Operator 는 Task 와 같은 단위 - <a class="link" href="https://docs.astronomer.io/learn/what-is-an-operator"  target="_blank" rel="noopener"
+    >Operators 101</a>.</p>
+<ul>
+<li><strong>Action Operators</strong> : 함수 실행. PythonOperator, BashOperator 등.</li>
+<li><strong>Transfer Operators</strong> : 소스로 부터 타겟까지 데이터를 이동. S3ToRedshiftOperator 등.</li>
+<li><strong>Sensors</strong> : 특정 이벤트가 발생할때까지 대기. ExternalTaskSensor, HttpSensorAsync 등.</li>
+</ul>
+<p>Operator 간 데이터 전송이 필요한 경우 <strong>XComs</strong> 를 활용.</p>
+<h3 id="components">Components</h3>
+<p>Airflow 의 효율적인 활용을 위해선 인프라 구성에 대한 이해가 필요하다. 이슈 대응 및 DAG 개발 시 구조에 대한 이해가 필요한 상황이 발생할 수 있음.</p>
+<ul>
+<li><strong>Webserver</strong> : Airflow UI 서빙을 위해 Flask 서버가 Gunicorn 을 통해 구동.</li>
+<li><strong>Scheduler</strong> : 잡스케줄링을 위한 Daemon.</li>
+<li><strong>Database</strong> : Task Metadata 저장소. 보통 PostgreSQL 활용.</li>
+<li><strong>Executor</strong> : Task 수행을 위한 연산 자원 배분. Scheduler 내에서 구동된다.</li>
+</ul>
+<h2 id="high-level-best-practices">High-Level Best Practices</h2>
+<h3 id="멱등성-idempotency">멱등성 (Idempotency)</h3>
+<ul>
+<li><strong>멱등성 (Idempotency)</strong> : 특정 Operation 을 여러번 실행하더라도 최종 결과는 변형되지 않는다.</li>
+<li>예시로 횡단보도를 건너기 위해 누르는 버튼을 들 수 있다 (미국식). 버튼을 여러번 누르더라도, 일정 기간 동안 파란불이 켜지는 결과는 변동하지 않음.</li>
+<li>Idempotent DAG 는 에러 발생 시 빠른 처리를 가능하게 하고, 데이터 유실을 예방하는 효과를 가진다.</li>
+</ul>
+<h3 id="airflow-as-an-orchestrator">Airflow as an Orchestrator</h3>
+<ul>
+<li>Airflow 는 본래의 취지에 충실하게 실행 관점이 아닌, <strong>자동화/관리 (orchestration) 관점에서 접근하는 것이 권장</strong>된다.</li>
+<li>실무적인 관점에서, 다음과 같은 시사점을 가짐 :
+<ul>
+<li>Airflow 를 활용해 여러 툴을 활용한 job 을 관리할 것</li>
+<li>연산 자원이 많이 필요한 경우 Spark 와 같은 execution framework 로 작업 인계</li>
+<li>가능한 경우 <a class="link" href="https://chartio.com/learn/data-warehouses/understanding-etl-and-elt/"  target="_blank" rel="noopener"
+    >ELT 프레임워크</a> 활용 (Snowflake 와 같이 DW 상의 연산 자원 활용)</li>
+<li>데이터 처리 과정에서 중간 데이터 저장소를 최대한 활용할 것. XCom 등의 기능을 활용해 용량이 큰 데이터프레임을 가공하는 등의 방법은 비권장.</li>
+</ul>
+</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/computer_science/images/airflow_best_4.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 1. Airflow 를 활용한 Data Orchestration 예시</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="keep-tasks-atomic">Keep Tasks Atomic</h3>
+<ul>
+<li><strong>하나의 Task 는 하나의 작업만을 수행</strong>해야 하며, 다른 Task 와 무관하게 재실행이 가능해야 한다.</li>
+<li>Atomized Task 의 부분 성공은 즉 전체 Task 의 성공을 의미해야함.</li>
+<li>예를 들어 ETL Pipeline 구축 시 각각 Extract, Transform, Load 에 해당하는 Task 3개를 정의. 각 Task 의 재실행이 가능하기 때문에, idempotence 가 보장된다.</li>
+</ul>
+<h3 id="incremental-record-filtering">Incremental Record Filtering</h3>
+<ul>
+<li>가능한 경우 ETL, ELT 파이프라인 작성 시 <strong>항상 전체 데이터를 처리하는 것 보다는, 순차적으로 처리</strong>하는 편이 좋다.
+<ul>
+<li>예) 시간 마다 배치가 실행되는 경우 전체 데이터셋을 처리하기 보다 마지막 시간에 발생한 데이터만 처리.</li>
+</ul>
+</li>
+<li>데이터 유실을 방지하거나, 처리 속도를 향상하는데 많은 도움을 줄 수 있음.</li>
+<li>원천 데이터가 항상 변동하는 경우 과거 결과값을 유지할 수 있으며, 이는 Idempotency 와 연계되는 부분.</li>
+</ul>
+<p><strong>Last Modified Date vs. Sequence IDs</strong></p>
+<ul>
+<li>Incremental loading 을 위해 가장 권장되는 방법은 마지막 수정일자 (Last Modified Date) 필드 활용이다.</li>
+<li>수정일자 필드 활용이 불가능한 경우, 순차적으로 증가하는 ID 필드를 활용하는 것 또한 가능하다. 이 경우 스케줄러가 기존 데이터셋을 업데이트 하지 않고, 새로운 데이터를 붙여넣는 경우가 가장 이상적.</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/computer_science/images/airflow_best_3.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 2. Incremental Record Filtering</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="airflow-variables--macros">Airflow Variables &amp; Macros</h3>
+<ul>
+<li>Airflow 는 기본적으로 <a class="link" href="https://realpython.com/primer-on-jinja-templating/"  target="_blank" rel="noopener"
+    >jinja templating</a> 을 활용한 <a class="link" href="https://airflow.apache.org/docs/apache-airflow/stable/templates-ref.html"  target="_blank" rel="noopener"
+    >자체 변수와 매크로</a>를 제공하며, 작업 효율성을 위해 이를 최대한 이용하는 것이 좋다 - Readability, idempotency, maintainability 등에서 많은 장점 제공.</li>
+</ul>
+<p><strong>Airflow Variables 예시</strong></p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>{{ data_interval_start }}</td>
+<td>pendulum.DateTime</td>
+<td>Start of the data interval. Added in version 2.2.</td>
+</tr>
+<tr>
+<td>{{ data_interval_end }}</td>
+<td>pendulum.DateTime</td>
+<td>End of the data interval. Added in version 2.2.</td>
+</tr>
+<tr>
+<td>{{ ds }}</td>
+<td>str</td>
+<td>The DAG run’s logical date as YYYY-MM-DD. Same as {{ dag_run.logical_date | ds }}.</td>
+</tr>
+<tr>
+<td>{{ ds_nodash }}</td>
+<td>str</td>
+<td>Same as {{ dag_run.logical_date | ds_nodash }}.</td>
+</tr>
+<tr>
+<td>{{ ts }}</td>
+<td>str</td>
+<td>Same as {{ dag_run.logical_date | ts }}. Example: 2018-01-01T00:00:00+00:00.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Airflow Macros 예시</strong></p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>macros.datetime</td>
+<td>The standard lib’s datetime.datetime</td>
+</tr>
+<tr>
+<td>macros.timedelta</td>
+<td>The standard lib’s datetime.timedelta</td>
+</tr>
+<tr>
+<td>macros.dateutil</td>
+<td>A reference to the dateutil package</td>
+</tr>
+<tr>
+<td>macros.time</td>
+<td>The standard lib’s time</td>
+</tr>
+<tr>
+<td>macros.uuid</td>
+<td>The standard lib’s uuid</td>
+</tr>
+<tr>
+<td>macros.random</td>
+<td>The standard lib’s random.random</td>
+</tr>
+</tbody>
+</table></div>
+<p>예시로 다음과 같이 datetime 패키지를 활용하는 경우, Airflow 변수로 기능을 대체할 수 있다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Bad example - Define today&#39;s and yesterday&#39;s date using datetime module</span>
+</span></span><span class="line"><span class="cl"><span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">yesterday</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Good example - Define yesterday&#39;s date with an Airflow variable</span>
+</span></span><span class="line"><span class="cl"><span class="n">yesterday</span> <span class="o">=</span> <span class="p">{{</span> <span class="n">yesterday_ds_nodash</span> <span class="p">}}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="avoid-top-level-code-in-dag">Avoid Top Level Code in DAG</h3>
+<ul>
+<li>Top Level Code 란 <strong>DAG 혹은 Operator 정의 이외 용도의 코드를 의미</strong>하며, 이러한 코드를 DAG 에 포함시키지 않도록 주의해야 한다 (특히 외부 시스템에 대한 request).</li>
+<li>이러한 부분에 부주의할 시 연산 부담, 코드 가독성 등에서 많이 제약 사항이 발생할 수 있음.</li>
+<li>다음 예시는 다른 DB 에서 수집한 정보를 기반으로 PostgresOperator 를 생성하는 DAG 작성의 Bad Practice 와 Good Practice 를 나열한다.</li>
+</ul>
+<p>Bad Practice 의 경우 <strong>Operator 정의 바깥 부분에서 DB 커넥션을 만들었고</strong>, 이에 따라 실제 DAG 가 수행되지 않더라도 자원을 소모할 여지가 있다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Bad practice: top-level code in a DAG file</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">airflow.decorators</span> <span class="kn">import</span> <span class="n">dag</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">airflow.providers.postgres.operators.postgres</span> <span class="kn">import</span> <span class="n">PostgresOperator</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">airflow.providers.postgres.hooks.postgres</span> <span class="kn">import</span> <span class="n">PostgresHook</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pendulum</span> <span class="kn">import</span> <span class="n">datetime</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">hook</span> <span class="o">=</span> <span class="n">PostgresHook</span><span class="p">(</span><span class="s2">&#34;database_conn&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">results</span> <span class="o">=</span> <span class="n">hook</span><span class="o">.</span><span class="n">get_records</span><span class="p">(</span><span class="s2">&#34;SELECT * FROM grocery_list;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">sql_queries</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">grocery</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">amount</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sql_query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;INSERT INTO purchase_order VALUES (&#39;</span><span class="si">{</span><span class="n">grocery</span><span class="si">}</span><span class="s2">&#39;, </span><span class="si">{</span><span class="n">amount</span><span class="si">}</span><span class="s2">);&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">sql_queries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sql_query</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@dag</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">start_date</span><span class="o">=</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">max_active_runs</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">schedule</span><span class="o">=</span><span class="s2">&#34;@daily&#34;</span><span class="p">,</span> <span class="n">catchup</span><span class="o">=</span><span class="kc">False</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">bad_practices_dag_1</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">insert_into_purchase_order_postgres</span> <span class="o">=</span> <span class="n">PostgresOperator</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">task_id</span><span class="o">=</span><span class="s2">&#34;insert_into_purchase_order_postgres&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">postgres_conn_id</span><span class="o">=</span><span class="s2">&#34;postgres_default&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">sql</span><span class="o">=</span><span class="n">sql_queries</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">bad_practices_dag_1</span><span class="p">()</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>반면 Good Practice 예시에선 <strong>해당 DB 커넥션을 만드는 Task 를 별도 생성</strong>하였고, 이에 따라 실제 DAG 가 실행되지 않는 이상 자원을 소모하지 않게됨.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Good practice: top-level code in a DAG file</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">airflow.decorators</span> <span class="kn">import</span> <span class="n">dag</span><span class="p">,</span> <span class="n">task</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">airflow.providers.postgres.operators.postgres</span> <span class="kn">import</span> <span class="n">PostgresOperator</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">airflow.providers.postgres.hooks.postgres</span> <span class="kn">import</span> <span class="n">PostgresHook</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pendulum</span> <span class="kn">import</span> <span class="n">datetime</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@dag</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">start_date</span><span class="o">=</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">max_active_runs</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">schedule</span><span class="o">=</span><span class="s2">&#34;@daily&#34;</span><span class="p">,</span> <span class="n">catchup</span><span class="o">=</span><span class="kc">False</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">good_practices_dag_1</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@task</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">get_list_of_results</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># good practice: wrap database connections into a task</span>
+</span></span><span class="line"><span class="cl">        <span class="n">hook</span> <span class="o">=</span> <span class="n">PostgresHook</span><span class="p">(</span><span class="s2">&#34;database_conn&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">results</span> <span class="o">=</span> <span class="n">hook</span><span class="o">.</span><span class="n">get_records</span><span class="p">(</span><span class="s2">&#34;SELECT * FROM grocery_list;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">results</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@task</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">create_sql_query</span><span class="p">(</span><span class="n">result</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">grocery</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">amount</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">sql</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;INSERT INTO purchase_order VALUES (&#39;</span><span class="si">{</span><span class="n">grocery</span><span class="si">}</span><span class="s2">&#39;, </span><span class="si">{</span><span class="n">amount</span><span class="si">}</span><span class="s2">);&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">sql</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">sql_queries</span> <span class="o">=</span> <span class="n">create_sql_query</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">result</span><span class="o">=</span><span class="n">get_list_of_results</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">insert_into_purchase_order_postgres</span> <span class="o">=</span> <span class="n">PostgresOperator</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">task_id</span><span class="o">=</span><span class="s2">&#34;insert_into_purchase_order_postgres&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">postgres_conn_id</span><span class="o">=</span><span class="s2">&#34;postgres_default&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">sql</span><span class="o">=</span><span class="n">sql_queries</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">good_practices_dag_1</span><span class="p">()</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>이외에도 파이썬 함수, SQL 쿼리문을 외부 파일에 저장하는 등, DAG 파일을 일종의 Config 파일과 같이 깔끔하게 유지해 주어야한다 (향후 유지보수가 훨씬 원활).</p>
+<h3 id="consistent-method-for-task-dependencies">Consistent Method for Task Dependencies</h3>
+<ul>
+<li>Airflow 상에서 Task Dependencies 를 정의하는 방법은 크게 set_upstream(), set_downstream() 함수 활용과 &laquo;, &raquo; 오퍼레이터 활용 방식으로 구분할 수 있다.</li>
+<li>특정 방식이 권장되는 것은 아니나, 정의 방법을 전반적으로 통일해주어야 코드 가독성을 높일 수 있음.</li>
+</ul>
+<h2 id="leverage-airflow-features">Leverage Airflow Features</h2>
+<h3 id="provider-packages">Provider Packages</h3>
+<ul>
+<li>Airflow 가 사실상 표준 프레임워크로 자리잡았기 때문에, 이외 툴과 연계 활용을 위한 써드파티 <a class="link" href="https://airflow.apache.org/docs/apache-airflow-providers/"  target="_blank" rel="noopener"
+    >Provider Packages</a> 가 매우 다양하게 공개되어있다 (GCP, AWS, Databricks 등).</li>
+<li>가능한 경우, 함수를 직접 정의하기 보다는 이러한 provider package 를 최대한 활용하는 편이 유지보수와 공수 최수화 관점에서 권장.</li>
+<li>다양한 provider package 는 다음 링크에서 확인 가능 - <a class="link" href="https://registry.astronomer.io/"  target="_blank" rel="noopener"
+    >Astronomer Provider Packages Registry</a></li>
+</ul>
+<h3 id="where-to-run-jobs">Where to Run Jobs</h3>
+<ul>
+<li>Airflow 는 자체적으로 중소 규모의 data processing task 를 처리할 수 있지만, 연산 자원이 아주 많이 필요한 경우 <a class="link" href="https://spark.apache.org/"  target="_blank" rel="noopener"
+    >Apache Spark</a> 와 같은 대규모 데이터 처리 프레임워크에 작업을 인계하여야 함 - <a class="link" href="https://airflow.apache.org/docs/apache-airflow-providers-apache-spark/stable/operators.html"  target="_blank" rel="noopener"
+    >Apache Spark Operators</a>.</li>
+<li>DAG 를 작성하는 과정에서 Airflow 가 자체적으로 데이터를 처리하는 경우, 이에 필요한 연산 자원이 구비되었는지 확인이 반드시 필요하다.</li>
+<li>Task 레벨에서 연산 자원을 유동적으로 활용하기 위해서 Kubernetes Executor 활용이 가능.</li>
+</ul>
+<h3 id="intermediary-data-storage">Intermediary Data Storage</h3>
+<ul>
+<li>소스 -&gt; 타겟으로 직접 데이터를 이동하는 것은 코드 작성이 적기 때문에 괜찮은 방법으로 보일 수 있다. 하지만 ETL 프로세스의 중간 과정을 모니터링 하는 것이 불가능하기 때문에, S3 나 SQL Staging 테이블과 같은 중간 저장소를 활용하는 것이 권장.</li>
+<li>API Limit 이 발생하는 상황에서 유용하게 활용할 수 있음.</li>
+</ul>
+<h2 id="other-best-practices">Other Best Practices</h2>
+<h3 id="consistent-file-structure">Consistent File Structure</h3>
+<ul>
+<li>일정한 파일 구조를 유지하는 것이 유지보수 측면에서 많은 도움이 됨.</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">├── dags/ # Where your DAGs go
+</span></span><span class="line"><span class="cl">│   └── example-dag.py # An example dag that comes with the initialized project
+</span></span><span class="line"><span class="cl">├── Dockerfile # For Astronomer&#39;s Docker image and runtime overrides
+</span></span><span class="line"><span class="cl">├── include/ # For any other files you&#39;d like to include
+</span></span><span class="line"><span class="cl">├── plugins/ # For any custom or community Airflow plugins
+</span></span><span class="line"><span class="cl">├── packages.txt # For OS-level packages
+</span></span><span class="line"><span class="cl">└── requirements.txt # For any Python packages</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="dag-name--start-date">DAG Name &amp; Start Date</h3>
+<ul>
+<li>DAG 의 시작 날짜(start_date)는 static 하게 유지되어야 한다.</li>
+<li>시작 날짜를 변경할 경우 새로운 DAG 이름을 부여해주어야 함. 시작 날짜 변경 시 Airflow database 는 이를 새로운 DAG 로 인식하는데, DAG 이름이 동일하다면 Scheduler 에러 발생 위험이 발생.</li>
+</ul>
+<h3 id="retries">Retries</h3>
+<ul>
+<li>Airflow 가 분산처리 시스템과 연계된 경우, 예기치 못하게 task 가 멈추는 현상이 발생할 가능성이 높다 (유지되는 host 수가 많기 때문).</li>
+<li>시스템 에러에 대비해 최소 2회 정도 retry 설정을 하는 것이 권장된다 (분산처리 과정에서 발생하는 대부분의 에러에 대응 가능한 숫자).</li>
+<li>다음과 같은 레벨에서 retry 설정이 가능하다 :
+<ul>
+<li><strong>Tasks</strong> : Operator 의 retries 파라미터 조정</li>
+<li><strong>DAGS</strong> : DAG 의 default_args 오브젝트에 retries 포함</li>
+<li><strong>Deployments</strong> : AIRFLOW__CORE__DEFAULT_TASK_RETRIES 환경변수 지정</li>
+</ul>
+</li>
+</ul>
+<h2 id="sources">Sources</h2>
+<ol>
+<li><a class="link" href="https://www.youtube.com/watch?v=HvjnLCQygO4"  target="_blank" rel="noopener"
+    >Astronomer - DAG Writing Best Practices in Apache Airflow</a></li>
+<li><a class="link" href="https://www.youtube.com/watch?v=zVzBVpbgw1A"  target="_blank" rel="noopener"
+    >Astronomer - DAG Writing Best Practices in Apache Airflow 2</a></li>
+<li><a class="link" href="https://docs.astronomer.io/learn/intro-to-airflow"  target="_blank" rel="noopener"
+    >Astronomer - An Introduction to Apache Airflow</a></li>
+<li><a class="link" href="https://docs.astronomer.io/learn/dag-best-practices"  target="_blank" rel="noopener"
+    >Astronomer - Official Site Documentation</a></li>
+</ol>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/airflow/">Airflow</a>
+        
+            <a href="/tags/data-engineering/">Data Engineering</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/computer_science/log_analysis/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/computer_science/images/log_2.png" loading="lazy" data-key="log_analysis" data-hash="/computer_science/images/log_2.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">로그 데이터의 개념과 활용 방식</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/computer_science/pyspark/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/computer_science/images/pyspark_1.jpeg" loading="lazy" data-key="pyspark" data-hash="/computer_science/images/pyspark_1.jpeg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PySpark 란?</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "meme2515" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 Soon&#39;s Blog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
