@@ -2,6 +2,39 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://meme2515.github.io/statistics/abtest/</loc>
+    <lastmod>2023-07-22T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/ab-testing/</loc>
+    <lastmod>2023-07-22T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/categories/ab-testing/</loc>
+    <lastmod>2023-07-22T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/ab-%ED%85%8C%EC%8A%A4%ED%8C%85/</loc>
+    <lastmod>2023-07-22T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/categories/</loc>
+    <lastmod>2023-07-22T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/</loc>
+    <lastmod>2023-07-22T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/statistics/</loc>
+    <lastmod>2023-07-22T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/categories/statistics/</loc>
+    <lastmod>2023-07-22T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/statistics/</loc>
+    <lastmod>2023-07-22T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/tags/</loc>
+    <lastmod>2023-07-22T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://meme2515.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99/</loc>
+    <lastmod>2023-07-22T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://meme2515.github.io/tags/airflow/</loc>
     <lastmod>2023-07-19T00:00:00+00:00</lastmod>
   </url><url>
@@ -9,9 +42,6 @@
     <lastmod>2023-07-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/computer_science/airflow_best_practices/</loc>
-    <lastmod>2023-07-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/categories/</loc>
     <lastmod>2023-07-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/categories/computer-science/</loc>
@@ -26,12 +56,6 @@
     <loc>https://meme2515.github.io/categories/data-engineering/</loc>
     <lastmod>2023-07-19T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://meme2515.github.io/</loc>
-    <lastmod>2023-07-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/tags/</loc>
-    <lastmod>2023-07-19T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://meme2515.github.io/tags/causal-inference/</loc>
     <lastmod>2023-07-17T00:00:00+00:00</lastmod>
   </url><url>
@@ -42,9 +66,6 @@
     <lastmod>2023-07-17T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/machine_learning/</loc>
-    <lastmod>2023-07-17T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://meme2515.github.io/categories/statistics/</loc>
     <lastmod>2023-07-17T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://meme2515.github.io/tags/%EC%9D%B8%EA%B3%BC%EC%B6%94%EB%A1%A0/</loc>

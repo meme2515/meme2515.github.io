@@ -6,7 +6,31 @@
         <description>Recent content in Tags on Soon&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Wed, 19 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 22 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>AB Testing</title>
+        <link>https://meme2515.github.io/tags/ab-testing/</link>
+        <pubDate>Sat, 22 Jul 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/ab-testing/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>AB 테스팅</title>
+        <link>https://meme2515.github.io/tags/ab-%ED%85%8C%EC%8A%A4%ED%8C%85/</link>
+        <pubDate>Sat, 22 Jul 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/ab-%ED%85%8C%EC%8A%A4%ED%8C%85/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Statistics</title>
+        <link>https://meme2515.github.io/tags/statistics/</link>
+        <pubDate>Sat, 22 Jul 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/tags/statistics/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Airflow</title>
         <link>https://meme2515.github.io/tags/airflow/</link>
         <pubDate>Wed, 19 Jul 2023 00:00:00 +0000</pubDate>

@@ -6,7 +6,31 @@
         <description>Recent content in Categories on Soon&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Wed, 19 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 22 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>AB Testing</title>
+        <link>https://meme2515.github.io/categories/ab-testing/</link>
+        <pubDate>Sat, 22 Jul 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/categories/ab-testing/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Statistics</title>
+        <link>https://meme2515.github.io/categories/statistics/</link>
+        <pubDate>Sat, 22 Jul 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/categories/statistics/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>통계학</title>
+        <link>https://meme2515.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99/</link>
+        <pubDate>Sat, 22 Jul 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Airflow</title>
         <link>https://meme2515.github.io/categories/airflow/</link>
         <pubDate>Wed, 19 Jul 2023 00:00:00 +0000</pubDate>
@@ -44,14 +68,6 @@
         <pubDate>Mon, 17 Jul 2023 00:00:00 +0000</pubDate>
         
         <guid>https://meme2515.github.io/categories/machine-learning/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Statistics</title>
-        <link>https://meme2515.github.io/categories/statistics/</link>
-        <pubDate>Mon, 17 Jul 2023 00:00:00 +0000</pubDate>
-        
-        <guid>https://meme2515.github.io/categories/statistics/</guid>
         <description></description>
         </item>
         <item>
