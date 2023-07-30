@@ -124,7 +124,7 @@ $$&lt;/p&gt;
 &lt;li&gt;주의할 점은 OLS 는 &lt;strong&gt;선형회귀모델의 추정 방법 중 하나일 뿐, 선형회귀모델 자체는 아니라는 점&lt;/strong&gt;이다. 선형회귀문제 해결을 위해 경사하강법 활용 또한 가능하다.&lt;/li&gt;
 &lt;li&gt;하지만 OLS 방법론은 경사하강법 과는 달리 한번의 연산으로 최적 계수 산정이 가능하다.&lt;/li&gt;
 &lt;li&gt;무려 1800년대 초 Gaussian Distribution 의 그 &lt;a class=&#34;link&#34; href=&#34;https://namu.wiki/w/%EC%B9%B4%EB%A5%BC%20%ED%94%84%EB%A6%AC%EB%93%9C%EB%A6%AC%ED%9E%88%20%EA%B0%80%EC%9A%B0%EC%8A%A4&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;가우스&lt;/a&gt;가 해당 기법을 활용해 소행성 세레스의 궤도를 예측하며 알려지게 되었다 (소행성의 관측위치 - 데이터 - 와 최소한의 오차를 가지는 궤도 - 선형함수 - 을 찾아라&amp;hellip;!) - &lt;a class=&#34;link&#34; href=&#34;https://ko.wikipedia.org/wiki/%EC%84%B8%EB%A0%88%EC%8A%A4_%28%EC%99%9C%ED%96%89%EC%84%B1%29&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;가우스&lt;/a&gt;가 해당 기법을 활용해 소행성 세레스의 궤도를 예측하며 알려지게 되었다 - &lt;a class=&#34;link&#34; href=&#34;https://ko.wikipedia.org/wiki/%EC%84%B8%EB%A0%88%EC%8A%A4_%28%EC%99%9C%ED%96%89%EC%84%B1%29&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;출처&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;ridge-l2-regression&#34;&gt;Ridge (L2) Regression&lt;/h2&gt;
