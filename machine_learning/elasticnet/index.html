@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='회귀 모델의 가중치 규제와 Ridge/Lasso Regression &amp; Elastic Net'>
+<title>엘라스틱넷이란? (Elastic Net)</title>
+
+<link rel='canonical' href='https://meme2515.github.io/machine_learning/elasticnet/'>
+
+<link rel="stylesheet" href="/scss/style.min.8191399262444ab68b72a18c97392f5349be20a1615d77445be51e974c144cff.css"><meta property='og:title' content='엘라스틱넷이란? (Elastic Net)'>
+<meta property='og:description' content='회귀 모델의 가중치 규제와 Ridge/Lasso Regression &amp; Elastic Net'>
+<meta property='og:url' content='https://meme2515.github.io/machine_learning/elasticnet/'>
+<meta property='og:site_name' content='Soon&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Machine_learning' /><meta property='article:tag' content='Elastic Net' /><meta property='article:tag' content='엘라스틱넷' /><meta property='article:tag' content='정규화' /><meta property='article:tag' content='회귀분석' /><meta property='article:tag' content='라쏘' /><meta property='article:tag' content='릿지' /><meta property='article:published_time' content='2023-07-30T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-07-30T00:00:00&#43;00:00'/><meta property='og:image' content='https://meme2515.github.io/machine_learning/images/elasticnet_1.png' />
+<meta name="twitter:title" content="엘라스틱넷이란? (Elastic Net)">
+<meta name="twitter:description" content="회귀 모델의 가중치 규제와 Ridge/Lasso Regression &amp; Elastic Net"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://meme2515.github.io/machine_learning/images/elasticnet_1.png' />
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-135204357-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hud342b0d5be633fdc127bd0653c60e8c3_234674_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Soon&#39;s Blog</a></h1>
+            <h2 class="site-description">데이터 블로그입니다 :)</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/meme2515'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M200,513c0-20.3,0-40.7,0-61c3.1,0.6,1.9,3.1,1.9,4.8c0.1,16.3,0.2,32.6,0,48.9c-0.1,4.1,1,5.4,5.2,5.4   c36.6-0.2,73.2-0.2,109.8,0c4.4,0,5.1-1.6,5.1-5.5c-0.2-25-0.1-49.9-0.1-74.9c0-9.3,0.2-18.6,0.2-27.9c2.8,1.2,1.6,3.8,1.6,5.7   c0.1,34.8,0.1,69.6,0.1,104.4C282.7,513,241.3,513,200,513z" fill="#D1D1D1"/><path d="M322.2,402.8c-0.1,9.3-0.2,18.6-0.2,27.9c0,25-0.1,49.9,0.1,74.9c0,3.9-0.7,5.5-5.1,5.5   c-36.6-0.2-73.2-0.2-109.8,0c-4.2,0-5.3-1.3-5.2-5.4c0.2-16.3,0.1-32.6,0-48.9c0-1.7,1.2-4.2-1.9-4.8c-9.7,0.9-19.3,3.2-29.2,2.8   c-33.5-1.3-59.5-15.4-74.7-45.8c-8.2-16.4-17.8-31.7-29.1-46c-3.1-3.9-7.9-5.5-11.5-8.7c-1.1-1-2.4-1.8-3.3-3   c-2.3-3.3-1.2-5.8,2.8-6.2c18.5-1.9,33.8,4.2,46.2,18.1c6.3,7.1,10.2,15.8,16.3,23.1c12.3,14.7,28,22.7,47,24.9   c11.5,1.3,22.4-0.9,33.3-4.2c2.2-0.6,3.1-2,3.3-4.3c0.7-10.3,2.8-20.3,6.8-29.9c1.8-4.3,4.7-7.9,6.9-12.3   c-10.3-2.6-20.7-3.4-30.5-6.4c-27.1-8.2-50.9-21.6-68.2-44.7c-8.3-11-14.1-23.3-17.4-36.5c-1.8-7.2-3.9-14.4-3.8-22   c0.1-13.3-0.5-26.7,0.3-40c0.9-16.8,3.1-33.5,9.2-49.2c3.8-9.7,9.3-18.6,17.1-25.9c2.4-2.3,3.3-4.1,1.8-7.9   c-7.4-19.7-8.1-39.8-1.8-60c0.2-0.6,0.3-1.3,0.4-2c2.2-10.3,4.5-11.3,14.3-7.4c19.2,7.5,33.3,21,45.3,37.3c3.4,4.6,2.7,6.6,10,1.9   c9.7-6.2,21-8.1,32.2-9.3c20.1-2.1,40.3-1.5,60.4-1.1c14.3,0.3,28.5,2.2,42,7.2c3.1,1.1,6,2.8,8.7,4.8c2.1,1.6,3.6,1.6,5.6-1.1   c9.1-12.8,19.5-24.4,33-32.6c6.6-4,13.4-7.7,21.4-8.6c3.3-0.4,4.7,0.7,5.6,3.3c8.3,22.9,9.5,45.7-0.2,68.5   c-1.2,2.8-0.8,4.6,1.3,6.5c16,15,21.8,34.5,24.8,55.5c2.5,17.7,3.2,35.5,2.7,53.3c-0.8,31.2-11.4,58.4-34.4,80.1   c-13.5,12.7-29.7,21.1-47.1,27.5c-12.4,4.6-25.5,5.8-38.5,9c1.3,3.1,3.7,5.4,4.3,8.5c-0.3,1.3,0.4,2,1.6,2.3   c0.1,0.6,0.3,1.1,0.4,1.7c0.3,2.1,0.1,4.3,2.5,5.4c0.5,2.2,1,4.5,1.4,6.7c-0.1,1.7-0.7,3.5,1.6,4.3c0,0.6,0.1,1.2,0.1,1.9   c-1.5,2.3-0.1,4.1,1.1,6C322.1,398.9,322.2,400.9,322.2,402.8z" fill="#A7A7A7"/><path d="M322,397c-1.1-1.9-2.6-3.7-1.1-6C322.1,392.9,323,394.8,322,397z" fill="#D1D1D1"/><path d="M317.7,378.2c-2.4-1.1-2.2-3.3-2.5-5.4C317.4,374,317.7,376,317.7,378.2z" fill="#D1D1D1"/><path d="M320.8,389.1c-2.3-0.8-1.7-2.6-1.6-4.3C321.5,385.6,321,387.5,320.8,389.1z" fill="#D1D1D1"/><path d="M314.8,371.1c-1.2-0.3-1.9-1-1.6-2.3C314.5,369.1,315.1,369.8,314.8,371.1z" fill="#D1D1D1"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.linkedin.com/in/soon-hyung-kwon-73a3221ab/'
+                        target="_blank"
+                        title="LinkedIn"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M1,53c2.5,0,1.7-2,1.9-3.3C5.9,29,16.6,13.9,36.6,7.4c16.1-5.2,32.9-4.6,47.9,4c9.4,5.5,16.6,14,20.4,24.5   c2.8,7.8,4.9,15.9,4,24.2c-2.1,20.9-11.5,38.3-34.5,46.4c-17.4,6-34.3,3.8-50.2-5.7c-1-3.6-3.5-5.4-7.1-6c0,0,0,0,0,0   c-0.1-1.4-0.3-2.8-2.2-2.8C7.7,84,4.3,74.3,2.9,63.8C2.7,62.6,3.2,60.9,1,61C1,58.3,1,55.7,1,53z" fill="#A7A7A7"/><path d="M276.2,216.1c4.3-2.6,6-6.4,8.2-9.5c10.9-15,24.4-26.6,41.2-34.9c23-11.3,47.4-12.5,72-10.2   c18.9,1.7,36.8,8.1,53.1,18.5c19.4,12.4,33.3,29.6,42.8,50.2c5.8,12.5,9.6,25.8,11.9,39.6c2.1,12.9,3.7,25.6,3.7,38.7   c-0.1,65-0.1,130,0.1,195c0,4.6-1.3,5.8-5.8,5.7c-30.7-0.2-61.3-0.2-92,0c-4.5,0-5.5-1.3-5.5-5.6c0.1-61.3,0.4-122.7-0.1-184   c-0.1-13.9-2-27.7-9.2-40.4c-6.4-11.2-15.3-19.2-27-23.8c-15.7-6.2-31.9-7.4-48.3-2.8c-16.6,4.6-28.1,15.5-36.3,30.3   c-4.6,8.3-6.2,17-7.5,26.3c-1.3,10-1.1,19.8-1.1,29.7c-0.2,54.7-0.2,109.3,0,164c0,5-1.2,6.4-6.3,6.3c-30.3-0.3-60.7-0.2-91,0   c-4.2,0-5.7-1.3-5.6-5.2c0.1-2.8,0.3-5.6,0.3-8.4c0-105.5,0.1-211-0.1-316.5c0-4.4,0.9-6,5.7-6c30.5,0.2,61,0.2,91.5,0   c4.1,0,5.5,1,5.4,5.3C276,190.6,276.2,202.9,276.2,216.1z" fill="#A7A7A7"/><path d="M109,176.1c0,3.5,0.1,7,0.1,10.5c0,105.3,0,210.6,0,316c0,6.4,0,6.4-6.5,6.4c-31.8,0-63.7,0-95.5,0   c-0.1-2.5-0.2-5-0.2-7.5c0-78.8,0-157.5,0-236.3c0-28.1,0.1-56.3-0.1-84.4c0-3.6,0.9-4.9,4.7-4.9C44,176.1,76.5,176,109,176.1z" fill="#A7A7A7"/><path d="M109,176.1c-32.5,0-64.9,0-97.4-0.2c-3.8,0-4.7,1.2-4.7,4.9C7,208.9,6.9,237,6.9,265.2   c0,78.8,0,157.5,0,236.3c0,2.5,0.1,5,0.2,7.5c-1.7,0.1-3-0.3-3-2.3c0-1.3,0-2.7,0-4c0-106.8,0-213.5,0-320.3c0-7.6,0.7-8.3,8.2-8.3   c30.5,0,61,0,91.4,0.1C105.5,174.1,108.2,172.7,109,176.1z" fill="#E0E0E0"/><path d="M17.1,94.9c3.6,0.6,6.1,2.4,7.1,6C21.1,99.7,18.8,97.7,17.1,94.9z" fill="#E0E0E0"/><path d="M14.9,92.1c1.9,0,2,1.4,2.2,2.8C15,95,15,93.6,14.9,92.1z" fill="#E0E0E0"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/about' >
+                
+                
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/machine_learning' >
+                
+                
+                
+                <span>Machine Learning</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/neural_network' >
+                
+                
+                
+                <span>Neural Network</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/mlops' >
+                
+                
+                
+                <span>MLOps</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/statistics' >
+                
+                
+                
+                <span>Statistics</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/computer_science' >
+                
+                
+                
+                <span>Computer Science</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/projects' >
+                
+                
+                
+                <span>Projects</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/daily' >
+                
+                
+                
+                <span>Daily</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#regression-analysis">Regression Analysis</a>
+      <ol>
+        <li><a href="#linear-regression-선형회귀식">Linear Regression (선형회귀식)</a></li>
+        <li><a href="#polynomial-regression-다항회귀식">Polynomial Regression (다항회귀식)</a></li>
+        <li><a href="#the-normal-equation-정규방정식">The Normal Equation (정규방정식)</a></li>
+      </ol>
+    </li>
+    <li><a href="#ridge-l2-regression">Ridge (L2) Regression</a></li>
+    <li><a href="#lasso-l1-regression">Lasso (L1) Regression</a></li>
+    <li><a href="#elastic-net">Elastic Net</a></li>
+    <li><a href="#sources">Sources</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/machine_learning/elasticnet/">
+                
+                    <img src="/machine_learning/images/elasticnet_1.png" loading="lazy" alt="Featured image of post 엘라스틱넷이란? (Elastic Net)" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/machine-learning/" >
+                machine learning
+            </a>
+        
+            <a href="/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" >
+                머신러닝
+            </a>
+        
+            <a href="/categories/regression-analysis/" >
+                Regression Analysis
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/machine_learning/elasticnet/">엘라스틱넷이란? (Elastic Net)</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            회귀 모델의 가중치 규제와 Ridge/Lasso Regression &amp; Elastic Net
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jul 30, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    4 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="introduction">Introduction</h2>
+<ul>
+<li>모델의 과대적합 (Overfitting) 을 방지하는 대표적인 기법으로 모델 규제 방법이 있다.</li>
+<li>회귀 모델의 경우 보통 <strong>모델 가중치를 제한하는 방법을 통해 규제를 가하는데</strong>, 이를 <strong>정규화 (regularization)</strong> 라 칭한다. 모델 가중치에 제한을 두는 방법론은 비단 회귀 모델 뿐 아니라 딥러닝 영역에도 적용된다 - <a class="link" href="https://towardsdatascience.com/regularization-in-deep-learning-l1-l2-and-dropout-377e75acc036"  target="_blank" rel="noopener"
+    >참고 글</a>.</li>
+<li>본 글에서는 대표적인 회귀 모델의 가중치 적용법인 Ridge, Lasso Regression 과 이 두 방법론을 복합적으로 활용하는 엘락스틱넷을 소개한다.</li>
+</ul>
+<h2 id="regression-analysis">Regression Analysis</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/machine_learning/images/elasticnet_4.jpeg"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 1. <a class="link" href="https://towardsdatascience.com/linear-regression-explained-1b36f97b7572"  target="_blank" rel="noopener"
+    >Jason Wong - Linear Regression</a></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>통계적 예측 분석의 기본이 되는 회귀 분석이란, <strong>독립변수 $x$ 에 대응하는 종속변수 $y$ 와 가장 비슷한 값 $\hat{y}$ 을 출력하는 함수 $f(x)$ 를 찾는 과정</strong>을 의미한다.</li>
+</ul>
+<h3 id="linear-regression-선형회귀식">Linear Regression (선형회귀식)</h3>
+<p>$$
+\hat{y} = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + &hellip; + \theta_D x_D
+$$</p>
+<ul>
+<li>만약 $f(x)$ 가 위와 같은 선형함수인 경우 해당 함수를 <strong>선형회귀모형 (Linear Regression Model)</strong> 이라 칭한다.</li>
+<li>위 식에서 독립변수 $x = (x_1, x_2, &hellip; , x_D)$ 는 D차원의 벡터이며, 가중치 벡터 $w = (w_0, &hellip; , w_D)$ 는 함수 $f(x)$ 의 <strong>계수 (coefficient)</strong> 이자 회귀 모형의 <strong>모수 (parameter)</strong> 라고 부르게된다.</li>
+</ul>
+<h3 id="polynomial-regression-다항회귀식">Polynomial Regression (다항회귀식)</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/machine_learning/images/elasticnet_6.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 2. <a class="link" href="https://www.javatpoint.com/machine-learning-polynomial-regression"  target="_blank" rel="noopener"
+    >Java Point - ML Polynomial Regression</a></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>독립변수와 종속변수가 비선형 연관성을 가질 경우, 독립변수의 차수를 높여 다항식 함수를 활용할 수 있으며 이를 <strong>다항회귀식</strong>이라 부른다.</li>
+</ul>
+<p>$$
+\hat{y} = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \theta_3 x_1^2 + \theta_4 x_2^2 + \theta_5 x_1x_2
+$$</p>
+<ul>
+<li>한 개 이상의 독립변수가 존재할 경우 변수 간 영향을 파악하는 것이 가능하다 <em>(예. $x_1x_2$)</em>.</li>
+<li>차수가 지나치게 높을 경우 과적합이 발생할 위험이 상승한다. 이러한 경우 Cross Validation 을 통해 적합한 차수 선정이 가능.</li>
+</ul>
+<h3 id="the-normal-equation-정규방정식">The Normal Equation (정규방정식)</h3>
+<ul>
+<li>그렇다면 최적의 선형회귀식은 어떻게 계산할 수 있을까?</li>
+<li>데이터가 주어졌을때 최적의 추세선을 그리기위한 대표적인 방법 중 하나는 <strong>최소제곱법 (Ordinary Least Square, OLS)</strong> 이다.</li>
+<li>최소제곱법은 <strong>실제 데이터 $y$ 와 추세선의 예측값 $\hat{y}$ 간 차이 (잔차, Residual) 의 제곱합을 최소화하는 추세선을 찾는 방법</strong>이다. 아래 그림 참고.</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/machine_learning/images/elasticnet_5.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 3. <a class="link" href="https://gregorygundersen.com/blog/2020/01/04/ols/"  target="_blank" rel="noopener"
+    >Gregory Gunderson - Ordinary Least Squares</a></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>잔차의 제곱합을 최소화하는 선형함수의 계수는 다음과 같은 행렬연산을 통해 계산이 가능하며, 해당식을 <strong>정규방정식</strong>이라 부른다.</li>
+</ul>
+<p>$$
+\hat{\theta} = (X^T X)^{-1} X^T y
+$$</p>
+<ul>
+<li>주의할 점은 OLS 는 <strong>선형회귀모델의 추정 방법 중 하나일 뿐, 선형회귀모델 자체는 아니라는 점</strong>이다. 선형회귀문제 해결을 위해 경사하강법 활용 또한 가능하다.</li>
+<li>하지만 OLS 방법론은 경사하강법 과는 달리 한번의 연산으로 최적 계수 산정이 가능하다.</li>
+<li>무려 1800년대 초 Gaussian Distribution 의 그 <a class="link" href="https://namu.wiki/w/%EC%B9%B4%EB%A5%BC%20%ED%94%84%EB%A6%AC%EB%93%9C%EB%A6%AC%ED%9E%88%20%EA%B0%80%EC%9A%B0%EC%8A%A4"  target="_blank" rel="noopener"
+    >가우스</a>가 해당 기법을 활용해 소행성 세레스의 궤도를 예측하며 알려지게 되었다 (소행성의 관측위치 - 데이터 - 와 최소한의 오차를 가지는 궤도 - 선형함수 - 을 찾아라&hellip;!) - <a class="link" href="https://ko.wikipedia.org/wiki/%EC%84%B8%EB%A0%88%EC%8A%A4_%28%EC%99%9C%ED%96%89%EC%84%B1%29"  target="_blank" rel="noopener"
+    >출처</a>.</li>
+</ul>
+<h2 id="ridge-l2-regression">Ridge (L2) Regression</h2>
+<ul>
+<li>Ridge Regression 은 통계학에서 능형회귀, 또는 Tikhonov Regularization 이라고 불리며, 다음과 같은 비용함수를 활용해 회귀식을 추정한다.</li>
+</ul>
+<p>$$
+J(\theta) = MSE(\theta) + \alpha \frac{1}{2} \sum_{i=1}^{n} \theta_i^2
+$$</p>
+<ul>
+<li>뒷단의 정규화식 $\alpha \frac{1}{2} \sum_{i=1}^{n} \theta_i^2$ 은 모델 학습과정에서만 감안될 뿐, 실제 예측 과정에서 제외되어야 한다.</li>
+<li>Ridge Regression 이 적용된 선형 함수는 데이터에 대한 잔차뿐 아니라 계수값 또한 최소화하게 되며, 이는 <strong>종속변수 예측에 비핵심적인 계수값을 줄이는 효과</strong>를 가진다.</li>
+<li>하이퍼파라미터 $\alpha$ 를 통해 규제량을 통제할 수 있으며, 이를 매우 큰 값으로 설정할 경우 모든 계수값에 0 에 근접해지는 효과를 가진다.</li>
+<li>Ridge Regression 수행을 위한 정규방정식은 다음과 같다 ($A$ 는 (n+1) x (n+1) 크기의 Identity Matrix 이며, 가장 왼쪽 상단의 값이 $0$ 이다).</li>
+</ul>
+<p>$$
+\hat{\theta} = (X^T X + \alpha A)^{-1} X^T y
+$$</p>
+<h2 id="lasso-l1-regression">Lasso (L1) Regression</h2>
+<ul>
+<li>Lasso (Least Absolute Shrinkage and Selection Operator) Regression 은 기본적으로 Ridge Regression 과 동일하지만 계수의 제곱값이 아닌 절대값을 활용한다.</li>
+</ul>
+<p>$$
+J(\theta) = MSE(\theta) + \alpha \sum_{i=1}^{n} |\theta_i|
+$$</p>
+<ul>
+<li>Lasso Regression 의 가장 중요한 성질은 <strong>종속변수 예측에 비핵심적인 변수를 모델에서 제외하는 효과</strong>를 가진다는 점이다. 이는 해당 변수의 계수를 낮게 산정하지만, 제외하지는 않는 Ridge Regression 과 차이를 가진다.</li>
+<li>상기된 효과는 일종의 Feature Selection 과정으로 해석하는 것이 가능하다.</li>
+<li>이러한 효과가 나타나는 이유는 <strong>L1 Norm (절대값) 은 크기에 관계없이 모든 계수를 동일하게 취급하는 반면, L2 Norm (제곱값) 은 크기가 큰 계수에 더욱 큰 가중치를 부여하기 때문</strong>이다. 따라서 최적화 시 계수의 감소 속도에 차이를 가지게 된다.</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/machine_learning/images/elasticnet_7.pbm"
+	
+	
+	
+	loading="lazy"
+	
+		alt="alt text"
+	
+	
+></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fig 4. <a class="link" href="https://www.researchgate.net/figure/Parameter-norm-penalties-L2-norm-regularization-left-and-L1-norm-regularization_fig2_355020694"  target="_blank" rel="noopener"
+    >Research Gate - L1 vs. L2 Norm</a></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>위 그림은 L1 vs. L2 정규화 함수가 동일한 손실값을 산정하는 영역을 나타낸다. 제곱값은 원형으로, 절대값은 사각형으로 묘사되는 것을 확인할 수 있다.</li>
+</ul>
+<h2 id="elastic-net">Elastic Net</h2>
+<ul>
+<li><strong>엘라스틱넷</strong>은 Ridge Regression 과 Lasso Regression 을 복합적으로 활용하는 정규화 기법이다.</li>
+</ul>
+<p>$$
+J(\theta) = MSE(\theta) + r\alpha \sum_{i=1}^{n} |\theta_i| + \frac{1-r}{2}\alpha \sum_{i=1}^{n} \theta_i^2
+$$</p>
+<ul>
+<li>하이퍼파라미터 $r$ 을 활용하여 각 기법의 영향도를 조절할 수 있으며, 한가지 기법만을 활용하는 것 또한 가능하다.</li>
+<li>일반적인 회귀 문제에선 정규화를 반드시 포함하는 것이 권장된다. Ridge Regression 은 좋은 시작 지점이나, feature 선별이 필요한 경우 Lasso 또는 엘라스틱넷을 활용하는 편이 좋다.</li>
+<li>Lasso Regression 은 feature 수가 지나치게 많거나 multicollinearity 가 존재하는 경우 이상행동을 보일 수 있으며, 엘라스틱넷의 경우 이러한 문제가 덜한 편.</li>
+</ul>
+<h2 id="sources">Sources</h2>
+<ol>
+<li>O&rsquo;Reilly - Hands-On Machine Learning with Scikit-Learn, Keras &amp; Tensorflow</li>
+<li>StatQuest - Regularization with Regression <a class="link" href="https://www.youtube.com/watch?v=Q81RR3yKn30"  target="_blank" rel="noopener"
+    >[1]</a><a class="link" href="https://www.youtube.com/watch?v=NGf0voTMlcs"  target="_blank" rel="noopener"
+    >[2]</a><a class="link" href="https://www.youtube.com/watch?v=1dKRdX9bfIo"  target="_blank" rel="noopener"
+    >[3]</a></li>
+<li><a class="link" href="https://yganalyst.github.io/ml/ML_chap3-4/"  target="_blank" rel="noopener"
+    >Handson ML - 릿지, 라쏘, 엘라스틱 넷</a></li>
+<li><a class="link" href="https://datascienceschool.net/03%20machine%20learning/04.02%20%EC%84%A0%ED%98%95%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D%EC%9D%98%20%EA%B8%B0%EC%B4%88.html"  target="_blank" rel="noopener"
+    >데이터 사이언스 스쿨 - 선형회귀분석의 기초</a></li>
+</ol>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/elastic-net/">Elastic Net</a>
+        
+            <a href="/tags/%EC%97%98%EB%9D%BC%EC%8A%A4%ED%8B%B1%EB%84%B7/">엘라스틱넷</a>
+        
+            <a href="/tags/%EC%A0%95%EA%B7%9C%ED%99%94/">정규화</a>
+        
+            <a href="/tags/%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D/">회귀분석</a>
+        
+            <a href="/tags/%EB%9D%BC%EC%8F%98/">라쏘</a>
+        
+            <a href="/tags/%EB%A6%BF%EC%A7%80/">릿지</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/machine_learning/feature_selection/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/machine_learning/images/feature_1.webp" loading="lazy" data-key="feature_selection" data-hash="/machine_learning/images/feature_1.webp"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">모델링을 위한 특성 선별 방법 (Feature Selection)</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/machine_learning/causal_inference/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/machine_learning/images/causal_inference_4.webp" loading="lazy" data-key="causal_inference" data-hash="/machine_learning/images/causal_inference_4.webp"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">인과추론 (Causal Inference) 개요</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/machine_learning/svd/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/machine_learning/images/svd_1.jpg" loading="lazy" data-key="svd" data-hash="/machine_learning/images/svd_1.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Singular Value Decomposition 의 개념 소개</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/machine_learning/decision_tree/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/machine_learning/images/decision_tree_1.png" loading="lazy" data-key="decision_tree" data-hash="/machine_learning/images/decision_tree_1.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">결정 트리 (Decision Tree) 기초 개념</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "meme2515" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 Soon&#39;s Blog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
