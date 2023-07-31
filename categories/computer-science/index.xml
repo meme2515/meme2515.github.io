@@ -6,7 +6,201 @@
         <description>Recent content in Computer Science on Soon&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Wed, 19 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/categories/computer-science/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 30 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/categories/computer-science/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Databricks 와 관리형 분산 처리 서비스</title>
+        <link>https://meme2515.github.io/computer_science/databricks/</link>
+        <pubDate>Sun, 30 Jul 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/computer_science/databricks/</guid>
+        <description>&lt;img src="https://meme2515.github.io/computer_science/images/databricks_2.webp" alt="Featured image of post Databricks 와 관리형 분산 처리 서비스" /&gt;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&amp;ldquo;레이크하우스&amp;rdquo; 라는 키워드와 함께 국내 기업 환경에서도 자주 접할 수 있는 회사인 &lt;a class=&#34;link&#34; href=&#34;https://www.databricks.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Databricks&lt;/a&gt; 는, 본질적으로는 &lt;strong&gt;Spark 와 분산형 저장소 (DBFS) 를 별다른 인프라 세팅 없이 바로 활용할 수 있는 관리형 서비스 (Managed Service)&lt;/strong&gt; 이다.&lt;/li&gt;
+&lt;li&gt;실제 아파치 스파크를 개발한 UC 버클리 AMP 연구소의 개발자들이 창업하였고, 스파크뿐만 아니라 Delta Lake, MLFlow 와 같은 오픈소스 SW를 개발 및 인수했다.&lt;/li&gt;
+&lt;li&gt;현재 Databricks Cloud Service 는 주요 클라우드 3사에서 모두 사용이 가능하다 - &lt;a class=&#34;link&#34; href=&#34;https://www.databricks.com/product/azure&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;[Azure]&lt;/a&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.databricks.com/product/aws&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;[AWS]&lt;/a&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.databricks.com/product/google-cloud&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;[GCP]&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;본 글에서는 Databricks의 서비스와 주요개념을 간단하게 짚어보고자 한다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;emr-dataproc&#34;&gt;EMR, Dataproc&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Databricks 와 같은 래퍼 서비스를 활용하지 않더라도, &lt;strong&gt;주요 클라우드 업체의 자체 서비스를 활용한 분산 처리 환경 구성이 가능&lt;/strong&gt;하다.&lt;/li&gt;
+&lt;li&gt;Managed Spark &amp;amp; Hadoop 서비스의 대표적인 예시로는 &lt;a class=&#34;link&#34; href=&#34;https://aws.amazon.com/emr/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;AWS EMR&lt;/a&gt;, &lt;a class=&#34;link&#34; href=&#34;https://cloud.google.com/dataproc&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;GCP Dataproc&lt;/a&gt; 을 들 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;aws-emr&#34;&gt;AWS EMR&lt;/h3&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/computer_science/images/databricks_2.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 1. &lt;a class=&#34;link&#34; href=&#34;https://www.zuar.com/blog/what-is-amazon-emr/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Zuar - What is Amazon EMR?&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;Amazon EMR (Elastic Map Reduce) 는 대용량 데이터 분산 처리를 위한 AWS 서비스이며, 유사한 서비스이나 서버리스 환경을 제공하는 &lt;a class=&#34;link&#34; href=&#34;https://aws.amazon.com/glue/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;AWS Glue&lt;/a&gt; 와 달리 클러스터 수 등을 직접 조절해야 한다.&lt;/li&gt;
+&lt;li&gt;EC2 인스턴스를 이용해 Spark, Hadoop 클러스터를 몇분내에 생성할 수 있다. 또한 스토리지로 활용될 S3와 연결을 위한 EMRFS (EMR File System) 을 지원.&lt;/li&gt;
+&lt;li&gt;참고를 위한 링크 :
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.aws.amazon.com/ko_kr/emr/latest/ManagementGuide/emr-what-is-emr.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;AWS 공식 소개 페이지&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://pearlluck.tistory.com/634&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;데엔잘하고싶은데엔 - 클러스터 구축 예시 (Hadoop+Spark+Zeppelin)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://velog.io/@busybean3/Amazon-EMR%EC%9D%98-%EA%B8%B0%EB%8A%A5%EC%9D%84-%EC%95%8C%EC%95%84%EB%B3%B4%EC%9E%90&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;busybean3 - Amazon EMR 의 기능 정리&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://yanadoo-coding.tistory.com/75&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;나도 코딩 할 줄 알아요 - AWS Glue vs. EMR&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;gcp-dataproc&#34;&gt;GCP Dataproc&lt;/h3&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/computer_science/images/databricks_3.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 2. &lt;a class=&#34;link&#34; href=&#34;https://stackoverflow.com/questions/46436794/what-is-the-difference-between-google-cloud-dataflow-and-google-cloud-dataproc&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Stack Overflow&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;Google Cloud Platform 의 관리형 Spark, Hadoop 서비스이다. 단순 관리형이기 때문에 EMR 과 유사하게 클러수터 수를 직접 조절해주어야 하며, 서버리스 버전으로는 &lt;a class=&#34;link&#34; href=&#34;https://cloud.google.com/dataflow?hl=ko&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Cloud Dataflow&lt;/a&gt; 가 있다.&lt;/li&gt;
+&lt;li&gt;참고를 위한 링크 :
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://cloud.google.com/dataproc/docs/concepts/overview?hl=ko#:~:text=Dataproc%EC%9D%80%20%EC%9D%BC%EA%B4%84%20%EC%B2%98%EB%A6%AC%2C%20%EC%BF%BC%EB%A6%AC,%EC%9D%84%20%EC%A0%88%EA%B0%90%ED%95%A0%20%EC%88%98%20%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4.&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;GCP 공식 소개 페이지&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://whitechoi.tistory.com/48&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Dataproc 클러스터 생성 및 BigQuery 비교 분석&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://dong-life.tistory.com/58&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;JD의 블로그 - Cloud Dataproc vs. Dataflow&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;databricks&#34;&gt;Databricks&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;상기된 것과 같이, Dataproc 이나 EMR 과 같은 관리형 분산 처리 플랫폼은 Hadoop, Spark 클러스터 생성과 관리를 도울뿐 &lt;strong&gt;해당 툴들을 활용하는 방법에선 기존 시스템과 큰 차이점을 가지지 않는다&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;반면 Databricks 는 분산 처리 시스템(Spark) 을 &lt;strong&gt;비개발자도 쉽게 활용할 수 있는 UI와 기타 단순화된 환경을 제공&lt;/strong&gt;한다. Spark의 실제 개발진들이 만든 솔루션이기에 연동성이 완벽하다고 볼 수 있다.&lt;/li&gt;
+&lt;li&gt;이러한 단순화를 통해 Databricks 는 단일 플랫폼 내에서 데이터 분석가, 엔지니어, 사이언티스트 등이 각각의 목적에 맞게 데이터 환경을 구축하고 원하는 작업을 수행할 수 있도록 돕는다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;img src=&#34;https://meme2515.github.io/computer_science/images/databricks_4.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Fig 3. &lt;a class=&#34;link&#34; href=&#34;https://docs.databricks.com/sql/get-started/concepts.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Databricks Interface 예시&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;주요 개념은 다음과 같이 정리할 수 있다 &lt;a class=&#34;link&#34; href=&#34;https://docs.databricks.com/getting-started/concepts.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;[Databricks Concepts 참고]&lt;/a&gt;&lt;a class=&#34;link&#34; href=&#34;https://kadensungbincho.tistory.com/90&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;[Sungbin Cho 님의 Summary]&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;workspace&#34;&gt;Workspace&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;워크스페이스는 인프라 상에 존재하는 데이터브릭스 자산을 접근할 수 있는 환경이다. 노트북, 대시보드와 같은 객체들을 폴더 형태로 구조화하고, 데이터 객체와 컴퓨팅 리소스에 대한 접근 또한 제공한다. 주요 객체는 다음과 같다 :
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;노트북&lt;/strong&gt; : 실행 커맨드, 시각화, 텍스트 등을 포함한 문서에 대한 웹 기반 인터페이스&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;대시보드&lt;/strong&gt; : 시각화 제공 인터페이스&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;라이브러리&lt;/strong&gt; : 클러스터 내 실행되는 노트북, job 등에서 활용 가능한 코드패키지로 커스텀하게 변경 가능&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Repo&lt;/strong&gt; : Git repository 에 동기화되어 버전 관리되는 컨텐츠&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;실험&lt;/strong&gt; : ML 모델 훈련을 위한 MLFlow 실행 파일&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;databricks-interfaces&#34;&gt;Databricks Interfaces&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;여러 자산에 접근하기 위해 Databricks 가 제공하는 인터페이스로 UI, API, CLI 를 포함한다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;data-management&#34;&gt;Data Management&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Databricks File System (DBFS)&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Blob 스토어를 래핑한 파일시스템 추상화 레이어로 파일과 디렉토리로 구성되어있다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Table&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;정형 데이터셋을 의미하며 Apache Spark SQL, API 를 활용해 생성할 수 있다.&lt;/li&gt;
+&lt;li&gt;Databricks 내 생성되는 모든 테이블은 기본적으로 Delta table 의 형태를 가진다 - &lt;a class=&#34;link&#34; href=&#34;https://delta.io/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;참고 링크&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Metastore&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;데이터 웨어하우스 내 다양한 테이블과 파티션에 대한 구조 정보를 저장한다. 컬럼, 컬럼 타입, 파일 등에 대한 정보를 포함하며, 모든 데이터브릭스 배포본은 테이블 메타데이터를 영속화하기 위해 모든 클러스터가 접근 가능한 중앙 하이브 메타스토어를 가지고 있다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;computation-management&#34;&gt;Computation Management&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Cluster&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;노트북과 Job 들이 실행되는 컴퓨팅 자원이나 설정들의 모음이며, 두가지 타입이 존재한다 :
+&lt;ul&gt;
+&lt;li&gt;All-purpose : 수동으로 클러스터를 종료하고 시작할 수 있으며, 여러 사용자가 협업을 위해 하나의 클러스터를 공유할 수 있다.&lt;/li&gt;
+&lt;li&gt;Job : 데이터브릭스 Job 스케줄러는 실행 시 새로운 클러스터를 생성하고, Job 이 끝나면 해당 클러스터는 종료된다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Pool&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Idle 상태로 활용 가능한 인스턴스들이며, 클러스터의 시작과 오토 스케일링 시간을 줄인다. 풀에 접근한 클러스터는 풀에서 드라이버와 워커를 할당하며, 더 많은 리소스가 필요할 경우 자동적으로 확장하게된다. 접근한 클러스터가 종료되면 인스턴스들은 풀에 반환되고 다른 클러스터에 의해 재사용될 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;sources&#34;&gt;Sources&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=QNdiGZFaUFs&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Seattle Data Guy - Intro to Databricks&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://namu.wiki/w/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B8%8C%EB%A6%AD%EC%8A%A4&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;나무위키 - 데이터브릭스&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://kadensungbincho.tistory.com/90&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Kaden Sunbin Cho - Databricks Platform&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.databricks.com/introduction/index.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Databricks - Databricks on AWS&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://m.blog.naver.com/PostView.nhn?isHttpsRedirect=true&amp;amp;blogId=kbh3983&amp;amp;logNo=221084176372&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;뽕 - Amazon EMR이란?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://kadensungbincho.tistory.com/90&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Kaden Sungbin Cho - Databricks 의 아키텍처 및 주요개념&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        </item>
+        <item>
         <title>Apache Airflow 개요 및 DAG 작성 베스트 프렉티스</title>
         <link>https://meme2515.github.io/computer_science/airflow_best_practices/</link>
         <pubDate>Wed, 19 Jul 2023 00:00:00 +0000</pubDate>

@@ -7,6 +7,30 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <lastBuildDate>Sun, 30 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://meme2515.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Computer Science</title>
+        <link>https://meme2515.github.io/categories/computer-science/</link>
+        <pubDate>Sun, 30 Jul 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/categories/computer-science/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Databricks</title>
+        <link>https://meme2515.github.io/categories/databricks/</link>
+        <pubDate>Sun, 30 Jul 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/categories/databricks/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Distributed Computing</title>
+        <link>https://meme2515.github.io/categories/distributed-computing/</link>
+        <pubDate>Sun, 30 Jul 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://meme2515.github.io/categories/distributed-computing/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>machine learning</title>
         <link>https://meme2515.github.io/categories/machine-learning/</link>
         <pubDate>Sun, 30 Jul 2023 00:00:00 +0000</pubDate>
@@ -60,14 +84,6 @@
         <pubDate>Wed, 19 Jul 2023 00:00:00 +0000</pubDate>
         
         <guid>https://meme2515.github.io/categories/airflow/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Computer Science</title>
-        <link>https://meme2515.github.io/categories/computer-science/</link>
-        <pubDate>Wed, 19 Jul 2023 00:00:00 +0000</pubDate>
-        
-        <guid>https://meme2515.github.io/categories/computer-science/</guid>
         <description></description>
         </item>
         <item>
